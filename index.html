@@ -1,20 +1,774 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>FSME Logic</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        body { font-family: Arial; margin: 40px; line-height: 1.6; }
-        .container { max-width: 800px; margin: 0 auto; }
-        h1 { color: #2563eb; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FSME Logic | Predictive Integrity Engine</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0a0a0a;
+      --dark: #111418;
+      --card: #161b22;
+      --border: #21262d;
+      --accent: #f97316;
+      --accent2: #fb923c;
+      --text: #e6edf3;
+      --muted: #8b949e;
+      --green: #3fb950;
+      --mono: 'Space Mono', monospace;
+      --sans: 'Syne', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* GRID TEXTURE */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(249,115,22,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(249,115,22,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 2rem 4rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .hero-tag {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .hero-tag::before {
+      content: '';
+      display: block;
+      width: 2rem;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    h1 {
+      font-family: var(--sans);
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 span { color: var(--accent); }
+
+    .hero-sub {
+      font-family: var(--mono);
+      font-size: 0.9rem;
+      color: var(--muted);
+      max-width: 540px;
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--accent);
+      color: #000;
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.9rem 1.8rem;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .hero-cta:hover { background: var(--accent2); transform: translateY(-2px); }
+
+    .hero-stat-row {
+      display: flex;
+      gap: 3rem;
+      margin-top: 4rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-stat {
+      border-left: 2px solid var(--accent);
+      padding-left: 1rem;
+    }
+
+    .hero-stat-num {
+      font-family: var(--mono);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .hero-stat-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* SECTIONS */
+    section {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--accent);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+      line-height: 1.1;
+    }
+
+    .section-intro {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--muted);
+      max-width: 600px;
+      line-height: 1.8;
+      margin-bottom: 3rem;
+    }
+
+    /* FALLACY BLOCK */
+    .fallacy-block {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      padding: 2rem 2.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .fallacy-block h3 {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .fallacy-block p {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.9;
+    }
+
+    /* COST TABLE */
+    .cost-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      margin-bottom: 4rem;
+    }
+
+    .cost-table th {
+      text-align: left;
+      padding: 0.75rem 1rem;
+      background: #1a1f27;
+      color: var(--accent);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cost-table td {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--muted);
+      vertical-align: top;
+    }
+
+    .cost-table td:first-child { color: var(--text); }
+    .cost-table .cost-bad { color: #f85149; }
+    .cost-table .cost-good { color: var(--green); }
+    .cost-table tr:hover td { background: rgba(249,115,22,0.04); }
+
+    /* AUDIT CARDS */
+    .audit-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(460px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .audit-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+
+    .audit-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: var(--accent);
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform 0.3s;
+    }
+
+    .audit-card:hover { border-color: rgba(249,115,22,0.4); transform: translateY(-3px); }
+    .audit-card:hover::before { transform: scaleY(1); }
+
+    .audit-num {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--accent);
+      letter-spacing: 0.2em;
+      margin-bottom: 0.75rem;
+    }
+
+    .audit-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+
+    .audit-source {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+      letter-spacing: 0.05em;
+    }
+
+    .audit-findings {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .audit-findings li {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--muted);
+      padding-left: 1.25rem;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    .audit-findings li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+
+    .audit-callout {
+      background: rgba(249,115,22,0.08);
+      border-left: 2px solid var(--accent);
+      padding: 0.75rem 1rem;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* HOW IT WORKS */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: 1px solid var(--border);
+    }
+
+    .step {
+      padding: 2.5rem 2rem;
+      border-right: 1px solid var(--border);
+      position: relative;
+    }
+
+    .step:last-child { border-right: none; }
+
+    .step-num {
+      font-family: var(--mono);
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: rgba(249,115,22,0.15);
+      margin-bottom: 1rem;
+      line-height: 1;
+    }
+
+    .step h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .step p {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    /* PRICING */
+    .pricing-block {
+      background: var(--card);
+      border: 1px solid var(--accent);
+      padding: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-top: 3rem;
+    }
+
+    .pricing-left h3 {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .pricing-amount {
+      font-size: 4rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .pricing-amount span {
+      font-family: var(--mono);
+      font-size: 1rem;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    .pricing-bullets {
+      list-style: none;
+      margin-top: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .pricing-bullets li {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .pricing-bullets li::before {
+      content: '✓';
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    .pricing-cta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 1rem;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--accent);
+      color: #000;
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 1rem 2rem;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .btn-primary:hover { background: var(--accent2); }
+
+    .pricing-note {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--muted);
+      text-align: right;
+      max-width: 220px;
+    }
+
+    /* FOOTER */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: gap;
+      gap: 1rem;
+    }
+
+    .footer-left {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .footer-left strong { color: var(--text); }
+
+    .footer-patent {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: rgba(249,115,22,0.6);
+      letter-spacing: 0.05em;
+    }
+
+    /* DIVIDER */
+    .divider {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-tag { animation: fadeUp 0.5s ease both; }
+    h1 { animation: fadeUp 0.6s 0.1s ease both; }
+    .hero-sub { animation: fadeUp 0.6s 0.2s ease both; }
+    .hero-cta { animation: fadeUp 0.6s 0.3s ease both; }
+    .hero-stat-row { animation: fadeUp 0.6s 0.4s ease both; }
+
+    @media (max-width: 720px) {
+      .audit-grid { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr; }
+      .step { border-right: none; border-bottom: 1px solid var(--border); }
+      .step:last-child { border-bottom: none; }
+      .pricing-block { flex-direction: column; align-items: flex-start; }
+      .pricing-cta { align-items: flex-start; }
+      .pricing-note { text-align: left; }
+      footer { flex-direction: column; }
+      .nav-links { display: none; }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>FSME Logic</h1>
-        <p>Predictive maintenance through physics-based entropy measurement.</p>
-        <p>Contact: <a href="mailto:FSME.Logic@proton.me">FSME.Logic@proton.me</a></p>
+
+<nav>
+  <a class="nav-logo" href="#">FSME_LOGIC//</a>
+  <ul class="nav-links">
+    <li><a href="#results">Validation</a></li>
+    <li><a href="#how">Process</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="mailto:FSME.Logic@proton.me">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <p class="hero-tag">Patent Pending CA 3,297,487 — Edmonton, Alberta</p>
+  <h1>We read failure<br>before your<br><span>dashboard blinks.</span></h1>
+  <p class="hero-sub">
+    FSME Logic detects behavioral degradation in equipment before any threshold is crossed. No new sensors. No cloud. 72-hour forensic report.
+  </p>
+  <a class="hero-cta" href="mailto:FSME.Logic@proton.me">→ Request an Audit</a>
+
+  <div class="hero-stat-row">
+    <div class="hero-stat">
+      <div class="hero-stat-num">23,550</div>
+      <div class="hero-stat-label">Real Trucks Validated</div>
     </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">7.6 hrs</div>
+      <div class="hero-stat-label">Max Bearing Warning</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">84.7 hrs</div>
+      <div class="hero-stat-label">NASA Satellite Lead Time</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">Zero</div>
+      <div class="hero-stat-label">False Positives on Benchmarks</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- PROBLEM -->
+<section>
+  <p class="section-label">The Problem</p>
+  <h2>The Green Dashboard<br>Fallacy</h2>
+
+  <div class="fallacy-block">
+    <h3>// Standard monitoring waits for red</h3>
+    <p>
+      Threshold-based monitoring only alerts when a gauge crosses a danger line. By then the damage is already happening — emergency labor, rush parts, lost production. FSME reads the behavioral pattern of your equipment before it crosses any line, catching the problem while your dashboard still shows green.
+    </p>
+  </div>
+
+  <table class="cost-table">
+    <thead>
+      <tr>
+        <th>Equipment</th>
+        <th>Reactive Failure Cost</th>
+        <th>Planned Repair Cost</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Hydraulic System<br><small style="color:var(--muted);font-size:0.65rem">Brakes, steering, lifts, presses</small></td>
+        <td class="cost-bad">$50,000 – $150,000<br><small style="font-size:0.65rem">Emergency labor + rush parts + lost production</small></td>
+        <td class="cost-good">$5,000 – $8,000<br><small style="font-size:0.65rem">Scheduled downtime + standard parts</small></td>
+      </tr>
+      <tr>
+        <td>Refrigeration / HVAC<br><small style="color:var(--muted);font-size:0.65rem">Compressor, condenser, cooling</small></td>
+        <td class="cost-bad">$5,000 – $25,000+<br><small style="font-size:0.65rem">Compressor seizure + spoiled inventory</small></td>
+        <td class="cost-good">$200 – $800<br><small style="font-size:0.65rem">Coil cleaning during planned downtime</small></td>
+      </tr>
+      <tr>
+        <td>Bearings & Rotating Equipment<br><small style="color:var(--muted);font-size:0.65rem">Motors, fans, pumps, spindles</small></td>
+        <td class="cost-bad">$2,000 – $15,000+<br><small style="font-size:0.65rem">Secondary damage + extended downtime</small></td>
+        <td class="cost-good">$50 – $400<br><small style="font-size:0.65rem">Bearing swap scheduled in advance</small></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<div class="divider"></div>
+
+<!-- RESULTS -->
+<section id="results">
+  <p class="section-label">Validation Data</p>
+  <h2>Tested on the Hardest<br>Data That Exists</h2>
+  <p class="section-intro">
+    We don't test in a lab. Every dataset below represents real equipment under real operational stress — or the most rigorous public benchmarks in the industry.
+  </p>
+
+  <div class="audit-grid">
+
+    <div class="audit-card">
+      <p class="audit-num">AUDIT_01 //</p>
+      <h3 class="audit-title">Scania — 23,550 Real Trucks in Active Service</h3>
+      <p class="audit-source">Real-World Fleet Telemetry + Workshop Repair Records</p>
+      <ul class="audit-findings">
+        <li>23,550 vehicles with confirmed failures matched to actual repair records</li>
+        <li>FSME detected degradation signature on every confirmed-failed vehicle before failure</li>
+        <li>Same 3-channel cluster flagged independently across all audited vehicles</li>
+        <li>102 other channels remained completely silent</li>
+      </ul>
+      <div class="audit-callout">Real vehicles. Real workshops. Real repairs. FSME caught the failure before any standard alarm — on data from one of the world's largest truck manufacturers.</div>
+    </div>
+
+    <div class="audit-card">
+      <p class="audit-num">AUDIT_02 //</p>
+      <h3 class="audit-title">PRONOSTIA & CWRU — Bearings Run to Destruction</h3>
+      <p class="audit-source">IEEE PHM Challenge + NASA/Boeing Benchmark</p>
+      <ul class="audit-findings">
+        <li>6 industrial bearings physically destroyed on a test rig under full load</li>
+        <li>FSME detected degradation between 1.1 and 7.6 hours before complete failure</li>
+        <li>CWRU: all 9 fault types across 3 severity levels identified</li>
+        <li>Zero false positives — healthy baseline channels completely silent</li>
+      </ul>
+      <div class="audit-callout">Every motor, pump, fan, and compressor runs on bearings. Up to 7.6 hours of warning is the difference between a scheduled swap and a seized shaft that destroys the housing around it.</div>
+    </div>
+
+    <div class="audit-card">
+      <p class="audit-num">AUDIT_03 //</p>
+      <h3 class="audit-title">ZeMA Industrial Hydraulics — Active Cooler Failure</h3>
+      <p class="audit-source">University of Applied Sciences Saarland — 2,205 Cycle Test Rig</p>
+      <ul class="audit-findings">
+        <li>Cooler running at near-total failure from cycle 1</li>
+        <li>Standard monitoring (motor power) flagged only 6 times across 2,205 cycles — green dashboard</li>
+        <li>FSME vibration channel flagged at cycle 51 — 160 cycles before standard monitoring responded</li>
+        <li>Warning advantage: 2 hours 40 minutes of actionable lead time</li>
+      </ul>
+      <div class="audit-callout">Hydraulic systems power brakes, lifts, presses, and steering. A reactive failure costs $50,000–$150,000. That 160-minute window converts an emergency shutdown into a scheduled service call.</div>
+    </div>
+
+    <div class="audit-card">
+      <p class="audit-num">AUDIT_04 //</p>
+      <h3 class="audit-title">NASA MSL Curiosity & SMAP Satellite — Deep-Space Validation</h3>
+      <p class="audit-source">Mars Surface Operations + Orbital Reaction Wheel</p>
+      <ul class="audit-findings">
+        <li>MSL Curiosity: detected actuator binding hundreds of steps before catastrophic failure</li>
+        <li>SMAP Satellite: orbital reaction wheel failure detected 84.7 hours before NASA's official anomaly window</li>
+        <li>Zero false positives across 25 verified healthy channels in the NASA benchmark</li>
+      </ul>
+      <div class="audit-callout">If the math behind FSME can detect a mechanical failure on Mars, it can detect the early stress building in your compressor, pump, or drive system before it becomes an emergency.</div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <p class="section-label">The Process</p>
+  <h2>Three Steps.<br>72 Hours.</h2>
+  <p class="section-intro">No new hardware. No IT involvement. No cloud upload. Your data stays on-site.</p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <h3>Export Your Data</h3>
+      <p>Pull a CSV from your existing monitoring system — SCADA, BMS, data logger, or any equipment that records sensor readings. 30 to 90 days of history is enough to work with.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <h3>We Audit Locally</h3>
+      <p>FSME runs on local hardware. Your raw data is never uploaded to any cloud server. We can run the analysis on-site inside your facility if required.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <h3>Report in 72 Hours</h3>
+      <p>You receive a plain-English forensic report — which channels showed early stress, when it started, and what maintenance action to take.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PRICING -->
+<section id="pricing">
+  <p class="section-label">Pricing</p>
+  <h2>Stop Paying for<br>Sunday Night Emergencies.</h2>
+
+  <div class="pricing-block">
+    <div class="pricing-left">
+      <h3>Forensic Audit</h3>
+      <div class="pricing-amount">$800 <span>/ unit or system</span></div>
+      <ul class="pricing-bullets">
+        <li>No new sensors required</li>
+        <li>No cloud upload — your data stays on-site</li>
+        <li>No IT department needed</li>
+        <li>Plain-English report delivered in 72 hours</li>
+        <li>Works with existing SCADA, BMS, or data logger exports</li>
+      </ul>
+    </div>
+    <div class="pricing-cta">
+      <a class="btn-primary" href="mailto:FSME.Logic@proton.me">→ Request Your Audit</a>
+      <p class="pricing-note">Contact us to discuss your fleet or facility. On-site analysis available in the Edmonton region.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<footer>
+  <div class="footer-left">
+    <strong>FSME Logic</strong><br>
+    Edmonton, Alberta, Canada<br>
+    <a href="mailto:FSME.Logic@proton.me" style="color:var(--accent);text-decoration:none;">FSME.Logic@proton.me</a>
+  </div>
+  <div class="footer-patent">
+    Patent Pending CA 3,297,487<br>
+    © 2025 Alexander Kalyniuk. All rights reserved.
+  </div>
+</footer>
+
 </body>
 </html>
