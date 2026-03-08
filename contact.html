@@ -7,318 +7,144 @@
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg: #f0eeea;
-      --bg2: #e8e6e1;
-      --card: #ffffff;
-      --navy: #0d1b2e;
-      --navy2: #1a2d44;
-      --green: #1db954;
+      --bg:     #13161c;
+      --bg2:    #191d26;
+      --card:   #1e2330;
+      --border: #2c3347;
+      --navy:   #0d1220;
+      --steel:  #2a3145;
+      --green:  #1db954;
       --green2: #15a049;
-      --cyan: #00b4c8;
-      --text: #0d1b2e;
-      --muted: #4a5568;
-      --border: #c8c4bc;
-      --mono: 'IBM Plex Mono', monospace;
-      --head: 'Rajdhani', sans-serif;
+      --text:   #d4dbe8;
+      --muted:  #7a8a9e;
+      --dim:    #4a5568;
+      --red:    #e05252;
+      --mono:   'IBM Plex Mono', monospace;
+      --head:   'Rajdhani', sans-serif;
     }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--mono);
-      line-height: 1.7;
-      font-size: 16px;
-    }
-
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--mono); line-height: 1.7; font-size: 16px; }
     body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 3px,
-        rgba(0,0,0,0.012) 3px,
-        rgba(0,0,0,0.012) 4px
-      );
-      pointer-events: none;
-      z-index: 9999;
+      content: ''; position: fixed; inset: 0;
+      background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.06) 3px, rgba(0,0,0,0.06) 4px);
+      pointer-events: none; z-index: 9999;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image: linear-gradient(rgba(29,185,84,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(29,185,84,0.025) 1px, transparent 1px);
+      background-size: 48px 48px; pointer-events: none; z-index: 0;
     }
 
-    /* NAV */
     nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 200;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2.5rem;
-      background: rgba(13,27,46,0.97);
-      border-bottom: 2px solid var(--green);
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.9rem 2.5rem;
+      background: rgba(10,12,18,0.97); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 1px 0 rgba(29,185,84,0.15);
     }
-
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      text-decoration: none;
-    }
-
-    .nav-logo img {
-      height: 42px;
-      width: 42px;
-      object-fit: contain;
-    }
-
-    .nav-logo-text {
-      font-family: var(--mono);
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--green);
-      letter-spacing: 0.12em;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 0;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-family: var(--mono);
-      font-size: 0.82rem;
-      color: #9aabb8;
-      text-decoration: none;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 0.5rem 1.2rem;
-      border-left: 1px solid #1e3a5f;
-      transition: color 0.2s, background 0.2s;
-    }
-
-    .nav-links a:hover { color: var(--green); background: rgba(29,185,84,0.08); }
+    .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+    .nav-logo img { height: 40px; width: 40px; object-fit: contain; border-radius: 4px; }
+    .nav-logo-text { font-family: var(--mono); font-size: 0.95rem; font-weight: 700; color: var(--green); letter-spacing: 0.12em; }
+    .nav-links { display: flex; list-style: none; }
+    .nav-links a { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.5rem 1.1rem; border-left: 1px solid var(--border); transition: color 0.2s, background 0.2s; }
+    .nav-links a:hover { color: var(--green); background: rgba(29,185,84,0.07); }
     .nav-links a.active { color: var(--green); }
 
-    /* PAGE */
-    .page-wrap {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 9rem 2.5rem 6rem;
+    .page-wrap { position: relative; z-index: 1; max-width: 1000px; margin: 0 auto; padding: 9rem 2.5rem 6rem; }
+
+    .page-eyebrow { font-family: var(--mono); font-size: 0.78rem; color: var(--green); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.75rem; }
+    .page-eyebrow::before { content: '>_'; font-weight: 700; }
+
+    h1 { font-family: var(--head); font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 700; color: #e8edf5; line-height: 1.1; margin-bottom: 1.25rem; }
+
+    .page-intro { font-family: var(--mono); font-size: 1rem; color: var(--muted); max-width: 640px; line-height: 1.9; margin-bottom: 3.5rem; }
+
+    .contact-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 2.5rem; align-items: start; }
+
+    /* FORM */
+    .form-card { background: var(--card); border: 1px solid var(--border); border-top: 3px solid var(--green); padding: 2.5rem; }
+    .form-card h2 { font-family: var(--head); font-size: 1.6rem; font-weight: 700; color: #e8edf5; margin-bottom: 0.5rem; }
+    .form-card .form-desc { font-family: var(--mono); font-size: 0.88rem; color: var(--muted); margin-bottom: 2rem; line-height: 1.8; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    .form-field { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1.25rem; }
+    .form-field label { font-family: var(--mono); font-size: 0.7rem; color: var(--green); letter-spacing: 0.15em; text-transform: uppercase; }
+
+    .form-field input,
+    .form-field select,
+    .form-field textarea {
+      background: var(--bg2); border: 1px solid var(--border); color: #e8edf5;
+      font-family: var(--mono); font-size: 0.92rem; padding: 0.85rem 1rem;
+      outline: none; transition: border-color 0.2s; width: 100%;
+      -webkit-appearance: none; appearance: none;
     }
+    .form-field input:focus,
+    .form-field select:focus,
+    .form-field textarea:focus { border-color: var(--green); }
+    .form-field textarea { resize: vertical; min-height: 120px; }
+    .form-field input::placeholder,
+    .form-field textarea::placeholder { color: var(--dim); }
 
-    .page-eyebrow {
-      font-family: var(--mono);
-      font-size: 0.78rem;
-      color: var(--green);
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      margin-bottom: 1.25rem;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
+    .form-required { color: var(--red); margin-left: 2px; }
+
+    .btn-submit {
+      display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+      width: 100%; background: var(--green); color: #000;
+      font-family: var(--mono); font-size: 0.95rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 1.1rem 2rem; border: 2px solid var(--green);
+      cursor: pointer; transition: all 0.2s; margin-top: 0.5rem;
     }
+    .btn-submit:hover { background: var(--green2); border-color: var(--green2); }
 
-    .page-eyebrow::before { content: '>'; font-size: 1rem; }
+    .form-note { font-family: var(--mono); font-size: 0.72rem; color: var(--dim); margin-top: 1rem; line-height: 1.7; text-align: center; }
 
-    h1 {
-      font-family: var(--head);
-      font-size: clamp(2.5rem, 6vw, 4rem);
-      font-weight: 700;
-      color: var(--navy);
-      line-height: 1.1;
-      margin-bottom: 1.25rem;
+    /* SUCCESS STATE */
+    .form-success {
+      display: none;
+      background: rgba(29,185,84,0.1); border: 1px solid rgba(29,185,84,0.4);
+      border-left: 4px solid var(--green); padding: 2rem;
+      font-family: var(--mono); font-size: 0.95rem; color: #a8c8b8; line-height: 1.8;
+      margin-top: 1rem;
     }
-
-    .page-intro {
-      font-family: var(--mono);
-      font-size: 1rem;
-      color: var(--muted);
-      max-width: 640px;
-      line-height: 1.9;
-      margin-bottom: 3.5rem;
-    }
-
-    /* CONTACT LAYOUT */
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      align-items: start;
-    }
-
-    /* CONTACT CARD */
-    .contact-card {
-      background: var(--navy);
-      border: 1px solid #1e3a5f;
-      border-top: 3px solid var(--green);
-      padding: 2.5rem;
-    }
-
-    .contact-card h2 {
-      font-family: var(--head);
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 0.5rem;
-    }
-
-    .contact-card p {
-      font-family: var(--mono);
-      font-size: 0.9rem;
-      color: #8faabf;
-      line-height: 1.9;
-      margin-bottom: 2rem;
-    }
-
-    .contact-item {
-      display: flex;
-      flex-direction: column;
-      gap: 0.3rem;
-      margin-bottom: 1.75rem;
-    }
-
-    .contact-item-label {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      color: var(--green);
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-    }
-
-    .contact-item-value {
-      font-family: var(--mono);
-      font-size: 1rem;
-      color: #fff;
-    }
-
-    .contact-item-value a {
-      color: #fff;
-      text-decoration: none;
-      border-bottom: 1px solid rgba(29,185,84,0.4);
-      transition: border-color 0.2s;
-    }
-
-    .contact-item-value a:hover { border-color: var(--green); color: var(--green); }
-
-    .contact-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: var(--green);
-      color: #000;
-      font-family: var(--mono);
-      font-size: 0.9rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 1rem 1.75rem;
-      text-decoration: none;
-      border: 2px solid var(--green);
-      width: 100%;
-      justify-content: center;
-      margin-top: 0.5rem;
-      transition: background 0.2s;
-    }
-
-    .contact-btn:hover { background: var(--green2); }
+    .form-success h3 { font-family: var(--head); font-size: 1.3rem; color: var(--green); margin-bottom: 0.5rem; }
 
     /* INFO PANEL */
-    .info-panel {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
+    .info-panel { display: flex; flex-direction: column; gap: 1.25rem; }
 
-    .info-block {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--green);
-      padding: 1.75rem 2rem;
-    }
+    .info-block { background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--green); padding: 1.75rem 2rem; }
+    .info-block h3 { font-family: var(--head); font-size: 1.2rem; font-weight: 700; color: #e8edf5; margin-bottom: 0.75rem; }
+    .info-block p { font-family: var(--mono); font-size: 0.9rem; color: var(--muted); line-height: 1.9; }
 
-    .info-block h3 {
-      font-family: var(--head);
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: var(--navy);
-      margin-bottom: 0.75rem;
-    }
+    .contact-direct { background: var(--navy); border: 1px solid var(--border); border-top: 3px solid var(--green); padding: 1.75rem 2rem; }
+    .contact-direct h3 { font-family: var(--head); font-size: 1.2rem; font-weight: 700; color: #e8edf5; margin-bottom: 1rem; }
+    .contact-item { margin-bottom: 1rem; }
+    .contact-item-label { font-family: var(--mono); font-size: 0.67rem; color: var(--green); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 0.2rem; }
+    .contact-item-value { font-family: var(--mono); font-size: 0.92rem; color: var(--text); }
+    .contact-item-value a { color: var(--text); text-decoration: none; border-bottom: 1px solid rgba(29,185,84,0.3); transition: color 0.2s, border-color 0.2s; }
+    .contact-item-value a:hover { color: var(--green); border-color: var(--green); }
 
-    .info-block p {
-      font-family: var(--mono);
-      font-size: 0.9rem;
-      color: var(--muted);
-      line-height: 1.9;
-    }
-
-    .info-block ul {
-      list-style: none;
-      margin-top: 0.75rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    .info-block ul li {
-      font-family: var(--mono);
-      font-size: 0.88rem;
-      color: var(--muted);
-      padding-left: 1.25rem;
-      position: relative;
-      line-height: 1.7;
-    }
-
-    .info-block ul li::before {
-      content: '▶';
-      position: absolute;
-      left: 0;
-      color: var(--green);
-      font-size: 0.5rem;
-      top: 0.4rem;
-    }
-
-    /* FOOTER */
-    .footer {
-      background: var(--navy);
-      border-top: 2px solid var(--green);
-      padding: 2.5rem;
-      margin-top: 5rem;
-    }
-
-    .footer-inner {
-      max-width: 960px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .footer-text {
-      font-family: var(--mono);
-      font-size: 0.8rem;
-      color: #4a7a9b;
-    }
-
+    .footer { position: relative; z-index: 1; background: var(--navy); border-top: 1px solid var(--border); padding: 2.5rem; margin-top: 5rem; }
+    .footer-inner { max-width: 1000px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer-text { font-family: var(--mono); font-size: 0.8rem; color: var(--dim); }
     .footer-text a { color: var(--green); text-decoration: none; }
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
+    @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
     .page-eyebrow { animation: fadeUp 0.4s ease both; }
-    h1 { animation: fadeUp 0.4s 0.08s ease both; }
-    .page-intro { animation: fadeUp 0.4s 0.16s ease both; }
-    .contact-grid { animation: fadeUp 0.4s 0.24s ease both; }
+    h1             { animation: fadeUp 0.4s 0.08s ease both; }
+    .page-intro    { animation: fadeUp 0.4s 0.16s ease both; }
+    .contact-grid  { animation: fadeUp 0.4s 0.24s ease both; }
 
-    @media (max-width: 720px) {
+    @media (max-width: 800px) {
       .contact-grid { grid-template-columns: 1fr; }
-      .nav-links a { padding: 0.4rem 0.7rem; font-size: 0.72rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .nav-links a { padding: 0.4rem 0.6rem; font-size: 0.7rem; }
+    }
+    @media (max-width: 500px) {
+      .page-wrap { padding: 8rem 1.25rem 4rem; }
     }
   </style>
 </head>
@@ -326,13 +152,13 @@
 
 <nav>
   <a class="nav-logo" href="index.html">
-    <img src="logo.jpg" alt="FSME Logic Logo">
+    <img src="logo.jpg" alt="FSME Logic">
     <span class="nav-logo-text">FSME Logic</span>
   </a>
   <ul class="nav-links">
     <li><a href="index.html#validation">Validation</a></li>
     <li><a href="index.html#quantum">Quantum</a></li>
-    <li><a href="index.html#how">Process</a></li>
+    <li><a href="index.html#calculator">ROI Calculator</a></li>
     <li><a href="index.html#why">Why FSME</a></li>
     <li><a href="contact.html" class="active">Contact</a></li>
   </ul>
@@ -341,66 +167,136 @@
 <div class="page-wrap">
   <p class="page-eyebrow">Get in Touch</p>
   <h1>Start a Conversation<br>About Your Operation.</h1>
-  <p class="page-intro">
-    Whether you run a commercial fleet, an industrial facility, a quantum computing operation, or an aerospace program — if your equipment generates sensor data, we can audit it. Reach out to discuss your situation.
-  </p>
+  <p class="page-intro">Whether you run a commercial fleet, an industrial facility, a quantum computing operation, or an aerospace program — if your equipment generates sensor data, we can audit it. Fill out the form below and we'll be in touch.</p>
 
   <div class="contact-grid">
 
-    <div class="contact-card">
-      <h2>Direct Contact</h2>
-      <p>The fastest way to get started. Send us an overview of your operation and the equipment or systems you want audited.</p>
+    <!-- FORM -->
+    <div class="form-card">
+      <h2>Request an Audit</h2>
+      <p class="form-desc">Tell us about your operation. The more context you provide, the better we can scope the right engagement for you.</p>
 
-      <div class="contact-item">
-        <span class="contact-item-label">// Email</span>
-        <span class="contact-item-value">
-          <a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a>
-        </span>
+      <form id="contact-form" action="https://formspree.io/f/mlgpdqdq" method="POST">
+
+        <div class="form-row">
+          <div class="form-field">
+            <label>First Name <span class="form-required">*</span></label>
+            <input type="text" name="first_name" placeholder="Jane" required>
+          </div>
+          <div class="form-field">
+            <label>Last Name <span class="form-required">*</span></label>
+            <input type="text" name="last_name" placeholder="Smith" required>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label>Company / Organization <span class="form-required">*</span></label>
+          <input type="text" name="company" placeholder="Acme Fleet Services Ltd." required>
+        </div>
+
+        <div class="form-field">
+          <label>Your Role / Title</label>
+          <input type="text" name="role" placeholder="Operations Manager, CTO, Maintenance Director...">
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label>Email Address <span class="form-required">*</span></label>
+            <input type="email" name="email" placeholder="you@company.com" required>
+          </div>
+          <div class="form-field">
+            <label>Phone (Optional)</label>
+            <input type="tel" name="phone" placeholder="+1 780 000 0000">
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label>Industry / Equipment Type <span class="form-required">*</span></label>
+          <select name="industry" required>
+            <option value="" disabled selected>— Select your industry —</option>
+            <option value="fleet">Commercial Fleet (trucks, vehicles)</option>
+            <option value="industrial">Industrial Operations (motors, pumps, bearings)</option>
+            <option value="hvac">Refrigeration / HVAC / Cold Chain</option>
+            <option value="hydraulic">Hydraulic Systems</option>
+            <option value="aviation">Aviation / Aerospace</option>
+            <option value="quantum">Quantum Computing / Advanced Tech</option>
+            <option value="defense">Defense / Government</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label>Approximate Fleet or Asset Size</label>
+          <input type="text" name="fleet_size" placeholder="e.g. 80 trucks, 3 facilities, 2 quantum processors...">
+        </div>
+
+        <div class="form-field">
+          <label>Do you currently log sensor or telemetry data?</label>
+          <select name="data_logging">
+            <option value="" disabled selected>— Select one —</option>
+            <option value="yes_scada">Yes — SCADA / BMS system</option>
+            <option value="yes_csv">Yes — CSV / data logger exports</option>
+            <option value="yes_other">Yes — other format</option>
+            <option value="unsure">Unsure / partial</option>
+            <option value="no">No current data logging</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label>What Problem Are You Trying to Solve? <span class="form-required">*</span></label>
+          <textarea name="message" placeholder="Describe your situation — unplanned downtime, high emergency repair costs, specific equipment concerns, interest in predictive maintenance..." required></textarea>
+        </div>
+
+        <!-- Honeypot spam field — hidden -->
+        <input type="text" name="_gotcha" style="display:none">
+        <input type="hidden" name="_subject" value="New FSME Logic Audit Inquiry">
+
+        <button type="submit" class="btn-submit">▶ Send Inquiry</button>
+        <p class="form-note">Your information is used only to respond to your inquiry. We do not share or sell contact data.</p>
+      </form>
+
+      <div class="form-success" id="form-success">
+        <h3>✓ Message Received</h3>
+        We'll review your inquiry and be in touch shortly. If your situation is time-sensitive, you can also reach us directly at <a href="mailto:alex-kalyniuk@fsmelogic.ca" style="color:var(--green)">alex-kalyniuk@fsmelogic.ca</a>.
       </div>
-
-      <div class="contact-item">
-        <span class="contact-item-label">// Location</span>
-        <span class="contact-item-value">Edmonton, Alberta, Canada</span>
-      </div>
-
-      <div class="contact-item">
-        <span class="contact-item-label">// On-Site Availability</span>
-        <span class="contact-item-value">Edmonton region — available for in-facility analysis</span>
-      </div>
-
-      <div class="contact-item">
-        <span class="contact-item-label">// Remote Engagements</span>
-        <span class="contact-item-value">Available Canada-wide and internationally</span>
-      </div>
-
-      <a class="contact-btn" href="mailto:alex-kalyniuk@fsmelogic.ca">▶ Send an Email</a>
     </div>
 
+    <!-- INFO PANEL -->
     <div class="info-panel">
 
-      <div class="info-block">
-        <h3>What to Include in Your Message</h3>
-        <ul>
-          <li>Your industry and the type of equipment or systems you want assessed</li>
-          <li>Whether you already have sensor data being logged (SCADA, BMS, CSV exports, etc.)</li>
-          <li>What problem you're trying to solve — unplanned downtime, reactive maintenance costs, system reliability</li>
-          <li>Your location and whether on-site or remote engagement fits better</li>
-        </ul>
-      </div>
-
-      <div class="info-block">
-        <h3>What Happens Next</h3>
-        <p>We'll review your situation, confirm that we can work with your existing data format, and outline an engagement scope — including what the audit will cover and what you'll receive at the end.</p>
+      <div class="contact-direct">
+        <h3>Direct Contact</h3>
+        <div class="contact-item">
+          <div class="contact-item-label">// Email</div>
+          <div class="contact-item-value"><a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-label">// Location</div>
+          <div class="contact-item-value">Edmonton, Alberta, Canada</div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-label">// On-Site Analysis</div>
+          <div class="contact-item-value">Available — Edmonton region</div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-label">// Remote Engagements</div>
+          <div class="contact-item-value">Canada-wide and international</div>
+        </div>
       </div>
 
       <div class="info-block">
         <h3>Data Security</h3>
-        <p>Your operational data is never uploaded to any cloud server. All analysis is performed on local, offline hardware. For aerospace and defense engagements, fully air-gapped secure analysis is available. Your data stays under your control throughout the entire process.</p>
+        <p>Your operational data is never uploaded to any cloud server. All analysis is performed on local, offline hardware. For aerospace and defense engagements, fully air-gapped on-site analysis is available. Your data stays under your control throughout.</p>
       </div>
 
       <div class="info-block">
-        <h3>No Commitment Required</h3>
-        <p>An initial conversation costs nothing. If your data format works and the engagement makes sense for your situation, we'll outline exactly what you'd receive before any commitment is made.</p>
+        <h3>What Happens Next</h3>
+        <p>We'll review your inquiry, confirm that your existing data format is compatible, and outline an engagement scope — including exactly what the audit will cover and what you'll receive. No commitment required at this stage.</p>
+      </div>
+
+      <div class="info-block">
+        <h3>What to Have Ready</h3>
+        <p>You don't need anything prepared to start a conversation. When we move toward an audit, we'll typically need a CSV export from your existing monitoring system — 30 to 90 days of historical sensor readings is a solid starting point for most engagements.</p>
       </div>
 
     </div>
@@ -409,14 +305,42 @@
 
 <footer class="footer">
   <div class="footer-inner">
-    <div class="footer-text">
-      <a href="index.html">← Back to FSME Logic</a>
-    </div>
-    <div class="footer-text">
-      Patent Pending CA 3297487 &nbsp;|&nbsp; © 2026 Alexander Kalyniuk
-    </div>
+    <div class="footer-text"><a href="index.html">← Back to FSME Logic</a></div>
+    <div class="footer-text">Patent Pending CA 3297487 &nbsp;|&nbsp; © 2026 Alexander Kalyniuk</div>
   </div>
 </footer>
 
+<script>
+  const form = document.getElementById('contact-form');
+  const success = document.getElementById('form-success');
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = form.querySelector('.btn-submit');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (res.ok) {
+        form.style.display = 'none';
+        success.style.display = 'block';
+      } else {
+        btn.textContent = '▶ Send Inquiry';
+        btn.disabled = false;
+        alert('Something went wrong. Please email us directly at alex-kalyniuk@fsmelogic.ca');
+      }
+    } catch(err) {
+      btn.textContent = '▶ Send Inquiry';
+      btn.disabled = false;
+      alert('Network error. Please email us directly at alex-kalyniuk@fsmelogic.ca');
+    }
+  });
+</script>
 </body>
 </html>
