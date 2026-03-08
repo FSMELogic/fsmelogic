@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — FSME Logic</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f0eeea;
+      --bg2: #e8e6e1;
+      --card: #ffffff;
+      --navy: #0d1b2e;
+      --navy2: #1a2d44;
+      --green: #1db954;
+      --green2: #15a049;
+      --cyan: #00b4c8;
+      --text: #0d1b2e;
+      --muted: #4a5568;
+      --border: #c8c4bc;
+      --mono: 'IBM Plex Mono', monospace;
+      --head: 'Rajdhani', sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--mono);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        rgba(0,0,0,0.012) 3px,
+        rgba(0,0,0,0.012) 4px
+      );
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2.5rem;
+      background: rgba(13,27,46,0.97);
+      border-bottom: 2px solid var(--green);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+    }
+
+    .nav-logo img {
+      height: 42px;
+      width: 42px;
+      object-fit: contain;
+    }
+
+    .nav-logo-text {
+      font-family: var(--mono);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--green);
+      letter-spacing: 0.12em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 0;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      color: #9aabb8;
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.5rem 1.2rem;
+      border-left: 1px solid #1e3a5f;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--green); background: rgba(29,185,84,0.08); }
+    .nav-links a.active { color: var(--green); }
+
+    /* PAGE */
+    .page-wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 9rem 2.5rem 6rem;
+    }
+
+    .page-eyebrow {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--green);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .page-eyebrow::before { content: '>'; font-size: 1rem; }
+
+    h1 {
+      font-family: var(--head);
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.1;
+      margin-bottom: 1.25rem;
+    }
+
+    .page-intro {
+      font-family: var(--mono);
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 640px;
+      line-height: 1.9;
+      margin-bottom: 3.5rem;
+    }
+
+    /* CONTACT LAYOUT */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    /* CONTACT CARD */
+    .contact-card {
+      background: var(--navy);
+      border: 1px solid #1e3a5f;
+      border-top: 3px solid var(--green);
+      padding: 2.5rem;
+    }
+
+    .contact-card h2 {
+      font-family: var(--head);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-card p {
+      font-family: var(--mono);
+      font-size: 0.9rem;
+      color: #8faabf;
+      line-height: 1.9;
+      margin-bottom: 2rem;
+    }
+
+    .contact-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .contact-item-label {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--green);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .contact-item-value {
+      font-family: var(--mono);
+      font-size: 1rem;
+      color: #fff;
+    }
+
+    .contact-item-value a {
+      color: #fff;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(29,185,84,0.4);
+      transition: border-color 0.2s;
+    }
+
+    .contact-item-value a:hover { border-color: var(--green); color: var(--green); }
+
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--green);
+      color: #000;
+      font-family: var(--mono);
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 1rem 1.75rem;
+      text-decoration: none;
+      border: 2px solid var(--green);
+      width: 100%;
+      justify-content: center;
+      margin-top: 0.5rem;
+      transition: background 0.2s;
+    }
+
+    .contact-btn:hover { background: var(--green2); }
+
+    /* INFO PANEL */
+    .info-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .info-block {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--green);
+      padding: 1.75rem 2rem;
+    }
+
+    .info-block h3 {
+      font-family: var(--head);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 0.75rem;
+    }
+
+    .info-block p {
+      font-family: var(--mono);
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.9;
+    }
+
+    .info-block ul {
+      list-style: none;
+      margin-top: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .info-block ul li {
+      font-family: var(--mono);
+      font-size: 0.88rem;
+      color: var(--muted);
+      padding-left: 1.25rem;
+      position: relative;
+      line-height: 1.7;
+    }
+
+    .info-block ul li::before {
+      content: '▶';
+      position: absolute;
+      left: 0;
+      color: var(--green);
+      font-size: 0.5rem;
+      top: 0.4rem;
+    }
+
+    /* FOOTER */
+    .footer {
+      background: var(--navy);
+      border-top: 2px solid var(--green);
+      padding: 2.5rem;
+      margin-top: 5rem;
+    }
+
+    .footer-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-text {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      color: #4a7a9b;
+    }
+
+    .footer-text a { color: var(--green); text-decoration: none; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .page-eyebrow { animation: fadeUp 0.4s ease both; }
+    h1 { animation: fadeUp 0.4s 0.08s ease both; }
+    .page-intro { animation: fadeUp 0.4s 0.16s ease both; }
+    .contact-grid { animation: fadeUp 0.4s 0.24s ease both; }
+
+    @media (max-width: 720px) {
+      .contact-grid { grid-template-columns: 1fr; }
+      .nav-links a { padding: 0.4rem 0.7rem; font-size: 0.72rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">
+    <img src="logo.jpg" alt="FSME Logic Logo">
+    <span class="nav-logo-text">FSME Logic</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#validation">Validation</a></li>
+    <li><a href="index.html#quantum">Quantum</a></li>
+    <li><a href="index.html#how">Process</a></li>
+    <li><a href="index.html#why">Why FSME</a></li>
+    <li><a href="contact.html" class="active">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="page-wrap">
+  <p class="page-eyebrow">Get in Touch</p>
+  <h1>Start a Conversation<br>About Your Operation.</h1>
+  <p class="page-intro">
+    Whether you run a commercial fleet, an industrial facility, a quantum computing operation, or an aerospace program — if your equipment generates sensor data, we can audit it. Reach out to discuss your situation.
+  </p>
+
+  <div class="contact-grid">
+
+    <div class="contact-card">
+      <h2>Direct Contact</h2>
+      <p>The fastest way to get started. Send us an overview of your operation and the equipment or systems you want audited.</p>
+
+      <div class="contact-item">
+        <span class="contact-item-label">// Email</span>
+        <span class="contact-item-value">
+          <a href="mailto:FSME.Logic@proton.me">FSME.Logic@proton.me</a>
+        </span>
+      </div>
+
+      <div class="contact-item">
+        <span class="contact-item-label">// Location</span>
+        <span class="contact-item-value">Edmonton, Alberta, Canada</span>
+      </div>
+
+      <div class="contact-item">
+        <span class="contact-item-label">// On-Site Availability</span>
+        <span class="contact-item-value">Edmonton region — available for in-facility analysis</span>
+      </div>
+
+      <div class="contact-item">
+        <span class="contact-item-label">// Remote Engagements</span>
+        <span class="contact-item-value">Available Canada-wide and internationally</span>
+      </div>
+
+      <a class="contact-btn" href="mailto:FSME.Logic@proton.me">▶ Send an Email</a>
+    </div>
+
+    <div class="info-panel">
+
+      <div class="info-block">
+        <h3>What to Include in Your Message</h3>
+        <ul>
+          <li>Your industry and the type of equipment or systems you want assessed</li>
+          <li>Whether you already have sensor data being logged (SCADA, BMS, CSV exports, etc.)</li>
+          <li>What problem you're trying to solve — unplanned downtime, reactive maintenance costs, system reliability</li>
+          <li>Your location and whether on-site or remote engagement fits better</li>
+        </ul>
+      </div>
+
+      <div class="info-block">
+        <h3>What Happens Next</h3>
+        <p>We'll review your situation, confirm that we can work with your existing data format, and outline an engagement scope — including what the audit will cover and what you'll receive at the end.</p>
+      </div>
+
+      <div class="info-block">
+        <h3>Data Security</h3>
+        <p>Your operational data is never uploaded to any cloud server. All analysis is performed on local, offline hardware. For aerospace and defense engagements, fully air-gapped on-site analysis is available. Your data stays under your control throughout the entire process.</p>
+      </div>
+
+      <div class="info-block">
+        <h3>No Commitment Required</h3>
+        <p>An initial conversation costs nothing. If your data format works and the engagement makes sense for your situation, we'll outline exactly what you'd receive before any commitment is made.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-text">
+      <a href="index.html">← Back to FSME Logic</a>
+    </div>
+    <div class="footer-text">
+      Patent Pending CA 3,297,487 &nbsp;|&nbsp; © 2026 Alexander Kalyniuk
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
