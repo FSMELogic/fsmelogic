@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact — FSME Logic</title>
-  <meta name="description" content="Book a Pilot Integrity Audit with FSME Logic. On-site, fully offline predictive maintenance audit for industrial and commercial fleet operations in Edmonton, Alberta.">
+  <title>Contact — Book a Pilot Audit | FSME Logic Edmonton</title>
+  <meta name="description" content="Book an on-site Pilot Integrity Audit with FSME Logic. Serving Edmonton and the Capital Region. Your data never leaves your facility. Results same day.">
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -130,6 +130,70 @@
       footer { padding: 2rem 1.25rem; } .foot-inner { flex-direction: column; align-items: flex-start; }
     }
   </style>
+  <!-- SEO: Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://fsmelogic.ca/contact.html">
+  <meta property="og:title" content="Book a Pilot Integrity Audit — FSME Logic">
+  <meta property="og:description" content="On-site predictive maintenance audit. Fully offline. No new sensors. Edmonton, Alberta. Results the same day.">
+  <meta property="og:image" content="https://fsmelogic.ca/infographic-1.png">
+  <meta property="og:site_name" content="FSME Logic">
+  <meta property="og:locale" content="en_CA">
+  <!-- SEO: Twitter/X Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Book a Pilot Integrity Audit — FSME Logic">
+  <meta name="twitter:description" content="On-site predictive maintenance audit. Fully offline. No new sensors. Edmonton, Alberta. Results the same day.">
+  <meta name="twitter:image" content="https://fsmelogic.ca/infographic-1.png">
+  <!-- SEO: Canonical -->
+  <link rel="canonical" href="https://fsmelogic.ca/contact.html">
+  <!-- SEO: Additional -->
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Alexander Kalyniuk — FSME Logic">
+  <meta name="geo.region" content="CA-AB">
+  <meta name="geo.placename" content="Edmonton, Alberta, Canada">
+  <meta name="geo.position" content="53.5461;-113.4938">
+  <meta name="ICBM" content="53.5461, -113.4938">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "FSME Logic",
+    "description": "Predictive integrity audits for industrial and commercial fleet operations. On-site, fully offline, air-gapped analysis. Validated on NASA, ESA, and IBM quantum hardware datasets.",
+    "url": "https://fsmelogic.ca",
+    "email": "alex-kalyniuk@fsmelogic.ca",
+    "founder": {
+      "@type": "Person",
+      "name": "Alexander Kalyniuk"
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Edmonton",
+      "addressRegion": "AB",
+      "addressCountry": "CA"
+    },
+    "areaServed": {
+      "@type": "City",
+      "name": "Edmonton"
+    },
+    "serviceType": [
+      "Predictive Maintenance",
+      "Equipment Health Monitoring",
+      "Fleet Integrity Audit",
+      "Industrial Sensor Analysis",
+      "On-site Equipment Audit"
+    ],
+    "knowsAbout": [
+      "Predictive maintenance",
+      "Equipment failure detection",
+      "Industrial fleet monitoring",
+      "Aerospace telemetry analysis",
+      "Edge hardware deployment",
+      "Air-gapped data processing"
+    ],
+    "sameAs": [
+      "https://github.com/FSMELogic/fsmelogic"
+    ]
+  }
+  </script>
 </head>
 <body>
 
@@ -189,7 +253,7 @@
         <h4>// Direct Contact</h4>
         <div class="contact-method">
           <span class="icon">✉</span>
-          <a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a>
+          <a href="/cdn-cgi/l/email-protection#30515c55481d5b515c495e59455b7056435d555c5f5759531e5351"><span class="__cf_email__" data-cfemail="4e2f222b3663252f223720273b250e283d232b222129272d602d2f">[email&#160;protected]</span></a>
         </div>
         <div class="contact-method">
           <span class="icon">📍</span>
@@ -315,7 +379,7 @@
   <div class="foot-inner">
     <div class="foot-left">
       © 2026 Alexander Kalyniuk — FSME Logic &nbsp;|&nbsp; Edmonton, Alberta, Canada<br>
-      Patent Pending &nbsp;|&nbsp; <a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a>
+      Patent Pending &nbsp;|&nbsp; <a href="/cdn-cgi/l/email-protection#6a0b060f1247010b061304031f012a0c19070f06050d030944090b"><span class="__cf_email__" data-cfemail="1c7d70796431777d7065727569775c7a6f717970737b757f327f7d">[email&#160;protected]</span></a>
     </div>
     <div class="foot-right">
       <a href="case-studies.html">Validation</a>
@@ -327,7 +391,7 @@
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   const btn = document.getElementById('hamburger');
   const menu = document.getElementById('mobile-menu');
   btn.addEventListener('click', () => { btn.classList.toggle('open'); menu.classList.toggle('open'); });
@@ -341,19 +405,4 @@
     submitBtn.textContent = 'Sending...';
     submitBtn.disabled = true;
     try {
-      const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
-      if (res.ok) {
-        form.style.display = 'none';
-        success.style.display = 'block';
-      } else {
-        submitBtn.textContent = 'Error — please try again';
-        submitBtn.disabled = false;
-      }
-    } catch {
-      submitBtn.textContent = 'Error — please try again';
-      submitBtn.disabled = false;
-    }
-  });
-</script>
-</body>
-</html>
+      const res = await fetch(form.action, { method: 'POST', body: new FormData(form), heade
