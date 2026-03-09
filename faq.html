@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ — FSME Logic</title>
+  <meta name="description" content="Frequently asked questions about FSME Logic predictive integrity audits. How it works, what data you need, how long it takes, and how your data is protected.">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:     #0e1118;
+      --bg2:    #141822;
+      --card:   #181f2e;
+      --steel:  #1c2438;
+      --border: #242e42;
+      --bord2:  #2e3a52;
+      --blue:   #3d8ef0;
+      --blue2:  #2d6fd0;
+      --cyan:   #5bb8d4;
+      --gold:   #c9a84c;
+      --text:   #c5d2e8;
+      --muted:  #6e86a8;
+      --dim:    #3a4a62;
+      --head:   'Barlow Condensed', sans-serif;
+      --mono:   'IBM Plex Mono', monospace;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--mono); font-size: 16px; line-height: 1.7; min-height: 100vh; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none; background-image: linear-gradient(rgba(61,142,240,0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(61,142,240,0.018) 1px, transparent 1px); background-size: 52px 52px; }
+    body::after { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none; background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.04) 3px, rgba(0,0,0,0.04) 4px); }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; background: rgba(8,10,16,0.96); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); box-shadow: 0 1px 0 rgba(61,142,240,0.12); }
+    .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0.85rem 2rem; }
+    .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+    .nav-logo img { height: 42px; width: 42px; object-fit: contain; border-radius: 4px; }
+    .nav-logo-text { font-family: var(--mono); font-weight: 700; font-size: 1rem; color: var(--blue); letter-spacing: 0.1em; }
+    .nav-links { display: flex; list-style: none; align-items: center; gap: 0.25rem; }
+    .nav-links a { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.45rem 0.9rem; transition: color 0.2s, background 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--blue); background: rgba(61,142,240,0.08); }
+    .nav-links .nav-cta a { color: var(--blue); border: 1px solid rgba(61,142,240,0.5); padding: 0.45rem 1rem; }
+    .nav-links .nav-cta a:hover { background: var(--blue); color: #fff; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 0.5rem; background: none; border: none; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--muted); transition: all 0.3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu { display: none; flex-direction: column; background: rgba(8,10,16,0.98); border-top: 1px solid var(--border); padding: 1rem 2rem 1.5rem; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-family: var(--mono); font-size: 0.85rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.85rem 0; border-bottom: 1px solid var(--border); transition: color 0.2s; }
+    .mobile-menu a:hover { color: var(--blue); }
+    .mobile-menu a:last-child { color: var(--blue); border-bottom: none; margin-top: 0.5rem; }
+
+    section { position: relative; z-index: 1; }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 5rem 2rem; }
+    .wrap-narrow { max-width: 860px; margin: 0 auto; padding: 5rem 2rem; }
+    .section-label { font-family: var(--mono); font-size: 0.72rem; color: var(--blue); letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; }
+    .section-label::before { content: '//'; color: var(--dim); }
+    .bg-alt { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+    /* HERO */
+    .page-hero { padding: 9rem 2rem 5rem; position: relative; overflow: hidden; }
+    .page-hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 60% at 50% 40%, rgba(61,142,240,0.06) 0%, transparent 70%); }
+    .page-hero-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+    .page-eyebrow { font-family: var(--mono); font-size: 0.75rem; color: var(--blue); letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; animation: fadeUp 0.4s ease both; }
+    .page-eyebrow::before { content: '▸'; }
+    .page-hero h1 { font-family: var(--head); font-size: clamp(3rem, 8vw, 6rem); font-weight: 800; color: #dde6f5; line-height: 0.95; margin-bottom: 2rem; animation: fadeUp 0.4s 0.1s ease both; }
+    .page-hero h1 em { font-style: normal; color: var(--blue); }
+    .page-hero-sub { font-family: var(--mono); font-size: 1rem; color: var(--muted); max-width: 580px; line-height: 1.9; animation: fadeUp 0.4s 0.2s ease both; }
+
+    /* FAQ ACCORDION */
+    .faq-section { padding: 4rem 2rem; }
+    .faq-inner { max-width: 860px; margin: 0 auto; }
+    .faq-category { margin-bottom: 3.5rem; }
+    .faq-category-title { font-family: var(--head); font-size: 1.6rem; font-weight: 800; color: #dde6f5; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.75rem; }
+    .faq-category-title span { font-family: var(--mono); font-size: 0.68rem; color: var(--blue); background: rgba(61,142,240,0.1); border: 1px solid rgba(61,142,240,0.25); padding: 0.2rem 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400; }
+
+    .faq-item { border-bottom: 1px solid var(--border); }
+    .faq-question {
+      width: 100%; background: none; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.4rem 0; gap: 1rem; text-align: left;
+    }
+    .faq-question:hover .q-text { color: var(--blue); }
+    .q-text { font-family: var(--mono); font-size: 0.95rem; color: var(--text); line-height: 1.6; font-weight: 500; flex: 1; transition: color 0.2s; }
+    .q-icon { font-family: var(--mono); font-size: 1.2rem; color: var(--blue); flex-shrink: 0; transition: transform 0.3s; width: 20px; text-align: center; }
+    .faq-item.open .q-icon { transform: rotate(45deg); }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+    .faq-answer-inner { font-family: var(--mono); font-size: 0.88rem; color: var(--muted); line-height: 1.95; padding: 0 0 1.5rem; }
+    .faq-answer-inner p { margin-bottom: 1rem; }
+    .faq-answer-inner p:last-child { margin-bottom: 0; }
+    .faq-answer-inner strong { color: var(--text); }
+    .faq-answer-inner a { color: var(--blue); text-decoration: none; }
+    .faq-answer-inner a:hover { text-decoration: underline; }
+    .faq-answer-inner .answer-highlight { background: rgba(61,142,240,0.07); border-left: 3px solid var(--blue); padding: 1rem 1.25rem; margin: 1rem 0; color: var(--text); font-size: 0.87rem; }
+
+    /* STILL HAVE QUESTIONS */
+    .still-q { background: var(--steel); border-top: 1px solid var(--border); text-align: center; padding: 4rem 2rem; position: relative; overflow: hidden; }
+    .still-q::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(61,142,240,0.05) 0%, transparent 70%); pointer-events: none; }
+    .still-q h2 { font-family: var(--head); font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 800; color: #dde6f5; margin-bottom: 1rem; position: relative; }
+    .still-q p { font-family: var(--mono); font-size: 0.9rem; color: var(--muted); max-width: 480px; margin: 0 auto 2rem; line-height: 1.9; position: relative; }
+    .cta-row { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; position: relative; }
+    .btn { font-family: var(--mono); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 1rem 2rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.6rem; transition: all 0.2s; }
+    .btn-primary { background: var(--blue); color: #fff; border: 2px solid var(--blue); }
+    .btn-primary:hover { background: var(--blue2); border-color: var(--blue2); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(61,142,240,0.3); }
+    .btn-secondary { background: transparent; color: var(--text); border: 2px solid var(--bord2); }
+    .btn-secondary:hover { border-color: var(--blue); color: var(--blue); }
+
+    footer { background: #080a10; border-top: 1px solid var(--border); padding: 2.5rem 2rem; position: relative; z-index: 1; }
+    .foot-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .foot-left { font-family: var(--mono); font-size: 0.77rem; color: var(--dim); line-height: 1.8; }
+    .foot-left a { color: var(--blue); text-decoration: none; }
+    .foot-right { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .foot-right a { font-family: var(--mono); font-size: 0.73rem; color: var(--dim); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+    .foot-right a:hover { color: var(--blue); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 680px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .wrap, .wrap-narrow, .faq-section { padding: 3.5rem 1.25rem; }
+      .page-hero { padding: 7.5rem 1.25rem 4rem; }
+      .still-q { padding: 3.5rem 1.25rem; }
+      footer { padding: 2rem 1.25rem; }
+      .foot-inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">
+      <img src="logo.jpg" alt="FSME Logic">
+      <span class="nav-logo-text">FSME Logic</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="case-studies.html">Validation</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="faq.html" class="active">FAQ</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li class="nav-cta"><a href="payment.html">Request Audit</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="case-studies.html">Validation</a>
+    <a href="about.html">About</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html">Contact</a>
+    <a href="payment.html">Request Audit</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-inner">
+    <p class="page-eyebrow">Frequently Asked Questions</p>
+    <h1>Everything you<br>need to <em>know.</em></h1>
+    <p class="page-hero-sub">How the audit works, what data you need, how long it takes, and exactly how your operational data is protected. If your question isn't here, contact us directly.</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="faq-inner">
+
+    <!-- THE BASICS -->
+    <div class="faq-category">
+      <h2 class="faq-category-title">The Basics <span>What FSME Logic does</span></h2>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          <span class="q-text">What exactly does FSME Logic detect?</span>
+          <span class="q-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>FSME Logic detects the early signs of structural stress accumulation in equipment — the point where a system's signal record begins deviating from its own operating history. We call this the moment a system "stops telling the truth" about its own health.</p>
+            <p>Standard monitoring waits for a sensor value to exceed a preset threshold and triggers an alarm. By that point, the failure process is already well underway. FSME Logic identifies the stress signature that precedes the threshold breach — often weeks, months, or in aerospace cases, up to 9 months before standard monitoring would trigger any alert.</p>
+            <p>The result is a planning window instead of an emergency. Time to schedule maintenance, order parts, and prevent unplanned downtime before it happens.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          <span class="q-text">How is this different from standard predictive maintenance software?</span>
+          <span class="q-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>Three key differences:</p>
+            <p><strong>Detection timing:</strong> Standard predictive maintenance still relies on threshold logic — it just uses more sophisticated thresholds. FSME Logic detects structural degradation before any threshold would ever be triggered.</p>
+            <p><strong>No training data required:</strong> Most predictive maintenance platforms need months or years of historical failure examples before they can operate. FSME Logic deploys cold — on any new asset, from the first day of operation, with no failure history on file.</p>
+            <p><strong>Fully offline:</strong> Most platforms require your operational data to be uploaded to cloud servers for processing. FSME Logic runs entirely on local hardware at your facility. Your data never leaves your site.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          <span class="q-text">What industries and equipment types does this work for?</span>
+          <span class="q-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>FSME Logic has been validated across aerospace telemetry, commercial turbofan engines, industrial bearings, refrigeration systems, orbital satellite hardware, and commercial vehicle fleets. The detection principle is not specific to any single industry or equipment type.</p>
+            <p>If your equipment produces sensor data — vibration, temperature, pressure, current draw, RPM, or any time-series signal — FSME Logic can audit it. The engine works on the signal record, not on industry-specific failure models.</p>
+            <p>Current focus areas include commercial and industrial fleets, heavy equipment, refrigeration and HVAC systems, and manufacturing machinery. If you're unsure whether your specific equipment is a good candidate, <a href="contact.html">contact us</a> — we'll tell you honestly.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          <span class="q-text">What is the "Green Dashboard Fallacy"?</span>
+          <span class="q-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>The Green Dashboard Fallacy is the false sense of security created when all your monitoring indicators show normal — while internal structural degradation is already underway.</p>
+            <p>A system's dashboard can show green on every metric right up until failure. Temperature normal. Pressure normal. Vibration within spec. Threshold alarms silent. And yet the system is in the early stages of a failure process that will become catastrophic.</p>
+            <div class="answer-highlight">In our commercial refrigeration validation, the thermostat showed a completely normal reading while FSME Logic detected a 54% internal stress deviation in the condenser unit. The dashboard said green. The system was failing.</div>
+            <p>This is not a rare edge case — it is the normal behaviour of structural degradation before it becomes symptomatic. FSME Logic reads the stress history that creates this gap.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- THE AUDIT -->
+    <div class="faq-category">
+      <h2 class="faq-category-title">The Audit Process <span>What to expect</span></h2>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          <span class="q-text">How does a Pilot Integrity Audit actually work?</span>
+          <span class="q-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>Four steps:</p>
+            <p><strong>1. Data export.</strong> You pull a CSV export from your existing monitoring system. Standard data logger exports, SCADA exports, or BMS exports all work. 30–90 days of readings is the ideal window. No special format required.</p>
+            <p><strong>2. On-site analysis.</strong> We arrive at your facility with our own hardware. All processing happens locally — no internet connection, no cloud upload, your data never moves. Analysis across all sensor channels typically completes in under 10 minutes.</p>
+            <p><strong>3. Forensic report.</strong> You receive a plain-language summary identifying which channels showed early warning indicators, what the stress timeline looks like, and what action is recommended. Written for operations managers, not engineers.</p>
+            <p><strong>4. Custody receipt.</strong> A SHA-256 cryptographic chain of custody document confirming your data was handled securely and never transmitted at any stage. You keep the receipt permanently.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          <span class="q-text">How long does the audit take?</span>
+          <span class="q-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>The on-site analysis phase processes 100,000+ sensor rows in under 10 seconds on edge hardware. For most fleet or industrial datasets, the full processing completes in minutes.</p>
+            <p>The full engagement — arrival, data intake, analysis, report walkthrough — typically takes 1–2 hours on-site. The forensic report and custody receipt are delivered the same day.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          <span class="q-text">Do I need to buy new sensors or hardware?</span>
+          <span class="q-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>No. FSME Logic works with your existing data exports. If your equipment is already generating sensor data — which most modern industrial equipment does — that data is sufficient for an audit.</p>
+            <p>We bring our own analysis hardware to your site. You don't purchase anything, install anything, or change any existing infrastructure to run a Pilot Integrity Audit.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          <span class="q-text">What data format do you need?</span>
+          <span class="q-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>CSV is the standard format. Most SCADA systems, BMS platforms, fleet telematics systems, and standalone data loggers can export to CSV directly.</p>
+            <p>Ideally the export includes timestamps and multiple sensor channels — the more channels included, the more complete the health picture. 30–90 days of readings provides a good baseline window. Longer histories are better when available.</p>
+            <p>If you're unsure whether your system can produce the right export, contact us before booking — we can confirm compatibility in advance.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          <span class="q-text">What does the forensic report actually include?</span>
+          <span class="q-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>The report identifies:</p>
+            <p><strong>Healthy channels:</strong> sensor channels showing normal stress patterns — confirmed stable with no early warning indicators detected.</p>
+            <p><strong>Flagged channels:</strong> sensor channels where stress accumulation patterns were detected — with the approximate detection step and a plain-language description of what the pattern indicates.</p>
+            <p><strong>Recommended action:</strong> a clear recommendation based on the findings — whether that's no action required, scheduled inspection, or priority maintenance.</p>
+            <p>The report is written for operations managers and maintenance supervisors, not engineers or physicists. The findings are presented in plain language with no technical jargon.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DATA SECURITY -->
+    <div class="faq-category">
+      <h2 class="faq-category-title">Data Security <span>Your data stays yours</span></h2>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          <span class="q-text">Does my operational data get uploaded anywhere?</span>
+          <span class="q-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <div class="answer-highlight">No. Your data never leaves your facility. Every step of the analysis runs on local, offline hardware that we bring to your site.</div>
+            <p>There is no cloud upload, no remote processing, no third-party platform involved. The analysis hardware has no internet connection during the engagement. Your operational data is never transmitted at any stage.</p>
+            <p>This is not a policy choice that could change — it is a structural property of how the audit works. Air-gapped, offline processing is how the engine runs.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          <span class="q-text">What is the SHA-256 custody receipt?</span>
+          <span class="q-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>A SHA-256 chain of custody receipt is a cryptographic document that records the hash value of your dataset at the time of intake and confirms that it was handled securely throughout the audit process.</p>
+            <p>In plain terms: it's mathematical proof that your data was not modified, copied, or transmitted. The receipt is generated locally during the audit and provided to you at the end of the engagement. You keep it permanently as a verifiable record of secure data handling.</p>
+            <p>For operations with strict data handling requirements — government contracts, regulated industries, or sensitive operational infrastructure — this receipt provides auditable documentation of your data security posture.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          <span class="q-text">Can you sign an NDA before the engagement?</span>
+          <span class="q-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>Yes. We are happy to sign a mutual NDA before any data is exchanged or any audit is conducted. Contact us in advance of your engagement and we will arrange this before the on-site visit.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULTS AND VALIDITY -->
+    <div class="faq-category">
+      <h2 class="faq-category-title">Results &amp; Validity <span>What the numbers mean</span></h2>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          <span class="q-text">How were the NASA and ESA validation results produced?</span>
+          <span class="q-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>Every validation result was produced against publicly available datasets — the same datasets used to benchmark the world's leading predictive maintenance algorithms. All datasets are independently verifiable and accessible to any researcher.</p>
+            <p>The engine was deployed cold on each dataset — no historical failure examples were provided before testing, and no parameters were adjusted after seeing the results. Detection outputs were compared against official ground-truth labels after the audit was complete.</p>
+            <p>The ESA OPS-SAT and ESA Anomaly Detection Benchmark results were produced as blind tests — no prior access to the dataset before running the audit. Results were compared against ESA ground-truth labels after the fact.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          <span class="q-text">What does "zero false positives" mean?</span>
+          <span class="q-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>A false positive is when the detection engine flags a channel as showing stress indicators when nothing is actually wrong. High false positive rates are the primary reason industrial operators disable monitoring systems — too many false alarms make the system useless in practice.</p>
+            <p>Across the full 6-month stable baseline window of the ESA Anomaly Detection Benchmark — the ESA researchers' own highest-priority evaluation criterion — FSME Logic produced zero false positive detections. The engine correctly distinguished normal spacecraft operations from genuine structural degradation throughout the entire baseline period.</p>
+            <p>The ESA benchmark paper specifically cited false positive rate as more operationally important than detection rate or F-score. Every competing algorithm tested failed on this criterion.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          <span class="q-text">What if the audit finds nothing wrong?</span>
+          <span class="q-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>That's a good outcome. A clean audit result means your systems are showing healthy stress patterns with no early warning indicators present — which is exactly what you want to know.</p>
+            <p>You receive the same forensic report and custody receipt regardless of findings. A confirmed-healthy result gives you a documented baseline — useful for future comparison audits, for compliance documentation, and for operational confidence.</p>
+            <p>We do not manufacture findings. If the data shows healthy systems, the report says healthy systems.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GETTING STARTED -->
+    <div class="faq-category">
+      <h2 class="faq-category-title">Getting Started <span>Next steps</span></h2>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          <span class="q-text">How do I book an audit?</span>
+          <span class="q-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>Use the <a href="contact.html">contact form</a> or email us directly at <a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a>. Include a brief description of your equipment type and approximate number of sensor channels in your data export.</p>
+            <p>We will confirm compatibility with your data format, arrange an NDA if required, and schedule the on-site engagement at a time that works for your operation.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          <span class="q-text">What geographic area do you serve?</span>
+          <span class="q-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>Currently serving Edmonton and the surrounding area, including the greater Edmonton Capital Region. For larger engagements or clients outside this area, contact us to discuss — we will let you know honestly whether we can accommodate your location.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          <span class="q-text">Is ongoing monitoring available after the initial audit?</span>
+          <span class="q-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>Yes. The Pilot Integrity Audit is the entry point — a single engagement to demonstrate what the engine finds in your data. Clients who want ongoing monitoring can discuss periodic re-audit arrangements or longer-term monitoring configurations after the initial engagement.</p>
+            <p>Contact us to discuss what ongoing monitoring would look like for your specific operation.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- STILL HAVE QUESTIONS -->
+<section class="still-q">
+  <h2>Still have questions?</h2>
+  <p>If something isn't answered here, reach out directly. We'll give you a straight answer — including if FSME Logic isn't the right fit for your operation.</p>
+  <div class="cta-row">
+    <a class="btn btn-primary" href="contact.html">Contact Us ▸</a>
+    <a class="btn btn-secondary" href="case-studies.html">View Validation Data</a>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-left">
+      © 2026 Alexander Kalyniuk — FSME Logic &nbsp;|&nbsp; Edmonton, Alberta, Canada<br>
+      Patent Pending &nbsp;|&nbsp; <a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a>
+    </div>
+    <div class="foot-right">
+      <a href="case-studies.html">Validation</a>
+      <a href="about.html">About</a>
+      <a href="faq.html">FAQ</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Hamburger
+  const btn = document.getElementById('hamburger');
+  const menu = document.getElementById('mobile-menu');
+  btn.addEventListener('click', () => {
+    btn.classList.toggle('open');
+    menu.classList.toggle('open');
+  });
+
+  // FAQ Accordion
+  document.querySelectorAll('.faq-question').forEach(q => {
+    q.addEventListener('click', () => {
+      const item = q.parentElement;
+      const answer = item.querySelector('.faq-answer');
+      const isOpen = item.classList.contains('open');
+
+      // Close all
+      document.querySelectorAll('.faq-item').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq-answer').style.maxHeight = '0';
+      });
+
+      // Open clicked if it was closed
+      if (!isOpen) {
+        item.classList.add('open');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      }
+    });
+  });
+</script>
+</body>
+</html>

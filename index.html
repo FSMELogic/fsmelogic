@@ -3,725 +3,473 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FSME Logic | Predictive Integrity Engine</title>
-  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <title>FSME Logic — Predictive Integrity for Critical Assets</title>
+  <meta name="description" content="FSME Logic detects equipment failure weeks before standard sensors trigger an alarm. Validated on NASA, ESA, and IBM datasets. Fully offline. No cloud.">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg:     #13161c;
-      --bg2:    #191d26;
-      --card:   #1e2330;
-      --card2:  #242838;
-      --border: #2c3347;
-      --navy:   #0d1220;
-      --steel:  #2a3145;
-      --green:  #1db954;
-      --green2: #15a049;
-      --cyan:   #00c8d4;
-      --text:   #93c5fd;
-      --muted:  #6b9fc4;
-      --dim:    #4a5568;
-      --red:    #e05252;
+      --bg:     #0e1118;
+      --bg2:    #141822;
+      --card:   #181f2e;
+      --steel:  #1c2438;
+      --border: #242e42;
+      --bord2:  #2e3a52;
+      --blue:   #3d8ef0;
+      --blue2:  #2d6fd0;
+      --cyan:   #5bb8d4;
+      --gold:   #c9a84c;
+      --text:   #c5d2e8;
+      --muted:  #6e86a8;
+      --dim:    #3a4a62;
+      --head:   'Barlow Condensed', sans-serif;
       --mono:   'IBM Plex Mono', monospace;
-      --head:   'Rajdhani', sans-serif;
     }
     html { scroll-behavior: smooth; }
-    body { background: var(--bg); color: var(--text); font-family: var(--mono); line-height: 1.7; font-size: 16px; }
-    body::after {
-      content: '';
-      position: fixed; inset: 0;
-      background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.06) 3px, rgba(0,0,0,0.06) 4px);
-      pointer-events: none; z-index: 9999;
-    }
+    body { background: var(--bg); color: var(--text); font-family: var(--mono); font-size: 16px; line-height: 1.7; min-height: 100vh; overflow-x: hidden; }
     body::before {
-      content: '';
-      position: fixed; inset: 0;
-      background-image: linear-gradient(rgba(29,185,84,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(29,185,84,0.025) 1px, transparent 1px);
-      background-size: 48px 48px;
-      pointer-events: none; z-index: 0;
+      content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image: linear-gradient(rgba(61,142,240,0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(61,142,240,0.018) 1px, transparent 1px);
+      background-size: 52px 52px;
+    }
+    body::after {
+      content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.04) 3px, rgba(0,0,0,0.04) 4px);
     }
 
     /* NAV */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 0.9rem 2.5rem;
-      background: rgba(10,12,18,0.97);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      box-shadow: 0 1px 0 rgba(29,185,84,0.15);
-    }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; background: rgba(8,10,16,0.96); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); box-shadow: 0 1px 0 rgba(61,142,240,0.12); }
+    .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0.85rem 2rem; }
     .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
-    .nav-logo img { height: 60px; width: 60px; object-fit: contain; border-radius: 4px; }
-    .nav-logo-text { font-family: var(--mono); font-size: 0.95rem; font-weight: 700; color: var(--green); letter-spacing: 0.12em; }
-    .nav-links { display: flex; list-style: none; }
-    .nav-links a {
-      font-family: var(--mono); font-size: 0.8rem; color: var(--muted);
-      text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase;
-      padding: 0.5rem 1.1rem; border-left: 1px solid var(--border);
-      transition: color 0.2s, background 0.2s;
-    }
-    .nav-links a:hover { color: var(--green); background: rgba(29,185,84,0.07); }
-    .nav-links li:last-child a { color: var(--green); border: 1px solid rgba(29,185,84,0.5); margin-left: 1rem; }
-    .nav-links li:last-child a:hover { background: var(--green); color: #000; }
+    .nav-logo img { height: 42px; width: 42px; object-fit: contain; border-radius: 4px; }
+    .nav-logo-text { font-family: var(--mono); font-weight: 700; font-size: 1rem; color: var(--blue); letter-spacing: 0.1em; }
+    .nav-links { display: flex; list-style: none; align-items: center; gap: 0.25rem; }
+    .nav-links a { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.45rem 0.9rem; transition: color 0.2s, background 0.2s; }
+    .nav-links a:hover { color: var(--blue); background: rgba(61,142,240,0.08); }
+    .nav-links .nav-cta a { color: var(--blue); border: 1px solid rgba(61,142,240,0.5); padding: 0.45rem 1rem; }
+    .nav-links .nav-cta a:hover { background: var(--blue); color: #fff; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 0.5rem; background: none; border: none; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--muted); transition: all 0.3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu { display: none; flex-direction: column; background: rgba(8,10,16,0.98); border-top: 1px solid var(--border); padding: 1rem 2rem 1.5rem; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-family: var(--mono); font-size: 0.85rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.85rem 0; border-bottom: 1px solid var(--border); transition: color 0.2s; }
+    .mobile-menu a:hover { color: var(--blue); }
+    .mobile-menu a:last-child { color: var(--blue); border-bottom: none; margin-top: 0.5rem; }
+
+    section, .wrap { position: relative; z-index: 1; }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 5rem 2rem; }
+    .section-label { font-family: var(--mono); font-size: 0.72rem; color: var(--blue); letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; }
+    .section-label::before { content: '//'; color: var(--dim); }
+    .section-title { font-family: var(--head); font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; color: #dde6f5; line-height: 1.05; margin-bottom: 1.25rem; }
+    .section-title em { font-style: normal; color: var(--blue); }
+    .section-sub { font-family: var(--mono); font-size: 0.95rem; color: var(--muted); max-width: 640px; line-height: 1.9; margin-bottom: 3rem; }
 
     /* HERO */
-    .hero {
-      position: relative; z-index: 1;
-      min-height: 100vh; display: flex; flex-direction: column; justify-content: center;
-      padding: 9rem 2.5rem 5rem; max-width: 1200px; margin: 0 auto;
-    }
-    .hero-eyebrow {
-      font-family: var(--mono); font-size: 0.78rem; color: var(--green);
-      letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1.5rem;
-      display: flex; align-items: center; gap: 0.75rem;
-    }
-    .hero-eyebrow::before { content: '>_'; font-weight: 700; }
-    .hero-eyebrow span { color: var(--muted); }
-    h1 { font-family: var(--head); font-size: clamp(3rem, 7.5vw, 6rem); font-weight: 700; line-height: 1.05; color: #e8edf5; margin-bottom: 1.75rem; }
-    h1 em { font-style: normal; color: var(--green); }
-    .hero-body { font-family: var(--mono); font-size: 1.05rem; color: var(--muted); max-width: 620px; line-height: 1.9; margin-bottom: 2.5rem; }
-    .hero-cta-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 8rem 2rem 5rem; position: relative; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; z-index: 0; background: radial-gradient(ellipse 80% 60% at 60% 40%, rgba(61,142,240,0.07) 0%, transparent 70%), radial-gradient(ellipse 40% 40% at 15% 75%, rgba(91,184,212,0.04) 0%, transparent 60%); }
+    .hero-inner { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; width: 100%; }
+    .hero-eyebrow { font-family: var(--mono); font-size: 0.75rem; color: var(--blue); letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; animation: fadeUp 0.5s ease both; }
+    .hero-eyebrow::before { content: '▸'; }
+    .hero h1 { font-family: var(--head); font-size: clamp(3.2rem, 9vw, 7rem); font-weight: 800; line-height: 0.93; color: #dde6f5; margin-bottom: 2rem; animation: fadeUp 0.5s 0.1s ease both; }
+    .hero h1 em { font-style: normal; color: var(--blue); }
+    .hero h1 .dim { color: var(--muted); }
+    .hero-quote { font-family: var(--mono); font-size: clamp(0.9rem, 1.8vw, 1.1rem); color: var(--muted); max-width: 640px; line-height: 1.9; border-left: 3px solid var(--blue); padding-left: 1.5rem; margin-bottom: 2.5rem; animation: fadeUp 0.5s 0.2s ease both; }
+    .hero-quote strong { color: var(--text); display: block; margin-top: 0.75rem; font-size: 0.78rem; letter-spacing: 0.06em; }
+    .hero-stats { display: flex; flex-wrap: wrap; gap: 1.25rem; margin-bottom: 3rem; animation: fadeUp 0.5s 0.3s ease both; }
+    .hero-stat { background: var(--card); border: 1px solid var(--border); border-top: 2px solid var(--blue); padding: 1.25rem 1.75rem; min-width: 150px; }
+    .hero-stat .val { font-family: var(--head); font-size: 2.8rem; font-weight: 800; color: var(--blue); line-height: 1; }
+    .hero-stat .val.gold { color: var(--gold); }
+    .hero-stat .lbl { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.3rem; line-height: 1.5; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 1rem; animation: fadeUp 0.5s 0.4s ease both; }
 
-    .btn-primary {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      background: var(--green); color: #000;
-      font-family: var(--mono); font-size: 0.9rem; font-weight: 700;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      padding: 1rem 2rem; text-decoration: none;
-      border: 2px solid var(--green); transition: all 0.2s; cursor: pointer;
-    }
-    .btn-primary:hover { background: var(--green2); border-color: var(--green2); transform: translateY(-2px); }
-    .btn-secondary {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      background: transparent; color: var(--text);
-      font-family: var(--mono); font-size: 0.9rem; font-weight: 700;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      padding: 1rem 2rem; text-decoration: none;
-      border: 2px solid var(--steel); transition: all 0.2s;
-    }
-    .btn-secondary:hover { border-color: var(--text); }
+    .btn { font-family: var(--mono); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 1rem 2rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.6rem; transition: all 0.2s; }
+    .btn-primary { background: var(--blue); color: #fff; border: 2px solid var(--blue); }
+    .btn-primary:hover { background: var(--blue2); border-color: var(--blue2); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(61,142,240,0.3); }
+    .btn-secondary { background: transparent; color: var(--text); border: 2px solid var(--bord2); }
+    .btn-secondary:hover { border-color: var(--blue); color: var(--blue); }
 
-    .hero-stats { display: flex; gap: 3rem; margin-top: 4.5rem; flex-wrap: wrap; padding-top: 2.5rem; border-top: 1px solid var(--border); }
-    .stat-num { font-family: var(--head); font-size: 2.4rem; font-weight: 700; color: #e8edf5; line-height: 1; }
-    .stat-num span { color: var(--green); }
-    .stat-label { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.35rem; }
+    /* PROBLEM */
+    .bg-alt { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+    .prob-card { background: var(--bg); border: 1px solid var(--border); border-left: 3px solid var(--bord2); padding: 2rem; }
+    .prob-card h3 { font-family: var(--head); font-size: 1.4rem; font-weight: 700; color: #dde6f5; margin-bottom: 0.75rem; }
+    .prob-card p { font-family: var(--mono); font-size: 0.87rem; color: var(--muted); line-height: 1.85; }
 
-    /* SECTIONS */
-    .section-wrap { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 5rem 2.5rem; }
-    .section-header { margin-bottom: 3rem; }
-    .section-tag {
-      font-family: var(--mono); font-size: 0.9rem; font-weight: 700;
-      color: var(--green); letter-spacing: 0.15em; text-transform: uppercase;
-      margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem;
-    }
-    .section-tag::before { content: '//'; color: var(--dim); }
-    h2 { font-family: var(--head); font-size: clamp(2.2rem, 4.5vw, 3.5rem); font-weight: 700; color: #e8edf5; line-height: 1.1; margin-bottom: 1rem; }
-    .section-intro { font-family: var(--mono); font-size: 1rem; color: var(--muted); max-width: 680px; line-height: 1.9; }
-    .divider { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; height: 1px; background: var(--border); }
+    /* WHAT WE DO */
+    .grid-3-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 1.5rem; }
+    .what-card { background: var(--card); border: 1px solid var(--border); border-top: 3px solid var(--blue); padding: 2.25rem; transition: transform 0.2s, box-shadow 0.2s; }
+    .what-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.3); }
+    .what-icon { font-size: 1.7rem; margin-bottom: 1.1rem; }
+    .what-card h3 { font-family: var(--head); font-size: 1.45rem; font-weight: 700; color: #dde6f5; margin-bottom: 0.7rem; }
+    .what-card p { font-family: var(--mono); font-size: 0.86rem; color: var(--muted); line-height: 1.85; }
 
-    .band { position: relative; z-index: 1; background: var(--navy); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 5rem 0; }
-    .band-inner { max-width: 1200px; margin: 0 auto; padding: 0 2.5rem; }
+    /* INFOGRAPHIC SPLIT */
+    .info-split { display: flex; align-items: center; gap: 4rem; }
+    .info-text { flex: 1; min-width: 260px; }
+    .info-text h2 { font-family: var(--head); font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 800; color: #dde6f5; line-height: 1.05; margin-bottom: 1.25rem; }
+    .info-text p { font-family: var(--mono); font-size: 0.9rem; color: var(--muted); line-height: 1.9; margin-bottom: 1.25rem; }
+    .info-img { flex: 1; min-width: 240px; max-width: 460px; }
+    .info-img img { width: 100%; height: auto; display: block; border: 1px solid var(--border); }
 
-    /* ALERT */
-    .alert-box { background: rgba(224,82,82,0.07); border: 1px solid rgba(224,82,82,0.25); border-left: 4px solid var(--red); padding: 2rem 2.5rem; margin-bottom: 3rem; }
-    .alert-box h3 { font-family: var(--mono); font-size: 0.78rem; color: var(--red); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem; }
-    .alert-box p { font-family: var(--mono); font-size: 1rem; color: #c8a8a8; line-height: 1.9; }
+    /* VALIDATION CARDS */
+    .val-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+    .val-card { background: var(--steel); border: 1px solid var(--border); padding: 2.25rem; position: relative; overflow: hidden; }
+    .val-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--blue), var(--cyan)); }
+    .val-card .src { font-family: var(--mono); font-size: 0.67rem; color: var(--blue); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 0.75rem; }
+    .val-card .metric { font-family: var(--head); font-size: 2.8rem; font-weight: 800; color: #dde6f5; line-height: 1; margin-bottom: 0.4rem; }
+    .val-card .metric-lbl { font-family: var(--head); font-size: 1.1rem; font-weight: 600; color: var(--blue); margin-bottom: 0.75rem; }
+    .val-card p { font-family: var(--mono); font-size: 0.84rem; color: var(--muted); line-height: 1.8; }
 
-    /* COST TABLE */
-    .cost-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 0.92rem; background: var(--card); border: 1px solid var(--border); }
-    .cost-table th { text-align: left; padding: 1rem 1.25rem; background: var(--navy); color: var(--green); font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; border-bottom: 1px solid var(--border); }
-    .cost-table td { padding: 1.1rem 1.25rem; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.7; }
-    .cost-table td:first-child { color: #e8edf5; font-weight: 600; }
-    .cost-table .cost-bad { color: #e87070; font-weight: 600; }
-    .cost-table .cost-good { color: var(--green); font-weight: 600; }
-    .cost-table small { display: block; font-size: 0.78rem; color: var(--muted); font-weight: 400; margin-top: 0.2rem; }
-    .cost-table tr:last-child td { border-bottom: none; }
-    .cost-table tr:hover td { background: rgba(29,185,84,0.04); }
+    /* TABLE */
+    .tbl-wrap { overflow-x: auto; margin-top: 2rem; }
+    table { width: 100%; border-collapse: collapse; }
+    th { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 1rem 1.25rem; text-align: left; border-bottom: 2px solid var(--border); }
+    th:first-child { color: var(--dim); }
+    th:nth-child(2) { color: var(--muted); }
+    th:last-child { color: var(--blue); background: rgba(61,142,240,0.06); }
+    td { font-family: var(--mono); font-size: 0.84rem; color: var(--muted); padding: 1rem 1.25rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    td:first-child { color: var(--text); font-weight: 500; }
+    td:last-child { background: rgba(61,142,240,0.04); color: var(--text); }
+    tr:last-child td { border-bottom: none; }
+    .tag-bad { display: inline-block; font-size: 0.7rem; padding: 0.2rem 0.55rem; background: rgba(180,60,60,0.14); color: #e08080; border: 1px solid rgba(180,60,60,0.28); }
+    .tag-good { display: inline-block; font-size: 0.7rem; padding: 0.2rem 0.55rem; background: rgba(61,142,240,0.12); color: var(--blue); border: 1px solid rgba(61,142,240,0.3); }
 
-    /* ROI CALCULATOR */
-    .roi-wrap { background: var(--card); border: 1px solid var(--border); border-top: 3px solid var(--green); padding: 3rem; margin-top: 3.5rem; }
-    .roi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start; }
-    .roi-inputs { display: flex; flex-direction: column; gap: 1.5rem; }
-    .roi-title { font-family: var(--head); font-size: 1.8rem; font-weight: 700; color: #e8edf5; margin-bottom: 0.5rem; }
-    .roi-subtitle { font-family: var(--mono); font-size: 0.88rem; color: var(--muted); line-height: 1.8; margin-bottom: 2rem; }
-    .roi-field { display: flex; flex-direction: column; gap: 0.4rem; }
-    .roi-field label { font-family: var(--mono); font-size: 0.72rem; color: var(--green); letter-spacing: 0.15em; text-transform: uppercase; }
-    .roi-field input, .roi-field select {
-      background: var(--bg2); border: 1px solid var(--border); color: #e8edf5;
-      font-family: var(--mono); font-size: 1rem; padding: 0.85rem 1rem;
-      outline: none; transition: border-color 0.2s; width: 100%;
-      -webkit-appearance: none; appearance: none;
-    }
-    .roi-field input:focus, .roi-field select:focus { border-color: var(--green); }
-    .roi-field .hint { font-family: var(--mono); font-size: 0.7rem; color: var(--dim); }
-
-    .roi-output { background: var(--navy); border: 1px solid var(--border); padding: 2rem; display: flex; flex-direction: column; gap: 1.5rem; }
-    .roi-result-block { border-bottom: 1px solid var(--border); padding-bottom: 1.5rem; }
-    .roi-result-block:last-of-type { border-bottom: none; padding-bottom: 0; }
-    .roi-result-label { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.4rem; }
-    .roi-result-value { font-family: var(--head); font-size: 2.2rem; font-weight: 700; color: var(--green); line-height: 1; }
-    .roi-result-value.secondary { color: #e8edf5; font-size: 1.6rem; }
-    .roi-result-value.highlight { color: var(--cyan); }
-    .roi-result-sub { font-family: var(--mono); font-size: 0.75rem; color: var(--dim); margin-top: 0.35rem; line-height: 1.6; }
-    .roi-disclaimer { font-family: var(--mono); font-size: 0.7rem; color: var(--dim); line-height: 1.7; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
-
-    /* AUDIT CARDS */
-    .audit-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(480px, 1fr)); gap: 1.5rem; }
-    .audit-card { background: var(--card); border: 1px solid var(--border); padding: 2.25rem; position: relative; overflow: hidden; transition: border-color 0.3s, transform 0.3s; }
-    .audit-card::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: var(--green); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
-    .audit-card:hover { border-color: rgba(29,185,84,0.35); transform: translateY(-3px); }
-    .audit-card:hover::after { transform: scaleX(1); }
-    .audit-badge { display: inline-block; font-family: var(--mono); font-size: 0.67rem; font-weight: 700; color: var(--green); background: rgba(29,185,84,0.12); border: 1px solid rgba(29,185,84,0.3); padding: 0.2rem 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1rem; }
-    .audit-card h3 { font-family: var(--head); font-size: 1.4rem; font-weight: 700; color: #e8edf5; margin-bottom: 0.4rem; line-height: 1.25; }
-    .audit-source { font-family: var(--mono); font-size: 0.75rem; color: var(--dim); margin-bottom: 1.5rem; }
-    .audit-findings { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.5rem; }
-    .audit-findings li { font-family: var(--mono); font-size: 0.9rem; color: var(--muted); padding-left: 1.5rem; position: relative; line-height: 1.7; }
-    .audit-findings li::before { content: '▶'; position: absolute; left: 0; color: var(--green); font-size: 0.5rem; top: 0.42rem; }
-    .audit-result { background: rgba(29,185,84,0.07); border-left: 3px solid var(--green); padding: 1rem 1.25rem; font-family: var(--mono); font-size: 0.9rem; color: #a8c8b8; line-height: 1.8; }
-
-    /* QUANTUM CARDS */
-    .quantum-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(440px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
-    .q-card { background: #0f1520; border: 1px solid #1e2d45; border-top: 3px solid var(--green); padding: 2.25rem; }
-    .q-card h3 { font-family: var(--head); font-size: 1.35rem; color: #e8edf5; margin-bottom: 0.4rem; }
-    .q-source { font-family: var(--mono); font-size: 0.72rem; color: var(--dim); margin-bottom: 1.5rem; }
-    .q-findings { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.5rem; }
-    .q-findings li { font-family: var(--mono); font-size: 0.9rem; color: var(--muted); padding-left: 1.5rem; position: relative; line-height: 1.7; }
-    .q-findings li::before { content: '>'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
-    .q-value { background: rgba(29,185,84,0.08); border-left: 3px solid var(--green); padding: 1rem 1.25rem; font-family: var(--mono); font-size: 0.9rem; color: #a8c8b8; line-height: 1.8; }
-
-    /* STEPS */
-    .steps-grid { display: grid; grid-template-columns: repeat(3,1fr); background: var(--card); border: 1px solid var(--border); margin-top: 3rem; }
-    .step { padding: 3rem 2.5rem; border-right: 1px solid var(--border); }
+    /* PROCESS */
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); border: 1px solid var(--border); margin-top: 2rem; }
+    .step { padding: 2.25rem; border-right: 1px solid var(--border); }
     .step:last-child { border-right: none; }
-    .step-num { font-family: var(--head); font-size: 5rem; font-weight: 700; color: rgba(29,185,84,0.12); line-height: 1; margin-bottom: 1rem; }
-    .step h3 { font-family: var(--head); font-size: 1.4rem; font-weight: 700; color: #e8edf5; margin-bottom: 0.75rem; }
-    .step p { font-family: var(--mono); font-size: 0.92rem; color: var(--muted); line-height: 1.9; }
+    .step-num { font-family: var(--head); font-size: 4rem; font-weight: 800; color: rgba(61,142,240,0.12); line-height: 1; margin-bottom: 1rem; }
+    .step h3 { font-family: var(--head); font-size: 1.3rem; font-weight: 700; color: #dde6f5; margin-bottom: 0.6rem; }
+    .step p { font-family: var(--mono); font-size: 0.84rem; color: var(--muted); line-height: 1.8; }
 
-    /* COMP TABLE */
-    .comp-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 0.9rem; margin-top: 2.5rem; }
-    .comp-table th { text-align: left; padding: 1rem 1.25rem; background: var(--navy); color: var(--green); font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; border-bottom: 1px solid var(--border); }
-    .comp-table td { padding: 1.1rem 1.25rem; border-bottom: 1px solid var(--border); color: var(--muted); vertical-align: top; line-height: 1.7; background: var(--card); }
-    .comp-table td:first-child { color: #e8edf5; font-weight: 600; }
-    .comp-table tr.fsme-row td { background: rgba(29,185,84,0.07); }
-    .comp-table tr.fsme-row td:first-child { color: var(--green); }
-    .comp-table tr.fsme-row td:last-child { color: #a8c8b8; }
-    .comp-table tr:last-child td { border-bottom: none; }
-
-    /* INDUSTRY CARDS */
-    .industry-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; margin-top: 3rem; }
-    .industry-card { background: var(--card); border: 1px solid var(--border); padding: 2rem 1.75rem; transition: border-color 0.25s, transform 0.25s; }
-    .industry-card:hover { border-color: var(--green); transform: translateY(-3px); }
-    .industry-icon { font-size: 2rem; margin-bottom: 1rem; }
-    .industry-card h3 { font-family: var(--head); font-size: 1.25rem; font-weight: 700; color: #e8edf5; margin-bottom: 0.75rem; }
-    .industry-card p { font-family: var(--mono); font-size: 0.87rem; color: var(--muted); line-height: 1.85; }
-
-    /* PRICING */
-    .pricing-wrap { background: var(--navy); border: 1px solid var(--border); border-top: 3px solid var(--green); padding: 3.5rem; display: flex; align-items: flex-start; justify-content: space-between; gap: 3rem; flex-wrap: wrap; margin-top: 3rem; }
-    .pricing-left h3 { font-family: var(--mono); font-size: 0.75rem; color: var(--green); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 0.75rem; }
-    .pricing-headline { font-family: var(--head); font-size: 2.8rem; font-weight: 700; color: #e8edf5; line-height: 1.15; margin-bottom: 1.5rem; }
-    .pricing-items { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
-    .pricing-items li { font-family: var(--mono); font-size: 0.92rem; color: var(--muted); display: flex; align-items: flex-start; gap: 0.75rem; line-height: 1.6; }
-    .pricing-items li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
-    .pricing-right { display: flex; flex-direction: column; align-items: flex-end; gap: 1.25rem; min-width: 240px; }
-    .pricing-right .btn-primary { font-size: 1rem; padding: 1.1rem 2.2rem; width: 100%; justify-content: center; }
-    .pricing-note { font-family: var(--mono); font-size: 0.78rem; color: var(--dim); text-align: right; line-height: 1.7; }
-
-    /* QUOTE BAND */
-    .quote-band { position: relative; z-index: 1; background: linear-gradient(135deg, #0d1a10 0%, #0a1520 100%); border-top: 1px solid rgba(29,185,84,0.2); border-bottom: 1px solid rgba(29,185,84,0.2); padding: 5rem 2.5rem; text-align: center; }
-    .quote-band blockquote { font-family: var(--head); font-size: clamp(1.5rem, 3.5vw, 2.4rem); font-weight: 700; color: #e8edf5; max-width: 900px; margin: 0 auto; line-height: 1.4; }
-    .quote-band blockquote em { font-style: normal; color: var(--green); }
-    .quote-band cite { display: block; font-family: var(--mono); font-size: 0.78rem; color: var(--dim); margin-top: 1.5rem; letter-spacing: 0.12em; font-style: normal; }
+    /* CTA */
+    .cta { background: var(--steel); border-top: 1px solid var(--border); text-align: center; padding: 6rem 2rem; position: relative; overflow: hidden; }
+    .cta::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(61,142,240,0.06) 0%, transparent 70%); pointer-events: none; }
+    .cta h2 { font-family: var(--head); font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 800; color: #dde6f5; margin-bottom: 1rem; position: relative; }
+    .cta p { font-family: var(--mono); font-size: 0.95rem; color: var(--muted); max-width: 520px; margin: 0 auto 2.5rem; line-height: 1.9; position: relative; }
+    .cta-row { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; position: relative; }
 
     /* FOOTER */
-    .footer { position: relative; z-index: 1; background: var(--navy); border-top: 1px solid var(--border); padding: 3rem 2.5rem; }
-    .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; gap: 2rem; flex-wrap: wrap; }
-    .footer-brand { font-family: var(--mono); font-size: 0.88rem; color: var(--muted); line-height: 2; }
-    .footer-brand strong { color: var(--green); font-size: 1rem; display: block; margin-bottom: 0.25rem; }
-    .footer-brand a { color: var(--muted); text-decoration: none; }
-    .footer-brand a:hover { color: var(--green); }
-    .footer-patent { font-family: var(--mono); font-size: 0.72rem; color: var(--dim); text-align: right; line-height: 2; }
+    footer { background: #080a10; border-top: 1px solid var(--border); padding: 2.5rem 2rem; position: relative; z-index: 1; }
+    .foot-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .foot-left { font-family: var(--mono); font-size: 0.77rem; color: var(--dim); line-height: 1.8; }
+    .foot-left a { color: var(--blue); text-decoration: none; }
+    .foot-right { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .foot-right a { font-family: var(--mono); font-size: 0.73rem; color: var(--dim); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+    .foot-right a:hover { color: var(--blue); }
 
-    /* ANIMATIONS */
-    @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
-    .hero-eyebrow { animation: fadeUp 0.5s ease both; }
-    h1             { animation: fadeUp 0.5s 0.1s ease both; }
-    .hero-body     { animation: fadeUp 0.5s 0.2s ease both; }
-    .hero-cta-row  { animation: fadeUp 0.5s 0.3s ease both; }
-    .hero-stats    { animation: fadeUp 0.5s 0.4s ease both; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
 
     @media (max-width: 900px) {
-      .audit-grid, .quantum-grid { grid-template-columns: 1fr; }
-      .steps-grid { grid-template-columns: 1fr; }
+      .info-split { flex-direction: column; }
+      .info-img { max-width: 100%; }
+      .steps { grid-template-columns: 1fr 1fr; }
       .step { border-right: none; border-bottom: 1px solid var(--border); }
       .step:last-child { border-bottom: none; }
-      .roi-grid { grid-template-columns: 1fr; }
-      .pricing-wrap { flex-direction: column; }
-      .pricing-right { align-items: flex-start; width: 100%; }
-      .pricing-note { text-align: left; }
-      .footer-inner { flex-direction: column; }
-      .footer-patent { text-align: left; }
     }
-    @media (max-width: 600px) {
-      nav { padding: 0.9rem 1.25rem; }
-      .nav-links a { padding: 0.4rem 0.6rem; font-size: 0.68rem; }
-      .section-wrap { padding: 4rem 1.25rem; }
-      .hero { padding: 8rem 1.25rem 4rem; }
-      .roi-wrap { padding: 2rem 1.25rem; }
-      .pricing-wrap { padding: 2rem 1.25rem; }
+    @media (max-width: 680px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .wrap { padding: 3.5rem 1.25rem; }
+      .hero { padding: 7rem 1.25rem 4rem; }
+      .hero-stats { gap: 1rem; }
+      .hero-stat { min-width: 130px; padding: 1rem 1.25rem; }
+      .hero-stat .val { font-size: 2.2rem; }
+      .steps { grid-template-columns: 1fr; }
+      .step { border-right: none; border-bottom: 1px solid var(--border); }
+      td, th { padding: 0.75rem; font-size: 0.75rem; }
+      .cta { padding: 4rem 1.25rem; }
+      footer { padding: 2rem 1.25rem; }
+      .foot-inner { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
 <body>
 
 <nav>
-  <a class="nav-logo" href="index.html">
-    <img src="logo.jpg" alt="FSME Logic">
-    <span class="nav-logo-text">FSME Logic</span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="#validation">Validation</a></li>
-    <li><a href="#quantum">Quantum</a></li>
-    <li><a href="#calculator">ROI Calculator</a></li>
-    <li><a href="#why">Why FSME</a></li>
-    <li><a href="contact.html">Contact Us</a></li>
-  </ul>
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">
+      <img src="logo.jpg" alt="FSME Logic">
+      <span class="nav-logo-text">FSME Logic</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="case-studies.html">Validation</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li class="nav-cta"><a href="payment.html">Request Audit</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="case-studies.html">Validation</a>
+    <a href="about.html">About</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html">Contact</a>
+    <a href="payment.html">Request Audit</a>
+  </div>
 </nav>
 
-<div class="hero">
-  <p class="hero-eyebrow">Patent Pending CA 3297487 &nbsp;|&nbsp; <span>Edmonton, Alberta, Canada</span></p>
-  <h1>We detect failure<br>before your system<br><em>knows it's failing.</em></h1>
-  <p class="hero-body">FSME Logic is a physics-based predictive integrity engine that reads the behavioral fingerprint of your equipment — catching degradation long before any threshold is breached, any alarm sounds, or any dashboard turns red.</p>
-  <div class="hero-cta-row">
-    <a class="btn-primary" href="mailto:alex-kalyniuk@fsmelogic.ca">▶ Request an Audit</a>
-    <a class="btn-secondary" href="contact.html">Learn More</a>
-  </div>
-  <div class="hero-stats">
-    <div class="stat"><div class="stat-num">23,<span>550</span></div><div class="stat-label">Real Fleet Vehicles Validated</div></div>
-    <div class="stat"><div class="stat-num"><span>84.7</span> hrs</div><div class="stat-label">NASA Satellite Lead Time</div></div>
-    <div class="stat"><div class="stat-num"><span>4</span> IBM</div><div class="stat-label">Quantum Processors Audited</div></div>
-    <div class="stat"><div class="stat-num"><span>Zero</span></div><div class="stat-label">False Positives Across All Benchmarks</div></div>
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- PROBLEM -->
-<section class="section-wrap">
-  <div class="section-header">
-    <p class="section-tag">The Problem</p>
-    <h2>The Green Dashboard Fallacy</h2>
-    <p class="section-intro">Your monitoring system is designed to tell you when something has already gone wrong. FSME is designed to tell you when something is about to go wrong — before any gauge moves, before any alarm fires, before you lose a shift.</p>
-  </div>
-  <div class="alert-box">
-    <h3>// Warning — By the time you see red, the clock is already running</h3>
-    <p>Threshold-based monitoring waits for a reading to cross a pre-set danger line. The problem: the physics of failure start well before any threshold is reached. Equipment degrades structurally — quietly, invisibly — for hours, days, or weeks before the numbers move. That silent window is exactly where FSME operates.</p>
-  </div>
-  <table class="cost-table">
-    <thead><tr><th>Equipment Type</th><th>Reactive Failure Cost</th><th>Planned Repair Cost</th></tr></thead>
-    <tbody>
-      <tr>
-        <td>Hydraulic Systems<small>Brakes, steering, lifts, presses</small></td>
-        <td class="cost-bad">$50,000 – $150,000<small>Emergency labor + rush parts + lost production</small></td>
-        <td class="cost-good">$5,000 – $8,000<small>Scheduled downtime + standard parts</small></td>
-      </tr>
-      <tr>
-        <td>Refrigeration &amp; HVAC<small>Compressors, condensers, cooling units</small></td>
-        <td class="cost-bad">$5,000 – $25,000+<small>Compressor seizure + spoiled inventory + emergency call</small></td>
-        <td class="cost-good">$200 – $800<small>Coil cleaning or service during planned downtime</small></td>
-      </tr>
-      <tr>
-        <td>Bearings &amp; Rotating Equipment<small>Motors, fans, pumps, spindles</small></td>
-        <td class="cost-bad">$2,000 – $15,000+<small>Secondary damage + emergency labor + extended downtime</small></td>
-        <td class="cost-good">$50 – $400<small>Bearing swap scheduled in advance</small></td>
-      </tr>
-      <tr>
-        <td>Quantum Processors<small>Superconducting qubit systems</small></td>
-        <td class="cost-bad">Full workload loss<small>Refunded runs + corrupted computation + unscheduled downtime</small></td>
-        <td class="cost-good">Surgical recalibration<small>Targeted intervention on specific failing components only</small></td>
-      </tr>
-    </tbody>
-  </table>
-</section>
-
-<div class="divider"></div>
-
-<!-- ROI CALCULATOR -->
-<section class="section-wrap" id="calculator">
-  <div class="section-header">
-    <p class="section-tag">ROI Calculator</p>
-    <h2>Calculate Your<br>Cost of Doing Nothing.</h2>
-    <p class="section-intro">Enter your operation's numbers. See what reactive maintenance is actually costing you — and what predictive detection could recover.</p>
-  </div>
-  <div class="roi-wrap">
-    <div class="roi-title">Reactive Maintenance Cost Estimator</div>
-    <p class="roi-subtitle">Fill in the fields on the left. The right panel updates instantly with your numbers.</p>
-    <div class="roi-grid">
-      <div class="roi-inputs">
-        <div class="roi-field">
-          <label>Industry / Equipment Type</label>
-          <select id="roi-industry" onchange="calcROI()">
-            <option value="fleet">Commercial Fleet (trucks, vehicles)</option>
-            <option value="hvac">Refrigeration / HVAC / Cold Chain</option>
-            <option value="industrial">Industrial (motors, pumps, bearings)</option>
-            <option value="hydraulic">Hydraulic Systems</option>
-            <option value="aviation">Aviation / Turbine</option>
-            <option value="quantum">Quantum / Advanced Tech</option>
-          </select>
-        </div>
-        <div class="roi-field">
-          <label>Number of Units or Assets</label>
-          <input type="number" id="roi-units" value="50" min="1" oninput="calcROI()">
-          <span class="hint">Trucks, machines, compressors, processors, etc.</span>
-        </div>
-        <div class="roi-field">
-          <label>Average Emergency Repair Cost (CAD $)</label>
-          <input type="number" id="roi-repair" value="25000" min="0" step="1000" oninput="calcROI()">
-          <span class="hint">Include parts, emergency labor, and downtime losses</span>
-        </div>
-        <div class="roi-field">
-          <label>Emergency Failures Per Year (Entire Fleet)</label>
-          <input type="number" id="roi-failures" value="4" min="0" oninput="calcROI()">
-          <span class="hint">Across all units in your operation</span>
-        </div>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Predictive Integrity Engine — Edmonton, Alberta</p>
+    <h1>We detect failure<br><em>before</em><br><span class="dim">it happens.</span></h1>
+    <div class="hero-quote">
+      "We detect when systems stop telling the truth — before people pay the price."
+      <strong>— Alexander Kalyniuk, Founder, FSME Logic</strong>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="val">9<span style="font-size:1.4rem">mo</span></div>
+        <div class="lbl">Lead time<br>ESA spacecraft</div>
       </div>
-
-      <div class="roi-output">
-        <div class="roi-result-block">
-          <div class="roi-result-label">// Current Annual Reactive Cost</div>
-          <div class="roi-result-value secondary" id="out-current">$100,000</div>
-          <div class="roi-result-sub">What unplanned failures are costing you today</div>
-        </div>
-        <div class="roi-result-block">
-          <div class="roi-result-label">// Conservative Recoverable Savings</div>
-          <div class="roi-result-value" id="out-savings">$70,000</div>
-          <div class="roi-result-sub">Estimated 70% reduction — reactive to planned maintenance</div>
-        </div>
-        <div class="roi-result-block">
-          <div class="roi-result-label">// Per-Unit Risk Exposure</div>
-          <div class="roi-result-value highlight" id="out-per-unit">$2,000</div>
-          <div class="roi-result-sub">Average annual emergency cost per asset</div>
-        </div>
-        <div class="roi-result-block">
-          <div class="roi-result-label">// 3-Year Unmitigated Exposure</div>
-          <div class="roi-result-value secondary" id="out-threeyear">$300,000</div>
-          <div class="roi-result-sub">If current reactive maintenance continues unchanged</div>
-        </div>
-        <a class="btn-primary" href="contact.html" style="margin-top:0.5rem;justify-content:center;">▶ Protect This Number — Get an Audit</a>
+      <div class="hero-stat">
+        <div class="val gold">6.3<span style="font-size:1.4rem">hr</span></div>
+        <div class="lbl">Warning before failure<br>NASA Curiosity Rover</div>
+      </div>
+      <div class="hero-stat">
+        <div class="val">78<span style="font-size:1.4rem">%</span></div>
+        <div class="lbl">Fleet detection rate<br>509 jet engines</div>
+      </div>
+      <div class="hero-stat">
+        <div class="val">0</div>
+        <div class="lbl">False positives<br>full baseline window</div>
       </div>
     </div>
-    <p class="roi-disclaimer">* Estimates are conservative projections based on industry maintenance cost benchmarks. Actual outcomes depend on fleet size, equipment type, failure frequency, and operational context. This calculator illustrates the financial scale of reactive maintenance — contact us to discuss your specific situation.</p>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- INDUSTRIAL VALIDATION -->
-<section class="section-wrap" id="validation">
-  <div class="section-header">
-    <p class="section-tag">Industrial Validation</p>
-    <h2>Tested on the Hardest<br>Real-World Data Available</h2>
-    <p class="section-intro">Every dataset below comes from operating equipment under real-world or benchmark conditions. No simulations. No cherry-picked scenarios. If FSME can find failure here, it can find it in your facility.</p>
-  </div>
-  <div class="audit-grid">
-    <div class="audit-card">
-      <span class="audit-badge">Fleet Telemetry</span>
-      <h3>Scania — 23,550 Trucks in Active Service</h3>
-      <p class="audit-source">Real operational telemetry matched to workshop repair records</p>
-      <ul class="audit-findings">
-        <li>Every vehicle with a confirmed failure was flagged before the recorded breakdown</li>
-        <li>The same degradation signature appeared independently across the entire audited fleet</li>
-        <li>Over 100 other data channels remained completely silent — no phantom alarms</li>
-        <li>Results aligned directly with actual mechanic repair records</li>
-      </ul>
-      <div class="audit-result">Real trucks. Real workshops. Real repairs. FSME caught the degradation before any standard alarm triggered — across one of the world's largest commercial vehicle fleets.</div>
-    </div>
-    <div class="audit-card">
-      <span class="audit-badge">IEEE PHM Benchmark</span>
-      <h3>PRONOSTIA &amp; CWRU — Bearings Run to Destruction</h3>
-      <p class="audit-source">IEEE PHM 2012 Challenge + NASA/Boeing Gold Standard Benchmark</p>
-      <ul class="audit-findings">
-        <li>Six industrial bearings physically destroyed on a test rig under full operating load</li>
-        <li>Degradation detected on all six before complete mechanical failure</li>
-        <li>All nine fault types identified across three severity levels in the CWRU benchmark</li>
-        <li>Zero false positives — healthy channels returned clean across every test</li>
-      </ul>
-      <div class="audit-result">Every motor, pump, fan, and compressor in your operation runs on bearings. Early warning converts a seized shaft that destroys its housing into a scheduled bearing swap.</div>
-    </div>
-    <div class="audit-card">
-      <span class="audit-badge">Hydraulic Systems</span>
-      <h3>ZeMA Industrial Hydraulics — Active Cooler Failure</h3>
-      <p class="audit-source">University of Applied Sciences Saarland — 2,205 cycle test rig</p>
-      <ul class="audit-findings">
-        <li>Cooler operating at near-total failure from the very first cycle</li>
-        <li>Standard motor power monitoring flagged only 6 times across 2,205 cycles — green dashboard throughout</li>
-        <li>FSME identified structural degradation more than 160 cycles before standard monitoring responded</li>
-        <li>Significant actionable lead time while every conventional gauge showed normal</li>
-      </ul>
-      <div class="audit-result">Hydraulics power your brakes, lifts, presses, and steering. That lead-time window is the difference between a controlled service call and a $150,000 emergency shutdown.</div>
-    </div>
-    <div class="audit-card">
-      <span class="audit-badge">NASA C-MAPSS</span>
-      <h3>Commercial Aviation — Turbofan Engine Fleet</h3>
-      <p class="audit-source">NASA CMAPSS benchmark — 509 commercial turbofan engines</p>
-      <ul class="audit-findings">
-        <li>Degradation detected across 78% of the full engine fleet</li>
-        <li>Substantial advance warning before confirmed failure across 509 engines</li>
-        <li>Zero false flags on healthy baseline engines throughout</li>
-        <li>Performed cold — no training data, no pre-configuration required</li>
-      </ul>
-      <div class="audit-result">Advance warning on commercial turbofan engines means the difference between a gate return and a runway incident. FSME runs on the same physics, regardless of industry.</div>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="contact.html">Book a Pilot Audit ▸</a>
+      <a class="btn btn-secondary" href="case-studies.html">View Validation Results</a>
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
-
-<!-- AEROSPACE -->
-<section class="section-wrap">
-  <div class="section-header">
-    <p class="section-tag">Aerospace Validation</p>
-    <h2>If It Works on Mars,<br>It Works in Your Facility.</h2>
-    <p class="section-intro">The same mathematical engine that flags a failing bearing in an Edmonton warehouse detected early mechanical stress on a rover operating on the Martian surface. The physics of failure are universal.</p>
-  </div>
-  <div class="audit-grid">
-    <div class="audit-card">
-      <span class="audit-badge">Orbital Asset — $916M Satellite</span>
-      <h3>NASA SMAP — Orbital Reaction Wheel Failure</h3>
-      <p class="audit-source">Multi-dataset blind validation on archived mission telemetry</p>
-      <ul class="audit-findings">
-        <li>Failure detected 84.7 hours before NASA's official anomaly window on primary dataset</li>
-        <li>68.6 hours of advance warning on a second independent dataset</li>
-        <li>Healthy orbit baseline returned zero anomalies across the entire operational cycle</li>
-        <li>Deployed cold — zero training data, zero prior knowledge of failure history</li>
-      </ul>
-      <div class="audit-result">A 3.5-day warning window on a $916 million orbital asset isn't an incremental improvement — it's a mission-saving intervention. FSME detects the physical precursor before hardware crosses any observable threshold.</div>
-    </div>
-    <div class="audit-card">
-      <span class="audit-badge">Live In-Orbit Validation</span>
-      <h3>ESA OPS-SAT — CubeSat Sensor Degradation</h3>
-      <p class="audit-source">Edge-native deployment on active 3U CubeSat flight computer</p>
-      <ul class="audit-findings">
-        <li>FSME ran directly on the resource-constrained flight computer during an active mission</li>
-        <li>Detected sensor degradation before ESA's own monitoring systems flagged the event</li>
-        <li>Zero false positives on the healthy channel baseline throughout</li>
-        <li>Fully edge-native — no ground transmission required for analysis</li>
-      </ul>
-      <div class="audit-result">This is not a simulation. FSME ran on live orbital hardware and outperformed the European Space Agency's own monitoring during an active mission.</div>
-    </div>
-    <div class="audit-card">
-      <span class="audit-badge">Deep-Space — Mars Surface</span>
-      <h3>NASA MSL Curiosity Rover — Actuator Binding</h3>
-      <p class="audit-source">Martian surface operations — extreme thermal and terrain conditions</p>
-      <ul class="audit-findings">
-        <li>Detected mechanical binding in deep-space actuators hundreds of operational steps before failure</li>
-        <li>Successfully differentiated internal mechanical failure from normal environmental resistance</li>
-        <li>Operated under extreme temperature variance and non-terrestrial terrain loads</li>
-        <li>No terrestrial calibration or domain-specific tuning required</li>
-      </ul>
-      <div class="audit-result">If FSME can isolate internal actuator failure from Martian terrain resistance, it can distinguish real degradation from normal operational noise in your compressor, drive train, or rotating equipment.</div>
-    </div>
-  </div>
-</section>
-
-<!-- QUANTUM — dark band -->
-<div class="band" id="quantum">
-  <div class="band-inner">
-    <div class="section-header">
-      <p class="section-tag">Quantum Hardware</p>
-      <h2>From Satellites to Qubits —<br>The Same Physics.</h2>
-      <p class="section-intro">FSME Logic has conducted forensic audits on four IBM superconducting quantum processors. Every audit was performed cold — no prior knowledge, no training data. The results produce something no deep learning system can deliver: a real-time topological map of exactly how, where, and in what order hardware is failing.</p>
-    </div>
-    <div class="quantum-grid">
-      <div class="q-card">
-        <h3>IBM Boston — Calibration Drift Detection</h3>
-        <p class="q-source">156 calibration cycles | Superconducting quantum processor</p>
-        <ul class="q-findings">
-          <li>Fundamental qubit properties returned zero anomalies — engine ignores physics, targets hardware</li>
-          <li>Gate error and measurement fidelity drift detected at precise inception steps</li>
-          <li>Higher-sensitivity profile extended predictive runway by 11 additional steps</li>
-          <li>One-step cascade confirmed: gate failure caused measurement collapse in exact predicted sequence</li>
-        </ul>
-        <div class="q-value">Quantum operators recalibrate on rigid 4-hour schedules regardless of hardware status. FSME delivers the exact trigger for surgical, just-in-time recalibration — applied only where physics demand it, eliminating unnecessary downtime.</div>
+<!-- THE PROBLEM -->
+<section class="bg-alt">
+  <div class="wrap">
+    <p class="section-label">The Problem</p>
+    <h2 class="section-title">Standard monitoring<br>only sees the <em>crash.</em></h2>
+    <p class="section-sub">Threshold alarms fire when a value exceeds a preset limit. By the time the alarm sounds, the damage is already in progress. The warning window has already closed.</p>
+    <div class="grid-3">
+      <div class="prob-card">
+        <h3>Alarms, not answers.</h3>
+        <p>Standard sensors tell you when something has already gone wrong. They trigger on amplitude spikes — the symptom, not the cause. Maintenance teams respond to emergencies instead of planning ahead.</p>
       </div>
-      <div class="q-card">
-        <h3>IBM Athens — Topological Cascade (5-Qubit)</h3>
-        <p class="q-source">66,747 circuit executions | 5-qubit processor</p>
-        <ul class="q-findings">
-          <li>Circuit structure and coherence properties returned zero anomalies throughout</li>
-          <li>Qubit 2 readout resonator collapse detected with 61 steps remaining before full chip failure</li>
-          <li>Degradation spread outward across physically connected qubits in geographically correct sequence</li>
-          <li>Full chip readout fidelity compromised only after FSME had already mapped the cascade path</li>
-        </ul>
-        <div class="q-value">Knowing which qubit is failing — while 60,000+ steps remain — means the operating system can route the entire workload through healthy pathways. Without FSME, the client receives corrupted results and the operator absorbs the cost.</div>
+      <div class="prob-card">
+        <h3>The Green Dashboard Fallacy.</h3>
+        <p>A system can show perfectly normal readings right up until failure. Internal structural degradation is invisible to threshold monitoring — no spikes, no alerts, perfectly healthy on every dashboard — until it isn't.</p>
       </div>
-      <div class="q-card">
-        <h3>IBM Melbourne — Environmental System Shock (15-Qubit)</h3>
-        <p class="q-source">66,747 rows | 15-qubit processor | Full offline edge processing</p>
-        <ul class="q-findings">
-          <li>All coherence times and entanglement edges across 15 qubits returned zero anomalies</li>
-          <li>11 of 15 readout resonators collapsed simultaneously at a single execution step</li>
-          <li>Four specific qubits survived — providing a precise geographic map of the shielded chip regions</li>
-          <li>Stable entanglement edges throughout ruled out localized hardware degradation immediately</li>
-        </ul>
-        <div class="q-value">Simultaneous collapse across 11 readouts with stable entanglement edges is the signature of an environmental event. FSME tells engineers exactly where to look, eliminating days of diagnostic investigation.</div>
-      </div>
-      <div class="q-card">
-        <h3>IBM Santiago — Sequential Domino Cascade (5-Qubit)</h3>
-        <p class="q-source">66,747 circuit executions | 5-qubit processor</p>
-        <ul class="q-findings">
-          <li>Circuit structure and coherence times returned zero anomalies throughout</li>
-          <li>Single entanglement gate identified as the failure inception point</li>
-          <li>Physical microwave connection degraded in exact sequence predicted by chip wiring topology</li>
-          <li>Failure propagated chip-wide following the precise physical architecture to total collapse</li>
-        </ul>
-        <div class="q-value">A statistical algorithm cannot map a chronological domino cascade that respects the physical wiring of a microprocessor. FSME shows you the exact gate that broke first, and the order every connected component will follow.</div>
+      <div class="prob-card">
+        <h3>Cloud systems expose your data.</h3>
+        <p>Most AI-based predictive platforms require your operational telemetry to be uploaded for processing. Your data leaves your facility. For industrial and fleet operations, that's an unacceptable security exposure.</p>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<div class="divider"></div>
-
-<!-- HOW IT WORKS -->
-<section class="section-wrap" id="how">
-  <div class="section-header">
-    <p class="section-tag">The Process</p>
-    <h2>Straightforward Engagement.<br>No Infrastructure Changes.</h2>
-    <p class="section-intro">No new sensors. No cloud connections. No IT department involvement. FSME works with the data your equipment is already producing.</p>
-  </div>
-  <div class="steps-grid">
-    <div class="step">
-      <div class="step-num">01</div>
-      <h3>Export Your Existing Data</h3>
-      <p>Pull a CSV from your current monitoring system — SCADA, BMS, data logger, or any equipment that records sensor readings. If your equipment is generating readings, we can work with it.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">02</div>
-      <h3>We Audit Locally</h3>
-      <p>FSME runs entirely on local hardware. Your data is never uploaded to any cloud server and never leaves your control. On-site analysis at your facility is available for operations in the Edmonton region.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">03</div>
-      <h3>You Receive a Forensic Report</h3>
-      <p>A clear, plain-language report identifying which systems showed early stress indicators, when the pattern first appeared, and what maintenance action addresses it — before it becomes an emergency.</p>
+<!-- WHAT WE DO -->
+<section>
+  <div class="wrap">
+    <p class="section-label">What FSME Logic Does</p>
+    <h2 class="section-title">We read the <em>history</em><br>your sensors ignore.</h2>
+    <p class="section-sub">Physical systems accumulate stress over time. That stress leaves a measurable trace in the signal record. FSME Logic reads that trace — identifying structural degradation weeks or months before any threshold alarm would trigger.</p>
+    <div class="grid-3-cards">
+      <div class="what-card">
+        <div class="what-icon">📡</div>
+        <h3>Beyond Threshold Detection</h3>
+        <p>We detect the earliest signs of structural stress accumulation in your signal record — the point where a system begins losing its normal operating history, long before any visible symptom appears.</p>
+      </div>
+      <div class="what-card">
+        <div class="what-icon">🔒</div>
+        <h3>Fully Offline. Zero Data Exit.</h3>
+        <p>All analysis runs on local, air-gapped hardware brought to your facility. Your data is never uploaded, never transmitted, never leaves your site. We provide a cryptographic custody receipt at every engagement.</p>
+      </div>
+      <div class="what-card">
+        <div class="what-icon">⚡</div>
+        <h3>No Training Data Required</h3>
+        <p>Most AI maintenance platforms need months of historical failure data before they can operate. FSME Logic deploys cold — on any new asset, from the first day of operation. No baseline failure library needed.</p>
+      </div>
+      <div class="what-card">
+        <div class="what-icon">📋</div>
+        <h3>Works With What You Have</h3>
+        <p>No new sensors. No new hardware. No infrastructure changes. We work directly from your existing SCADA, BMS, or data logger CSV exports.</p>
+      </div>
+      <div class="what-card">
+        <div class="what-icon">🏭</div>
+        <h3>Any Industry, Any Asset</h3>
+        <p>Validated across aerospace telemetry, commercial vehicle fleets, industrial bearings, refrigeration systems, and orbital satellite hardware. The same engine works across all physical domains.</p>
+      </div>
+      <div class="what-card">
+        <div class="what-icon">📊</div>
+        <h3>Plain-Language Reports</h3>
+        <p>Every audit delivers a clear, actionable summary — which systems showed early warning indicators, what the stress timeline looks like, and what action is recommended. Written for operations managers, not physicists.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
-
-<!-- WHY FSME -->
-<section class="section-wrap" id="why">
-  <div class="section-header">
-    <p class="section-tag">Why FSME Logic</p>
-    <h2>What Makes This<br>Fundamentally Different.</h2>
-    <p class="section-intro">Most predictive maintenance tools are built on machine learning — they learn what failure looks like from historical examples. FSME doesn't learn. It measures. That distinction changes everything.</p>
-  </div>
-  <table class="comp-table">
-    <thead><tr><th>Solution</th><th>Approach</th><th>The Reality</th></tr></thead>
-    <tbody>
-      <tr>
-        <td>Deep Learning<br><small style="font-weight:400;color:var(--dim)">LSTM / Transformer models</small></td>
-        <td>Learns failure patterns from historical data</td>
-        <td>Requires terabytes of training data, weeks of cloud compute, and heavy GPU infrastructure. Can only detect failure modes it has already seen — blind to anything new.</td>
-      </tr>
-      <tr>
-        <td>Enterprise AI Platforms<br><small style="font-weight:400;color:var(--dim)">C3.ai, SparkCognition</small></td>
-        <td>Multi-tenant cloud analytics</td>
-        <td>Multi-million dollar integration costs. Your operational data must leave your facility. Months of deployment timelines. Requires significant IT resources.</td>
-      </tr>
-      <tr>
-        <td>Quantum Control Systems<br><small style="font-weight:400;color:var(--dim)">Q-CTRL, Riverlane</small></td>
-        <td>Hardware-level error suppression</td>
-        <td>Addresses control errors at the hardware layer. Does not provide the upstream diagnostic trigger identifying when and where intervention is needed.</td>
-      </tr>
-      <tr class="fsme-row">
-        <td>FSME Logic<br><small style="font-weight:400;color:var(--green2)">Patent Pending CA 3297487</small></td>
-        <td>Physics-based causal entropy measurement</td>
-        <td>Zero training data required. Fully offline and air-gapped. Deployable immediately on any hardware asset — including new systems with no failure history. Validated across quantum processors, orbital satellites, deep-space rovers, and industrial fleets.</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="industry-grid" style="margin-top:3.5rem;">
-    <div style="grid-column:1/-1;margin-bottom:0.5rem;"><p class="section-tag">Industries We Serve</p></div>
-    <div class="industry-card"><div class="industry-icon">🚛</div><h3>Commercial Fleet</h3><p>Hydraulics, powertrains, and braking systems across large vehicle fleets. Catch failures before they pull trucks off the road or create unsafe conditions.</p></div>
-    <div class="industry-card"><div class="industry-icon">🏭</div><h3>Industrial Operations</h3><p>Motors, pumps, compressors, bearings, and HVAC systems. Convert unplanned shutdowns into scheduled maintenance windows.</p></div>
-    <div class="industry-card"><div class="industry-icon">⚛️</div><h3>Quantum Computing</h3><p>Superconducting processor monitoring, just-in-time calibration triggering, and real-time workload routing away from degrading qubits.</p></div>
-    <div class="industry-card"><div class="industry-icon">🛰️</div><h3>Aerospace &amp; Defense</h3><p>Air-gapped, edge-native architecture satisfies the strictest data security requirements. No cloud connection. Validated on active orbital missions.</p></div>
-    <div class="industry-card"><div class="industry-icon">❄️</div><h3>Refrigeration &amp; Cold Chain</h3><p>Compressor and condenser degradation detection before spoilage events occur. Protect inventory and avoid emergency after-hours service calls.</p></div>
-    <div class="industry-card"><div class="industry-icon">✈️</div><h3>Aviation</h3><p>Turbine and engine health monitoring across operating fleets. Validated on NASA's gold-standard commercial aviation benchmark dataset.</p></div>
-  </div>
-</section>
-
-<!-- QUOTE BAND -->
-<div class="quote-band">
-  <blockquote>"We detect when systems stop telling the truth —<br><em>before people pay the price.</em>"</blockquote>
-  <cite>— Alexander Kalyniuk, Founder, FSME Logic</cite>
-</div>
-
-<!-- PRICING -->
-<section class="section-wrap" id="pricing">
-  <div class="section-header">
-    <p class="section-tag">Engagement</p>
-    <h2>Stop Paying for<br>Emergencies You Could Have Prevented.</h2>
-    <p class="section-intro">FSME Logic offers forensic audit engagements designed to deliver immediate, quantifiable proof of value — with zero changes to your existing infrastructure and zero security risk.</p>
-  </div>
-  <div class="pricing-wrap">
-    <div class="pricing-left">
-      <h3>// Forensic Audit Engagement</h3>
-      <div class="pricing-headline">Contact Us<br>for Pricing</div>
-      <ul class="pricing-items">
-        <li>No new sensors, hardware, or infrastructure required</li>
-        <li>Your data never leaves your facility — fully offline analysis</li>
-        <li>No IT department involvement needed</li>
-        <li>Works directly with your existing SCADA, BMS, or data logger exports</li>
-        <li>Plain-language forensic report identifying failure precursors and recommended action</li>
-        <li>On-site analysis available for Edmonton-area operations</li>
-        <li>Quantum and aerospace engagements available — contact for scope</li>
-      </ul>
-    </div>
-    <div class="pricing-right">
-      <a class="btn-primary" href="contact.html">▶ Start the Conversation</a>
-      <p class="pricing-note">Reach out to discuss your operation. We'll scope the engagement to your specific equipment and data format.</p>
+<!-- INFOGRAPHIC -->
+<section class="bg-alt">
+  <div class="wrap">
+    <div class="info-split">
+      <div class="info-text">
+        <p class="section-label">Precision Physics</p>
+        <h2>The difference between detecting failure and preventing it.</h2>
+        <p>Standard monitoring waits for something to go wrong. FSME Logic detects the structural signatures that precede failure — identifying the point where a system's signal record begins deviating from its own history.</p>
+        <p>The result is a planning window measured in hours, days, or months — not seconds. Time to schedule maintenance, order parts, and prevent unplanned downtime entirely.</p>
+        <a class="btn btn-secondary" href="case-studies.html">See Validation Data ▸</a>
+      </div>
+      <div class="info-img">
+        <img src="infographic-1.png" alt="FSME Logic — Predictive Integrity for Critical Assets">
+      </div>
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
-
-<footer class="footer">
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <strong>FSME Logic</strong>
-      Edmonton, Alberta, Canada<br>
-      <a href="contact.html">Contact &amp; Inquiries →</a>
+<!-- VALIDATION -->
+<section>
+  <div class="wrap">
+    <p class="section-label">Independent Validation</p>
+    <h2 class="section-title">Tested on the world's<br>hardest <em>datasets.</em></h2>
+    <p class="section-sub">Every result below was produced on offline edge hardware. No cloud compute. No GPU clusters. No training phase.</p>
+    <div class="val-grid">
+      <div class="val-card">
+        <div class="src">ESA Anomaly Detection Benchmark</div>
+        <div class="metric">9 mo</div>
+        <div class="metric-lbl">Predictive Lead Time</div>
+        <p>Detected a four-channel spacecraft subsystem cascade 9 months before the first officially recorded ESA ground truth anomaly. Every competing algorithm tested by ESA was classified as operationally insufficient.</p>
+      </div>
+      <div class="val-card">
+        <div class="src">NASA Mars Science Laboratory</div>
+        <div class="metric">6.3 hr</div>
+        <div class="metric-lbl">Warning Before Failure</div>
+        <p>Detected mechanical actuator binding on the Curiosity Rover 382 steps before NASA's official failure label — providing 6.3 hours of advance warning on a mission-critical planetary asset.</p>
+      </div>
+      <div class="val-card">
+        <div class="src">NASA C-MAPSS — 509 Turbofan Engines</div>
+        <div class="metric">78%</div>
+        <div class="metric-lbl">Fleet Detection Rate</div>
+        <p>Successfully identified degradation across 509 commercial turbofan engines with an average 126-cycle warning advantage — enabling planned overhauls instead of emergency grounding.</p>
+      </div>
+      <div class="val-card">
+        <div class="src">ESA OPS-SAT Orbital CubeSat</div>
+        <div class="metric">11.5 min</div>
+        <div class="metric-lbl">Orbital Warning</div>
+        <p>Flagged in-orbit CubeSat sensor degradation nearly 12 minutes before official ground-truth failure timestamps — blind test, no prior access to the dataset.</p>
+      </div>
+      <div class="val-card">
+        <div class="src">CWRU Bearing Fault Benchmark</div>
+        <div class="metric">100%</div>
+        <div class="metric-lbl">Classification Rate</div>
+        <p>Successfully classified all 9 bearing fault types and 3 severity levels — running entirely on ARM edge hardware with zero cloud infrastructure.</p>
+      </div>
+      <div class="val-card">
+        <div class="src">Commercial Refrigeration</div>
+        <div class="metric">54%</div>
+        <div class="metric-lbl">Internal Stress Detected</div>
+        <p>Detected a 54% internal stress deviation in refrigeration condenser hardware while the thermostat showed a completely normal reading — a direct demonstration of the Green Dashboard Fallacy in a real commercial system.</p>
+      </div>
     </div>
-    <div class="footer-patent">
-      Patent Pending CA 3297487<br>
-      Finite-State Memory Embedding Engine<br>
-      © 2026 Alexander Kalyniuk. All rights reserved.
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section class="bg-alt">
+  <div class="wrap">
+    <p class="section-label">How We Compare</p>
+    <h2 class="section-title">FSME Logic vs.<br><em>everything else.</em></h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Capability</th>
+            <th>Standard Monitoring</th>
+            <th>FSME Logic</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Detection timing</td><td><span class="tag-bad">After threshold breach</span></td><td><span class="tag-good">Before threshold breach</span></td></tr>
+          <tr><td>Warning window</td><td><span class="tag-bad">Seconds to none</span></td><td><span class="tag-good">Hours, days, or months</span></td></tr>
+          <tr><td>Training data required</td><td><span class="tag-bad">Historical failures needed</span></td><td><span class="tag-good">Zero — deploys cold</span></td></tr>
+          <tr><td>Data security</td><td><span class="tag-bad">Cloud upload required</span></td><td><span class="tag-good">Fully offline, zero data exit</span></td></tr>
+          <tr><td>New infrastructure</td><td><span class="tag-bad">New sensors often required</span></td><td><span class="tag-good">Works with existing exports</span></td></tr>
+          <tr><td>False positive rate</td><td><span class="tag-bad">High — operators disable alerts</span></td><td><span class="tag-good">Zero across full baseline window</span></td></tr>
+          <tr><td>Aerospace validation</td><td><span class="tag-bad">No</span></td><td><span class="tag-good">NASA &amp; ESA confirmed</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section>
+  <div class="wrap">
+    <p class="section-label">The Process</p>
+    <h2 class="section-title">Simple. Secure.<br><em>Actionable.</em></h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3>Export Your Data</h3>
+        <p>Pull a CSV from your existing monitoring system. 30–90 days of sensor readings is ideal. No special format required.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3>On-Site Audit</h3>
+        <p>We arrive with our own offline hardware. All analysis runs locally at your facility. No internet connection. Your data never moves.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3>Forensic Report</h3>
+        <p>A plain-language summary identifying which systems showed early warning indicators, what the stress timeline looks like, and what action is recommended.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <h3>Custody Receipt</h3>
+        <p>A SHA-256 cryptographic chain of custody document confirming your data was handled securely and never transmitted at any stage.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <h2>Ready to see what your<br>sensors are missing?</h2>
+  <p>Book a Pilot Integrity Audit. On-site, fully offline, no new infrastructure required. Results delivered the same day.</p>
+  <div class="cta-row">
+    <a class="btn btn-primary" href="contact.html">Contact Us ▸</a>
+    <a class="btn btn-secondary" href="case-studies.html">Review Validation Data</a>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-left">
+      © 2026 Alexander Kalyniuk — FSME Logic &nbsp;|&nbsp; Edmonton, Alberta, Canada<br>
+      Patent Pending &nbsp;|&nbsp; <a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a>
+    </div>
+    <div class="foot-right">
+      <a href="case-studies.html">Validation</a>
+      <a href="about.html">About</a>
+      <a href="faq.html">FAQ</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="contact.html">Contact</a>
     </div>
   </div>
 </footer>
 
 <script>
-  function fmt(n) { return '$' + Math.round(n).toLocaleString('en-CA'); }
-  function calcROI() {
-    const units    = parseFloat(document.getElementById('roi-units').value)    || 0;
-    const repair   = parseFloat(document.getElementById('roi-repair').value)   || 0;
-    const failures = parseFloat(document.getElementById('roi-failures').value) || 0;
-    const current   = repair * failures;
-    const savings   = current * 0.70;
-    const perUnit   = units > 0 ? current / units : 0;
-    const threeYear = current * 3;
-    document.getElementById('out-current').textContent   = fmt(current);
-    document.getElementById('out-savings').textContent   = fmt(savings);
-    document.getElementById('out-per-unit').textContent  = fmt(perUnit);
-    document.getElementById('out-threeyear').textContent = fmt(threeYear);
-  }
-  calcROI();
+  const btn = document.getElementById('hamburger');
+  const menu = document.getElementById('mobile-menu');
+  btn.addEventListener('click', () => {
+    btn.classList.toggle('open');
+    menu.classList.toggle('open');
+  });
 </script>
 </body>
 </html>

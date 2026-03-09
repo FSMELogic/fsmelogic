@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Secure Payment — FSME Logic</title>
+  <meta name="description" content="Secure payment portal for FSME Logic audit engagements. All payments processed via Square.">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:     #0e1118;
+      --bg2:    #141822;
+      --card:   #181f2e;
+      --steel:  #1c2438;
+      --border: #242e42;
+      --bord2:  #2e3a52;
+      --blue:   #3d8ef0;
+      --blue2:  #2d6fd0;
+      --text:   #c5d2e8;
+      --muted:  #6e86a8;
+      --dim:    #3a4a62;
+      --head:   'Barlow Condensed', sans-serif;
+      --mono:   'IBM Plex Mono', monospace;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--mono); font-size: 16px; line-height: 1.7; min-height: 100vh; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none; background-image: linear-gradient(rgba(61,142,240,0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(61,142,240,0.018) 1px, transparent 1px); background-size: 52px 52px; }
+    body::after { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none; background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.04) 3px, rgba(0,0,0,0.04) 4px); }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; background: rgba(8,10,16,0.96); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); box-shadow: 0 1px 0 rgba(61,142,240,0.12); }
+    .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0.85rem 2rem; }
+    .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+    .nav-logo img { height: 42px; width: 42px; object-fit: contain; border-radius: 4px; }
+    .nav-logo-text { font-family: var(--mono); font-weight: 700; font-size: 1rem; color: var(--blue); letter-spacing: 0.1em; }
+    .nav-links { display: flex; list-style: none; align-items: center; gap: 0.25rem; }
+    .nav-links a { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.45rem 0.9rem; transition: color 0.2s, background 0.2s; }
+    .nav-links a:hover { color: var(--blue); background: rgba(61,142,240,0.08); }
+    .nav-links .nav-cta a { color: var(--blue); border: 1px solid rgba(61,142,240,0.5); padding: 0.45rem 1rem; }
+    .nav-links .nav-cta a:hover { background: var(--blue); color: #fff; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 0.5rem; background: none; border: none; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--muted); transition: all 0.3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu { display: none; flex-direction: column; background: rgba(8,10,16,0.98); border-top: 1px solid var(--border); padding: 1rem 2rem 1.5rem; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-family: var(--mono); font-size: 0.85rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.85rem 0; border-bottom: 1px solid var(--border); transition: color 0.2s; }
+    .mobile-menu a:hover { color: var(--blue); }
+    .mobile-menu a:last-child { color: var(--blue); border-bottom: none; margin-top: 0.5rem; }
+
+    section { position: relative; z-index: 1; }
+
+    /* PAGE */
+    .page-wrap {
+      max-width: 960px; margin: 0 auto;
+      padding: 9rem 2rem 6rem;
+      position: relative; z-index: 1;
+    }
+
+    .page-eyebrow { font-family: var(--mono); font-size: 0.72rem; color: var(--blue); letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.75rem; animation: fadeUp 0.4s ease both; }
+    .page-eyebrow::before { content: '▸'; }
+
+    .page-wrap h1 { font-family: var(--head); font-size: clamp(2.8rem, 7vw, 5rem); font-weight: 800; color: #dde6f5; line-height: 0.95; margin-bottom: 1rem; animation: fadeUp 0.4s 0.1s ease both; }
+    .page-wrap h1 em { font-style: normal; color: var(--blue); }
+
+    .page-intro { font-family: var(--mono); font-size: 0.95rem; color: var(--muted); max-width: 600px; line-height: 1.9; margin-bottom: 3.5rem; animation: fadeUp 0.4s 0.2s ease both; }
+
+    /* LAYOUT */
+    .payment-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 2rem; align-items: start; animation: fadeUp 0.4s 0.3s ease both; }
+
+    /* LEFT — WHAT'S INCLUDED */
+    .audit-card { background: var(--card); border: 1px solid var(--border); border-top: 3px solid var(--blue); }
+    .audit-card-header { padding: 2rem 2.25rem 1.5rem; border-bottom: 1px solid var(--border); }
+    .audit-card-header h2 { font-family: var(--head); font-size: 1.8rem; font-weight: 800; color: #dde6f5; margin-bottom: 0.3rem; }
+    .audit-card-header p { font-family: var(--mono); font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+    .audit-card-body { padding: 2rem 2.25rem; }
+
+    .section-tag { font-family: var(--mono); font-size: 0.65rem; color: var(--blue); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+    .section-tag::before { content: '//'; color: var(--dim); }
+
+    .includes-list { list-style: none; display: flex; flex-direction: column; gap: 0.9rem; margin-bottom: 2rem; }
+    .includes-list li { font-family: var(--mono); font-size: 0.88rem; color: var(--muted); display: flex; align-items: flex-start; gap: 0.85rem; line-height: 1.7; }
+    .includes-list li::before { content: '✓'; color: var(--blue); font-weight: 700; flex-shrink: 0; margin-top: 0.05rem; }
+
+    .security-note { background: rgba(61,142,240,0.06); border: 1px solid rgba(61,142,240,0.18); border-left: 3px solid var(--blue); padding: 1.25rem 1.5rem; margin-bottom: 2rem; }
+    .security-note h4 { font-family: var(--mono); font-size: 0.65rem; color: var(--blue); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 0.5rem; }
+    .security-note p { font-family: var(--mono); font-size: 0.85rem; color: var(--text); line-height: 1.8; }
+
+    .process-steps { display: flex; flex-direction: column; gap: 0.85rem; }
+    .process-step { display: flex; align-items: flex-start; gap: 1rem; }
+    .step-num { font-family: var(--head); font-size: 1.5rem; font-weight: 800; color: rgba(61,142,240,0.25); line-height: 1; flex-shrink: 0; width: 1.5rem; }
+    .step-text { font-family: var(--mono); font-size: 0.86rem; color: var(--muted); line-height: 1.75; padding-top: 0.05rem; }
+    .step-text strong { color: var(--text); }
+
+    /* RIGHT — PAYMENT PANEL */
+    .payment-panel { display: flex; flex-direction: column; gap: 1.25rem; position: sticky; top: 7rem; }
+
+    .pay-card { background: var(--steel); border: 1px solid var(--border); border-top: 3px solid var(--blue); padding: 2.25rem; }
+    .pay-card h3 { font-family: var(--head); font-size: 1.6rem; font-weight: 800; color: #dde6f5; margin-bottom: 0.5rem; }
+    .pay-card .sub { font-family: var(--mono); font-size: 0.85rem; color: var(--muted); line-height: 1.8; margin-bottom: 2rem; }
+
+    /* SCAN LINE EFFECT */
+    .scan-bar { background: var(--card); border: 1px solid var(--border); padding: 1.5rem; text-align: center; margin-bottom: 1.5rem; position: relative; overflow: hidden; }
+    .scan-bar::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, var(--blue), transparent); animation: scan 3s linear infinite; }
+    @keyframes scan { 0% { left: -100%; } 100% { left: 100%; } }
+    .scan-bar .scan-label { font-family: var(--mono); font-size: 0.68rem; color: var(--blue); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 0.5rem; }
+    .scan-bar .scan-value { font-family: var(--head); font-size: 1.4rem; font-weight: 700; color: #dde6f5; }
+
+    .btn-pay { display: flex; align-items: center; justify-content: center; gap: 0.75rem; width: 100%; background: var(--blue); color: #fff; font-family: var(--mono); font-size: 0.9rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 1.2rem 2rem; text-decoration: none; border: 2px solid var(--blue); transition: all 0.2s; margin-bottom: 1rem; }
+    .btn-pay:hover { background: var(--blue2); border-color: var(--blue2); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(61,142,240,0.3); }
+
+    .divider-row { display: flex; align-items: center; gap: 1rem; margin: 0.5rem 0; }
+    .divider-row::before, .divider-row::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .divider-row span { font-family: var(--mono); font-size: 0.65rem; color: var(--dim); letter-spacing: 0.12em; text-transform: uppercase; }
+
+    .btn-etransfer { display: flex; align-items: center; justify-content: center; gap: 0.75rem; width: 100%; background: transparent; color: var(--text); font-family: var(--mono); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 1rem 2rem; text-decoration: none; border: 2px solid var(--bord2); transition: all 0.2s; margin-bottom: 1.25rem; }
+    .btn-etransfer:hover { border-color: var(--text); }
+
+    .methods { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+    .method-tag { font-family: var(--mono); font-size: 0.62rem; color: var(--dim); background: var(--card); border: 1px solid var(--border); padding: 0.2rem 0.55rem; letter-spacing: 0.08em; }
+
+    .pay-note { font-family: var(--mono); font-size: 0.72rem; color: var(--dim); line-height: 1.7; text-align: center; margin-top: 0.85rem; }
+    .pay-note a { color: var(--blue); text-decoration: none; }
+
+    /* TRUST BLOCK */
+    .trust-block { background: var(--card); border: 1px solid var(--border); padding: 1.75rem; }
+    .trust-item { display: flex; align-items: flex-start; gap: 0.85rem; margin-bottom: 1rem; }
+    .trust-item:last-child { margin-bottom: 0; }
+    .trust-icon { font-size: 1rem; flex-shrink: 0; margin-top: 0.1rem; }
+    .trust-text { font-family: var(--mono); font-size: 0.83rem; color: var(--muted); line-height: 1.7; }
+    .trust-text strong { color: #dde6f5; display: block; font-size: 0.85rem; margin-bottom: 0.1rem; }
+
+    footer { background: #080a10; border-top: 1px solid var(--border); padding: 2.5rem 2rem; position: relative; z-index: 1; }
+    .foot-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .foot-left { font-family: var(--mono); font-size: 0.77rem; color: var(--dim); line-height: 1.8; }
+    .foot-left a { color: var(--blue); text-decoration: none; }
+    .foot-right { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .foot-right a { font-family: var(--mono); font-size: 0.73rem; color: var(--dim); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+    .foot-right a:hover { color: var(--blue); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 800px) {
+      .payment-grid { grid-template-columns: 1fr; }
+      .payment-panel { position: static; }
+    }
+    @media (max-width: 680px) {
+      .nav-links { display: none; } .hamburger { display: flex; }
+      .page-wrap { padding: 7.5rem 1.25rem 5rem; }
+      footer { padding: 2rem 1.25rem; } .foot-inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">
+      <img src="logo.jpg" alt="FSME Logic">
+      <span class="nav-logo-text">FSME Logic</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="case-studies.html">Validation</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li class="nav-cta"><a href="payment.html">Request Audit</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="case-studies.html">Validation</a>
+    <a href="about.html">About</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html">Contact</a>
+    <a href="payment.html">Request Audit</a>
+  </div>
+</nav>
+
+<div class="page-wrap">
+  <p class="page-eyebrow">Secure Payment</p>
+  <h1>Complete Your<br><em>Engagement.</em></h1>
+  <p class="page-intro">Use the button below to complete your payment securely via Square. If you have any questions before paying, contact us first — we're happy to answer them.</p>
+
+  <div class="payment-grid">
+
+    <!-- LEFT -->
+    <div class="audit-card">
+      <div class="audit-card-header">
+        <h2>FSME Logic Integrity Audit</h2>
+        <p>On-site predictive integrity audit of your equipment or fleet telemetry. Air-gapped, offline hardware — your data never leaves your facility.</p>
+      </div>
+      <div class="audit-card-body">
+
+        <p class="section-tag">Deliverables</p>
+        <ul class="includes-list">
+          <li>Live analysis across all available sensor channels in your data export</li>
+          <li>Identification of active stress signatures and earliest detection timeline</li>
+          <li>Channel-by-channel health classification — confirmed healthy vs. flagged</li>
+          <li>Plain-language forensic summary with recommended action</li>
+          <li>SHA-256 chain of custody receipt — cryptographic proof of secure data handling</li>
+          <li>No new sensors, hardware, or infrastructure required</li>
+          <li>Works with your existing SCADA, BMS, or data logger CSV exports</li>
+        </ul>
+
+        <div class="security-note">
+          <h4>// Data Security Guarantee</h4>
+          <p>All analysis is performed on local, offline hardware at your facility. Your operational data is never uploaded to any cloud server, never transmitted over any network, and never leaves your site at any stage.</p>
+        </div>
+
+        <p class="section-tag">How It Works</p>
+        <div class="process-steps">
+          <div class="process-step">
+            <div class="step-num">01</div>
+            <div class="step-text"><strong>Export your data</strong> — Pull a CSV from your existing monitoring system. 30–90 days of sensor readings is ideal.</div>
+          </div>
+          <div class="process-step">
+            <div class="step-num">02</div>
+            <div class="step-text"><strong>On-site audit</strong> — We run the FSME engine locally on your data. No internet connection. No cloud upload. Analysis completes in minutes.</div>
+          </div>
+          <div class="process-step">
+            <div class="step-num">03</div>
+            <div class="step-text"><strong>Forensic report</strong> — A clear summary identifying which systems showed early warning indicators and what action is recommended.</div>
+          </div>
+          <div class="process-step">
+            <div class="step-num">04</div>
+            <div class="step-text"><strong>Custody receipt</strong> — SHA-256 cryptographic proof of secure data handling delivered at the end of every engagement.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="payment-panel">
+
+      <div class="pay-card">
+        <h3>Complete Payment</h3>
+        <p class="sub">Secure payment processed by Square. Your engagement amount will have been confirmed with you prior to this step.</p>
+
+        <div class="scan-bar">
+          <div class="scan-label">Authorized Engagement</div>
+          <div class="scan-value">FSME Logic Integrity Audit</div>
+        </div>
+
+        <a class="btn-pay" href="https://square.link/u/DJ5ClpH2" target="_blank" rel="noopener">
+          ▶ &nbsp;Pay Securely with Square
+        </a>
+
+        <div class="divider-row"><span>or</span></div>
+
+        <a class="btn-etransfer" href="mailto:alex-kalyniuk@fsmelogic.ca?subject=FSME Audit — E-Transfer Payment&body=I would like to arrange payment via e-transfer for my FSME Logic audit engagement. Please confirm your e-transfer details.">
+          ✉ &nbsp;Arrange E-Transfer
+        </a>
+
+        <div class="methods">
+          <span class="method-tag">Visa</span>
+          <span class="method-tag">Mastercard</span>
+          <span class="method-tag">Amex</span>
+          <span class="method-tag">Apple Pay</span>
+          <span class="method-tag">Google Pay</span>
+          <span class="method-tag">Tap to Pay</span>
+          <span class="method-tag">E-Transfer</span>
+          <span class="method-tag">Cheque</span>
+        </div>
+
+        <p class="pay-note">Questions before paying? <a href="contact.html">Contact us first →</a></p>
+      </div>
+
+      <div class="trust-block">
+        <div class="trust-item">
+          <div class="trust-icon">🔒</div>
+          <div class="trust-text">
+            <strong>Air-Gapped Processing</strong>
+            Your data is analyzed entirely offline. No internet connection at any stage of the audit.
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">📋</div>
+          <div class="trust-text">
+            <strong>SHA-256 Custody Receipt</strong>
+            Cryptographic proof of secure data handling provided at every engagement.
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">⚙️</div>
+          <div class="trust-text">
+            <strong>No Infrastructure Changes</strong>
+            Works with your existing data exports. No new sensors or hardware required.
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">🏅</div>
+          <div class="trust-text">
+            <strong>Patent Pending</strong>
+            Proprietary detection engine validated on NASA, ESA, and IBM quantum hardware datasets.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-left">
+      © 2026 Alexander Kalyniuk — FSME Logic &nbsp;|&nbsp; Edmonton, Alberta, Canada<br>
+      Patent Pending &nbsp;|&nbsp; <a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a>
+    </div>
+    <div class="foot-right">
+      <a href="case-studies.html">Validation</a>
+      <a href="about.html">About</a>
+      <a href="faq.html">FAQ</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const btn = document.getElementById('hamburger');
+  const menu = document.getElementById('mobile-menu');
+  btn.addEventListener('click', () => { btn.classList.toggle('open'); menu.classList.toggle('open'); });
+</script>
+</body>
+</html>

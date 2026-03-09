@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — FSME Logic</title>
+  <meta name="description" content="FSME Logic privacy policy. How we handle contact form submissions and website visitor data.">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:     #0e1118;
+      --bg2:    #141822;
+      --card:   #181f2e;
+      --steel:  #1c2438;
+      --border: #242e42;
+      --bord2:  #2e3a52;
+      --blue:   #3d8ef0;
+      --blue2:  #2d6fd0;
+      --text:   #c5d2e8;
+      --muted:  #6e86a8;
+      --dim:    #3a4a62;
+      --head:   'Barlow Condensed', sans-serif;
+      --mono:   'IBM Plex Mono', monospace;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--mono); font-size: 16px; line-height: 1.7; min-height: 100vh; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none; background-image: linear-gradient(rgba(61,142,240,0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(61,142,240,0.018) 1px, transparent 1px); background-size: 52px 52px; }
+    body::after { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none; background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.04) 3px, rgba(0,0,0,0.04) 4px); }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; background: rgba(8,10,16,0.96); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); box-shadow: 0 1px 0 rgba(61,142,240,0.12); }
+    .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0.85rem 2rem; }
+    .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+    .nav-logo img { height: 42px; width: 42px; object-fit: contain; border-radius: 4px; }
+    .nav-logo-text { font-family: var(--mono); font-weight: 700; font-size: 1rem; color: var(--blue); letter-spacing: 0.1em; }
+    .nav-links { display: flex; list-style: none; align-items: center; gap: 0.25rem; }
+    .nav-links a { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.45rem 0.9rem; transition: color 0.2s, background 0.2s; }
+    .nav-links a:hover { color: var(--blue); background: rgba(61,142,240,0.08); }
+    .nav-links .nav-cta a { color: var(--blue); border: 1px solid rgba(61,142,240,0.5); padding: 0.45rem 1rem; }
+    .nav-links .nav-cta a:hover { background: var(--blue); color: #fff; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 0.5rem; background: none; border: none; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--muted); transition: all 0.3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu { display: none; flex-direction: column; background: rgba(8,10,16,0.98); border-top: 1px solid var(--border); padding: 1rem 2rem 1.5rem; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-family: var(--mono); font-size: 0.85rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.85rem 0; border-bottom: 1px solid var(--border); transition: color 0.2s; }
+    .mobile-menu a:hover { color: var(--blue); }
+    .mobile-menu a:last-child { color: var(--blue); border-bottom: none; margin-top: 0.5rem; }
+
+    section { position: relative; z-index: 1; }
+
+    /* PAGE */
+    .page-wrap { max-width: 800px; margin: 0 auto; padding: 8rem 2rem 6rem; position: relative; z-index: 1; }
+
+    .page-eyebrow { font-family: var(--mono); font-size: 0.72rem; color: var(--blue); letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.75rem; }
+    .page-eyebrow::before { content: '▸'; }
+
+    .page-wrap h1 { font-family: var(--head); font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800; color: #dde6f5; line-height: 1.0; margin-bottom: 0.75rem; }
+
+    .effective-date { font-family: var(--mono); font-size: 0.8rem; color: var(--dim); margin-bottom: 3rem; letter-spacing: 0.06em; }
+
+    /* CONTENT */
+    .policy-section { margin-bottom: 3rem; padding-bottom: 3rem; border-bottom: 1px solid var(--border); }
+    .policy-section:last-of-type { border-bottom: none; }
+
+    .policy-section h2 { font-family: var(--head); font-size: 1.6rem; font-weight: 700; color: #dde6f5; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; }
+    .policy-section h2 .section-num { font-family: var(--mono); font-size: 0.7rem; color: var(--blue); background: rgba(61,142,240,0.1); border: 1px solid rgba(61,142,240,0.25); padding: 0.2rem 0.55rem; letter-spacing: 0.1em; font-weight: 400; }
+
+    .policy-section p { font-family: var(--mono); font-size: 0.9rem; color: var(--muted); line-height: 1.95; margin-bottom: 1.1rem; }
+    .policy-section p:last-child { margin-bottom: 0; }
+    .policy-section strong { color: var(--text); }
+    .policy-section a { color: var(--blue); text-decoration: none; }
+    .policy-section a:hover { text-decoration: underline; }
+
+    .policy-section ul { list-style: none; margin: 1rem 0; display: flex; flex-direction: column; gap: 0.65rem; }
+    .policy-section ul li { font-family: var(--mono); font-size: 0.88rem; color: var(--muted); line-height: 1.8; display: flex; align-items: flex-start; gap: 0.85rem; }
+    .policy-section ul li::before { content: '—'; color: var(--dim); flex-shrink: 0; margin-top: 0.05rem; }
+
+    .plain-summary { background: var(--steel); border: 1px solid var(--border); border-left: 3px solid var(--blue); padding: 1.5rem 1.75rem; margin-bottom: 3rem; }
+    .plain-summary h3 { font-family: var(--mono); font-size: 0.68rem; color: var(--blue); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 0.75rem; }
+    .plain-summary p { font-family: var(--mono); font-size: 0.88rem; color: var(--text); line-height: 1.85; margin-bottom: 0.75rem; }
+    .plain-summary p:last-child { margin-bottom: 0; }
+
+    footer { background: #080a10; border-top: 1px solid var(--border); padding: 2.5rem 2rem; position: relative; z-index: 1; }
+    .foot-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .foot-left { font-family: var(--mono); font-size: 0.77rem; color: var(--dim); line-height: 1.8; }
+    .foot-left a { color: var(--blue); text-decoration: none; }
+    .foot-right { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .foot-right a { font-family: var(--mono); font-size: 0.73rem; color: var(--dim); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+    .foot-right a:hover { color: var(--blue); }
+
+    @media (max-width: 680px) {
+      .nav-links { display: none; } .hamburger { display: flex; }
+      .page-wrap { padding: 7rem 1.25rem 5rem; }
+      footer { padding: 2rem 1.25rem; } .foot-inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">
+      <img src="logo.jpg" alt="FSME Logic">
+      <span class="nav-logo-text">FSME Logic</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="case-studies.html">Validation</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li class="nav-cta"><a href="payment.html">Request Audit</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="case-studies.html">Validation</a>
+    <a href="about.html">About</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html">Contact</a>
+    <a href="payment.html">Request Audit</a>
+  </div>
+</nav>
+
+<div class="page-wrap">
+  <p class="page-eyebrow">Legal</p>
+  <h1>Privacy Policy</h1>
+  <p class="effective-date">Effective: March 2026 &nbsp;|&nbsp; Last updated: March 9, 2026</p>
+
+  <div class="plain-summary">
+    <h3>// Plain Language Summary</h3>
+    <p>We collect only the information you give us through our contact form — your name, company, email, and message. We use it only to respond to your inquiry. We do not sell it, share it with third parties, or use it for advertising.</p>
+    <p>This website does not use analytics cookies or tracking scripts. We do not know who visits this site unless you contact us directly.</p>
+    <p>If you send us data for an audit, it is processed entirely on local offline hardware at your facility. It never passes through this website and is not stored on any server we operate.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="section-num">01</span> Who We Are</h2>
+    <p>This Privacy Policy applies to FSME Logic, operated by Alexander Kalyniuk, a sole proprietor based in Edmonton, Alberta, Canada. We operate the website at fsmelogic.ca and provide on-site predictive integrity audit services to industrial and commercial clients.</p>
+    <p>For privacy-related questions, contact us at <a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a>.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="section-num">02</span> Information We Collect</h2>
+    <p><strong>Contact form submissions.</strong> When you submit our contact form, we collect the information you provide: first and last name, company name, role, email address, phone number (optional), industry, fleet size, data logging status, and your message. This information is transmitted securely to Formspree (our form processing provider) and forwarded to our business email address.</p>
+    <p><strong>Email correspondence.</strong> If you contact us directly by email, we retain that correspondence for the purpose of responding to your inquiry and managing the business relationship.</p>
+    <p><strong>Website analytics.</strong> This website does not currently use Google Analytics, Meta Pixel, or any third-party analytics or tracking scripts. We do not place advertising cookies on your device.</p>
+    <p><strong>Audit data.</strong> Operational sensor data provided for audit purposes is processed entirely on local, offline hardware at your facility. It is not transmitted through this website, not stored on any server operated by FSME Logic, and is not covered by this Privacy Policy. Handling of audit data is governed by the engagement agreement and, where applicable, a separate Non-Disclosure Agreement.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="section-num">03</span> How We Use Your Information</h2>
+    <p>We use the information you provide through our contact form solely to:</p>
+    <ul>
+      <li>Respond to your inquiry about our services</li>
+      <li>Confirm data compatibility and schedule audit engagements</li>
+      <li>Communicate about the status of your engagement</li>
+      <li>Send a forensic report and custody receipt following a completed audit</li>
+    </ul>
+    <p>We do not use your contact information for unsolicited marketing, do not add you to any mailing list without your explicit consent, and do not use your information for any purpose unrelated to your inquiry.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="section-num">04</span> How We Share Your Information</h2>
+    <p>We do not sell, rent, or trade your personal information to any third party.</p>
+    <p><strong>Formspree.</strong> Contact form submissions are processed by Formspree, Inc. Formspree acts as a data processor on our behalf and is bound by its own privacy policy and data processing terms. Formspree is used solely to receive and forward contact form submissions to our email address.</p>
+    <p><strong>Legal requirements.</strong> We may disclose your information if required to do so by law or in response to a valid legal process.</p>
+    <p>No other third parties receive your personal information.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="section-num">05</span> Data Retention</h2>
+    <p>Contact form submissions and email correspondence are retained for as long as necessary to manage the business relationship and for reasonable record-keeping purposes. If you request deletion of your information, we will honour that request except where retention is required by law.</p>
+    <p>To request deletion of your information, contact us at <a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a>.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="section-num">06</span> Your Rights (PIPEDA)</h2>
+    <p>As a Canadian business, we operate in compliance with the Personal Information Protection and Electronic Documents Act (PIPEDA). Under PIPEDA, you have the right to:</p>
+    <ul>
+      <li>Know what personal information we hold about you</li>
+      <li>Request access to your personal information</li>
+      <li>Request correction of inaccurate information</li>
+      <li>Withdraw consent for the collection or use of your personal information (subject to legal or contractual restrictions)</li>
+      <li>File a complaint with the Office of the Privacy Commissioner of Canada</li>
+    </ul>
+    <p>To exercise any of these rights, contact us at <a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a>. We will respond within 30 days.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="section-num">07</span> Security</h2>
+    <p>This website is hosted on GitHub Pages and served through Cloudflare's content delivery network with TLS encryption. All data transmitted through the contact form is encrypted in transit.</p>
+    <p>We take reasonable steps to protect your personal information from unauthorized access, use, or disclosure. No method of transmission over the internet is 100% secure, and we cannot guarantee absolute security.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="section-num">08</span> Cookies</h2>
+    <p>This website does not set first-party cookies for analytics or tracking purposes. Cloudflare, our DNS and CDN provider, may set security-related cookies as part of its bot protection and performance features. These cookies are necessary for the secure delivery of the website and do not track you across other sites.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="section-num">09</span> Children's Privacy</h2>
+    <p>Our services are directed to business operators and are not intended for individuals under the age of 18. We do not knowingly collect personal information from minors.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="section-num">10</span> Changes to This Policy</h2>
+    <p>We may update this Privacy Policy from time to time. When we do, we will update the "Last updated" date at the top of this page. We encourage you to review this policy periodically. Continued use of this website after changes are posted constitutes acceptance of the updated policy.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="section-num">11</span> Contact</h2>
+    <p>For any questions, concerns, or requests related to this Privacy Policy or your personal information, contact us at:</p>
+    <p><strong>Alexander Kalyniuk — FSME Logic</strong><br>
+    Edmonton, Alberta, Canada<br>
+    <a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a></p>
+  </div>
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-left">
+      © 2026 Alexander Kalyniuk — FSME Logic &nbsp;|&nbsp; Edmonton, Alberta, Canada<br>
+      Patent Pending &nbsp;|&nbsp; <a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a>
+    </div>
+    <div class="foot-right">
+      <a href="case-studies.html">Validation</a>
+      <a href="about.html">About</a>
+      <a href="faq.html">FAQ</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const btn = document.getElementById('hamburger');
+  const menu = document.getElementById('mobile-menu');
+  btn.addEventListener('click', () => { btn.classList.toggle('open'); menu.classList.toggle('open'); });
+</script>
+</body>
+</html>
