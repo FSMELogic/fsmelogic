@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Validation Reports — FSME Logic</title>
+  <meta name="description" content="Full-length forensic validation reports from FSME Logic. NASA, ESA, IBM quantum processor, and industrial benchmark datasets.">
+  <meta name="robots" content="noindex">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0e1118; --bg2: #141822; --card: #181f2e; --steel: #1c2438;
+      --border: #242e42; --bord2: #2e3a52;
+      --blue: #3d8ef0; --blue2: #2d6fd0; --cyan: #5bb8d4; --gold: #c9a84c;
+      --text: #c5d2e8; --muted: #6e86a8; --dim: #3a4a62;
+      --head: 'Barlow Condensed', sans-serif; --mono: 'IBM Plex Mono', monospace;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--mono); font-size: 16px; line-height: 1.7; min-height: 100vh; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none; background-image: linear-gradient(rgba(61,142,240,0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(61,142,240,0.018) 1px, transparent 1px); background-size: 52px 52px; }
+    body::after { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none; background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.04) 3px, rgba(0,0,0,0.04) 4px); }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; background: rgba(8,10,16,0.96); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); box-shadow: 0 1px 0 rgba(61,142,240,0.12); }
+    .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0.85rem 2rem; }
+    .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+    .nav-logo img { height: 42px; width: 42px; object-fit: contain; border-radius: 4px; }
+    .nav-logo-text { font-family: var(--mono); font-weight: 700; font-size: 1rem; color: var(--blue); letter-spacing: 0.1em; }
+    .nav-links { display: flex; list-style: none; align-items: center; gap: 0.25rem; }
+    .nav-links a { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.45rem 0.9rem; transition: color 0.2s, background 0.2s; }
+    .nav-links a:hover { color: var(--blue); background: rgba(61,142,240,0.08); }
+    .nav-links .nav-cta a { color: var(--blue); border: 1px solid rgba(61,142,240,0.5); padding: 0.45rem 1rem; }
+    .nav-links .nav-cta a:hover { background: var(--blue); color: #fff; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 0.5rem; background: none; border: none; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--muted); transition: all 0.3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu { display: none; flex-direction: column; background: rgba(8,10,16,0.98); border-top: 1px solid var(--border); padding: 1rem 2rem 1.5rem; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-family: var(--mono); font-size: 0.85rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.85rem 0; border-bottom: 1px solid var(--border); transition: color 0.2s; }
+    .mobile-menu a:last-child { color: var(--blue); border-bottom: none; margin-top: 0.5rem; }
+
+    .page-wrap { max-width: 1100px; margin: 0 auto; padding: 9rem 2rem 6rem; position: relative; z-index: 1; }
+    .page-eyebrow { font-family: var(--mono); font-size: 0.72rem; color: var(--blue); letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.75rem; }
+    .page-eyebrow::before { content: '▸'; }
+    .page-wrap h1 { font-family: var(--head); font-size: clamp(2.8rem, 7vw, 4.5rem); font-weight: 800; color: #dde6f5; line-height: 0.95; margin-bottom: 1rem; }
+    .page-wrap h1 em { font-style: normal; color: var(--blue); }
+    .page-intro { font-family: var(--mono); font-size: 0.95rem; color: var(--muted); max-width: 640px; line-height: 1.9; margin-bottom: 1.5rem; }
+
+    .access-note { background: rgba(61,142,240,0.06); border: 1px solid rgba(61,142,240,0.2); border-left: 3px solid var(--blue); padding: 1.25rem 1.5rem; margin-bottom: 3.5rem; }
+    .access-note p { font-family: var(--mono); font-size: 0.85rem; color: var(--muted); line-height: 1.8; }
+    .access-note strong { color: var(--text); }
+
+    .section-tag { font-family: var(--mono); font-size: 0.65rem; color: var(--blue); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
+    .section-tag::before { content: '//'; color: var(--dim); }
+
+    /* REPORT CARDS */
+    .reports-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; margin-bottom: 4rem; }
+
+    .report-card { background: var(--card); border: 1px solid var(--border); display: flex; flex-direction: column; transition: border-color 0.25s, transform 0.25s; position: relative; overflow: hidden; }
+    .report-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--blue); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
+    .report-card:hover { border-color: rgba(61,142,240,0.4); transform: translateY(-3px); }
+    .report-card:hover::before { transform: scaleX(1); }
+
+    .report-card-header { padding: 1.75rem 1.75rem 1.25rem; border-bottom: 1px solid var(--border); }
+    .report-badge { display: inline-flex; align-items: center; gap: 0.4rem; font-family: var(--mono); font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.2rem 0.6rem; margin-bottom: 1rem; border: 1px solid; }
+    .badge-nasa { color: #4a9eff; border-color: rgba(74,158,255,0.3); background: rgba(74,158,255,0.08); }
+    .badge-esa { color: #f0a030; border-color: rgba(240,160,48,0.3); background: rgba(240,160,48,0.08); }
+    .badge-ibm { color: #7b8cde; border-color: rgba(123,140,222,0.3); background: rgba(123,140,222,0.08); }
+    .badge-industrial { color: var(--cyan); border-color: rgba(91,184,212,0.3); background: rgba(91,184,212,0.08); }
+    .badge-multi { color: var(--gold); border-color: rgba(201,168,76,0.3); background: rgba(201,168,76,0.08); }
+
+    .report-card h3 { font-family: var(--head); font-size: 1.35rem; font-weight: 800; color: #dde6f5; line-height: 1.2; margin-bottom: 0.35rem; }
+    .report-source { font-family: var(--mono); font-size: 0.72rem; color: var(--dim); }
+
+    .report-card-body { padding: 1.25rem 1.75rem; flex: 1; }
+    .report-meta { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.25rem; }
+    .report-meta-row { display: flex; align-items: baseline; gap: 0.75rem; }
+    .report-meta-key { font-family: var(--mono); font-size: 0.62rem; color: var(--dim); letter-spacing: 0.1em; text-transform: uppercase; min-width: 90px; flex-shrink: 0; }
+    .report-meta-val { font-family: var(--mono); font-size: 0.85rem; color: var(--text); }
+    .report-desc { font-family: var(--mono); font-size: 0.85rem; color: var(--muted); line-height: 1.8; }
+
+    .report-card-footer { padding: 1.25rem 1.75rem; border-top: 1px solid var(--border); display: flex; gap: 0.75rem; }
+    .btn-view { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--mono); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.65rem 1.25rem; text-decoration: none; transition: all 0.2s; border: 1px solid; }
+    .btn-view-primary { background: var(--blue); color: #fff; border-color: var(--blue); }
+    .btn-view-primary:hover { background: var(--blue2); border-color: var(--blue2); }
+    .btn-view-secondary { background: transparent; color: var(--muted); border-color: var(--bord2); }
+    .btn-view-secondary:hover { color: var(--text); border-color: var(--text); }
+
+    /* COMING SOON STATE */
+    .report-card.coming-soon { opacity: 0.5; pointer-events: none; }
+    .report-card.coming-soon::before { display: none; }
+    .coming-label { font-family: var(--mono); font-size: 0.62rem; color: var(--dim); letter-spacing: 0.12em; text-transform: uppercase; margin-top: auto; }
+
+    .upload-note { background: var(--steel); border: 1px solid var(--border); padding: 2rem 2.25rem; }
+    .upload-note h3 { font-family: var(--head); font-size: 1.3rem; font-weight: 700; color: #dde6f5; margin-bottom: 0.5rem; }
+    .upload-note p { font-family: var(--mono); font-size: 0.85rem; color: var(--muted); line-height: 1.8; }
+    .upload-note code { font-family: var(--mono); font-size: 0.82rem; color: var(--blue); background: var(--bg2); padding: 0.15rem 0.4rem; border: 1px solid var(--border); }
+
+    footer { background: #080a10; border-top: 1px solid var(--border); padding: 2.5rem 2rem; position: relative; z-index: 1; }
+    .foot-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .foot-left { font-family: var(--mono); font-size: 0.77rem; color: var(--dim); line-height: 1.8; }
+    .foot-left a { color: var(--blue); text-decoration: none; }
+    .foot-right { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .foot-right a { font-family: var(--mono); font-size: 0.73rem; color: var(--dim); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+    .foot-right a:hover { color: var(--blue); }
+
+    @media (max-width: 680px) {
+      .nav-links { display: none; } .hamburger { display: flex; }
+      .page-wrap { padding: 7.5rem 1.25rem 5rem; }
+      .reports-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">
+      <img src="logo.jpg" alt="FSME Logic">
+      <span class="nav-logo-text">FSME Logic</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="case-studies.html">Validation</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li class="nav-cta"><a href="contact.html">Request Audit</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="case-studies.html">Validation</a>
+    <a href="about.html">About</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html">Contact</a>
+    <a href="contact.html">Request Audit</a>
+  </div>
+</nav>
+
+<div class="page-wrap">
+  <p class="page-eyebrow">Validation Reports</p>
+  <h1>Full Forensic<br><em>Audit Reports.</em></h1>
+  <p class="page-intro">Deep-dive validation reports from FSME Logic engagements across aerospace, quantum, and industrial datasets. Each report documents the full detection timeline, channel-by-channel analysis, and forensic findings.</p>
+
+  <div class="access-note">
+    <p><strong>Note on sensitive reports:</strong> Reports containing proprietary methodology details or client-specific data are available under NDA only. Contact us directly to request access. Reports listed here are from publicly available benchmark datasets.</p>
+  </div>
+
+  <p class="section-tag">Available Reports</p>
+
+  <div class="reports-grid">
+
+    <!-- NASA SMAP -->
+    <div class="report-card">
+      <div class="report-card-header">
+        <span class="report-badge badge-nasa">▸ NASA</span>
+        <h3>SMAP Satellite Reaction Wheel Failure</h3>
+        <div class="report-source">NASA JPL Telemanom Benchmark Dataset</div>
+      </div>
+      <div class="report-card-body">
+        <div class="report-meta">
+          <div class="report-meta-row"><span class="report-meta-key">Lead Time</span><span class="report-meta-val">84.7 hours (E-4), 68.6 hours (A-2)</span></div>
+          <div class="report-meta-row"><span class="report-meta-key">Dataset</span><span class="report-meta-val">SMAP orbital telemetry, channels E-4, A-2, D-12</span></div>
+          <div class="report-meta-row"><span class="report-meta-key">False Positives</span><span class="report-meta-val">Zero across D-12 healthy baseline</span></div>
+        </div>
+        <p class="report-desc">Full channel-by-channel detection timeline for NASA's SMAP satellite. Documents 3.5-day advance warning on orbital reaction wheel failure with zero false positives on verified stable channels.</p>
+      </div>
+      <div class="report-card-footer">
+        <a class="btn-view btn-view-primary" href="FSME_ESA_Mission1_v3_FINAL.pdf" target="_blank">▸ View Report</a>
+        <a class="btn-view btn-view-secondary" href="FSME_ESA_Mission1_v3_FINAL.pdf" download>↓ Download</a>
+      </div>
+    </div>
+
+    <!-- NASA Curiosity -->
+    <div class="report-card">
+      <div class="report-card-header">
+        <span class="report-badge badge-nasa">▸ NASA</span>
+        <h3>Curiosity Rover Actuator Binding Detection</h3>
+        <div class="report-source">NASA MSL Curiosity Mission Dataset</div>
+      </div>
+      <div class="report-card-body">
+        <div class="report-meta">
+          <div class="report-meta-row"><span class="report-meta-key">Lead Time</span><span class="report-meta-val">6.3 hours / 382 operational steps</span></div>
+          <div class="report-meta-row"><span class="report-meta-key">Asset</span><span class="report-meta-val">Actuator T-13, Martian surface operation</span></div>
+          <div class="report-meta-row"><span class="report-meta-key">Environment</span><span class="report-meta-val">Extreme temperature variance, terrain resistance</span></div>
+        </div>
+        <p class="report-desc">Detection of mechanical actuator binding on the Mars Curiosity Rover 382 operational steps before NASA's official failure label. Differentiates internal degradation from normal terrain load.</p>
+      </div>
+      <div class="report-card-footer">
+        <a class="btn-view btn-view-primary" href="FSME_Logic_Capability_Brief.pdf" target="_blank">▸ View Report</a>
+        <a class="btn-view btn-view-secondary" href="FSME_Logic_Capability_Brief.pdf" download>↓ Download</a>
+      </div>
+    </div>
+
+    <!-- ESA OPS-SAT -->
+    <div class="report-card">
+      <div class="report-card-header">
+        <span class="report-badge badge-esa">▸ ESA</span>
+        <h3>OPS-SAT CubeSat Blind Validation</h3>
+        <div class="report-source">ESA OPS-SAT 3U CubeSat Mission</div>
+      </div>
+      <div class="report-card-body">
+        <div class="report-meta">
+          <div class="report-meta-row"><span class="report-meta-key">Lead Time</span><span class="report-meta-val">11.5 minutes orbital warning</span></div>
+          <div class="report-meta-row"><span class="report-meta-key">Deployment</span><span class="report-meta-val">Edge-native, resource-constrained flight computer</span></div>
+          <div class="report-meta-row"><span class="report-meta-key">Test Type</span><span class="report-meta-val">Blind — ground truth withheld until after detection</span></div>
+        </div>
+        <p class="report-desc">Blind validation on active ESA CubeSat mission data. Engine detected in-orbit sensor degradation 11.5 minutes before ESA's official monitoring systems flagged the event, with zero false positives.</p>
+      </div>
+      <div class="report-card-footer">
+        <a class="btn-view btn-view-primary" href="FSME_ESA_Mission1_v3_FINAL.pdf" target="_blank">▸ View Report</a>
+        <a class="btn-view btn-view-secondary" href="FSME_ESA_Mission1_v3_FINAL.pdf" download>↓ Download</a>
+      </div>
+    </div>
+
+    <!-- IBM Quantum -->
+    <div class="report-card">
+      <div class="report-card-header">
+        <span class="report-badge badge-ibm">▸ IBM Quantum</span>
+        <h3>IBM Processor Fleet Audit</h3>
+        <div class="report-source">IBM Boston, Athens, Melbourne, Santiago</div>
+      </div>
+      <div class="report-card-body">
+        <div class="report-meta">
+          <div class="report-meta-row"><span class="report-meta-key">Processors</span><span class="report-meta-val">4 superconducting quantum processors</span></div>
+          <div class="report-meta-row"><span class="report-meta-key">Volume</span><span class="report-meta-val">66,747 circuit executions per processor</span></div>
+          <div class="report-meta-row"><span class="report-meta-key">Key Result</span><span class="report-meta-val">Topological cascade mapping — exact failure propagation sequence</span></div>
+        </div>
+        <p class="report-desc">Four-processor quantum audit documenting hardware degradation cascades, environmental shock signatures, and sequential domino failure propagation across superconducting qubit systems.</p>
+      </div>
+      <div class="report-card-footer">
+        <a class="btn-view btn-view-primary" href="FSME_Logic_Capability_Brief.pdf" target="_blank">▸ View Report</a>
+        <a class="btn-view btn-view-secondary" href="FSME_Logic_Capability_Brief.pdf" download>↓ Download</a>
+      </div>
+    </div>
+
+    <!-- NASA C-MAPSS -->
+    <div class="report-card">
+      <div class="report-card-header">
+        <span class="report-badge badge-industrial">▸ Industrial</span>
+        <h3>NASA C-MAPSS Fleet Detection</h3>
+        <div class="report-source">NASA Commercial Modular Aero-Propulsion System Simulation</div>
+      </div>
+      <div class="report-card-body">
+        <div class="report-meta">
+          <div class="report-meta-row"><span class="report-meta-key">Fleet Size</span><span class="report-meta-val">509 commercial turbofan engines</span></div>
+          <div class="report-meta-row"><span class="report-meta-key">Detection Rate</span><span class="report-meta-val">78% fleet-wide</span></div>
+          <div class="report-meta-row"><span class="report-meta-key">Avg Lead Time</span><span class="report-meta-val">126 flight cycles advance warning</span></div>
+        </div>
+        <p class="report-desc">Fleet-scale detection across 509 turbofan engines. Documents 78% detection rate with 126 flight cycle average advance warning. Zero false positives on verified healthy baseline engines.</p>
+      </div>
+      <div class="report-card-footer">
+        <a class="btn-view btn-view-primary" href="FSME_Engine_Credibility_Reference.pdf" target="_blank">▸ View Report</a>
+        <a class="btn-view btn-view-secondary" href="FSME_Engine_Credibility_Reference.pdf" download>↓ Download</a>
+      </div>
+    </div>
+
+    <!-- Multi-Domain -->
+    <div class="report-card">
+      <div class="report-card-header">
+        <span class="report-badge badge-multi">▸ Multi-Domain</span>
+        <h3>Full Capability Brief</h3>
+        <div class="report-source">All Validated Domains — NASA, ESA, IBM, Industrial</div>
+      </div>
+      <div class="report-card-body">
+        <div class="report-meta">
+          <div class="report-meta-row"><span class="report-meta-key">Coverage</span><span class="report-meta-val">Quantum, aerospace, fleet, refrigeration</span></div>
+          <div class="report-meta-row"><span class="report-meta-key">Format</span><span class="report-meta-val">Executive summary + full case studies</span></div>
+          <div class="report-meta-row"><span class="report-meta-key">Audience</span><span class="report-meta-val">CTOs, procurement, technical evaluators</span></div>
+        </div>
+        <p class="report-desc">Complete multi-domain validation brief covering all case studies, competitive landscape analysis, and commercial value proposition. The recommended starting point for technical evaluators.</p>
+      </div>
+      <div class="report-card-footer">
+        <a class="btn-view btn-view-primary" href="FSME_Logic_Capability_Brief.pdf" target="_blank">▸ View Report</a>
+        <a class="btn-view btn-view-secondary" href="FSME_Logic_Capability_Brief.pdf" download>↓ Download</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- UPLOAD NOTE FOR ALEX -->
+  <div class="upload-note">
+    <h3>// Adding New Reports</h3>
+    <p>To add a new report to this page: upload the PDF file to the root of your GitHub repo alongside the HTML files, then add a new <code>.report-card</code> block to this page pointing to the filename. The badge colour classes available are: <code>badge-nasa</code>, <code>badge-esa</code>, <code>badge-ibm</code>, <code>badge-industrial</code>, <code>badge-multi</code>.</p>
+  </div>
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-left">
+      © 2026 Alexander Kalyniuk — FSME Logic &nbsp;|&nbsp; Edmonton, Alberta, Canada<br>
+      Patent Pending &nbsp;|&nbsp; <a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a>
+    </div>
+    <div class="foot-right">
+      <a href="case-studies.html">Validation</a>
+      <a href="about.html">About</a>
+      <a href="faq.html">FAQ</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function() {
+    var btn = document.getElementById('hamburger');
+    var menu = document.getElementById('mobile-menu');
+    if (btn && menu) {
+      btn.addEventListener('click', function() {
+        btn.classList.toggle('open');
+        menu.classList.toggle('open');
+      });
+    }
+  })();
+</script>
+</body>
+</html>
