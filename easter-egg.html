@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FSME Logic - UIP Terminal Override</title>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0e1118;
+            --accent-blue: #3d8ef0;
+            --accent-cyan: #5bb8d4;
+            --accent-gold: #c9a84c;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-dark);
+            color: var(--accent-cyan);
+            font-family: 'IBM Plex Mono', monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Scanline Pseudo-element Effect */
+        body::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 2;
+            background-size: 100% 4px, 6px 100%;
+            pointer-events: none;
+        }
+
+        /* Grid Texture Overlay */
+        body::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(61, 142, 240, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(61, 142, 240, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        #game-container {
+            z-index: 5;
+            text-align: center;
+            position: relative;
+        }
+
+        h1 {
+            font-family: 'Barlow Condensed', sans-serif;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 5px;
+            text-shadow: 0 0 10px rgba(201, 168, 76, 0.5);
+        }
+
+        p {
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            color: var(--accent-blue);
+        }
+
+        canvas {
+            background-color: #080a0e;
+            border: 2px solid var(--accent-blue);
+            box-shadow: 0 0 20px rgba(61, 142, 240, 0.3);
+            display: block;
+            margin: 0 auto;
+        }
+
+        #instructions {
+            margin-top: 15px;
+            font-size: 0.8rem;
+            color: #888;
+        }
+        
+        #game-over {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(14, 17, 24, 0.9);
+            border: 1px solid var(--accent-cyan);
+            padding: 30px;
+            box-shadow: 0 0 15px var(--accent-cyan);
+        }
+
+        button {
+            background-color: transparent;
+            color: var(--accent-gold);
+            font-family: 'IBM Plex Mono', monospace;
+            border: 1px solid var(--accent-gold);
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-top: 15px;
+            text-transform: uppercase;
+            transition: all 0.2s;
+        }
+
+        button:hover {
+            background-color: var(--accent-gold);
+            color: var(--bg-dark);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="game-container">
+        <h1>UIP Signal Defender</h1>
+        <p>Maintain Finite-State Memory Embedding. Eliminate Decoherence Noise.</p>
+        
+        <div style="position: relative;">
+            <canvas id="gameCanvas" width="600" height="400"></canvas>
+            <div id="game-over">
+                <h2 style="color: red; font-family: 'Barlow Condensed', sans-serif;">SIGNAL LOST</h2>
+                <p>Final Coherence Score: <span id="final-score">0</span></p>
+                <button onclick="resetGame()">Re-establish Connection</button>
+            </div>
+        </div>
+
+        <div id="instructions">
+            [ ARROW KEYS ] to move emitter &nbsp;|&nbsp; [ SPACEBAR ] to transmit signal
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const gameOverScreen = document.getElementById('game-over');
+        const finalScoreSpan = document.getElementById('final-score');
+
+        // Colors from Design System
+        const colors = {
+            cyan: '#5bb8d4',
+            blue: '#3d8ef0',
+            gold: '#c9a84c',
+            dark: '#0e1118'
+        };
+
+        // Game State
+        let state = {
+            isRunning: true,
+            score: 0,
+            keys: {},
+            player: { x: 300, y: 350, width: 20, height: 20, speed: 5 },
+            bullets: [],
+            enemies: [],
+            particles: [],
+            enemySpawnRate: 60,
+            frameCount: 0
+        };
+
+        // Input Handling
+        window.addEventListener('keydown', (e) => {
+            state.keys[e.code] = true;
+            if (e.code === 'Space') e.preventDefault(); // Prevent scrolling
+        });
+        window.addEventListener('keyup', (e) => state.keys[e.code] = false);
+
+        function resetGame() {
+            state = {
+                isRunning: true,
+                score: 0,
+                keys: {},
+                player: { x: 300, y: 350, width: 20, height: 20, speed: 5 },
+                bullets: [],
+                enemies: [],
+                particles: [],
+                enemySpawnRate: 60,
+                frameCount: 0
+            };
+            gameOverScreen.style.display = 'none';
+            gameLoop();
+        }
+
+        function createParticles(x, y, color) {
+            for (let i = 0; i < 8; i++) {
+                state.particles.push({
+                    x: x,
+                    y: y,
+                    vx: (Math.random() - 0.5) * 4,
+                    vy: (Math.random() - 0.5) * 4,
+                    life: 30,
+                    color: color
+                });
+            }
+        }
+
+        function update() {
+            if (!state.isRunning) return;
+            state.frameCount++;
+
+            // Player Movement
+            if (state.keys['ArrowLeft'] && state.player.x > 0) state.player.x -= state.player.speed;
+            if (state.keys['ArrowRight'] && state.player.x < canvas.width - state.player.width) state.player.x += state.player.speed;
+            
+            // Shooting
+            if (state.keys['Space'] && state.frameCount % 10 === 0) {
+                state.bullets.push({ x: state.player.x + state.player.width / 2 - 2, y: state.player.y, width: 4, height: 10, speed: 7 });
+            }
+
+            // Update Bullets
+            state.bullets.forEach((b, index) => {
+                b.y -= b.speed;
+                if (b.y < 0) state.bullets.splice(index, 1);
+            });
+
+            // Spawn Enemies (Noise)
+            if (state.frameCount % state.enemySpawnRate === 0) {
+                let size = Math.random() * 20 + 10;
+                state.enemies.push({
+                    x: Math.random() * (canvas.width - size),
+                    y: -size,
+                    width: size,
+                    height: size,
+                    speed: Math.random() * 2 + 1
+                });
+                // Increase difficulty
+                if (state.enemySpawnRate > 20) state.enemySpawnRate -= 1; 
+            }
+
+            // Update Enemies & Collision
+            state.enemies.forEach((enemy, eIndex) => {
+                enemy.y += enemy.speed;
+
+                // Player Collision
+                if (enemy.x < state.player.x + state.player.width &&
+                    enemy.x + enemy.width > state.player.x &&
+                    enemy.y < state.player.y + state.player.height &&
+                    enemy.y + enemy.height > state.player.y) {
+                    state.isRunning = false;
+                    finalScoreSpan.innerText = state.score;
+                    gameOverScreen.style.display = 'block';
+                }
+
+                // Bullet Collision
+                state.bullets.forEach((bullet, bIndex) => {
+                    if (bullet.x < enemy.x + enemy.width &&
+                        bullet.x + bullet.width > enemy.x &&
+                        bullet.y < enemy.y + enemy.height &&
+                        bullet.y + bullet.height > enemy.y) {
+                        
+                        createParticles(enemy.x + enemy.width/2, enemy.y + enemy.height/2, colors.blue);
+                        state.enemies.splice(eIndex, 1);
+                        state.bullets.splice(bIndex, 1);
+                        state.score += 10;
+                    }
+                });
+
+                if (enemy.y > canvas.height) {
+                    state.enemies.splice(eIndex, 1);
+                    state.score -= 5; // Penalty for letting noise through
+                }
+            });
+
+            // Update Particles
+            state.particles.forEach((p, index) => {
+                p.x += p.vx;
+                p.y += p.vy;
+                p.life--;
+                if (p.life <= 0) state.particles.splice(index, 1);
+            });
+        }
+
+        function draw() {
+            // Clear Canvas
+            ctx.fillStyle = colors.dark;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Draw Score
+            ctx.fillStyle = colors.gold;
+            ctx.font = '16px "IBM Plex Mono"';
+            ctx.fillText(`Coherence Score: ${state.score}`, 10, 20);
+
+            // Draw Player (Emitter)
+            ctx.fillStyle = colors.cyan;
+            ctx.beginPath();
+            ctx.moveTo(state.player.x + state.player.width / 2, state.player.y);
+            ctx.lineTo(state.player.x + state.player.width, state.player.y + state.player.height);
+            ctx.lineTo(state.player.x, state.player.y + state.player.height);
+            ctx.fill();
+
+            // Draw Bullets (Signals)
+            ctx.fillStyle = colors.gold;
+            state.bullets.forEach(b => {
+                ctx.fillRect(b.x, b.y, b.width, b.height);
+            });
+
+            // Draw Enemies (Noise)
+            ctx.strokeStyle = colors.blue;
+            ctx.lineWidth = 2;
+            state.enemies.forEach(e => {
+                ctx.strokeRect(e.x, e.y, e.width, e.height);
+            });
+
+            // Draw Particles
+            state.particles.forEach(p => {
+                ctx.fillStyle = p.color;
+                ctx.globalAlpha = p.life / 30;
+                ctx.fillRect(p.x, p.y, 3, 3);
+            });
+            ctx.globalAlpha = 1.0;
+        }
+
+        function gameLoop() {
+            update();
+            draw();
+            if (state.isRunning) {
+                requestAnimationFrame(gameLoop);
+            }
+        }
+
+        // Start Game
+        gameLoop();
+    </script>
+</body>
+</html>
+
