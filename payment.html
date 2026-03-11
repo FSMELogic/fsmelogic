@@ -391,3 +391,19 @@
       <a href="case-studies.html">Validation</a>
       <a href="about.html">About</a>
       <a href="faq.html">
+
+<script>
+  // Hamburger menu
+  (function() {
+    var btn = document.getElementById('hamburger');
+    var menu = document.getElementById('mobile-menu');
+    if (btn && menu) {
+      btn.addEventListener('click', function() {
+        btn.classList.toggle('open');
+        menu.classList.toggle('open');
+      });
+    }
+  })();
+</script>
+</body>
+</html>

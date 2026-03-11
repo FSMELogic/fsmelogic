@@ -414,18 +414,18 @@
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  const btn = document.getElementById('hamburger');
-  const menu = document.getElementById('mobile-menu');
-  btn.addEventListener('click', () => { btn.classList.toggle('open'); menu.classList.toggle('open'); });
-
-  const form = document.getElementById('contact-form');
-  const success = document.getElementById('form-success');
-  const submitBtn = document.getElementById('submit-btn');
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    submitBtn.textContent = 'Sending...';
-    submitBtn.disabled = true;
-    try {
-      const res = await fetch(form.action, { method: 'POST', body: new FormData(form), heade
+<script>
+  // Hamburger menu
+  (function() {
+    var btn = document.getElementById('hamburger');
+    var menu = document.getElementById('mobile-menu');
+    if (btn && menu) {
+      btn.addEventListener('click', function() {
+        btn.classList.toggle('open');
+        menu.classList.toggle('open');
+      });
+    }
+  })();
+</script>
+</body>
+</html>

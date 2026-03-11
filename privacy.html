@@ -302,3 +302,19 @@
     <div class="foot-left">
       © 2026 Alexander Kalyniuk — FSME Logic &nbsp;|&nbsp; Edmonton, Alberta, Canada<br>
       Patent Pending &nbsp;|&nbsp
+
+<script>
+  // Hamburger menu
+  (function() {
+    var btn = document.getElementById('hamburger');
+    var menu = document.getElementById('mobile-menu');
+    if (btn && menu) {
+      btn.addEventListener('click', function() {
+        btn.classList.toggle('open');
+        menu.classList.toggle('open');
+      });
+    }
+  })();
+</script>
+</body>
+</html>
