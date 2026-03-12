@@ -256,7 +256,7 @@
     const initialState = {
         location: 'desk',
         funds: 0,
-        inventory: ['Pixel 8', 'Raspberry Pi Zero W'],
+        inventory: ['Dell PC', 'Raspberry Pi Zero W'],
         flags: {
             watchedVideo: false,
             uipFormalized: false,
@@ -289,7 +289,7 @@
             render: () => {
                 let text = "It's late in Edmonton. You're sitting at your Dell Inspiron 3880. ";
                 if (!state.flags.watchedVideo) {
-                    text += "You just finished watching a deep-dive astrophysics video on YouTube. The host was talking about the vacuum of space. Something clicked. What if the vacuum isn't empty? What if it has memory? You have a decade of retail sales experience and self-taught Python skills. It's time to build.";
+                    text += "You just finished watching a deep-dive astrophysics video on YouTube. The host was talking about the vacuum of space. Something clicked. What if the vacuum isn't empty? With this surge of energy you realize It's time to build.";
                 } else if (!state.flags.uipFormalized) {
                     text += "The Unified Information Potential (UIP) concept is burning in your mind. The math needs to be written down.";
                 } else if (!state.flags.engineCoded) {
@@ -308,7 +308,7 @@
                     btns.push({ label: "Formalize UIP Theory", action: () => { state.flags.uipFormalized = true; appendStory("You write out the equations. You derive a theoretical constant before running any hardware. This is the foundation."); updateUI(); }});
                 }
                 if (state.flags.uipFormalized && !state.flags.engineCoded) {
-                    btns.push({ label: "Code FSME in Python", action: () => { state.flags.engineCoded = true; appendStory("You code the kernel. It measures Shannon entropy over a rolling window. It detects when a system stops behaving like itself."); updateUI(); }});
+                    btns.push({ label: "Code FSME in Python", action: () => { state.flags.engineCoded = true; appendStory("You code the kernel. Test it on real world data. It detects when a system stops behaving like itself."); updateUI(); }});
                 }
                 
                 // Navigation
@@ -323,7 +323,7 @@
         'kitchen': {
             title: 'LOC: KITCHEN_LAB',
             render: () => {
-                let text = "The kitchen. To prove UIP, you need to measure vacuum drag ratio using the Raspberry Pi's hardware random number generator. But environmental noise (vibration, RF, acoustic) will ruin the data.";
+                let text = "The kitchen. To prove UIP, you need to measure vacuum drag ratio using the Pi Zero w. But environmental noise (vibration, RF, acoustic) will ruin the data.";
                 if (!state.flags.boxBuilt) {
                     text += " You need to build a 'MacGyver Box' isolation chamber out of household items.";
                 } else if (!state.flags.ghostProtocol) {
@@ -339,7 +339,7 @@
                     btns.push({ label: "Assemble MacGyver Box 3.0", action: () => { 
                         state.flags.boxBuilt = true; 
                         state.inventory.push('Microwave Faraday Cage');
-                        appendStory("You nest a steel lunchbox wrapped in foil inside an unplugged microwave with ice packs and sponges. A DIY Faraday cage achieving a 17.5x damping factor."); 
+                        appendStory("You nest a steel lunchbox wrapped in foil inside an unplugged microwave with ice packs and sponges. A DIY Faraday cage."); 
                         updateUI(); 
                     }});
                 }
@@ -389,7 +389,7 @@
                     btns.push({ label: "Close the Deal", action: () => { 
                         state.flags.contractSigned = true; 
                         state.funds += 8000;
-                        appendStory("SUCCESS. They agreed to the 30-day forensic audit. 50% deposit upfront. The two tracks—the physics and the business—have converged. We detect when systems stop telling the truth before people pay the price."); 
+                        appendStory("SUCCESS. They agreed to the 30-day forensic audit. 50% deposit upfront. The two tracks—the physics and the business—have converged. (USE CODE 88 IN E-MAIL FOR 25% OFF PILOT AUDIT, First 3 Customers Only."); 
                         updateUI(); 
                     }});
                 }
