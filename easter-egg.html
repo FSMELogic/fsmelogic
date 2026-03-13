@@ -1,475 +1,1165 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FSME Logic // The Origin</title>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-dark: #0e1118;
-            --accent-blue: #3d8ef0;
-            --accent-cyan: #5bb8d4;
-            --accent-gold: #c9a84c;
-            --text-grey: #a0aabf;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>// CLASSIFIED — FSME Logic</title>
+  <meta name="robots" content="noindex">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
-        * { box-sizing: border-box; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: var(--bg-dark);
-            color: var(--text-grey);
-            font-family: 'IBM Plex Mono', monospace;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            position: relative;
-            overflow-x: hidden;
-        }
+    :root {
+      --gb-dark: #0f380f;
+      --gb-mid1: #306230;
+      --gb-mid2: #8bac0f;
+      --gb-light: #9bbc0f;
+      --gb-lightest: #c4d99a;
+      --gb-screen: #8bac0f;
+      --gb-body: #c8c8a0;
+      --gb-shell: #a0a080;
+      --gb-button: #8b0000;
+      --gb-select: #555;
+      --pixel: 'Press Start 2P', monospace;
+    }
 
-        /* Scanline Pseudo-element Effect */
-        body::before {
-            content: " ";
-            display: block;
-            position: fixed;
-            top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            z-index: 10;
-            background-size: 100% 4px, 6px 100%;
-            pointer-events: none;
-        }
+    html, body {
+      width: 100%; height: 100%;
+      background: #1a1a0f;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: flex-start;
+      font-family: var(--pixel);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
 
-        /* Grid Texture Overlay */
-        body::after {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: 
-                linear-gradient(rgba(61, 142, 240, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(61, 142, 240, 0.05) 1px, transparent 1px);
-            background-size: 30px 30px;
-            z-index: 1;
-            pointer-events: none;
-        }
+    /* Scanline overlay */
+    body::after {
+      content: '';
+      position: fixed; inset: 0; z-index: 9999;
+      pointer-events: none;
+      background: repeating-linear-gradient(
+        0deg, transparent, transparent 2px,
+        rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px
+      );
+    }
 
-        #game-wrapper {
-            width: 100%;
-            max-width: 800px;
-            padding: 20px;
-            z-index: 5;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            height: 100vh;
-        }
+    /* ── GAMEBOY SHELL ─────────────────────────────────────────────── */
+    .gb-shell {
+      width: min(420px, 96vw);
+      background: linear-gradient(160deg, #b8b89a 0%, #9a9a7a 40%, #888870 100%);
+      border-radius: 12px 12px 40px 12px;
+      padding: 18px 18px 28px;
+      box-shadow:
+        inset 0 2px 4px rgba(255,255,255,0.3),
+        inset 0 -3px 6px rgba(0,0,0,0.3),
+        0 8px 32px rgba(0,0,0,0.8),
+        0 2px 8px rgba(0,0,0,0.5);
+      margin: 20px auto;
+      position: relative;
+      flex-shrink: 0;
+    }
 
-        header {
-            border-bottom: 2px solid var(--accent-blue);
-            padding-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-        }
+    .gb-brand {
+      font-family: var(--pixel);
+      font-size: 7px;
+      color: #555540;
+      letter-spacing: 0.15em;
+      margin-bottom: 10px;
+      text-align: right;
+      text-transform: uppercase;
+    }
 
-        h1 {
-            font-family: 'Barlow Condensed', sans-serif;
-            color: var(--accent-gold);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin: 0;
-            font-size: 1.8rem;
-            text-shadow: 0 0 10px rgba(201, 168, 76, 0.3);
-        }
+    /* ── SCREEN BEZEL ──────────────────────────────────────────────── */
+    .gb-screen-bezel {
+      background: linear-gradient(180deg, #444430 0%, #333320 100%);
+      border-radius: 8px 8px 2px 2px;
+      padding: 12px 12px 16px;
+      margin-bottom: 16px;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.7);
+      position: relative;
+    }
 
-        .sys-status {
-            color: var(--accent-cyan);
-            font-size: 0.8rem;
-        }
+    .gb-screen-label {
+      font-family: var(--pixel);
+      font-size: 6px;
+      color: #888870;
+      letter-spacing: 0.3em;
+      text-align: center;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
 
-        /* The Graphic/Status UI */
-        #visual-interface {
-            border: 1px solid var(--accent-blue);
-            background: rgba(14, 17, 24, 0.8);
-            padding: 15px;
-            min-height: 120px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
+    /* ── CANVAS SCREEN ─────────────────────────────────────────────── */
+    .gb-screen {
+      display: block;
+      width: 100%;
+      aspect-ratio: 10/9;
+      image-rendering: pixelated;
+      background: var(--gb-light);
+      border: 3px solid #222210;
+      box-shadow:
+        inset 0 0 20px rgba(0,50,0,0.4),
+        0 0 8px rgba(139,172,15,0.3);
+    }
 
-        .status-row {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.9rem;
-        }
+    /* ── CONTROLS AREA ─────────────────────────────────────────────── */
+    .gb-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 8px;
+      gap: 8px;
+    }
 
-        .highlight { color: var(--accent-cyan); }
-        .gold-text { color: var(--accent-gold); }
+    /* D-PAD */
+    .dpad {
+      display: grid;
+      grid-template-columns: 36px 36px 36px;
+      grid-template-rows: 36px 36px 36px;
+      gap: 2px;
+    }
+    .dpad-btn {
+      background: linear-gradient(180deg, #444430 0%, #333320 100%);
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+      color: #888870;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.1);
+      transition: background 0.05s, transform 0.05s;
+      outline: none;
+    }
+    .dpad-btn:active, .dpad-btn.pressed {
+      background: linear-gradient(180deg, #222210 0%, #111108 100%);
+      transform: scale(0.93);
+    }
+    .dpad-center { background: #333320 !important; cursor: default; border-radius: 3px; }
+    .dpad-empty { background: transparent !important; box-shadow: none !important; cursor: default; }
 
-        /* The Story Output */
-        #story-console {
-            flex-grow: 1;
-            border: 1px solid var(--accent-blue);
-            background: #080a0e;
-            padding: 20px;
-            overflow-y: auto;
-            font-size: 1rem;
-            line-height: 1.5;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
-        }
+    /* SELECT / START */
+    .gb-mid-buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .gb-small-btns {
+      display: flex; gap: 12px;
+    }
+    .gb-small-btn {
+      background: linear-gradient(180deg, #666650 0%, #444430 100%);
+      border: none;
+      border-radius: 10px;
+      width: 44px; height: 14px;
+      cursor: pointer;
+      font-family: var(--pixel);
+      font-size: 5px;
+      color: #888870;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+      touch-action: manipulation;
+      outline: none;
+    }
+    .gb-small-btn:active { transform: scale(0.95); }
 
-        .story-entry {
-            margin-bottom: 15px;
-            animation: fadeIn 0.5s ease-in;
-        }
+    /* A / B BUTTONS */
+    .gb-ab-buttons {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .gb-action-btn {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      font-family: var(--pixel);
+      font-size: 10px;
+      color: #fff;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.2);
+      touch-action: manipulation;
+      outline: none;
+      transition: transform 0.05s;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .gb-action-btn:active, .gb-action-btn.pressed { transform: scale(0.9); }
+    .btn-b { background: radial-gradient(circle at 40% 35%, #cc1111, #880000); }
+    .btn-a { background: radial-gradient(circle at 40% 35%, #cc1111, #880000); }
+    .btn-label { font-size: 6px; display: block; margin-top: 2px; text-align: center; color: #666650; font-family: var(--pixel); }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(5px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    /* ── BACK LINK ─────────────────────────────────────────────────── */
+    .back-link {
+      font-family: var(--pixel);
+      font-size: 8px;
+      color: #555540;
+      text-align: center;
+      margin: 4px 0 12px;
+      letter-spacing: 0.1em;
+    }
+    .back-link a { color: #888870; text-decoration: none; }
+    .back-link a:hover { color: #b8b89a; }
 
-        /* Action Buttons */
-        #action-panel {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        button {
-            flex: 1 1 calc(50% - 10px); /* Mobile friendly: 2 columns */
-            background-color: transparent;
-            color: var(--accent-cyan);
-            font-family: 'IBM Plex Mono', monospace;
-            border: 1px solid var(--accent-cyan);
-            padding: 15px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            text-transform: uppercase;
-            transition: all 0.2s;
-        }
-
-        button:hover:not(:disabled) {
-            background-color: var(--accent-cyan);
-            color: var(--bg-dark);
-            box-shadow: 0 0 10px var(--accent-cyan);
-        }
-
-        button:disabled {
-            border-color: #333;
-            color: #555;
-            cursor: not-allowed;
-        }
-
-        /* System Controls (Save/Load/Socials) */
-        footer {
-            border-top: 1px dashed var(--accent-blue);
-            padding-top: 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            text-align: center;
-        }
-
-        .sys-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-
-        .sys-buttons button {
-            flex: 0 1 auto;
-            padding: 8px 15px;
-            font-size: 0.8rem;
-            border-color: var(--text-grey);
-            color: var(--text-grey);
-        }
-
-        .social-links a {
-            color: var(--accent-blue);
-            text-decoration: none;
-            margin: 0 10px;
-            font-size: 0.9rem;
-            transition: color 0.2s;
-        }
-
-        .social-links a:hover {
-            color: var(--accent-gold);
-        }
-
-        /* Mobile Adjustments */
-        @media (max-width: 600px) {
-            button { flex: 1 1 100%; } /* Stack buttons on very small screens */
-            h1 { font-size: 1.5rem; }
-        }
-    </style>
+    /* ── DESKTOP HINT ──────────────────────────────────────────────── */
+    .desktop-hint {
+      font-family: var(--pixel);
+      font-size: 6px;
+      color: #444430;
+      text-align: center;
+      margin-top: 6px;
+      letter-spacing: 0.08em;
+    }
+  </style>
 </head>
 <body>
 
-<div id="game-wrapper">
-    <header>
-        <h1>FSME LOGIC</h1>
-        <div class="sys-status" id="location-display">LOC: EDMONTON_LAB</div>
-    </header>
+<div class="gb-shell">
+  <div class="gb-brand">FSME Logic // Classified</div>
 
-    <div id="visual-interface">
-        <div class="status-row">
-            <span>TRACK 1 [BUSINESS]: <span id="bus-status" class="text-grey">IDLE</span></span>
-            <span>TRACK 2 [SCIENCE]: <span id="sci-status" class="text-grey">THEORY</span></span>
-        </div>
-        <div class="status-row">
-            <span>HARDWARE: <span id="hw-status" class="highlight">DELL INSPIRON 3880</span></span>
-            <span>FUNDS: <span id="funds-status" class="gold-text">$0.00 CAD</span></span>
-        </div>
-        <div id="inventory-display" style="margin-top: 10px; font-size: 0.8rem; color: var(--accent-gold);">
-            INV: [PIXEL 8]
-        </div>
+  <div class="gb-screen-bezel">
+    <div class="gb-screen-label">◉ SIGNAL INTEGRITY SYSTEM ◉</div>
+    <canvas class="gb-screen" id="gameCanvas"></canvas>
+  </div>
+
+  <div class="gb-controls">
+    <!-- D-PAD -->
+    <div class="dpad">
+      <div class="dpad-empty"></div>
+      <button class="dpad-btn" id="btn-up">▲</button>
+      <div class="dpad-empty"></div>
+      <button class="dpad-btn" id="btn-left">◀</button>
+      <div class="dpad-center"></div>
+      <button class="dpad-btn" id="btn-right">▶</button>
+      <div class="dpad-empty"></div>
+      <button class="dpad-btn" id="btn-down">▼</button>
+      <div class="dpad-empty"></div>
     </div>
 
-    <div id="story-console">
-        </div>
+    <!-- SELECT / START -->
+    <div class="gb-mid-buttons">
+      <div class="gb-small-btns">
+        <button class="gb-small-btn" id="btn-select">SELECT</button>
+        <button class="gb-small-btn" id="btn-start">START</button>
+      </div>
+    </div>
 
-    <div id="action-panel">
-        </div>
+    <!-- A / B -->
+    <div class="gb-ab-buttons">
+      <div>
+        <button class="gb-action-btn btn-b" id="btn-b">B</button>
+        <span class="btn-label">BACK</span>
+      </div>
+      <div>
+        <button class="gb-action-btn btn-a" id="btn-a">A</button>
+        <span class="btn-label">ACTION</span>
+      </div>
+    </div>
+  </div>
 
-    <footer>
-        <div class="sys-buttons">
-            <button onclick="saveGame()">Save State</button>
-            <button onclick="loadGame()">Load State</button>
-            <button onclick="resetGame()" style="border-color: #883333; color: #883333;">Reset</button>
-        </div>
-        <div class="social-links">
-            <a href="https://x.com/FsmeLogic" target="_blank">X (Twitter)</a> | 
-            <a href="https://youtube.com/@fsmelogic" target="_blank">YouTube</a> | 
-            <a href="https://www.linkedin.com/in/fsmelogic" target="_blank">LinkedIn</a> | 
-            <a href="mailto:alex-kalyniuk@fsmelogic.ca">Contact</a>
-        </div>
-    </footer>
+  <div class="back-link">
+    <a href="index.html">◀ return to fsmelogic.ca</a>
+  </div>
+  <div class="desktop-hint">keyboard: arrows + Z to interact + X to skip</div>
 </div>
 
 <script>
-    /* --- GAME ENGINE & STATE --- */
-    
-    // Default starting state
-    const initialState = {
-        location: 'desk',
-        funds: 0,
-        inventory: ['Dell PC', 'Raspberry Pi Zero W'],
-        flags: {
-            watchedVideo: false,
-            uipFormalized: false,
-            boxBuilt: false,
-            ghostProtocol: false,
-            engineCoded: false,
-            gsaValidated: false,
-            pitchSent: false,
-            contractSigned: false
+// ═══════════════════════════════════════════════════════════════════
+//  FSME LOGIC — EASTER EGG RPG
+//  The Origin Story
+// ═══════════════════════════════════════════════════════════════════
+
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+
+// ── PALETTE ────────────────────────────────────────────────────────
+const C = {
+  dark:     '#0f380f',
+  mid1:     '#306230',
+  mid2:     '#8bac0f',
+  light:    '#9bbc0f',
+  lightest: '#c4d99a',
+  black:    '#0f0f0f',
+  white:    '#e8f0a8',
+};
+
+// ── CANVAS SIZE ────────────────────────────────────────────────────
+const TW = 20, TH = 18; // tiles
+let TS = 10; // tile size in px, recalculated on resize
+let W, H;
+
+function resize() {
+  const el = canvas.parentElement;
+  const maxW = Math.min(el.clientWidth, 380);
+  TS = Math.floor(maxW / TW);
+  W = canvas.width  = TW * TS;
+  H = canvas.height = TH * TS;
+}
+resize();
+window.addEventListener('resize', () => { resize(); });
+
+// ── INPUT ──────────────────────────────────────────────────────────
+const keys = {};
+const justPressed = {};
+let prevKeys = {};
+
+document.addEventListener('keydown', e => {
+  const k = e.key;
+  if (!keys[k]) justPressed[k] = true;
+  keys[k] = true;
+  if (['ArrowUp','ArrowDown','ArrowLeft','ArrowRight',' '].includes(k)) e.preventDefault();
+});
+document.addEventListener('keyup', e => { keys[e.key] = false; });
+
+function mapBtn(id, key) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const press = () => { if (!keys[key]) justPressed[key] = true; keys[key] = true; el.classList.add('pressed'); };
+  const release = () => { keys[key] = false; el.classList.remove('pressed'); };
+  el.addEventListener('mousedown', e => { e.preventDefault(); press(); });
+  el.addEventListener('touchstart', e => { e.preventDefault(); press(); }, { passive: false });
+  el.addEventListener('mouseup', release);
+  el.addEventListener('mouseleave', release);
+  el.addEventListener('touchend', e => { e.preventDefault(); release(); });
+}
+
+mapBtn('btn-up',    'ArrowUp');
+mapBtn('btn-down',  'ArrowDown');
+mapBtn('btn-left',  'ArrowLeft');
+mapBtn('btn-right', 'ArrowRight');
+mapBtn('btn-a',     'z');
+mapBtn('btn-b',     'x');
+mapBtn('btn-start', 'Enter');
+mapBtn('btn-select','Shift');
+
+// ── PIXEL FONT RENDERER ────────────────────────────────────────────
+// 4x5 pixel font (uppercase + digits + punctuation)
+const FONT = {
+  A:[[0,1,1,0],[1,0,0,1],[1,1,1,1],[1,0,0,1],[1,0,0,1]],
+  B:[[1,1,1,0],[1,0,0,1],[1,1,1,0],[1,0,0,1],[1,1,1,0]],
+  C:[[0,1,1,1],[1,0,0,0],[1,0,0,0],[1,0,0,0],[0,1,1,1]],
+  D:[[1,1,1,0],[1,0,0,1],[1,0,0,1],[1,0,0,1],[1,1,1,0]],
+  E:[[1,1,1,1],[1,0,0,0],[1,1,1,0],[1,0,0,0],[1,1,1,1]],
+  F:[[1,1,1,1],[1,0,0,0],[1,1,1,0],[1,0,0,0],[1,0,0,0]],
+  G:[[0,1,1,1],[1,0,0,0],[1,0,1,1],[1,0,0,1],[0,1,1,1]],
+  H:[[1,0,0,1],[1,0,0,1],[1,1,1,1],[1,0,0,1],[1,0,0,1]],
+  I:[[1,1,1],[0,1,0],[0,1,0],[0,1,0],[1,1,1]],
+  J:[[0,0,1],[0,0,1],[0,0,1],[1,0,1],[0,1,1]],
+  K:[[1,0,0,1],[1,0,1,0],[1,1,0,0],[1,0,1,0],[1,0,0,1]],
+  L:[[1,0,0,0],[1,0,0,0],[1,0,0,0],[1,0,0,0],[1,1,1,1]],
+  M:[[1,0,0,0,1],[1,1,0,1,1],[1,0,1,0,1],[1,0,0,0,1],[1,0,0,0,1]],
+  N:[[1,0,0,1],[1,1,0,1],[1,0,1,1],[1,0,0,1],[1,0,0,1]],
+  O:[[0,1,1,0],[1,0,0,1],[1,0,0,1],[1,0,0,1],[0,1,1,0]],
+  P:[[1,1,1,0],[1,0,0,1],[1,1,1,0],[1,0,0,0],[1,0,0,0]],
+  Q:[[0,1,1,0],[1,0,0,1],[1,0,1,1],[1,0,0,1],[0,1,1,1]],
+  R:[[1,1,1,0],[1,0,0,1],[1,1,1,0],[1,0,1,0],[1,0,0,1]],
+  S:[[0,1,1,1],[1,0,0,0],[0,1,1,0],[0,0,0,1],[1,1,1,0]],
+  T:[[1,1,1,1,1],[0,0,1,0,0],[0,0,1,0,0],[0,0,1,0,0],[0,0,1,0,0]],
+  U:[[1,0,0,1],[1,0,0,1],[1,0,0,1],[1,0,0,1],[0,1,1,0]],
+  V:[[1,0,0,0,1],[1,0,0,0,1],[0,1,0,1,0],[0,1,0,1,0],[0,0,1,0,0]],
+  W:[[1,0,0,0,1],[1,0,0,0,1],[1,0,1,0,1],[1,1,0,1,1],[1,0,0,0,1]],
+  X:[[1,0,0,1],[1,0,0,1],[0,1,1,0],[1,0,0,1],[1,0,0,1]],
+  Y:[[1,0,0,0,1],[0,1,0,1,0],[0,0,1,0,0],[0,0,1,0,0],[0,0,1,0,0]],
+  Z:[[1,1,1,1],[0,0,1,0],[0,1,0,0],[1,0,0,0],[1,1,1,1]],
+  '0':[[0,1,1,0],[1,0,0,1],[1,0,0,1],[1,0,0,1],[0,1,1,0]],
+  '1':[[0,1,0],[1,1,0],[0,1,0],[0,1,0],[1,1,1]],
+  '2':[[0,1,1,0],[1,0,0,1],[0,0,1,0],[0,1,0,0],[1,1,1,1]],
+  '3':[[1,1,1,0],[0,0,0,1],[0,1,1,0],[0,0,0,1],[1,1,1,0]],
+  '4':[[0,0,1,0],[0,1,1,0],[1,0,1,0],[1,1,1,1],[0,0,1,0]],
+  '5':[[1,1,1,1],[1,0,0,0],[1,1,1,0],[0,0,0,1],[1,1,1,0]],
+  '6':[[0,1,1,0],[1,0,0,0],[1,1,1,0],[1,0,0,1],[0,1,1,0]],
+  '7':[[1,1,1,1],[0,0,0,1],[0,0,1,0],[0,1,0,0],[0,1,0,0]],
+  '8':[[0,1,1,0],[1,0,0,1],[0,1,1,0],[1,0,0,1],[0,1,1,0]],
+  '9':[[0,1,1,0],[1,0,0,1],[0,1,1,1],[0,0,0,1],[0,1,1,0]],
+  ' ':[[0,0],[0,0],[0,0],[0,0],[0,0]],
+  '.':[[0],[0],[0],[0],[1]],
+  ',':[[0],[0],[0],[1],[1]],
+  '!':[[1],[1],[1],[0],[1]],
+  '?':[[0,1,1,0],[0,0,0,1],[0,0,1,0],[0,0,0,0],[0,0,1,0]],
+  '-':[[0,0,0],[0,0,0],[1,1,1],[0,0,0],[0,0,0]],
+  "'":[[1],[1],[0],[0],[0]],
+  ':':[[0],[1],[0],[1],[0]],
+  '/':[[0,0,1],[0,1,0],[0,1,0],[1,0,0],[1,0,0]],
+  '%':[[1,0,0,1],[0,0,1,0],[0,1,0,0],[1,0,0,0],[1,0,0,1]],
+};
+
+function drawText(text, x, y, color, scale=1) {
+  ctx.fillStyle = color;
+  let cx = x;
+  for (const ch of text.toUpperCase()) {
+    const g = FONT[ch] || FONT[' '];
+    if (!g) { cx += (3 * scale); continue; }
+    for (let row = 0; row < g.length; row++) {
+      for (let col = 0; col < g[row].length; col++) {
+        if (g[row][col]) {
+          ctx.fillRect(cx + col * scale, y + row * scale, scale, scale);
         }
-    };
-
-    let state = JSON.parse(JSON.stringify(initialState));
-
-    // UI Elements
-    const storyConsole = document.getElementById('story-console');
-    const actionPanel = document.getElementById('action-panel');
-    const locDisplay = document.getElementById('location-display');
-    const busStatus = document.getElementById('bus-status');
-    const sciStatus = document.getElementById('sci-status');
-    const hwStatus = document.getElementById('hw-status');
-    const fundsStatus = document.getElementById('funds-status');
-    const invDisplay = document.getElementById('inventory-display');
-
-    /* --- STORY DATA --- */
-    // This object acts as the map and narrative controller.
-    const storyNodes = {
-        'desk': {
-            title: 'LOC: APARTMENT_DESK',
-            render: () => {
-                let text = "It's late in Edmonton. You're sitting at your Dell Inspiron 3880. ";
-                if (!state.flags.watchedVideo) {
-                    text += "You just finished watching a deep-dive astrophysics video on YouTube. The host was talking about the vacuum of space. Something clicked. What if the vacuum isn't empty? With this surge of energy you realize It's time to build.";
-                } else if (!state.flags.uipFormalized) {
-                    text += "The Unified Information Potential (UIP) concept is burning in your mind. The math needs to be written down.";
-                } else if (!state.flags.engineCoded) {
-                    text += "The theory is solid. Now you need to turn the math into a commercial anomaly detection engine—Finite-State Memory Embedding (FSME).";
-                } else {
-                    text += "The desk is covered in notes, hardware, and empty coffee cups. The FSME engine is compiled.";
-                }
-                return text;
-            },
-            actions: () => {
-                let btns = [];
-                if (!state.flags.watchedVideo) {
-                    btns.push({ label: "Ponder the Vacuum", action: () => { state.flags.watchedVideo = true; appendStory("The realization hits: healthy systems have elastic micro-fluctuations. Degrading systems lose that elasticity. Entropy collapses."); updateUI(); }});
-                }
-                if (state.flags.watchedVideo && !state.flags.uipFormalized) {
-                    btns.push({ label: "Formalize UIP Theory", action: () => { state.flags.uipFormalized = true; appendStory("You write out the equations. You derive a theoretical constant before running any hardware. This is the foundation."); updateUI(); }});
-                }
-                if (state.flags.uipFormalized && !state.flags.engineCoded) {
-                    btns.push({ label: "Code FSME in Python", action: () => { state.flags.engineCoded = true; appendStory("You code the kernel. Test it on real world data. It detects when a system stops behaving like itself."); updateUI(); }});
-                }
-                
-                // Navigation
-                btns.push({ label: "Go to Kitchen (Hardware)", action: () => { state.location = 'kitchen'; updateUI(); }});
-                
-                if (state.flags.engineCoded) {
-                    btns.push({ label: "Go to Comms Terminal", action: () => { state.location = 'comms'; updateUI(); }});
-                }
-                return btns;
-            }
-        },
-        'kitchen': {
-            title: 'LOC: KITCHEN_LAB',
-            render: () => {
-                let text = "The kitchen. To prove UIP, you need to measure vacuum drag ratio using the Pi Zero w. But environmental noise (vibration, RF, acoustic) will ruin the data.";
-                if (!state.flags.boxBuilt) {
-                    text += " You need to build a 'MacGyver Box' isolation chamber out of household items.";
-                } else if (!state.flags.ghostProtocol) {
-                    text += " The triple-layer Marushka Doll enclosure is built: Unplugged microwave, ice packs, steel lunchbox. Now the Pi Zero needs to be digitally isolated.";
-                } else {
-                    text += " The Pi Zero is sealed inside the microwave, running at the Electronic Floor. The experiment is silently logging data.";
-                }
-                return text;
-            },
-            actions: () => {
-                let btns = [];
-                if (!state.flags.boxBuilt) {
-                    btns.push({ label: "Assemble MacGyver Box 3.0", action: () => { 
-                        state.flags.boxBuilt = true; 
-                        state.inventory.push('Microwave Faraday Cage');
-                        appendStory("You nest a steel lunchbox wrapped in foil inside an unplugged microwave with ice packs and sponges. A DIY Faraday cage."); 
-                        updateUI(); 
-                    }});
-                }
-                if (state.flags.boxBuilt && !state.flags.ghostProtocol) {
-                    btns.push({ label: "Execute Ghost Protocol", action: () => { 
-                        state.flags.ghostProtocol = true; 
-                        appendStory("You kill all background daemons on the Pi. Wi-Fi off. Bluetooth off. No network. The OS is in a Coma State. The experiment begins."); 
-                        updateUI(); 
-                    }});
-                }
-                btns.push({ label: "Return to Desk", action: () => { state.location = 'desk'; updateUI(); }});
-                return btns;
-            }
-        },
-        'comms': {
-            title: 'LOC: COMMS_TERMINAL',
-            render: () => {
-                let text = "The commercial front. You have a working FSME algorithm. You need to validate it on public datasets to prove it works before pitching to aerospace companies.";
-                if (!state.flags.gsaValidated) {
-                    text += " The Global Space Agency (GSA) has public robotic rover telemetry available.";
-                } else if (!state.flags.pitchSent) {
-                    text += " Validation complete. It's time to approach AeroDrake Space, a local hyperspectral imaging constellation company.";
-                } else if (!state.flags.contractSigned) {
-                    text += " The email is out. You are waiting for AeroDrake to bite on the $8,000 pilot audit.";
-                } else {
-                    text += " Contract signed. Funds secured. The business is real. The science is proven.";
-                }
-                return text;
-            },
-            actions: () => {
-                let btns = [];
-                if (!state.flags.gsaValidated) {
-                    btns.push({ label: "Audit GSA Rover Data", action: () => { 
-                        state.flags.gsaValidated = true; 
-                        appendStory("FSME successfully isolates 100% of the mechanical actuator failures in the robotic arm dataset, providing over 6 hours of predictive lead time. Zero false positives."); 
-                        updateUI(); 
-                    }});
-                }
-                if (state.flags.gsaValidated && !state.flags.pitchSent) {
-                    btns.push({ label: "Pitch AeroDrake Space", action: () => { 
-                        state.flags.pitchSent = true; 
-                        appendStory("You draft a cold email. 'I've developed a mathematical filter that detects the entropic stiffness in mechanical systems before they fail...' You hit send."); 
-                        updateUI(); 
-                    }});
-                }
-                if (state.flags.pitchSent && !state.flags.contractSigned) {
-                    btns.push({ label: "Close the Deal", action: () => { 
-                        state.flags.contractSigned = true; 
-                        state.funds += 8000;
-                        appendStory("SUCCESS. They agreed to the 30-day forensic audit. 50% deposit upfront. The two tracks—the physics and the business—have converged. (USE CODE 88 IN E-MAIL FOR 25% OFF PILOT AUDIT, First 3 Customers Only."); 
-                        updateUI(); 
-                    }});
-                }
-                btns.push({ label: "Return to Desk", action: () => { state.location = 'desk'; updateUI(); }});
-                return btns;
-            }
-        }
-    };
-
-    /* --- CORE FUNCTIONS --- */
-
-    function appendStory(text) {
-        const p = document.createElement('p');
-        p.className = 'story-entry';
-        p.innerText = "> " + text;
-        storyConsole.appendChild(p);
-        storyConsole.scrollTop = storyConsole.scrollHeight; // Auto-scroll to bottom
+      }
     }
+    cx += (g[0].length + 1) * scale;
+  }
+}
 
-    function updateUI() {
-        const room = storyNodes[state.location];
-        
-        // Update Headers
-        locDisplay.innerText = room.title;
-        fundsStatus.innerText = `$${state.funds.toLocaleString()} CAD`;
-        invDisplay.innerText = `INV: [${state.inventory.join('] [')}]`;
+function textWidth(text, scale=1) {
+  let w = 0;
+  for (const ch of text.toUpperCase()) {
+    const g = FONT[ch] || FONT[' '];
+    w += g ? (g[0].length + 1) * scale : 3 * scale;
+  }
+  return w;
+}
 
-        // Update Track Statuses
-        sciStatus.innerText = state.flags.ghostProtocol ? "ACTIVE MEASUREMENT" : (state.flags.uipFormalized ? "FORMALIZED" : "THEORY");
-        sciStatus.className = state.flags.ghostProtocol ? "highlight" : "text-grey";
-        
-        busStatus.innerText = state.flags.contractSigned ? "CONTRACT SECURED" : (state.flags.engineCoded ? "ENGINE COMPILED" : "IDLE");
-        busStatus.className = state.flags.contractSigned ? "gold-text" : "text-grey";
+// ── DIALOGUE SYSTEM ────────────────────────────────────────────────
+let dialogue = null;
+let dialogueIndex = 0;
+let dialogueChar = 0;
+let dialogueTimer = 0;
+const CHAR_SPEED = 2; // frames per character
 
-        // Render Room Text
-        appendStory(room.render());
+function startDialogue(lines) {
+  dialogue = lines;
+  dialogueIndex = 0;
+  dialogueChar = 0;
+  dialogueTimer = 0;
+}
 
-        // Render Buttons
-        actionPanel.innerHTML = '';
-        const actions = room.actions();
-        actions.forEach(act => {
-            const btn = document.createElement('button');
-            btn.innerText = act.label;
-            btn.onclick = act.action;
-            actionPanel.appendChild(btn);
-        });
+function advanceDialogue() {
+  if (!dialogue) return false;
+  if (dialogueChar < dialogue[dialogueIndex].length) {
+    dialogueChar = dialogue[dialogueIndex].length;
+    return true;
+  }
+  dialogueIndex++;
+  if (dialogueIndex >= dialogue.length) {
+    dialogue = null;
+    return false;
+  }
+  dialogueChar = 0;
+  dialogueTimer = 0;
+  return true;
+}
+
+function updateDialogue() {
+  if (!dialogue) return;
+  dialogueTimer++;
+  if (dialogueTimer >= CHAR_SPEED) {
+    dialogueTimer = 0;
+    if (dialogueChar < dialogue[dialogueIndex].length) dialogueChar++;
+  }
+}
+
+function drawDialogue() {
+  if (!dialogue) return;
+  const boxH = Math.floor(H * 0.28);
+  const boxY = H - boxH - 4;
+  const pad = 6;
+  const scale = Math.max(1, Math.floor(TS / 5));
+
+  // Box
+  ctx.fillStyle = C.dark;
+  ctx.fillRect(4, boxY, W - 8, boxH);
+  ctx.strokeStyle = C.mid2;
+  ctx.lineWidth = 2;
+  ctx.strokeRect(4, boxY, W - 8, boxH);
+  ctx.strokeStyle = C.light;
+  ctx.lineWidth = 1;
+  ctx.strokeRect(6, boxY + 2, W - 12, boxH - 4);
+
+  // Text - word wrap
+  const line = dialogue[dialogueIndex].substring(0, dialogueChar);
+  const maxW = W - 8 - pad * 2;
+  const words = line.split(' ');
+  const lines = [];
+  let cur = '';
+  for (const w of words) {
+    const test = cur ? cur + ' ' + w : w;
+    if (textWidth(test, scale) > maxW && cur) {
+      lines.push(cur); cur = w;
+    } else cur = test;
+  }
+  if (cur) lines.push(cur);
+
+  lines.forEach((l, i) => drawText(l, 4 + pad, boxY + pad + i * (5 * scale + 3), C.lightest, scale));
+
+  // Blink arrow
+  if (dialogueChar >= dialogue[dialogueIndex].length && Math.floor(Date.now() / 400) % 2) {
+    drawText('>', W - 18, boxY + boxH - pad - 5 * scale, C.mid2, scale);
+  }
+}
+
+// ── PLAYER ─────────────────────────────────────────────────────────
+const player = {
+  tx: 10, ty: 9,  // tile position
+  px: 0,  py: 0,  // pixel position (smooth)
+  dir: 2,          // 0=up 1=right 2=down 3=left
+  frame: 0,
+  frameTimer: 0,
+  moving: false,
+  moveTimer: 0,
+  targetPx: 0, targetPy: 0,
+};
+
+function initPlayer() {
+  player.px = player.tx * TS;
+  player.py = player.ty * TS;
+  player.targetPx = player.px;
+  player.targetPy = player.py;
+}
+
+// Draw player (Alex: white skin, blonde hair, black cap, green shirt, blue pants)
+function drawPlayer(px, py, dir, frame) {
+  const s = Math.max(1, Math.floor(TS / 3));
+  const x = Math.round(px);
+  const y = Math.round(py);
+
+  // Shadow
+  ctx.fillStyle = 'rgba(0,0,0,0.2)';
+  ctx.fillRect(x + s, y + TS - s, TS - s * 2, s);
+
+  // Legs / pants (blue)
+  ctx.fillStyle = '#3060a0';
+  if (frame % 2 === 0 || !player.moving) {
+    ctx.fillRect(x + s * 2, y + TS - s * 4, s * 2, s * 4);
+    ctx.fillRect(x + s * 5, y + TS - s * 4, s * 2, s * 4);
+  } else {
+    ctx.fillRect(x + s * 2, y + TS - s * 5, s * 2, s * 4);
+    ctx.fillRect(x + s * 5, y + TS - s * 3, s * 2, s * 4);
+  }
+
+  // Shoes (dark)
+  ctx.fillStyle = '#222';
+  ctx.fillRect(x + s * 2, y + TS - s, s * 2, s);
+  ctx.fillRect(x + s * 5, y + TS - s, s * 2, s);
+
+  // Body / shirt (green)
+  ctx.fillStyle = '#2d6e2d';
+  ctx.fillRect(x + s * 2, y + s * 4, s * 5, s * 5);
+
+  // Arms
+  ctx.fillStyle = '#f0c890'; // skin
+  if (player.moving && frame % 2 !== 0) {
+    ctx.fillRect(x + s, y + s * 5, s, s * 3);
+    ctx.fillRect(x + s * 7, y + s * 4, s, s * 3);
+  } else {
+    ctx.fillRect(x + s, y + s * 4, s, s * 3);
+    ctx.fillRect(x + s * 7, y + s * 5, s, s * 3);
+  }
+
+  // Neck + head (skin)
+  ctx.fillStyle = '#f0c890';
+  ctx.fillRect(x + s * 3, y + s * 3, s * 3, s * 2);
+  ctx.fillRect(x + s * 2, y, s * 5, s * 4);
+
+  // Eyes (direction-based)
+  ctx.fillStyle = '#1a50c8';
+  if (dir === 2) { // down - facing camera
+    ctx.fillRect(x + s * 3, y + s * 2, s, s);
+    ctx.fillRect(x + s * 5, y + s * 2, s, s);
+  } else if (dir === 0) { // up - back
+    // no eyes visible
+  } else if (dir === 1) { // right - profile
+    ctx.fillRect(x + s * 5, y + s * 2, s, s);
+  } else { // left
+    ctx.fillRect(x + s * 3, y + s * 2, s, s);
+  }
+
+  // Mouth
+  if (dir === 2) {
+    ctx.fillStyle = '#c07050';
+    ctx.fillRect(x + s * 4, y + s * 3, s, s);
+  }
+
+  // Cap (black)
+  ctx.fillStyle = '#111';
+  ctx.fillRect(x + s * 2, y, s * 5, s);      // brim
+  ctx.fillRect(x + s * 2, y - s, s * 5, s);  // cap body top
+
+  // Blonde hair peek
+  ctx.fillStyle = '#d4a830';
+  ctx.fillRect(x + s * 2, y + s, s, s);
+  ctx.fillRect(x + s * 6, y + s, s, s);
+}
+
+// ── TILE TYPES ─────────────────────────────────────────────────────
+const T = {
+  FLOOR:  0,
+  WALL:   1,
+  TREE:   2,
+  DESK:   3,
+  BOX:    4,
+  DOOR:   5,
+  PLAQUE: 6,
+  PORTAL: 7,
+  BED:    8,
+  SCREEN: 9,
+  SHELF:  10,
+  TABLE:  11,
+  CHAIR:  12,
+};
+
+// ── ROOMS ──────────────────────────────────────────────────────────
+// Each room: { map: 2D array, objects: [], spawnX, spawnY }
+
+const rooms = [
+  // ── ROOM 0: TITLE SCREEN ─────────────────────────────────────────
+  null, // handled separately
+
+  // ── ROOM 1: THE APARTMENT (Nov 2025) ──────────────────────────────
+  {
+    name: "EDMONTON. NOV 2025.",
+    spawnX: 10, spawnY: 15,
+    map: [
+      [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,9,9,0,0,0,0,0,0,0,0,0,0,3,3,3,0,0,1],
+      [1,0,9,9,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,4,4,4,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,4,0,4,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,1,1,1,1,1,1,1,1,1,5,1,1,1,1,1,1,1,1,1],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    ],
+    objects: [
+      { tx:14, ty:2, type:'interact', label:'DESK',
+        dialogue:["LATE NIGHT. PBS SPACETIME IS ON.", "DARK ENERGY. QUANTUM FOAM. THE VACUUM.", "I'VE BEEN THINKING ABOUT THIS FOR YEARS.", "BUT TONIGHT... IT CLICKS.", "WHAT IF THE VACUUM ITSELF HAS MEMORY?"] },
+      { tx:2, ty:2, type:'interact', label:'SCREEN',
+        dialogue:["THE AI DOESN'T JUST ANSWER.", "IT THINKS WITH ME.", "I START ASKING BIGGER QUESTIONS.", "WHAT IF I COULD FORMALIZE THIS?"] },
+      { tx:6, ty:9, type:'interact', label:'BOX',
+        dialogue:["A PHOTO. HER.", "EVERYTHING I BUILD IS FOR HER.", "SHE DOESN'T KNOW IT YET.", "BUT SHE'S WHY THE ENGINE EXISTS."] },
+      { tx:10, ty:15, type:'door', targetRoom:2, targetX:10, targetY:2 },
+    ]
+  },
+
+  // ── ROOM 2: THE LAB (Jan 2026) ────────────────────────────────────
+  {
+    name: "THE LAB. JAN 2026.",
+    spawnX: 10, spawnY: 2,
+    map: [
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [1,1,1,1,1,1,1,1,1,1,5,1,1,1,1,1,1,1,1,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,0,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,0,0,0,4,4,4,4,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,0,0,0,4,0,0,4,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,0,0,0,4,0,0,4,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,0,0,0,4,4,4,4,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,1,1,1,1,1,1,1,1,1,5,1,1,1,1,1,1,1,1,1],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    ],
+    objects: [
+      { tx:10, ty:1, type:'door', targetRoom:1, targetX:10, targetY:14 },
+      { tx:10, ty:15, type:'door', targetRoom:3, targetX:10, targetY:2 },
+      { tx:3, ty:4, type:'interact', label:'DESK',
+        dialogue:["A MICROWAVE SHELL. A STEEL LUNCHBOX.", "ALUMINUM FOIL. WHATEVER I COULD FIND.", "I BUILD THE SHIELDED APPARATUS.", "I CALL IT THE MARUSHKA DOLL.", "7 DAYS. CONTINUOUS DATA COLLECTION."] },
+      { tx:8, ty:7, type:'interact', label:'BOX',
+        dialogue:["THE RASPBERRY PI ZERO SITS INSIDE.", "NO INTERNET. NO NOISE. JUST SIGNAL.", "THE HARDWARE KNOWS SOMETHING.", "EVERY HOUR THE DATA CONFIRMS IT.", "THE CONSTANT IS REAL."] },
+    ]
+  },
+
+  // ── ROOM 3: VALIDATION HALL ───────────────────────────────────────
+  {
+    name: "VALIDATION.",
+    spawnX: 10, spawnY: 2,
+    map: [
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [1,1,1,1,1,1,1,1,1,1,5,1,1,1,1,1,1,1,1,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,1,1,1,1,1,1,1,1,1,5,1,1,1,1,1,1,1,1,1],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    ],
+    objects: [
+      { tx:10, ty:1, type:'door', targetRoom:2, targetX:10, targetY:14 },
+      { tx:10, ty:15, type:'door', targetRoom:4, targetX:10, targetY:2 },
+      { tx:2,  ty:3, type:'interact', label:'PLAQUE',
+        dialogue:["AEROSPACE TELEMETRY.", "509 ENGINES. FLEET-SCALE.", "DETECTED 78% BEFORE FAILURE.", "ZERO FALSE POSITIVES.", "126 CYCLES ADVANCE WARNING."] },
+      { tx:17, ty:3, type:'interact', label:'PLAQUE',
+        dialogue:["SATELLITE TELEMETRY.", "THE HARDEST DATASET.", "84.7 HOURS ADVANCE WARNING.", "THEY WOULD HAVE KNOWN 3.5 DAYS EARLY.", "ZERO FALSE POSITIVES."] },
+      { tx:2,  ty:6, type:'interact', label:'PLAQUE',
+        dialogue:["ORBITAL CUBESAT MISSION.", "ACTIVE SATELLITE. LIVE DATA.", "BLIND VALIDATION.", "11.5 MINUTES WARNING.", "BEFORE ANY OFFICIAL SYSTEM FLAGGED IT."] },
+      { tx:17, ty:6, type:'interact', label:'PLAQUE',
+        dialogue:["QUANTUM HARDWARE.", "4 SUPERCONDUCTING PROCESSORS.", "66,747 CIRCUIT RUNS EACH.", "CASCADE FAILURE MAPPING.", "EXACT PROPAGATION SEQUENCE IDENTIFIED."] },
+      { tx:2,  ty:9, type:'interact', label:'PLAQUE',
+        dialogue:["INDUSTRIAL FLEET.", "23,550 REAL VEHICLES.", "HYDRAULIC. REFRIGERATION. DRIVETRAIN.", "THE SAME ENGINE. NO RETRAINING.", "SAME RESULTS."] },
+      { tx:17, ty:9, type:'interact', label:'PLAQUE',
+        dialogue:["CROSS-DOMAIN CONFIRMATION.", "AEROSPACE. QUANTUM. INDUSTRIAL.", "ONE ENGINE. FIVE DOMAINS.", "THE PHYSICS DOESN'T CARE WHAT IT READS.", "IT JUST TELLS THE TRUTH."] },
+    ]
+  },
+
+  // ── ROOM 4: THE LAUNCH ────────────────────────────────────────────
+  {
+    name: "EDMONTON. 2026.",
+    spawnX: 10, spawnY: 2,
+    map: [
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [1,1,1,1,1,1,1,1,1,1,5,1,1,1,1,1,1,1,1,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,3,3,3,3,3,3,3,3,3,0,0,0,0,0,1],
+      [1,0,0,0,0,3,0,0,0,0,0,0,0,3,0,0,0,0,0,1],
+      [1,0,0,0,0,3,0,0,0,0,0,0,0,3,0,0,0,0,0,1],
+      [1,0,0,0,0,3,3,3,3,3,3,3,3,3,0,0,0,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    ],
+    objects: [
+      { tx:10, ty:1, type:'door', targetRoom:3, targetX:10, targetY:14 },
+      { tx:5, ty:4, type:'interact', label:'DESK',
+        dialogue:["THE WEBSITE IS LIVE.", "THE PATENT IS PENDING.", "THE ENGINE IS REAL.", "NOW IT'S TIME TO SHOW THE WORLD.", "FSME LOGIC IS OPEN FOR BUSINESS."] },
+      { tx:9, ty:11, type:'portal',
+        dialogue:["A SIGNAL EMERGES FROM THE NOISE.", "ONE MAN. ONE THEORY. ONE ENGINE.", "VALIDATED ACROSS FIVE DOMAINS.", "BUILT FOR HER. LAUNCHED FOR EVERYONE.", "THE WORK CONTINUES."] },
+    ]
+  },
+];
+
+// ── GAME STATE ─────────────────────────────────────────────────────
+let state = 'title'; // title | playing | final
+let currentRoom = 1;
+let titleFrame = 0;
+let finalTimer = 0;
+let pendingTransition = null;
+
+// ── TILE RENDERING ─────────────────────────────────────────────────
+function drawTile(tile, px, py) {
+  const s = TS;
+  switch(tile) {
+    case T.FLOOR:
+      ctx.fillStyle = C.lightest;
+      ctx.fillRect(px, py, s, s);
+      // subtle grid
+      ctx.fillStyle = C.mid2;
+      ctx.fillRect(px, py, 1, 1);
+      break;
+    case T.WALL:
+      ctx.fillStyle = C.dark;
+      ctx.fillRect(px, py, s, s);
+      ctx.fillStyle = C.mid1;
+      ctx.fillRect(px+1, py+1, s-2, 3);
+      ctx.fillRect(px+1, py+6, s-2, 3);
+      break;
+    case T.DESK:
+      ctx.fillStyle = C.lightest;
+      ctx.fillRect(px, py, s, s);
+      ctx.fillStyle = '#6a3800';
+      ctx.fillRect(px+2, py+2, s-4, s-4);
+      ctx.fillStyle = '#4a2800';
+      ctx.fillRect(px+3, py+3, s-6, s-6);
+      break;
+    case T.BOX:
+      ctx.fillStyle = C.lightest;
+      ctx.fillRect(px, py, s, s);
+      ctx.fillStyle = C.mid1;
+      ctx.fillRect(px+2, py+2, s-4, s-4);
+      ctx.fillStyle = C.dark;
+      ctx.fillRect(px+3, py+3, s-6, s-6);
+      break;
+    case T.DOOR:
+      ctx.fillStyle = C.lightest;
+      ctx.fillRect(px, py, s, s);
+      ctx.fillStyle = C.mid2;
+      ctx.fillRect(px + Math.floor(s*.2), py + Math.floor(s*.1), Math.floor(s*.6), Math.floor(s*.8));
+      ctx.fillStyle = C.light;
+      ctx.fillRect(px + Math.floor(s*.3), py + Math.floor(s*.2), Math.floor(s*.15), Math.floor(s*.15));
+      break;
+    case T.PLAQUE:
+      ctx.fillStyle = C.lightest;
+      ctx.fillRect(px, py, s, s);
+      ctx.fillStyle = C.mid2;
+      ctx.fillRect(px+2, py+2, s-4, s-4);
+      ctx.fillStyle = C.dark;
+      for (let r = 0; r < 3; r++) ctx.fillRect(px+4, py+4+r*3, s-8, 1);
+      break;
+    case T.PORTAL:
+      ctx.fillStyle = C.lightest;
+      ctx.fillRect(px, py, s, s);
+      const t = Date.now() / 300;
+      const pr = Math.floor(s * 0.35);
+      const cx2 = px + s/2, cy2 = py + s/2;
+      for (let r = pr; r > 2; r -= 3) {
+        const hue = (t * 40 + r * 10) % 60;
+        ctx.fillStyle = hue > 30 ? C.mid2 : C.mid1;
+        ctx.fillRect(cx2 - r/2, cy2 - r/2, r, r);
+      }
+      break;
+    case T.SCREEN:
+      ctx.fillStyle = C.dark;
+      ctx.fillRect(px, py, s, s);
+      ctx.fillStyle = C.mid2;
+      ctx.fillRect(px+1, py+1, s-2, s-2);
+      ctx.fillStyle = C.light;
+      for (let r = 0; r < 3; r++) ctx.fillRect(px+2, py+2+r*2, s-4, 1);
+      break;
+    default:
+      ctx.fillStyle = C.lightest;
+      ctx.fillRect(px, py, s, s);
+  }
+}
+
+function drawRoom() {
+  const room = rooms[currentRoom];
+  if (!room) return;
+  for (let ty = 0; ty < TH; ty++) {
+    for (let tx = 0; tx < TW; tx++) {
+      const tile = room.map[ty][tx];
+      drawTile(tile, tx * TS, ty * TS);
     }
+  }
 
-    /* --- SAVE / LOAD SYSTEM --- */
-    function saveGame() {
-        localStorage.setItem('fsmeGameState', JSON.stringify(state));
-        appendStory("SYSTEM: State saved to local browser storage.");
+  // Room name
+  const scale = Math.max(1, Math.floor(TS / 5));
+  drawText(room.name, 4, 4, C.dark, scale);
+
+  // Interaction hints near objects
+  room.objects.forEach(obj => {
+    if (obj.type === 'door' || obj.type === 'portal') return;
+    const dx = Math.abs(player.tx - obj.tx);
+    const dy = Math.abs(player.ty - obj.ty);
+    if (dx <= 1 && dy <= 1 && dx + dy <= 1) {
+      const hint = 'Z';
+      drawText(hint, obj.tx * TS + Math.floor(TS/2) - textWidth(hint, scale)/2, obj.ty * TS - 6 * scale, C.dark, scale);
     }
+  });
+}
 
-    function loadGame() {
-        const saved = localStorage.getItem('fsmeGameState');
-        if (saved) {
-            state = JSON.parse(saved);
-            storyConsole.innerHTML = ''; // Clear console on load
-            appendStory("SYSTEM: Save state restored.");
-            updateUI();
+function isWalkable(tx, ty, room) {
+  if (tx < 0 || ty < 0 || tx >= TW || ty >= TH) return false;
+  const tile = room.map[ty][tx];
+  if (tile === T.WALL) return false;
+  if (tile === T.DESK || tile === T.BOX || tile === T.PLAQUE || tile === T.SCREEN || tile === T.SHELF || tile === T.TABLE || tile === T.CHAIR) return false;
+  // Check objects
+  const obj = room.objects.find(o => o.tx === tx && o.ty === ty && (o.type === 'door' || o.type === 'portal'));
+  if (obj) return true; // walkable, triggers on step
+  return true;
+}
+
+// ── TITLE SCREEN ───────────────────────────────────────────────────
+function drawTitle() {
+  ctx.fillStyle = C.dark;
+  ctx.fillRect(0, 0, W, H);
+
+  // Starfield
+  ctx.fillStyle = C.mid1;
+  for (let i = 0; i < 40; i++) {
+    const sx = (i * 137 + titleFrame) % W;
+    const sy = (i * 97) % H;
+    ctx.fillRect(sx, sy, 2, 2);
+  }
+
+  const sc = Math.max(1, Math.floor(TS / 5));
+  const sc2 = sc + 1;
+
+  // Logo
+  const title1 = 'FSME';
+  const title2 = 'LOGIC';
+  const sub = '// ORIGIN STORY //';
+
+  const t1w = textWidth(title1, sc2 + 1);
+  const t2w = textWidth(title2, sc2 + 1);
+  drawText(title1, Math.floor((W - t1w) / 2), Math.floor(H * 0.12), C.mid2, sc2 + 1);
+  drawText(title2, Math.floor((W - t2w) / 2), Math.floor(H * 0.12 + (5 * (sc2+1) + 4)), C.light, sc2 + 1);
+
+  const sw = textWidth(sub, sc);
+  drawText(sub, Math.floor((W - sw) / 2), Math.floor(H * 0.38), C.mid1, sc);
+
+  // Blinking start
+  if (Math.floor(Date.now() / 600) % 2) {
+    const s2 = 'PRESS START OR Z';
+    const s2w = textWidth(s2, sc);
+    drawText(s2, Math.floor((W - s2w) / 2), Math.floor(H * 0.72), C.mid2, sc);
+  }
+
+  const s3 = 'A SECRET WAITS INSIDE';
+  const s3w = textWidth(s3, sc);
+  drawText(s3, Math.floor((W - s3w) / 2), Math.floor(H * 0.85), C.mid1, sc);
+
+  titleFrame++;
+}
+
+// ── FINAL SCREEN ───────────────────────────────────────────────────
+let finalLines = [];
+let finalLineIndex = 0;
+let finalCharIndex = 0;
+let finalTimer2 = 0;
+let finalDone = false;
+const FINAL_TEXT = [
+  "THE ENGINE RUNS.",
+  "THE WORK CONTINUES.",
+  "",
+  "THANK YOU FOR FINDING THIS.",
+  "",
+  "DISCOUNT CODE:",
+  "FSME-15",
+  "15% OFF YOUR FIRST AUDIT.",
+  "NEW CLIENTS ONLY.",
+];
+
+function initFinal() {
+  finalLines = [];
+  finalLineIndex = 0;
+  finalCharIndex = 0;
+  finalTimer2 = 0;
+  finalDone = false;
+}
+
+function updateFinal() {
+  if (finalDone) return;
+  finalTimer2++;
+  if (finalTimer2 < 2) return;
+  finalTimer2 = 0;
+  if (finalLineIndex < FINAL_TEXT.length) {
+    const line = FINAL_TEXT[finalLineIndex];
+    if (finalCharIndex < line.length) {
+      finalCharIndex++;
+    } else {
+      if (!finalLines[finalLineIndex]) finalLines[finalLineIndex] = '';
+      finalLines[finalLineIndex] = FINAL_TEXT[finalLineIndex];
+      finalLineIndex++;
+      finalCharIndex = 0;
+      if (finalLineIndex >= FINAL_TEXT.length) finalDone = true;
+    }
+  }
+}
+
+function drawFinal() {
+  ctx.fillStyle = C.dark;
+  ctx.fillRect(0, 0, W, H);
+
+  const sc = Math.max(1, Math.floor(TS / 5));
+  const lh = 5 * sc + sc * 2 + 2;
+  const startY = Math.floor(H * 0.04);
+
+  for (let i = 0; i < finalLineIndex; i++) {
+    const line = FINAL_TEXT[i];
+    if (!line) continue;
+    const lw = textWidth(line, sc);
+    const col = line === 'FSME-15' ? C.light : line === 'THE ENGINE RUNS.' || line === 'THE WORK CONTINUES.' ? C.mid2 : C.mid1;
+    drawText(line, Math.floor((W - lw) / 2), startY + i * lh, col, sc);
+  }
+  // Current typing line
+  if (finalLineIndex < FINAL_TEXT.length) {
+    const partial = FINAL_TEXT[finalLineIndex].substring(0, finalCharIndex);
+    if (partial) {
+      const pw = textWidth(partial, sc);
+      drawText(partial, Math.floor((W - pw) / 2), startY + finalLineIndex * lh, C.mid1, sc);
+    }
+  }
+
+  // Social links at bottom
+  if (finalDone) {
+    const links = ['FSMELOGIC.CA', 'X: @FSMELOGIC', 'LINKEDIN: /IN/FSMELOGIC'];
+    links.forEach((l, i) => {
+      const lw = textWidth(l, sc);
+      drawText(l, Math.floor((W - lw) / 2), H - (links.length - i) * lh - lh, C.mid2, sc);
+    });
+
+    if (Math.floor(Date.now() / 600) % 2) {
+      const back = '[ PRESS Z TO RETURN HOME ]';
+      const bw = textWidth(back, sc);
+      drawText(back, Math.floor((W - bw) / 2), H - sc * 7, C.mid1, sc);
+    }
+  }
+}
+
+// ── MAIN GAME UPDATE ───────────────────────────────────────────────
+let moveDelay = 0;
+const MOVE_DELAY = 12;
+
+function update() {
+  const room = rooms[currentRoom];
+
+  if (state === 'title') {
+    if (justPressed['z'] || justPressed['Enter'] || justPressed[' ']) {
+      state = 'playing';
+      currentRoom = 1;
+      player.tx = rooms[1].spawnX;
+      player.ty = rooms[1].spawnY;
+      initPlayer();
+    }
+    return;
+  }
+
+  if (state === 'final') {
+    updateFinal();
+    if (finalDone && justPressed['z']) {
+      window.location.href = 'index.html';
+    }
+    return;
+  }
+
+  // Dialogue
+  updateDialogue();
+  if (dialogue) {
+    if (justPressed['z'] || justPressed['x']) {
+      const cont = advanceDialogue();
+      if (!cont && pendingTransition) {
+        const t = pendingTransition;
+        pendingTransition = null;
+        if (t.type === 'final') {
+          state = 'final';
+          initFinal();
         } else {
-            appendStory("SYSTEM: No save data found.");
+          currentRoom = t.room;
+          player.tx = t.tx;
+          player.ty = t.ty;
+          initPlayer();
         }
+      }
     }
+    return;
+  }
 
-    function resetGame() {
-        if(confirm("Are you sure you want to wipe your progress?")) {
-            localStorage.removeItem('fsmeGameState');
-            state = JSON.parse(JSON.stringify(initialState));
-            storyConsole.innerHTML = '';
-            appendStory("SYSTEM: Memory wiped. Re-initializing...");
-            updateUI();
+  // Movement
+  if (!player.moving) {
+    moveDelay = Math.max(0, moveDelay - 1);
+    if (moveDelay === 0) {
+      let dx = 0, dy = 0;
+      if (keys['ArrowUp'])    { dy = -1; player.dir = 0; }
+      if (keys['ArrowDown'])  { dy =  1; player.dir = 2; }
+      if (keys['ArrowLeft'])  { dx = -1; player.dir = 3; }
+      if (keys['ArrowRight']) { dx =  1; player.dir = 1; }
+
+      if (dx !== 0 || dy !== 0) {
+        const nx = player.tx + dx;
+        const ny = player.ty + dy;
+        if (isWalkable(nx, ny, room)) {
+          player.tx = nx;
+          player.ty = ny;
+          player.targetPx = nx * TS;
+          player.targetPy = ny * TS;
+          player.moving = true;
+          player.moveTimer = 0;
+          moveDelay = MOVE_DELAY;
+
+          // Check triggers
+          const obj = room.objects.find(o => o.tx === nx && o.ty === ny);
+          if (obj) {
+            if (obj.type === 'door') {
+              if (obj.dialogue) {
+                pendingTransition = { type: 'room', room: obj.targetRoom, tx: obj.targetX, ty: obj.targetY };
+                startDialogue(obj.dialogue);
+              } else {
+                currentRoom = obj.targetRoom;
+                player.tx = obj.targetX;
+                player.ty = obj.targetY;
+                initPlayer();
+              }
+            } else if (obj.type === 'portal') {
+              pendingTransition = { type: 'final' };
+              startDialogue(obj.dialogue);
+            }
+          }
         }
+      }
     }
+  }
 
-    // Init Game
-    appendStory("SYSTEM BOOT... INITIALIZING FINITE-STATE MEMORY EMBEDDING...");
-    updateUI();
+  if (player.moving) {
+    player.moveTimer++;
+    const speed = TS / 8;
+    const tx = player.targetPx, ty = player.targetPy;
+    if (Math.abs(player.px - tx) <= speed) player.px = tx;
+    else player.px += (tx - player.px > 0 ? 1 : -1) * speed;
+    if (Math.abs(player.py - ty) <= speed) player.py = ty;
+    else player.py += (ty - player.py > 0 ? 1 : -1) * speed;
+    if (player.px === tx && player.py === ty) {
+      player.moving = false;
+      player.frameTimer = 0;
+    }
+    player.frameTimer++;
+    if (player.frameTimer % 8 === 0) player.frame = (player.frame + 1) % 4;
+  }
 
+  // Interact (Z key near object)
+  if (justPressed['z']) {
+    const room2 = rooms[currentRoom];
+    const dirs = [[0,0],[0,-1],[0,1],[-1,0],[1,0]];
+    for (const [dx, dy] of dirs) {
+      const obj = room2.objects.find(o =>
+        o.tx === player.tx + dx &&
+        o.ty === player.ty + dy &&
+        o.type === 'interact'
+      );
+      if (obj) {
+        startDialogue(obj.dialogue);
+        break;
+      }
+    }
+  }
+}
+
+// ── DRAW ───────────────────────────────────────────────────────────
+function draw() {
+  ctx.fillStyle = C.light;
+  ctx.fillRect(0, 0, W, H);
+
+  if (state === 'title') {
+    drawTitle();
+  } else if (state === 'final') {
+    drawFinal();
+  } else {
+    drawRoom();
+    drawPlayer(player.px, player.py, player.dir, player.frame);
+    drawDialogue();
+  }
+}
+
+// ── LOOP ───────────────────────────────────────────────────────────
+function loop() {
+  // Clear justPressed each frame
+  Object.keys(justPressed).forEach(k => delete justPressed[k]);
+
+  update();
+  draw();
+
+  requestAnimationFrame(loop);
+}
+
+// Init
+initPlayer();
+requestAnimationFrame(loop);
 </script>
 </body>
 </html>
