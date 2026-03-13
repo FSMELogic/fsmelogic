@@ -907,7 +907,7 @@ function drawTitle() {
     drawText(s2, Math.floor((W-textWidth(s2,sc))/2), Math.floor(H*0.70), C.blue, sc);
   }
 
-  const s3='A SECRET WAITS INSIDE';
+  const s3='FSME: AN ORIGIN STORY';
   drawText(s3, Math.floor((W-textWidth(s3,sc))/2), Math.floor(H*0.84), C.muted, sc);
 
   titleFrame++;
@@ -1004,8 +1004,8 @@ function draw() {
 }
 
 function loop() {
-  Object.keys(justPressed).forEach(k=>delete justPressed[k]);
   update(); draw();
+  Object.keys(justPressed).forEach(k=>delete justPressed[k]);
   requestAnimationFrame(loop);
 }
 
