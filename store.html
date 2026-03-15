@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Store — FSME Logic</title>
+  <meta name="description" content="FSME Logic digital products. Data readiness guides, audit tools, and technical resources for industrial reliability engineers.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0e1118; --bg2: #141822; --card: #181f2e; --steel: #1c2438;
+      --border: #242e42; --bord2: #2e3a52;
+      --blue: #3d8ef0; --blue2: #2d6fd0; --cyan: #5bb8d4; --gold: #c9a84c;
+      --text: #c5d2e8; --muted: #6e86a8; --dim: #3a4a62;
+      --head: 'Barlow Condensed', sans-serif; --mono: 'IBM Plex Mono', monospace;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--mono); min-height: 100vh; }
+
+    body::before {
+      content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image: linear-gradient(rgba(61,142,240,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(61,142,240,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    body::after {
+      content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.06) 2px, rgba(0,0,0,0.06) 4px);
+    }
+
+    /* ── NAV ── */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(14,17,24,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+    .nav-logo { font-family: var(--head); font-size: 1.25rem; font-weight: 700; color: var(--text); text-decoration: none; letter-spacing: 0.06em; }
+    .nav-logo span { color: var(--blue); }
+    .nav-links { display: flex; list-style: none; align-items: center; gap: 0.25rem; }
+    .nav-links a { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.45rem 0.9rem; transition: color 0.2s, background 0.2s; }
+    .nav-links a:hover { color: var(--blue); background: rgba(61,142,240,0.08); }
+    .nav-links .nav-cta a { color: var(--blue); border: 1px solid rgba(61,142,240,0.5); padding: 0.45rem 1rem; }
+    .nav-links .nav-cta a:hover { background: var(--blue); color: #fff; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 0.5rem; background: none; border: none; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--muted); transition: all 0.3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu { display: none; flex-direction: column; background: rgba(8,10,16,0.98); border-top: 1px solid var(--border); padding: 1rem 2rem 1.5rem; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-family: var(--mono); font-size: 0.85rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.85rem 0; border-bottom: 1px solid var(--border); transition: color 0.2s; }
+    .mobile-menu a:hover { color: var(--blue); }
+    .mobile-menu a:last-child { color: var(--blue); border-bottom: none; margin-top: 0.5rem; }
+
+    @media (max-width: 680px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+
+    /* ── MAIN ── */
+    main { position: relative; z-index: 1; padding-top: 56px; }
+
+    /* ── PAGE HEADER ── */
+    .page-header { padding: 3.5rem 2rem 2.5rem; max-width: 1100px; margin: 0 auto; border-bottom: 1px solid var(--border); }
+    .page-header .label { font-family: var(--mono); font-size: 0.72rem; color: var(--blue); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem; }
+    .page-header h1 { font-family: var(--head); font-size: clamp(2.2rem, 5vw, 3.2rem); font-weight: 700; color: var(--text); letter-spacing: 0.04em; line-height: 1.1; }
+    .page-header p { font-family: var(--mono); font-size: 0.85rem; color: var(--muted); margin-top: 0.75rem; line-height: 1.8; max-width: 600px; }
+
+    /* ── STORE GRID ── */
+    .store-section { max-width: 1100px; margin: 0 auto; padding: 3rem 2rem; }
+    .store-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+
+    /* ── PRODUCT CARD ── */
+    .product-card { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 1.75rem; display: flex; flex-direction: column; gap: 1rem; transition: border-color 0.2s, box-shadow 0.2s; position: relative; }
+    .product-card:not(.coming-soon):hover { border-color: var(--blue2); box-shadow: 0 0 24px rgba(61,142,240,0.08); }
+    .product-card.coming-soon { opacity: 0.45; pointer-events: none; }
+
+    .card-badge { display: inline-block; font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.25rem 0.6rem; border-radius: 2px; margin-bottom: 0.25rem; }
+    .badge-live { background: rgba(61,142,240,0.12); color: var(--blue); border: 1px solid rgba(61,142,240,0.3); }
+    .badge-soon { background: rgba(58,74,98,0.4); color: var(--muted); border: 1px solid var(--border); }
+    .badge-featured { background: rgba(201,168,76,0.12); color: var(--gold); border: 1px solid rgba(201,168,76,0.3); }
+
+    .card-title { font-family: var(--head); font-size: 1.35rem; font-weight: 700; color: var(--text); letter-spacing: 0.03em; line-height: 1.2; }
+    .card-desc { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); line-height: 1.8; flex: 1; }
+    .card-includes { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+    .card-includes li { font-family: var(--mono); font-size: 0.74rem; color: var(--muted); padding-left: 1.1rem; position: relative; line-height: 1.5; }
+    .card-includes li::before { content: '▸'; position: absolute; left: 0; color: var(--blue); font-size: 0.65rem; top: 0.1rem; }
+    .card-price { font-family: var(--head); font-size: 2rem; font-weight: 700; color: var(--gold); letter-spacing: 0.04em; }
+    .card-price span { font-size: 1rem; color: var(--muted); font-weight: 400; }
+
+    .btn-buy { display: block; background: var(--blue); color: #fff; font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; text-align: center; padding: 0.8rem 1.5rem; border-radius: 3px; transition: background 0.2s, box-shadow 0.2s; border: none; cursor: pointer; }
+    .btn-buy:hover { background: var(--blue2); box-shadow: 0 0 16px rgba(61,142,240,0.3); }
+    .btn-soon { display: block; background: transparent; color: var(--dim); font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; text-align: center; padding: 0.8rem 1.5rem; border-radius: 3px; border: 1px solid var(--border); cursor: default; }
+
+    .card-divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+    /* ── DELIVERY FORM SECTION ── */
+    .delivery-section { max-width: 1100px; margin: 0 auto; padding: 0 2rem 4rem; }
+    .delivery-box { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 2.5rem; max-width: 680px; }
+    .delivery-box .label { font-family: var(--mono); font-size: 0.72rem; color: var(--blue); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem; }
+    .delivery-box h2 { font-family: var(--head); font-size: 1.8rem; font-weight: 700; color: var(--text); letter-spacing: 0.04em; margin-bottom: 0.5rem; }
+    .delivery-box p { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); line-height: 1.8; margin-bottom: 1.5rem; }
+
+    .form-row { display: flex; flex-direction: column; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group label { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+    .form-group input, .form-group textarea, .form-group select {
+      background: var(--steel); border: 1px solid var(--border); border-radius: 3px;
+      color: var(--text); font-family: var(--mono); font-size: 0.82rem;
+      padding: 0.7rem 1rem; transition: border-color 0.2s, box-shadow 0.2s; outline: none; width: 100%;
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+      border-color: var(--blue); box-shadow: 0 0 0 2px rgba(61,142,240,0.1);
+    }
+    .form-group textarea { resize: vertical; min-height: 90px; }
+    .form-group select option { background: var(--steel); }
+
+    .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 520px) { .form-row-2 { grid-template-columns: 1fr; } }
+
+    .btn-submit { background: var(--blue); color: #fff; font-family: var(--mono); font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.9rem 2rem; border: none; border-radius: 3px; cursor: pointer; transition: background 0.2s, box-shadow 0.2s; width: 100%; margin-top: 0.5rem; }
+    .btn-submit:hover { background: var(--blue2); box-shadow: 0 0 16px rgba(61,142,240,0.3); }
+    .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .form-note { font-family: var(--mono); font-size: 0.72rem; color: var(--dim); line-height: 1.7; margin-top: 1rem; }
+    .form-note a { color: var(--muted); text-decoration: none; }
+    .form-note a:hover { color: var(--blue); }
+
+    .form-success { display: none; background: rgba(45,111,208,0.08); border: 1px solid rgba(61,142,240,0.3); border-radius: 3px; padding: 1.5rem; text-align: center; }
+    .form-success.show { display: block; }
+    .form-success p { font-family: var(--mono); font-size: 0.82rem; color: var(--text); line-height: 1.8; }
+    .form-success strong { color: var(--blue); }
+
+    /* ── AUDIT NOTE ── */
+    .audit-note { max-width: 1100px; margin: 0 auto; padding: 0 2rem 3rem; }
+    .audit-note-inner { background: var(--bg2); border: 1px solid var(--border); border-left: 3px solid var(--cyan); padding: 1.25rem 1.5rem; border-radius: 0 4px 4px 0; display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+    .audit-note-inner p { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); line-height: 1.7; }
+    .audit-note-inner a { color: var(--cyan); text-decoration: none; white-space: nowrap; }
+    .audit-note-inner a:hover { color: var(--blue); }
+
+    /* ── FOOTER ── */
+    footer { background: #080a10; border-top: 1px solid var(--border); padding: 2.5rem 2rem; position: relative; z-index: 1; }
+    .foot-inner { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem; }
+    .foot-left { font-family: var(--mono); font-size: 0.77rem; color: var(--dim); line-height: 1.8; }
+    .foot-left a { color: var(--blue); text-decoration: none; }
+    .foot-right { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .foot-right a { font-family: var(--mono); font-size: 0.73rem; color: var(--dim); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+    .foot-right a:hover { color: var(--blue); }
+    .foot-social { display: flex; gap: 1rem; align-items: center; margin-top: 0.5rem; }
+    .foot-social a { color: var(--dim); text-decoration: none; transition: color 0.2s; display: flex; align-items: center; }
+    .foot-social a:hover { color: var(--blue); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">FSME <span>Logic</span></a>
+    <ul class="nav-links">
+      <li><a href="case-studies.html">Validation</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="store.html" style="color:var(--blue);">Store</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li class="nav-cta"><a href="payment.html">Request Audit</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="case-studies.html">Validation</a>
+    <a href="about.html">About</a>
+    <a href="faq.html">FAQ</a>
+    <a href="store.html">Store</a>
+    <a href="reports.html">Reports</a>
+    <a href="roi.html">ROI Calculator</a>
+    <a href="newsroom.html">Newsroom</a>
+    <a href="investors.html">Investors</a>
+    <a href="legal.html">Legal</a>
+    <a href="terms.html">Terms</a>
+    <a href="contact.html">Request Audit</a>
+  </div>
+</nav>
+
+<main>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="label">// Store</div>
+    <h1>Tools &amp; Resources</h1>
+    <p>Operational guides, templates, and technical resources for reliability engineers and fleet managers. All digital. Instant delivery by email.</p>
+  </div>
+
+  <!-- PRODUCT CARDS -->
+  <section class="store-section">
+    <div class="store-grid">
+
+      <!-- PRODUCT 1 — LIVE -->
+      <div class="product-card">
+        <div>
+          <span class="card-badge badge-featured">★ Featured</span>&nbsp;
+          <span class="card-badge badge-live">Available Now</span>
+        </div>
+        <div class="card-title">Data Readiness &amp; Integration Protocol</div>
+        <div class="card-desc">The complete operational guide to preparing your sensor data for an offline predictive physics audit. Includes extraction playbook, security overview, report decoder, and a bridge page for your decision-maker.</div>
+        <hr class="card-divider">
+        <ul class="card-includes">
+          <li>9-page operational field guide</li>
+          <li>Pre-flight checklist &amp; extraction playbook</li>
+          <li>Good data vs. bad data visual reference</li>
+          <li>Audit lifecycle walkthrough</li>
+          <li>Glossary of key terms</li>
+          <li>Code FSME-READY — 15% off your first audit</li>
+          <li>$200 referral credit program</li>
+        </ul>
+        <hr class="card-divider">
+        <div class="card-price">$50 <span>CAD</span></div>
+        <a class="btn-buy" href="https://fsmelogic.square.site/product/fsme-data-readiness-protocol/OO7MWUV3AZTNJZ7N2DCSZTKZ" target="_blank" rel="noopener">Buy Now — $50</a>
+        <p style="font-family:var(--mono);font-size:0.7rem;color:var(--dim);text-align:center;margin-top:0.25rem;">After purchase, complete the delivery form below ↓</p>
+      </div>
+
+      <!-- PRODUCT 2 — COMING SOON -->
+      <div class="product-card coming-soon">
+        <div>
+          <span class="card-badge badge-soon">Coming Soon</span>
+        </div>
+        <div class="card-title">Equipment Failure Cost Calculator</div>
+        <div class="card-desc">A pre-built Excel spreadsheet version of the FSME ROI calculator. Plug in your fleet size, repair costs, and downtime rates — get a presentation-ready cost analysis for internal approval.</div>
+        <hr class="card-divider">
+        <ul class="card-includes">
+          <li>Pre-built Excel workbook</li>
+          <li>Industry benchmark costs pre-filled</li>
+          <li>Presentation-ready output format</li>
+          <li>Instructions included</li>
+        </ul>
+        <hr class="card-divider">
+        <div class="card-price">$19 <span>CAD</span></div>
+        <div class="btn-soon">Coming Soon</div>
+      </div>
+
+      <!-- PRODUCT 3 — COMING SOON -->
+      <div class="product-card coming-soon">
+        <div>
+          <span class="card-badge badge-soon">Coming Soon</span>
+        </div>
+        <div class="card-title">Predictive Maintenance Audit Template</div>
+        <div class="card-desc">A formatted Word and Excel template pack for small operations to run their own basic anomaly logging before committing to a full forensic audit.</div>
+        <hr class="card-divider">
+        <ul class="card-includes">
+          <li>Word report template</li>
+          <li>Excel anomaly log worksheet</li>
+          <li>Scoring rubric included</li>
+          <li>Compatible with all asset types</li>
+        </ul>
+        <hr class="card-divider">
+        <div class="card-price">$39 <span>CAD</span></div>
+        <div class="btn-soon">Coming Soon</div>
+      </div>
+
+      <!-- PRODUCT 4 — COMING SOON -->
+      <div class="product-card coming-soon">
+        <div>
+          <span class="card-badge badge-soon">Coming Soon</span>
+        </div>
+        <div class="card-title">FSME Methodology White Paper</div>
+        <div class="card-desc">A deep technical document for engineers who want to understand the physics-based approach behind the FSME engine. Covers the theoretical framework, validation methodology, and cross-domain results.</div>
+        <hr class="card-divider">
+        <ul class="card-includes">
+          <li>Full technical methodology overview</li>
+          <li>Cross-domain validation results</li>
+          <li>Aerospace, industrial, and quantum data</li>
+          <li>Engineer-level depth, no fluff</li>
+        </ul>
+        <hr class="card-divider">
+        <div class="card-price">$97 <span>CAD</span></div>
+        <div class="btn-soon">Coming Soon</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DELIVERY FORM -->
+  <section class="delivery-section">
+    <div class="delivery-box">
+      <div class="label">// Document Delivery</div>
+      <h2>Request Your Download</h2>
+      <p>After completing your purchase, fill out the form below. Your document will be emailed to you within 24 hours. Include your order confirmation number if you have it — not required.</p>
+
+      <form id="delivery-form" action="https://formspree.io/f/mlgpdqdq" method="POST">
+        <input type="hidden" name="_subject" value="FSME Store — Document Delivery Request">
+        <input type="hidden" name="_next" value="">
+
+        <div class="form-row">
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="name">Full Name *</label>
+              <input type="text" id="name" name="name" required placeholder="Your name">
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address *</label>
+              <input type="email" id="email" name="email" required placeholder="your@email.com">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="product">Product Purchased *</label>
+            <select id="product" name="product" required>
+              <option value="" disabled selected>Select a product</option>
+              <option value="Data Readiness &amp; Integration Protocol — $50">Data Readiness &amp; Integration Protocol — $50</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="order">Order Confirmation Number (optional)</label>
+            <input type="text" id="order" name="order" placeholder="From your Square receipt email">
+          </div>
+
+          <div class="form-group">
+            <label for="message">Anything else? (optional)</label>
+            <textarea id="message" name="message" placeholder="Questions, company name, how you heard about us..."></textarea>
+          </div>
+
+          <button type="submit" class="btn-submit" id="submit-btn">Send Delivery Request</button>
+        </div>
+      </form>
+
+      <div class="form-success" id="form-success">
+        <p>✓ &nbsp;<strong>Request received.</strong><br>Your document will be emailed to you within 24 hours.<br>Check your spam folder if you don't see it. Questions? <a href="mailto:alex-kalyniuk@fsmelogic.ca" style="color:var(--blue);">alex-kalyniuk@fsmelogic.ca</a></p>
+      </div>
+
+      <p class="form-note">
+        Your email is used only to deliver your document. It will not be added to any mailing list.
+        All purchases are subject to the <a href="terms.html">Terms of Service</a>.
+        The $50 purchase price is credited in full toward your first FSME Forensic Pilot Audit.
+      </p>
+    </div>
+  </section>
+
+  <!-- AUDIT NOTE -->
+  <div class="audit-note">
+    <div class="audit-note-inner">
+      <p>Looking for forensic audit and diagnostic services? All audit engagements are custom-quoted based on your dataset and asset type.</p>
+      <a href="contact.html">Request a Custom Audit →</a>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-left">
+      © 2026 Alexander Kalyniuk — FSME Logic &nbsp;|&nbsp; Edmonton, Alberta, Canada<br>
+      Patent Pending &nbsp;|&nbsp; <a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a>
+    </div>
+    <div class="foot-right">
+      <a href="case-studies.html">Validation</a>
+      <a href="about.html">About</a>
+      <a href="faq.html">FAQ</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy.html">Privacy</a>
+    </div>
+    <div class="foot-right" style="margin-top:0.5rem;">
+      <a href="store.html">Store</a>
+      <a href="legal.html">Legal</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="investors.html">Investors</a>
+      <a href="newsroom.html">Newsroom</a>
+      <a href="reports.html">Validation Reports</a>
+      <a href="roi.html">ROI Calculator</a>
+    </div>
+    <div class="foot-social">
+      <a href="https://x.com/FsmeLogic" target="_blank" rel="noopener" aria-label="X / Twitter">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.731-8.835L1.254 2.25H8.08l4.259 5.63 5.905-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+      <a href="https://youtube.com/@fsmelogic" target="_blank" rel="noopener" aria-label="YouTube">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/fsmelogic" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Hamburger
+  (function() {
+    var btn = document.getElementById('hamburger');
+    var menu = document.getElementById('mobile-menu');
+    if (btn && menu) {
+      btn.addEventListener('click', function() {
+        btn.classList.toggle('open');
+        menu.classList.toggle('open');
+      });
+    }
+  })();
+
+  // Form submission
+  (function() {
+    var form = document.getElementById('delivery-form');
+    var success = document.getElementById('form-success');
+    var submitBtn = document.getElementById('submit-btn');
+
+    if (!form) return;
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+
+      var data = new FormData(form);
+
+      fetch(form.action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      })
+      .then(function(res) {
+        if (res.ok) {
+          form.style.display = 'none';
+          success.classList.add('show');
+        } else {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Send Delivery Request';
+          alert('Something went wrong. Please email alex-kalyniuk@fsmelogic.ca directly.');
+        }
+      })
+      .catch(function() {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send Delivery Request';
+        alert('Something went wrong. Please email alex-kalyniuk@fsmelogic.ca directly.');
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
