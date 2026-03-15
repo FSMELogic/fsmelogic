@@ -78,8 +78,10 @@
     .dot-red  { background: #e05555; opacity: 0.6; }
     .dot-gold { background: var(--gold); opacity: 0.6; }
     .dot-green { background: #4caf7d; opacity: 0.6; }
-    .titlebar-title { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); letter-spacing: 0.1em; }
-    .titlebar-badge { margin-left: auto; font-family: var(--mono); font-size: 0.65rem; color: var(--gold); letter-spacing: 0.1em; }
+    .titlebar-title { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); letter-spacing: 0.05em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .titlebar-badge { margin-left: auto; flex-shrink: 0; font-family: var(--mono); font-size: 0.65rem; color: var(--gold); letter-spacing: 0.1em; }
+    .price-struck { font-family: var(--head); font-size: 1.3rem; font-weight: 400; color: var(--dim); text-decoration: line-through; letter-spacing: 0.04em; }
+    .price-intro-label { font-family: var(--mono); font-size: 0.65rem; color: var(--gold); letter-spacing: 0.12em; text-transform: uppercase; background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.3); padding: 0.2rem 0.5rem; border-radius: 2px; display: inline-block; margin-bottom: 0.25rem; }
 
     /* App body */
     .app-body { display: flex; min-height: 560px; }
@@ -348,7 +350,7 @@
           <span class="dot-gold"></span>
           <span class="dot-green"></span>
         </div>
-        <span class="titlebar-title">FSME Logic — Data Ingestion Pipeline &nbsp;//&nbsp; v1.1.0</span>
+        <span class="titlebar-title">FSME Logic &mdash; Data Ingestion Pipeline &mdash; v1.1.0</span>
         <span class="titlebar-badge">fsmelogic.ca</span>
       </div>
 
@@ -433,8 +435,12 @@
         <p>Single-user perpetual license. Delivered by email within 24 hours.<br>
         License credited in full toward your first FSME Forensic Pilot Audit.</p>
       </div>
-      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:1rem;">
-        <div class="cta-price">$249 <span>CAD</span></div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.5rem;">
+        <span class="price-intro-label">★ Grand Opening Pricing</span>
+        <div style="display:flex;align-items:baseline;gap:0.75rem;">
+          <span class="price-struck">$249</span>
+          <div class="cta-price">$99 <span>CAD</span></div>
+        </div>
         <a class="btn-cta-buy" href="contact.html">Request License →</a>
         <a href="store.html" style="font-family:var(--mono);font-size:0.72rem;color:var(--muted);text-decoration:none;">← Back to Store</a>
       </div>
