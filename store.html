@@ -243,7 +243,31 @@
         <p style="font-family:var(--mono);font-size:0.7rem;color:var(--dim);text-align:center;margin-top:0.25rem;">After purchase, complete the delivery form below ↓</p>
       </div>
 
-      <!-- PRODUCT 3 — COMING SOON -->
+      <!-- PRODUCT 3 — INGESTION TOOL -->
+      <div class="product-card">
+        <div>
+          <span class="card-badge badge-featured">★ New</span>&nbsp;
+          <span class="card-badge badge-live">Available Now</span>
+        </div>
+        <div class="card-title">FSME Data Ingestion Desktop Client</div>
+        <div class="card-desc">A standalone Windows application that converts industrial telemetry files into clean, audit-ready CSVs for the FSME Engine. Handles formats your spreadsheet software can't open — HDF5, TDMS, NetCDF, MATLAB, SQLite, and more.</div>
+        <hr class="card-divider">
+        <ul class="card-includes">
+          <li>Out-of-memory safe — processes multi-gigabyte files on a standard laptop</li>
+          <li>Drift-free chronological grid enforcement</li>
+          <li>Auto-detects format by file signature, not extension</li>
+          <li>SHA-256 audit hash on every output</li>
+          <li>Supports: .h5, .tdms, .nc, .mat, .csv, .xlsx, .json, .sqlite</li>
+          <li>Single double-clickable .exe — no Python required</li>
+        </ul>
+        <hr class="card-divider">
+        <div class="card-price">$249 <span>CAD</span></div>
+        <a class="btn-buy" href="pipeline-demo.html" style="background:transparent;color:var(--cyan);border:1px solid rgba(91,184,212,0.6);margin-bottom:0.5rem;">⌕ &nbsp;Try Interactive Demo</a>
+        <a class="btn-buy" href="contact.html">Request License — $249</a>
+        <p style="font-family:var(--mono);font-size:0.7rem;color:var(--dim);text-align:center;margin-top:0.25rem;">License delivered by email within 24 hours.</p>
+      </div>
+
+      <!-- PRODUCT 4 — COMING SOON (was 3) -->
       <div class="product-card coming-soon">
         <div>
           <span class="card-badge badge-soon">Coming Soon</span>
@@ -313,6 +337,7 @@
               <option value="" disabled selected>Select a product</option>
               <option value="Data Readiness &amp; Integration Protocol — $50">Data Readiness &amp; Integration Protocol — $50</option>
               <option value="Equipment Failure Cost Calculator — $20">Equipment Failure Cost Calculator — $20</option>
+              <option value="FSME Data Ingestion Desktop Client — $249">FSME Data Ingestion Desktop Client — $249</option>
             </select>
           </div>
 
@@ -331,7 +356,7 @@
       </form>
 
       <div class="form-success" id="form-success">
-        <p>✓ &nbsp;<strong>Request received.</strong><br>Your document will be emailed to you within 24 hours.<br>Check your spam folder if you don't see it. Questions? <a href="mailto:alex-kalyniuk@fsmelogic.ca" style="color:var(--blue);">alex-kalyniuk@fsmelogic.ca</a></p>
+        <p>✓ &nbsp;<strong>Request received.</strong><br>Your document will be emailed to you within 24 hours.<br>Check your spam folder if you don't see it. Questions? <a href="/cdn-cgi/l/email-protection#2a4b464f5207414b465344435f416a4c59474f46454d434904494b" style="color:var(--blue);"><span class="__cf_email__" data-cfemail="94f5f8f1ecb9fff5f8edfafde1ffd4f2e7f9f1f8fbf3fdf7baf7f5">[email&#160;protected]</span></a></p>
       </div>
 
       <p class="form-note">
@@ -356,7 +381,7 @@
   <div class="foot-inner">
     <div class="foot-left">
       © 2026 Alexander Kalyniuk — FSME Logic &nbsp;|&nbsp; Edmonton, Alberta, Canada<br>
-      Patent Pending &nbsp;|&nbsp; <a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a>
+      Patent Pending &nbsp;|&nbsp; <a href="/cdn-cgi/l/email-protection#2d4c41485500464c4154434458466d4b5e404841424a444e034e4c"><span class="__cf_email__" data-cfemail="06676a637e2b6d676a7f686f736d4660756b636a69616f65286567">[email&#160;protected]</span></a>
     </div>
     <div class="foot-right">
       <a href="case-studies.html">Validation</a>
@@ -388,7 +413,7 @@
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // Hamburger
   (function() {
     var btn = document.getElementById('hamburger');
@@ -427,18 +452,4 @@
           success.classList.add('show');
         } else {
           submitBtn.disabled = false;
-          submitBtn.textContent = 'Send Delivery Request';
-          alert('Something went wrong. Please email alex-kalyniuk@fsmelogic.ca directly.');
-        }
-      })
-      .catch(function() {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Send Delivery Request';
-        alert('Something went wrong. Please email alex-kalyniuk@fsmelogic.ca directly.');
-      });
-    });
-  })();
-</script>
-
-</body>
-</html>
+          submitBtn.textCo

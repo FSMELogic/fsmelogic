@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pipeline Demo — FSME Logic</title>
+  <meta name="description" content="Interactive simulator for the FSME Logic Data Ingestion Desktop Client. See exactly how the tool processes industrial telemetry files.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0e1118; --bg2: #141822; --card: #181f2e; --steel: #1c2438;
+      --border: #242e42; --bord2: #2e3a52;
+      --blue: #3d8ef0; --blue2: #2d6fd0; --cyan: #5bb8d4; --gold: #c9a84c;
+      --red: #e05555;
+      --text: #c5d2e8; --muted: #6e86a8; --dim: #3a4a62; --bright: #e8edf5;
+      --head: 'Barlow Condensed', sans-serif; --mono: 'IBM Plex Mono', monospace;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--mono); min-height: 100vh; }
+
+    body::before {
+      content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image: linear-gradient(rgba(61,142,240,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(61,142,240,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    body::after {
+      content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.06) 2px, rgba(0,0,0,0.06) 4px);
+    }
+
+    /* ── NAV ── */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(14,17,24,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+    .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+    .nav-logo img { height: 42px; width: 42px; object-fit: contain; border-radius: 4px; }
+    .nav-logo-text { font-family: var(--mono); font-weight: 700; font-size: 1rem; color: var(--blue); letter-spacing: 0.1em; }
+    .nav-links { display: flex; list-style: none; align-items: center; gap: 0.25rem; }
+    .nav-links a { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.45rem 0.9rem; transition: color 0.2s, background 0.2s; }
+    .nav-links a:hover { color: var(--blue); background: rgba(61,142,240,0.08); }
+    .nav-links .nav-cta a { color: var(--blue); border: 1px solid rgba(61,142,240,0.5); padding: 0.45rem 1rem; }
+    .nav-links .nav-cta a:hover { background: var(--blue); color: #fff; }
+
+    /* ── MAIN ── */
+    main { position: relative; z-index: 1; padding-top: 56px; }
+
+    /* ── PAGE HEADER ── */
+    .page-header { padding: 3rem 2rem 2rem; max-width: 1100px; margin: 0 auto; border-bottom: 1px solid var(--border); }
+    .page-header .label { font-family: var(--mono); font-size: 0.72rem; color: var(--blue); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem; }
+    .page-header h1 { font-family: var(--head); font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; color: var(--bright); letter-spacing: 0.04em; line-height: 1.1; }
+    .page-header p { font-family: var(--mono); font-size: 0.82rem; color: var(--muted); margin-top: 0.75rem; line-height: 1.8; max-width: 640px; }
+    .disclaimer { display: inline-block; margin-top: 1rem; font-family: var(--mono); font-size: 0.7rem; color: var(--dim); background: var(--card); border: 1px solid var(--border); padding: 0.4rem 0.9rem; border-radius: 2px; }
+
+    /* ── APP SHELL ── */
+    .app-section { max-width: 1100px; margin: 0 auto; padding: 2.5rem 2rem; }
+
+    .app-shell {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    /* Title bar */
+    .app-titlebar {
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      height: 48px;
+      display: flex;
+      align-items: center;
+      padding: 0 1.25rem;
+      gap: 1rem;
+    }
+    .titlebar-dots { display: flex; gap: 6px; }
+    .titlebar-dots span { width: 10px; height: 10px; border-radius: 50%; }
+    .dot-red  { background: #e05555; opacity: 0.6; }
+    .dot-gold { background: var(--gold); opacity: 0.6; }
+    .dot-green { background: #4caf7d; opacity: 0.6; }
+    .titlebar-title { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); letter-spacing: 0.1em; }
+    .titlebar-badge { margin-left: auto; font-family: var(--mono); font-size: 0.65rem; color: var(--gold); letter-spacing: 0.1em; }
+
+    /* App body */
+    .app-body { display: flex; min-height: 560px; }
+
+    /* Left panel */
+    .app-left {
+      width: 280px;
+      flex-shrink: 0;
+      border-right: 1px solid var(--border);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .panel-section-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--dim);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin: 1rem 0 0.3rem;
+    }
+    .panel-section-label:first-child { margin-top: 0; }
+    .panel-divider { height: 1px; background: var(--border); margin-bottom: 0.75rem; }
+
+    .file-display {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--cyan);
+      margin-bottom: 0.6rem;
+      word-break: break-all;
+      min-height: 1.2em;
+    }
+    .file-display.empty { color: var(--muted); }
+
+    .app-btn {
+      display: block;
+      width: 100%;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0;
+      border-radius: 3px;
+      cursor: pointer;
+      text-align: center;
+      transition: background 0.15s, color 0.15s;
+      border: none;
+    }
+    .app-btn-browse {
+      height: 32px;
+      background: var(--steel);
+      color: var(--cyan);
+      border: 1px solid rgba(91,184,212,0.4) !important;
+      font-weight: 500;
+    }
+    .app-btn-browse:hover { background: var(--bg2); }
+
+    .field-lbl {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--muted);
+      margin: 0.75rem 0 0.3rem;
+      letter-spacing: 0.05em;
+    }
+
+    .app-select, .app-input {
+      width: 100%;
+      height: 30px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      padding: 0 8px;
+      outline: none;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .select-wrap { position: relative; }
+    .select-wrap::after { content: '▾'; position: absolute; right: 8px; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; font-size: 10px; }
+    .app-input::placeholder { color: var(--dim); }
+    .app-input:focus, .app-select:focus { border-color: var(--blue); }
+
+    .actions-wrap { margin-top: auto; padding-top: 1rem; display: flex; flex-direction: column; gap: 0.5rem; }
+
+    .app-btn-inspect {
+      height: 34px;
+      background: var(--card);
+      color: var(--cyan);
+      border: 1px solid rgba(91,184,212,0.4) !important;
+    }
+    .app-btn-inspect:hover { background: var(--steel); }
+
+    .app-btn-convert {
+      height: 40px;
+      background: var(--blue);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+    .app-btn-convert:hover { background: var(--blue2); }
+    .app-btn-convert.busy { background: var(--steel); color: var(--muted); cursor: default; }
+    .app-btn-convert.done { background: #2a4a2e; color: #4caf7d; }
+
+    .app-btn-clear {
+      height: 26px;
+      background: transparent;
+      color: var(--dim);
+      font-size: 0.68rem;
+    }
+    .app-btn-clear:hover { background: var(--card); color: var(--muted); }
+
+    /* Progress */
+    .progress-wrap { height: 2px; background: var(--border); border-radius: 1px; overflow: hidden; opacity: 0; transition: opacity 0.2s; }
+    .progress-wrap.visible { opacity: 1; }
+    .progress-bar { height: 100%; background: linear-gradient(90deg, var(--blue), var(--cyan)); width: 35%; animation: slide 1.2s ease-in-out infinite; }
+    @keyframes slide { 0% { transform: translateX(-150%); } 100% { transform: translateX(400%); } }
+
+    /* Right — console */
+    .app-right { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+
+    .console-header {
+      border-bottom: 1px solid var(--border);
+      padding: 0.6rem 1.25rem;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--dim);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .console-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); animation: pulse 2s infinite; flex-shrink: 0; }
+    .console-dot.busy { background: var(--gold); }
+    .console-dot.idle { animation: none; background: var(--dim); }
+    @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.25; } }
+
+    .console-body {
+      flex: 1;
+      padding: 1rem 1.25rem;
+      overflow-y: auto;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      line-height: 1.8;
+    }
+    .console-body p { margin: 0; white-space: pre-wrap; word-break: break-word; }
+    .c-info    { color: var(--text); }
+    .c-dim     { color: var(--dim); }
+    .c-muted   { color: var(--muted); }
+    .c-success { color: var(--cyan); }
+    .c-warn    { color: var(--gold); }
+    .c-error   { color: var(--red); }
+    .c-upsell  { color: var(--gold); font-style: italic; }
+
+    /* scrollbar */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+    /* ── BELOW APP — FORMAT TABLE ── */
+    .formats-section { max-width: 1100px; margin: 0 auto; padding: 0 2rem 3rem; }
+    .formats-section .label { font-family: var(--mono); font-size: 0.72rem; color: var(--blue); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1rem; }
+    .formats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.75rem; }
+    .format-pill {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .format-ext { font-family: var(--mono); font-size: 0.8rem; font-weight: 700; color: var(--cyan); letter-spacing: 0.05em; min-width: 56px; }
+    .format-name { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); }
+
+    /* ── CTA ── */
+    .cta-section { max-width: 1100px; margin: 0 auto; padding: 0 2rem 4rem; }
+    .cta-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--blue);
+      border-radius: 0 4px 4px 0;
+      padding: 2rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .cta-text h2 { font-family: var(--head); font-size: 1.6rem; font-weight: 700; color: var(--bright); letter-spacing: 0.04em; margin-bottom: 0.4rem; }
+    .cta-text p { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); line-height: 1.7; }
+    .cta-price { font-family: var(--head); font-size: 2.2rem; font-weight: 700; color: var(--gold); white-space: nowrap; }
+    .cta-price span { font-size: 1rem; font-weight: 400; color: var(--muted); }
+    .btn-cta-buy {
+      display: inline-block;
+      background: var(--blue);
+      color: #fff;
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.85rem 2rem;
+      border-radius: 3px;
+      transition: background 0.2s, box-shadow 0.2s;
+      white-space: nowrap;
+    }
+    .btn-cta-buy:hover { background: var(--blue2); box-shadow: 0 0 16px rgba(61,142,240,0.3); }
+
+    /* ── FOOTER ── */
+    footer { background: #080a10; border-top: 1px solid var(--border); padding: 2.5rem 2rem; position: relative; z-index: 1; }
+    .foot-inner { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem; }
+    .foot-left { font-family: var(--mono); font-size: 0.77rem; color: var(--dim); line-height: 1.8; }
+    .foot-right { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .foot-right a { font-family: var(--mono); font-size: 0.73rem; color: var(--dim); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+    .foot-right a:hover { color: var(--blue); }
+
+    @media (max-width: 680px) {
+      .app-body { flex-direction: column; }
+      .app-left { width: 100%; border-right: none; border-bottom: 1px solid var(--border); }
+      .actions-wrap { margin-top: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">
+      <img src="logo.jpg" alt="FSME Logic">
+      <span class="nav-logo-text">FSME Logic</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="case-studies.html">Validation</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="store.html" style="color:var(--blue);">Store</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li class="nav-cta"><a href="payment.html">Request Audit</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="label">// Store → Data Ingestion Desktop Client</div>
+    <h1>Interactive Pipeline Simulator</h1>
+    <p>This is an accurate simulation of the FSME Data Ingestion Desktop Client. Click Browse to load the demo dataset, then use Inspect or Convert to see the tool in action.</p>
+    <span class="disclaimer">Interactive Simulator — no files are processed or uploaded. For illustration purposes only.</span>
+  </div>
+
+  <!-- APP SIMULATOR -->
+  <section class="app-section">
+    <div class="app-shell">
+
+      <!-- Title bar -->
+      <div class="app-titlebar">
+        <div class="titlebar-dots">
+          <span class="dot-red"></span>
+          <span class="dot-gold"></span>
+          <span class="dot-green"></span>
+        </div>
+        <span class="titlebar-title">FSME Logic — Data Ingestion Pipeline &nbsp;//&nbsp; v1.1.0</span>
+        <span class="titlebar-badge">fsmelogic.ca</span>
+      </div>
+
+      <div class="app-body">
+
+        <!-- Left controls -->
+        <div class="app-left">
+
+          <div class="panel-section-label">01 / Input File</div>
+          <div class="panel-divider"></div>
+          <div class="file-display empty" id="file-display">No file selected</div>
+          <button class="app-btn app-btn-browse" onclick="simulateBrowse()">Browse / Select File</button>
+
+          <div class="panel-section-label">02 / Options</div>
+          <div class="panel-divider"></div>
+
+          <div class="field-lbl">Sample Rate Override (Hz)</div>
+          <div class="select-wrap">
+            <select class="app-select" id="hz-select">
+              <option>Auto-Detect</option>
+              <option>1</option><option>10</option><option>100</option>
+              <option>256</option><option>1000</option>
+              <option value="4096" selected>4096</option>
+              <option>8192</option><option>25600</option>
+            </select>
+          </div>
+
+          <div class="field-lbl">Channels (comma-separated, blank = all)</div>
+          <input class="app-input" id="channels" type="text" placeholder="e.g. strain/Strain, ch1"/>
+
+          <div class="field-lbl">Timestamp Dataset (HDF5 / MATLAB)</div>
+          <input class="app-input" id="ts-dataset" type="text" placeholder="e.g. meta/GPSstart"/>
+
+          <div class="actions-wrap">
+            <div class="progress-wrap" id="progress-wrap"><div class="progress-bar"></div></div>
+            <button class="app-btn app-btn-inspect" id="inspect-btn" onclick="runDiscover()">⌕ &nbsp;Inspect File Structure</button>
+            <button class="app-btn app-btn-convert" id="convert-btn" onclick="runConvert()">▶ &nbsp;Convert Asset Data</button>
+            <button class="app-btn app-btn-clear" onclick="clearConsole()">Clear Console</button>
+          </div>
+
+        </div>
+
+        <!-- Right — console -->
+        <div class="app-right">
+          <div class="console-header">
+            <span class="console-dot idle" id="console-dot"></span>
+            <span>System Output &nbsp;// &nbsp;Audit Log</span>
+            <span id="console-status" style="margin-left:auto;color:var(--muted);">Ready</span>
+          </div>
+          <div class="console-body" id="console">
+            <p class="c-muted">FSME Logic Ingestion Pipeline — Ready</p>
+            <p class="c-muted">Load the demo dataset using Browse, then run Inspect or Convert.</p>
+            <p class="c-dim">&nbsp;</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMAT TABLE -->
+  <section class="formats-section">
+    <div class="label">// Supported Formats</div>
+    <div class="formats-grid">
+      <div class="format-pill"><span class="format-ext">.h5 / .hdf5</span><span class="format-name">HDF5 — channel-by-channel</span></div>
+      <div class="format-pill"><span class="format-ext">.tdms</span><span class="format-name">NI LabVIEW / DAQ</span></div>
+      <div class="format-pill"><span class="format-ext">.nc</span><span class="format-name">NetCDF 3 &amp; 4</span></div>
+      <div class="format-pill"><span class="format-ext">.mat</span><span class="format-name">MATLAB v5 – v7.3</span></div>
+      <div class="format-pill"><span class="format-ext">.csv / .tsv</span><span class="format-name">Delimited text</span></div>
+      <div class="format-pill"><span class="format-ext">.xlsx / .xls</span><span class="format-name">Excel workbooks</span></div>
+      <div class="format-pill"><span class="format-ext">.json</span><span class="format-name">JSON / nested records</span></div>
+      <div class="format-pill"><span class="format-ext">.sqlite / .db</span><span class="format-name">SQLite databases</span></div>
+      <div class="format-pill"><span class="format-ext">.log / .txt</span><span class="format-name">Free-form delimited text</span></div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-box">
+      <div class="cta-text">
+        <h2>Ready to Process Your Data?</h2>
+        <p>Single-user perpetual license. Delivered by email within 24 hours.<br>
+        License credited in full toward your first FSME Forensic Pilot Audit.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:1rem;">
+        <div class="cta-price">$249 <span>CAD</span></div>
+        <a class="btn-cta-buy" href="contact.html">Request License →</a>
+        <a href="store.html" style="font-family:var(--mono);font-size:0.72rem;color:var(--muted);text-decoration:none;">← Back to Store</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-left">
+      © 2026 Alexander Kalyniuk — FSME Logic &nbsp;|&nbsp; Edmonton, Alberta, Canada<br>
+      Patent Pending &nbsp;|&nbsp; alex-kalyniuk@fsmelogic.ca
+    </div>
+    <div class="foot-right">
+      <a href="store.html">Store</a>
+      <a href="case-studies.html">Validation</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="terms.html">Terms</a>
+      <a href="privacy.html">Privacy</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const DEMO_FILE = "H-H1_GWOSC_O4a_4KHZ_R1-1368453120-4096.hdf5";
+  let busy = false;
+
+  function setStatus(text, state) {
+    document.getElementById('console-status').textContent = text;
+    const dot = document.getElementById('console-dot');
+    dot.className = 'console-dot' + (state === 'busy' ? ' busy' : state === 'done' ? '' : ' idle');
+  }
+
+  function setProgress(on) {
+    document.getElementById('progress-wrap').className = 'progress-wrap' + (on ? ' visible' : '');
+  }
+
+  function setBusy(on) {
+    busy = on;
+    const cb = document.getElementById('convert-btn');
+    const ib = document.getElementById('inspect-btn');
+    cb.className = 'app-btn app-btn-convert' + (on ? ' busy' : '');
+    cb.textContent = on ? '▶  Processing...' : '▶  Convert Asset Data';
+    ib.disabled = on;
+    setProgress(on);
+  }
+
+  function print(text, cls) {
+    const c = document.getElementById('console');
+    const p = document.createElement('p');
+    p.className = cls || 'c-info';
+    p.textContent = text;
+    c.appendChild(p);
+    c.scrollTop = c.scrollHeight;
+  }
+
+  function clearConsole() {
+    document.getElementById('console').innerHTML = '';
+  }
+
+  function simulateBrowse() {
+    const fd = document.getElementById('file-display');
+    fd.textContent = DEMO_FILE;
+    fd.className = 'file-display';
+    document.getElementById('ts-dataset').value = 'meta/GPSstart';
+    document.getElementById('hz-select').value = '4096';
+    document.getElementById('channels').value = 'strain/Strain';
+    setStatus('Selected: ' + DEMO_FILE.substring(0, 30) + '…');
+    print('');
+    print('File selected: ' + DEMO_FILE, 'c-info');
+    print('Format: HDF5  //  LIGO O4a Gravitational Wave Strain Data', 'c-muted');
+  }
+
+  function runDiscover() {
+    if (busy) return;
+    const fd = document.getElementById('file-display');
+    if (fd.classList.contains('empty')) {
+      print('');
+      print('⚠  No file selected. Click Browse / Select File first.', 'c-warn');
+      return;
+    }
+    busy = true;
+    setProgress(true);
+    setStatus('Inspecting…', 'busy');
+
+    print('');
+    print('────────────────────────────────────────────────────────', 'c-dim');
+    print('INSPECT  /  ' + DEMO_FILE, 'c-info');
+    print('────────────────────────────────────────────────────────', 'c-dim');
+
+    const lines = [
+      ['', 'c-dim'],
+      ['File:    ' + DEMO_FILE, 'c-info'],
+      ['Format:  HDF5', 'c-info'],
+      ['─────────────────────────────────────────────────', 'c-dim'],
+      ['HDF5 datasets (20):', 'c-info'],
+      ['  meta/Description         shape=()          dtype=object', 'c-dim'],
+      ['  meta/Duration            shape=()          dtype=int64', 'c-dim'],
+      ['  meta/GPSstart            shape=()          dtype=int64   ← timestamp', 'c-success'],
+      ['  meta/Observatory         shape=()          dtype=object', 'c-dim'],
+      ['  meta/UTCstart            shape=()          dtype=object', 'c-dim'],
+      ['  quality/injections/Injmask  shape=(4096,)  dtype=uint32', 'c-dim'],
+      ['  quality/simple/DQmask      shape=(4096,)   dtype=uint32', 'c-dim'],
+      ['  strain/Strain            shape=(16777216,) dtype=float64 ← data', 'c-success'],
+      ['  ... (12 more metadata datasets)', 'c-dim'],
+      ['', 'c-dim'],
+      ['Tip: meta/GPSstart is a scalar epoch. Set timestamp_dataset = "meta/GPSstart"', 'c-warn'],
+      ['     and force_sample_rate_hz = 4096 to reconstruct the full time array.', 'c-warn'],
+      ['', 'c-dim'],
+    ];
+
+    let i = 0;
+    const id = setInterval(() => {
+      if (i < lines.length) { print(lines[i][0], lines[i][1]); i++; }
+      else {
+        clearInterval(id);
+        busy = false;
+        setProgress(false);
+        setStatus('Inspection complete.', 'done');
+        document.getElementById('inspect-btn').disabled = false;
+      }
+    }, 55);
+  }
+
+  function runConvert() {
+    if (busy) return;
+    const fd = document.getElementById('file-display');
+    if (fd.classList.contains('empty')) {
+      print('');
+      print('⚠  No file selected. Click Browse / Select File first.', 'c-warn');
+      return;
+    }
+    setBusy(true);
+    setStatus('Converting… please wait', 'busy');
+
+    const hz = document.getElementById('hz-select').value;
+
+    print('');
+    print('────────────────────────────────────────────────────────', 'c-dim');
+    print('CONVERT  /  ' + DEMO_FILE, 'c-info');
+    print('────────────────────────────────────────────────────────', 'c-dim');
+
+    const lines = [
+      ['2026-03-15T15:05:51Z  INFO      ============================================================', 'c-dim'],
+      ['2026-03-15T15:05:51Z  INFO      FSME Ingestion Backend v1.1.0', 'c-info'],
+      ['2026-03-15T15:05:51Z  INFO      Input:   ' + DEMO_FILE, 'c-info'],
+      ['2026-03-15T15:05:51Z  INFO      Output:  H-H1_GWOSC_O4a_4KHZ_R1-1368453120-4096_FSME.csv', 'c-info'],
+      ['2026-03-15T15:05:51Z  INFO      ============================================================', 'c-dim'],
+      ['2026-03-15T15:05:51Z  INFO      Format detected: HDF5', 'c-info'],
+      ['2026-03-15T15:05:51Z  INFO      Parsing HDF5 (channel-by-channel, OOM-safe)', 'c-info'],
+      ['2026-03-15T15:05:51Z  INFO      Discovered 20 datasets in HDF5 file', 'c-info'],
+      ['2026-03-15T15:05:51Z  INFO      Scalar timestamp detected: 1368453120.0', 'c-info'],
+      ['2026-03-15T15:05:51Z  INFO      Reconstructing time array — GPS start + ' + hz + ' Hz sample rate', 'c-info'],
+      ['2026-03-15T15:05:51Z  INFO      Building 16,777,216-sample grid from GPS 1368453120.0', 'c-info'],
+      ['2026-03-15T15:05:58Z  INFO        Loading channel: strain/Strain', 'c-info'],
+      ['2026-03-15T15:05:59Z  INFO      Raw samples:  16,777,216', 'c-info'],
+      ['2026-03-15T15:05:59Z  INFO      Channels:     [\'strain/Strain\']', 'c-info'],
+      ['2026-03-15T15:06:00Z  INFO      Sample rate forced to ' + hz + ' Hz  (period = 244.140 µs)', 'c-info'],
+      ['2026-03-15T15:06:00Z  INFO      Uniform grid: 16,777,258 steps', 'c-info'],
+      ['2026-03-15T15:06:00Z  INFO      2013-05-13T13:52:00Z  →  2013-05-13T15:00:15Z', 'c-muted'],
+      ['2026-03-15T15:06:02Z  INFO      No gaps detected — data is continuous', 'c-success'],
+      ['2026-03-15T15:08:39Z  INFO      ────────────────────────────────────────────────────────', 'c-dim'],
+      ['2026-03-15T15:08:39Z  INFO      Output rows (uniform):  16,777,258', 'c-info'],
+      ['2026-03-15T15:08:39Z  INFO      Valid samples:          16,777,258', 'c-success'],
+      ['2026-03-15T15:08:39Z  INFO      NaN steps (gaps):       0', 'c-success'],
+      ['2026-03-15T15:08:39Z  INFO      Channels written:       1', 'c-info'],
+      ['2026-03-15T15:08:39Z  INFO      SHA-256:  8fb9aa1c163b96ffbbaf2c1cd11eecb0bdf9ba7cadc5084d2ad99ee82fd51fe8', 'c-success'],
+      ['2026-03-15T15:08:39Z  INFO      Output:   H-H1_GWOSC_O4a_4KHZ_R1-1368453120-4096_FSME.csv', 'c-success'],
+      ['2026-03-15T15:08:39Z  INFO      ────────────────────────────────────────────────────────', 'c-dim'],
+      ['2026-03-15T15:08:39Z  INFO      Data formatted and optimized for FSME Logic Predictive', 'c-upsell'],
+      ['                               Integrity Analysis. To run a failure-prediction audit', 'c-upsell'],
+      ['                               on this dataset, visit fsmelogic.ca', 'c-upsell'],
+      ['2026-03-15T15:08:39Z  INFO      Conversion complete.', 'c-success'],
+      ['2026-03-15T15:08:39Z  INFO      ============================================================', 'c-dim'],
+    ];
+
+    const delays = lines.map((_, i) => {
+      if (i < 8)  return i * 70;
+      if (i < 18) return 560 + (i - 8) * 130;
+      return 2000 + (i - 18) * 55;
+    });
+
+    lines.forEach(([text, cls], i) => {
+      setTimeout(() => {
+        print(text, cls);
+        if (i === lines.length - 1) {
+          setBusy(false);
+          setStatus('Complete', 'done');
+          const cb = document.getElementById('convert-btn');
+          cb.className = 'app-btn app-btn-convert done';
+          cb.textContent = '✓  Conversion Complete';
+          setTimeout(() => {
+            cb.className = 'app-btn app-btn-convert';
+            cb.textContent = '▶  Convert Asset Data';
+          }, 3500);
+        }
+      }, delays[i]);
+    });
+  }
+</script>
+
+</body>
+</html>
