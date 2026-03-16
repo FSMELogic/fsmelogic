@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FSME Logic – Predictive Integrity for Critical Assets</title>
-  <meta name="description" content="FSME Logic detects equipment failure weeks before standard sensors trigger an alarm. NASA, ESA, and IBM validated. Fully offline. No cloud. Edmonton, Alberta.">
+  <title>Offline Predictive Maintenance & Air-Gapped Equipment Audits | FSME Logic</title>
+  <meta name="description" content="Stop unplanned downtime before alarms trigger. FSME Logic provides air-gapped, offline predictive maintenance audits for industrial fleets, aerospace, and heavy equipment. No cloud required.">
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -26,20 +26,22 @@
       --mono:   'IBM Plex Mono', monospace;
     }
     html { scroll-behavior: smooth; }
-    body { background: var(--bg); color: var(--text); font-family: var(--mono); font-size: 16px; line-height: 1.7; min-height: 100vh; overflow-x: hidden; }
+    body { background: var(--bg); color: var(--text); font-family: var(--mono); min-height: 100vh; }
+
     body::before {
       content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
-      background-image: linear-gradient(rgba(61,142,240,0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(61,142,240,0.018) 1px, transparent 1px);
-      background-size: 52px 52px;
+      background-image: linear-gradient(rgba(61,142,240,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(61,142,240,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
     }
     body::after {
       content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
-      background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.04) 3px, rgba(0,0,0,0.04) 4px);
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.06) 2px, rgba(0,0,0,0.06) 4px);
     }
 
-    /* NAV */
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; background: rgba(8,10,16,0.96); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); box-shadow: 0 1px 0 rgba(61,142,240,0.12); }
-    .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0.85rem 2rem; }
+    /* ── NAV ── */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(14,17,24,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 56px; }
     .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
     .nav-logo img { height: 42px; width: 42px; object-fit: contain; border-radius: 4px; }
     .nav-logo-text { font-family: var(--mono); font-weight: 700; font-size: 1rem; color: var(--blue); letter-spacing: 0.1em; }
@@ -59,209 +61,49 @@
     .mobile-menu a:hover { color: var(--blue); }
     .mobile-menu a:last-child { color: var(--blue); border-bottom: none; margin-top: 0.5rem; }
 
-    section, .wrap { position: relative; z-index: 1; }
-    .wrap { max-width: 1200px; margin: 0 auto; padding: 5rem 2rem; }
-    .section-label { font-family: var(--mono); font-size: 0.72rem; color: var(--blue); letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; }
-    .section-label::before { content: '//'; color: var(--dim); }
-    .section-title { font-family: var(--head); font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; color: #dde6f5; line-height: 1.05; margin-bottom: 1.25rem; }
-    .section-title em { font-style: normal; color: var(--blue); }
-    .section-sub { font-family: var(--mono); font-size: 0.95rem; color: var(--muted); max-width: 640px; line-height: 1.9; margin-bottom: 3rem; }
+    @media (max-width: 680px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
 
-    /* HERO */
-    .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 8rem 2rem 5rem; position: relative; overflow: hidden; }
-    .hero-bg { position: absolute; inset: 0; z-index: 0; background: radial-gradient(ellipse 80% 60% at 60% 40%, rgba(61,142,240,0.07) 0%, transparent 70%), radial-gradient(ellipse 40% 40% at 15% 75%, rgba(91,184,212,0.04) 0%, transparent 60%); }
-    .hero-inner { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; width: 100%; }
-    .hero-eyebrow { font-family: var(--mono); font-size: 0.75rem; color: var(--blue); letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; animation: fadeUp 0.5s ease both; }
-    .hero-eyebrow::before { content: '▸'; }
-    .hero h1 { font-family: var(--head); font-size: clamp(3.2rem, 9vw, 7rem); font-weight: 800; line-height: 0.93; color: #dde6f5; margin-bottom: 2rem; animation: fadeUp 0.5s 0.1s ease both; }
-    .hero h1 em { font-style: normal; color: var(--blue); }
-    .hero h1 .dim { color: var(--muted); }
-    .hero-quote { font-family: var(--mono); font-size: clamp(0.9rem, 1.8vw, 1.1rem); color: var(--muted); max-width: 640px; line-height: 1.9; border-left: 3px solid var(--blue); padding-left: 1.5rem; margin-bottom: 2.5rem; animation: fadeUp 0.5s 0.2s ease both; }
-    .hero-quote strong { color: var(--text); display: block; margin-top: 0.75rem; font-size: 0.78rem; letter-spacing: 0.06em; }
-    .hero-stats { display: flex; flex-wrap: wrap; gap: 1.25rem; margin-bottom: 3rem; animation: fadeUp 0.5s 0.3s ease both; }
-    .hero-stat { background: var(--card); border: 1px solid var(--border); border-top: 2px solid var(--blue); padding: 1.25rem 1.75rem; min-width: 150px; }
-    .hero-stat .val { font-family: var(--head); font-size: 2.8rem; font-weight: 800; color: var(--blue); line-height: 1; }
-    .hero-stat .val.gold { color: var(--gold); }
-    .hero-stat .lbl { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.3rem; line-height: 1.5; }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 1rem; animation: fadeUp 0.5s 0.4s ease both; }
+    /* ── MAIN ── */
+    main { position: relative; z-index: 1; padding-top: 56px; }
 
-    .btn { font-family: var(--mono); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 1rem 2rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.6rem; transition: all 0.2s; }
-    .btn-primary { background: var(--blue); color: #fff; border: 2px solid var(--blue); }
-    .btn-primary:hover { background: var(--blue2); border-color: var(--blue2); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(61,142,240,0.3); }
-    .btn-secondary { background: transparent; color: var(--text); border: 2px solid var(--bord2); }
-    .btn-secondary:hover { border-color: var(--blue); color: var(--blue); }
+    /* ── PAGE HEADER ── */
+    .page-header { padding: 5rem 2rem 3rem; max-width: 1100px; margin: 0 auto; border-bottom: 1px solid var(--border); }
+    .page-header .label { font-family: var(--mono); font-size: 0.72rem; color: var(--cyan); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem; }
+    .page-header h1 { font-family: var(--head); font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 700; color: var(--text); letter-spacing: 0.02em; line-height: 1.1; }
+    .page-header p { font-family: var(--mono); font-size: 0.95rem; color: var(--muted); margin-top: 1.25rem; line-height: 1.8; max-width: 700px; }
+    
+    .btn-primary { display: inline-block; background: var(--blue); color: #fff; font-family: var(--mono); font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; padding: 1rem 2rem; border-radius: 3px; margin-top: 2rem; transition: background 0.2s, box-shadow 0.2s; }
+    .btn-primary:hover { background: var(--blue2); box-shadow: 0 0 20px rgba(61,142,240,0.3); }
 
-    /* PROBLEM */
-    .bg-alt { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
-    .prob-card { background: var(--bg); border: 1px solid var(--border); border-left: 3px solid var(--bord2); padding: 2rem; }
-    .prob-card h3 { font-family: var(--head); font-size: 1.4rem; font-weight: 700; color: #dde6f5; margin-bottom: 0.75rem; }
-    .prob-card p { font-family: var(--mono); font-size: 0.87rem; color: var(--muted); line-height: 1.85; }
+    /* ── CONTENT SECTIONS ── */
+    .content-section { max-width: 1100px; margin: 0 auto; padding: 4rem 2rem; border-bottom: 1px solid var(--border); }
+    .content-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; }
+    
+    @media (max-width: 850px) {
+      .content-grid { grid-template-columns: 1fr; gap: 2rem; }
+    }
 
-    /* WHAT WE DO */
-    .grid-3-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 1.5rem; }
-    .what-card { background: var(--card); border: 1px solid var(--border); border-top: 3px solid var(--blue); padding: 2.25rem; transition: transform 0.2s, box-shadow 0.2s; }
-    .what-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.3); }
-    .what-icon { font-size: 1.7rem; margin-bottom: 1.1rem; }
-    .what-card h3 { font-family: var(--head); font-size: 1.45rem; font-weight: 700; color: #dde6f5; margin-bottom: 0.7rem; }
-    .what-card p { font-family: var(--mono); font-size: 0.86rem; color: var(--muted); line-height: 1.85; }
+    .section-title h2 { font-family: var(--head); font-size: 2.2rem; font-weight: 700; color: var(--text); line-height: 1.2; }
+    .section-title .label { font-family: var(--mono); font-size: 0.72rem; color: var(--blue); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; display: block; }
+    
+    .section-body p { font-family: var(--mono); font-size: 0.9rem; color: var(--muted); line-height: 1.8; margin-bottom: 1.5rem; }
+    .section-body h3 { font-family: var(--head); font-size: 1.5rem; color: var(--text); margin-bottom: 0.75rem; margin-top: 2rem; }
+    
+    .geo-answer-fragment { background: var(--bg2); border-left: 3px solid var(--cyan); padding: 1.5rem; border-radius: 0 4px 4px 0; margin-bottom: 2rem; }
+    .geo-answer-fragment strong { color: var(--text); font-weight: 500; }
 
-    /* INFOGRAPHIC SPLIT */
-    .info-split { display: flex; align-items: center; gap: 4rem; }
-    .info-text { flex: 1; min-width: 260px; }
-    .info-text h2 { font-family: var(--head); font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 800; color: #dde6f5; line-height: 1.05; margin-bottom: 1.25rem; }
-    .info-text p { font-family: var(--mono); font-size: 0.9rem; color: var(--muted); line-height: 1.9; margin-bottom: 1.25rem; }
-    .info-img { flex: 1; min-width: 240px; max-width: 460px; }
-    .info-img img { width: 100%; height: auto; display: block; border: 1px solid var(--border); }
-
-    /* VALIDATION CARDS */
-    .val-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
-    .val-card { background: var(--steel); border: 1px solid var(--border); padding: 2.25rem; position: relative; overflow: hidden; }
-    .val-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--blue), var(--cyan)); }
-    .val-card .src { font-family: var(--mono); font-size: 0.67rem; color: var(--blue); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 0.75rem; }
-    .val-card .metric { font-family: var(--head); font-size: 2.8rem; font-weight: 800; color: #dde6f5; line-height: 1; margin-bottom: 0.4rem; }
-    .val-card .metric-lbl { font-family: var(--head); font-size: 1.1rem; font-weight: 600; color: var(--blue); margin-bottom: 0.75rem; }
-    .val-card p { font-family: var(--mono); font-size: 0.84rem; color: var(--muted); line-height: 1.8; }
-
-    /* TABLE */
-    .tbl-wrap { overflow-x: auto; margin-top: 2rem; }
-    table { width: 100%; border-collapse: collapse; }
-    th { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 1rem 1.25rem; text-align: left; border-bottom: 2px solid var(--border); }
-    th:first-child { color: var(--dim); }
-    th:nth-child(2) { color: var(--muted); }
-    th:last-child { color: var(--blue); background: rgba(61,142,240,0.06); }
-    td { font-family: var(--mono); font-size: 0.84rem; color: var(--muted); padding: 1rem 1.25rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
-    td:first-child { color: var(--text); font-weight: 500; }
-    td:last-child { background: rgba(61,142,240,0.04); color: var(--text); }
-    tr:last-child td { border-bottom: none; }
-    .tag-bad { display: inline-block; font-size: 0.7rem; padding: 0.2rem 0.55rem; background: rgba(180,60,60,0.14); color: #e08080; border: 1px solid rgba(180,60,60,0.28); }
-    .tag-good { display: inline-block; font-size: 0.7rem; padding: 0.2rem 0.55rem; background: rgba(61,142,240,0.12); color: var(--blue); border: 1px solid rgba(61,142,240,0.3); }
-
-    /* PROCESS */
-    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); border: 1px solid var(--border); margin-top: 2rem; }
-    .step { padding: 2.25rem; border-right: 1px solid var(--border); }
-    .step:last-child { border-right: none; }
-    .step-num { font-family: var(--head); font-size: 4rem; font-weight: 800; color: rgba(61,142,240,0.12); line-height: 1; margin-bottom: 1rem; }
-    .step h3 { font-family: var(--head); font-size: 1.3rem; font-weight: 700; color: #dde6f5; margin-bottom: 0.6rem; }
-    .step p { font-family: var(--mono); font-size: 0.84rem; color: var(--muted); line-height: 1.8; }
-
-    /* CTA */
-    .cta { background: var(--steel); border-top: 1px solid var(--border); text-align: center; padding: 6rem 2rem; position: relative; overflow: hidden; }
-    .cta::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(61,142,240,0.06) 0%, transparent 70%); pointer-events: none; }
-    .cta h2 { font-family: var(--head); font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 800; color: #dde6f5; margin-bottom: 1rem; position: relative; }
-    .cta p { font-family: var(--mono); font-size: 0.95rem; color: var(--muted); max-width: 520px; margin: 0 auto 2.5rem; line-height: 1.9; position: relative; }
-    .cta-row { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; position: relative; }
-
-    /* FOOTER */
-    footer { background: #080a10; border-top: 1px solid var(--border); padding: 2.5rem 2rem; position: relative; z-index: 1; }
-    .foot-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    /* ── FOOTER ── */
+    footer { background: #080a10; border-top: 1px solid var(--border); padding: 3rem 2rem; position: relative; z-index: 1; }
+    .foot-inner { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem; }
     .foot-left { font-family: var(--mono); font-size: 0.77rem; color: var(--dim); line-height: 1.8; }
     .foot-left a { color: var(--blue); text-decoration: none; }
     .foot-right { display: flex; gap: 1.5rem; flex-wrap: wrap; }
     .foot-right a { font-family: var(--mono); font-size: 0.73rem; color: var(--dim); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
     .foot-right a:hover { color: var(--blue); }
-
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
-
-    @media (max-width: 900px) {
-      .info-split { flex-direction: column; }
-      .info-img { max-width: 100%; }
-      .steps { grid-template-columns: 1fr 1fr; }
-      .step { border-right: none; border-bottom: 1px solid var(--border); }
-      .step:last-child { border-bottom: none; }
-    }
-    @media (max-width: 680px) {
-      .nav-links { display: none; }
-      .hamburger { display: flex; }
-      .wrap { padding: 3.5rem 1.25rem; }
-      .hero { padding: 7rem 1.25rem 4rem; }
-      .hero-stats { gap: 1rem; }
-      .hero-stat { min-width: 130px; padding: 1rem 1.25rem; }
-      .hero-stat .val { font-size: 2.2rem; }
-      .steps { grid-template-columns: 1fr; }
-      .step { border-right: none; border-bottom: 1px solid var(--border); }
-      td, th { padding: 0.75rem; font-size: 0.75rem; }
-      .cta { padding: 4rem 1.25rem; }
-      footer { padding: 2rem 1.25rem; }
-      .foot-inner { flex-direction: column; align-items: flex-start; }
-    }
-
-    .foot-social { display: flex; align-items: center; gap: 1rem; }
-    .foot-social a { color: var(--dim); transition: color 0.2s; display: flex; align-items: center; }
-    .foot-social a:hover { color: var(--blue); }
   </style>
-  <!-- SEO: Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://fsmelogic.ca/">
-  <meta property="og:title" content="FSME Logic — We detect failure before it happens.">
-  <meta property="og:description" content="Predictive integrity audits for industrial and commercial fleets. Air-gapped analysis in Edmonton — no cloud, no new sensors, no infrastructure changes. Validated on NASA, ESA, and IBM quantum hardware datasets.">
-  <meta property="og:image" content="https://fsmelogic.ca/infographic-1.png">
-  <meta property="og:site_name" content="FSME Logic">
-  <meta property="og:locale" content="en_CA">
-  <!-- SEO: Twitter/X Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="FSME Logic — We detect failure before it happens.">
-  <meta name="twitter:description" content="Predictive integrity audits for industrial and commercial fleets. Air-gapped analysis in Edmonton — no cloud, no new sensors, no infrastructure changes. Validated on NASA, ESA, and IBM quantum hardware datasets.">
-  <meta name="twitter:image" content="https://fsmelogic.ca/infographic-1.png">
-  <!-- SEO: Canonical -->
-  <link rel="canonical" href="https://fsmelogic.ca/">
-  <!-- SEO: Additional -->
-  <meta name="robots" content="index, follow">
-  <meta name="author" content="Alexander Kalyniuk — FSME Logic">
-  <meta name="geo.region" content="CA-AB">
-  <meta name="geo.placename" content="Edmonton, Alberta, Canada">
-  <meta name="geo.position" content="53.5461;-113.4938">
-  <meta name="ICBM" content="53.5461, -113.4938">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "FSME Logic",
-    "description": "Predictive integrity audits for industrial and commercial fleet operations. Fully offline, air-gapped analysis conducted in Edmonton. Validated on NASA, ESA, and IBM quantum hardware datasets.",
-    "url": "https://fsmelogic.ca",
-    "email": "alex-kalyniuk@fsmelogic.ca",
-    "founder": {
-      "@type": "Person",
-      "name": "Alexander Kalyniuk"
-    },
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Edmonton",
-      "addressRegion": "AB",
-      "addressCountry": "CA"
-    },
-    "areaServed": {
-      "@type": "City",
-      "name": "Edmonton"
-    },
-    "serviceType": [
-      "Predictive Maintenance",
-      "Equipment Health Monitoring",
-      "Fleet Integrity Audit",
-      "Industrial Sensor Analysis",
-      "On-site Equipment Audit"
-    ],
-    "knowsAbout": [
-      "Predictive maintenance",
-      "Equipment failure detection",
-      "Industrial fleet monitoring",
-      "Aerospace telemetry analysis",
-      "Edge hardware deployment",
-      "Air-gapped data processing"
-    ],
-    "sameAs": [
-      "https://github.com/FSMELogic/fsmelogic"
-    ]
-  }
-  </script>
-  <!-- Favicon Package -->
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="/web-app-manifest-192x192.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="/web-app-manifest-512x512.png">
-  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link rel="icon" type="image/x-icon" href="/favicon.ico">
-  <link rel="manifest" href="/site.webmanifest">
 </head>
 <body>
 
@@ -277,7 +119,7 @@
       <li><a href="faq.html">FAQ</a></li>
       <li><a href="store.html">Store</a></li>
       <li><a href="contact.html">Contact</a></li>
-      <li class="nav-cta"><a href="payment.html">Request Audit</a></li>
+      <li class="nav-cta"><a href="contact.html">Request Audit</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Open menu">
       <span></span><span></span><span></span>
@@ -298,269 +140,59 @@
   </div>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-inner">
-    <p class="hero-eyebrow">Predictive Integrity Engine — Edmonton, Alberta</p>
-    <h1>We detect failure<br><em>before</em><br><span class="dim">it happens.</span></h1>
-    <div class="hero-quote">
-      "We detect when systems stop telling the truth — before people pay the price."
-      <strong>— Alexander Kalyniuk, Founder, FSME Logic</strong>
-    </div>
-    <div class="hero-stats">
-      <div class="hero-stat">
-        <div class="val">9<span style="font-size:1.4rem">mo</span></div>
-        <div class="lbl">Lead time<br>ESA spacecraft</div>
-      </div>
-      <div class="hero-stat">
-        <div class="val gold">6.3<span style="font-size:1.4rem">hr</span></div>
-        <div class="lbl">Warning before failure<br>NASA Curiosity Rover</div>
-      </div>
-      <div class="hero-stat">
-        <div class="val">78<span style="font-size:1.4rem">%</span></div>
-        <div class="lbl">Fleet detection rate<br>509 jet engines</div>
-      </div>
-      <div class="hero-stat">
-        <div class="val">0</div>
-        <div class="lbl">False positives<br>full baseline window</div>
-      </div>
-    </div>
-    <div class="hero-actions">
-      <a class="btn btn-primary" href="contact.html">Book a Pilot Audit ▸</a>
-      <a class="btn btn-secondary" href="case-studies.html">View Validation Results</a>
-    </div>
-  </div>
-</section>
+<main>
 
-<!-- THE PROBLEM -->
-<section class="bg-alt">
-  <div class="wrap">
-    <p class="section-label">The Problem</p>
-    <h2 class="section-title">Standard monitoring<br>only sees the <em>crash.</em></h2>
-    <p class="section-sub">Threshold alarms fire when a value exceeds a preset limit. By the time the alarm sounds, the damage is already in progress. The warning window has already closed.</p>
-    <div class="grid-3">
-      <div class="prob-card">
-        <h3>Alarms, not answers.</h3>
-        <p>Standard sensors tell you when something has already gone wrong. They trigger on amplitude spikes — the symptom, not the cause. Maintenance teams respond to emergencies instead of planning ahead.</p>
-      </div>
-      <div class="prob-card">
-        <h3>The Green Dashboard Fallacy.</h3>
-        <p>A system can show perfectly normal readings right up until failure. Internal structural degradation is invisible to threshold monitoring — no spikes, no alerts, perfectly healthy on every dashboard — until it isn't.</p>
-      </div>
-      <div class="prob-card">
-        <h3>Cloud systems expose your data.</h3>
-        <p>Most AI-based predictive platforms require your operational telemetry to be uploaded for processing. Your data leaves your facility. For industrial and fleet operations, that's an unacceptable security exposure.</p>
-      </div>
-    </div>
+  <div class="page-header">
+    <span class="label">// Air-Gapped Industrial Telemetry Analysis</span>
+    <h1>We detect failure before it happens.</h1>
+    <p>Predictive maintenance for air-gapped SCADA systems and critical industrial fleets. We detect structural degradation weeks before standard threshold alarms trigger, completely offline. Zero data exit. No cloud required.</p>
+    <a href="contact.html" class="btn-primary">Book a Pilot Integrity Audit</a>
   </div>
-</section>
 
-<!-- WHAT WE DO -->
-<section>
-  <div class="wrap">
-    <p class="section-label">What FSME Logic Does</p>
-    <h2 class="section-title">We read the <em>history</em><br>your sensors ignore.</h2>
-    <p class="section-sub">Physical systems accumulate stress over time. That stress leaves a measurable trace in the signal record. FSME Logic reads that trace — identifying structural degradation weeks or months before any threshold alarm would trigger.</p>
-    <div class="grid-3-cards">
-      <div class="what-card">
-        <div class="what-icon">📡</div>
-        <h3>Beyond Threshold Detection</h3>
-        <p>We detect the earliest signs of structural stress accumulation in your signal record — the point where a system begins losing its normal operating history, long before any visible symptom appears.</p>
+  <section class="content-section">
+    <div class="content-grid">
+      <div class="section-title">
+        <span class="label">The Problem</span>
+        <h2>Why did my equipment fail without a threshold alarm?</h2>
       </div>
-      <div class="what-card">
-        <div class="what-icon">🔒</div>
-        <h3>Fully Offline. Zero Data Exit.</h3>
-        <p>All analysis runs on local, air-gapped hardware in our Edmonton facility. Your data is never uploaded to any cloud server and never transmitted over any network. We provide a cryptographic SHA-256 custody receipt confirming secure handling if required.</p>
-      </div>
-      <div class="what-card">
-        <div class="what-icon">⚡</div>
-        <h3>No Training Data Required</h3>
-        <p>Most AI maintenance platforms need months of historical failure data before they can operate. FSME Logic deploys cold — on any new asset, from the first day of operation. No baseline failure library needed.</p>
-      </div>
-      <div class="what-card">
-        <div class="what-icon">📋</div>
-        <h3>Works With What You Have</h3>
-        <p>No new sensors. No new hardware. No infrastructure changes. We work directly from your existing SCADA, BMS, or data logger CSV exports.</p>
-      </div>
-      <div class="what-card">
-        <div class="what-icon">🏭</div>
-        <h3>Any Industry, Any Asset</h3>
-        <p>Validated across aerospace telemetry, commercial vehicle fleets, industrial bearings, refrigeration systems, and orbital satellite hardware. The same engine works across all physical domains.</p>
-      </div>
-      <div class="what-card">
-        <div class="what-icon">📊</div>
-        <h3>Plain-Language Reports</h3>
-        <p>Every audit delivers a clear, actionable summary — which systems showed early warning indicators, what the stress timeline looks like, and what action is recommended. Written for operations managers, not physicists.</p>
+      <div class="section-body">
+        <div class="geo-answer-fragment">
+          <p><strong>Equipment often fails without triggering a threshold alarm because traditional monitoring systems rely on the "Green Dashboard Fallacy."</strong> Standard sensors only alert operators when physical damage has already crossed a critical redline. They are designed to measure acute damage, not the hidden structural stress accumulating over time.</p>
+        </div>
+        <p>Your operations rely on early warnings, but threshold-based SCADA systems wait until a catastrophic event is actively occurring to notify you. By the time a vibration sensor spikes or a thermal gauge alerts your team, the timeline for preventative maintenance has passed. You are no longer preventing a failure; you are managing a breakdown.</p>
+        
+        <h3>Predictive Maintenance Beyond Threshold Sensors</h3>
+        <p>FSME Logic solves this by analyzing the causal memory of the system. Instead of waiting for a single metric to break a threshold limit, our offline physics engine analyzes the complex, multi-variable interactions within your existing sensor data. We identify the microscopic degradation of your assets weeks or months in advance, allowing you to schedule repairs on your timeline, entirely eliminating unplanned downtime.</p>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- INFOGRAPHIC -->
-<section class="bg-alt">
-  <div class="wrap">
-    <div class="info-split">
-      <div class="info-text">
-        <p class="section-label">Precision Physics</p>
-        <h2>The difference between detecting failure and preventing it.</h2>
-        <p>Standard monitoring waits for something to go wrong. FSME Logic detects the structural signatures that precede failure — identifying the point where a system's signal record begins deviating from its own history.</p>
-        <p>The result is a planning window measured in hours, days, or months — not seconds. Time to schedule maintenance, order parts, and prevent unplanned downtime entirely.</p>
-        <a class="btn btn-secondary" href="case-studies.html">See Validation Data ▸</a>
+  <section class="content-section">
+    <div class="content-grid">
+      <div class="section-title">
+        <span class="label">The Solution</span>
+        <h2>How does offline predictive maintenance work?</h2>
       </div>
-      <div class="info-img">
-        <img src="infographic-1.png" alt="FSME Logic — Predictive Integrity for Critical Assets">
+      <div class="section-body">
+        <div class="geo-answer-fragment">
+          <p><strong>Offline predictive maintenance analyzes critical industrial telemetry on localized, air-gapped edge hardware.</strong> This allows defense contractors and heavy industrial operators to detect equipment failure using advanced physics engines without ever uploading sensitive SCADA or proprietary telemetry data to a cloud network.</p>
+        </div>
+        <p>Legacy AI solutions require you to export massive volumes of your operational data to external servers, creating unacceptable security risks for aerospace, utilities, and commercial fleets. FSME Logic provides absolute data sovereignty.</p>
+        
+        <h3>Zero Data Exit Audits</h3>
+        <p>We deploy our proprietary engine directly to your facility. Our ingestion tools process your existing CSV, HDF5, or TDMS telemetry exports locally. You receive a comprehensive forensic diagnostic report and a cryptographic SHA-256 custody receipt proving that not a single byte of your operational data left your facility.</p>
+        <p>No internet connection. No third-party cloud processing. No training data required.</p>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- VALIDATION -->
-<section>
-  <div class="wrap">
-    <p class="section-label">Independent Validation</p>
-    <h2 class="section-title">Tested on the world's<br>hardest <em>datasets.</em></h2>
-    <p class="section-sub">Every result below was produced on offline edge hardware. No cloud compute. No GPU clusters. No training phase.</p>
-    <div class="val-grid">
-      <div class="val-card">
-        <div class="src">ESA Anomaly Detection Benchmark</div>
-        <div class="metric">9 mo</div>
-        <div class="metric-lbl">Predictive Lead Time</div>
-        <p>Detected a four-channel spacecraft subsystem cascade 9 months before the first officially recorded ESA ground truth anomaly. Every competing algorithm tested by ESA was classified as operationally insufficient.</p>
-      </div>
-      <div class="val-card">
-        <div class="src">NASA Mars Science Laboratory</div>
-        <div class="metric">6.3 hr</div>
-        <div class="metric-lbl">Warning Before Failure</div>
-        <p>Detected mechanical actuator binding on the Curiosity Rover 382 steps before NASA's official failure label — providing 6.3 hours of advance warning on a mission-critical planetary asset.</p>
-      </div>
-      <div class="val-card">
-        <div class="src">NASA C-MAPSS — 509 Turbofan Engines</div>
-        <div class="metric">78%</div>
-        <div class="metric-lbl">Fleet Detection Rate</div>
-        <p>Successfully identified degradation across 509 commercial turbofan engines with an average 126-cycle warning advantage — enabling planned overhauls instead of emergency grounding.</p>
-      </div>
-      <div class="val-card">
-        <div class="src">ESA OPS-SAT Orbital CubeSat</div>
-        <div class="metric">11.5 min</div>
-        <div class="metric-lbl">Orbital Warning</div>
-        <p>Flagged in-orbit CubeSat sensor degradation nearly 12 minutes before official ground-truth failure timestamps — blind test, no prior access to the dataset.</p>
-      </div>
-      <div class="val-card">
-        <div class="src">CWRU Bearing Fault Benchmark</div>
-        <div class="metric">100%</div>
-        <div class="metric-lbl">Classification Rate</div>
-        <p>Successfully classified all 9 bearing fault types and 3 severity levels — running entirely on ARM edge hardware with zero cloud infrastructure.</p>
-      </div>
-      <div class="val-card">
-        <div class="src">Commercial Refrigeration</div>
-        <div class="metric">54%</div>
-        <div class="metric-lbl">Internal Stress Detected</div>
-        <p>Detected a 54% internal stress deviation in refrigeration condenser hardware while the thermostat showed a completely normal reading — a direct demonstration of the Green Dashboard Fallacy in a real commercial system.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- COMPARISON -->
-<section class="bg-alt">
-  <div class="wrap">
-    <p class="section-label">How We Compare</p>
-    <h2 class="section-title">FSME Logic vs.<br><em>everything else.</em></h2>
-    <div class="tbl-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Capability</th>
-            <th>Standard Monitoring</th>
-            <th>FSME Logic</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>Detection timing</td><td><span class="tag-bad">After threshold breach</span></td><td><span class="tag-good">Before threshold breach</span></td></tr>
-          <tr><td>Warning window</td><td><span class="tag-bad">Seconds to none</span></td><td><span class="tag-good">Hours, days, or months</span></td></tr>
-          <tr><td>Training data required</td><td><span class="tag-bad">Historical failures needed</span></td><td><span class="tag-good">Zero — deploys cold</span></td></tr>
-          <tr><td>Data security</td><td><span class="tag-bad">Cloud upload required</span></td><td><span class="tag-good">Fully offline, zero data exit</span></td></tr>
-          <tr><td>New infrastructure</td><td><span class="tag-bad">New sensors often required</span></td><td><span class="tag-good">Works with existing exports</span></td></tr>
-          <tr><td>False positive rate</td><td><span class="tag-bad">High — operators disable alerts</span></td><td><span class="tag-good">Zero across full baseline window</span></td></tr>
-          <tr><td>Aerospace validation</td><td><span class="tag-bad">No</span></td><td><span class="tag-good">NASA &amp; ESA confirmed</span></td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<!-- PROCESS -->
-<section>
-  <div class="wrap">
-    <p class="section-label">The Process</p>
-    <h2 class="section-title">Simple. Secure.<br><em>Actionable.</em></h2>
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">01</div>
-        <h3>Export Your Data</h3>
-        <p>Pull a CSV from your existing monitoring system. 30–90 days of sensor readings is ideal. No special format required.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">02</div>
-        <h3>On-Site Audit</h3>
-        <p>Export your sensor data and send it to us. All analysis runs on our local, offline hardware in Edmonton — no internet connection, no cloud uploads. We do not store your data. </p>
-      </div>
-      <div class="step">
-        <div class="step-num">03</div>
-        <h3>Forensic Report</h3>
-        <p>A comprehensive summary identifying which systems showed early warning indicators, what the stress timeline looks like, and what action is recommended.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">04</div>
-        <h3>Custody Receipt</h3>
-        <p>A SHA-256 cryptographic chain of custody document confirming your data was handled securely and never transmitted at any stage.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="cta">
-  <h2>Ready to see what your<br>sensors are missing?</h2>
-  <p>Book a Pilot Integrity Audit. On-site, fully offline, no new infrastructure required. Results delivered the same day.</p>
-  <div class="cta-row">
-    <a class="btn btn-primary" href="contact.html">Contact Us ▸</a>
-    <a class="btn btn-secondary" href="case-studies.html">Review Validation Data</a>
-  </div>
-</section>
-
-<!-- YOUTUBE -->
-<section style="background:var(--bg2); border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:4rem 2rem;">
-  <div style="max-width:860px; margin:0 auto;">
-    <div style="margin-bottom:1.5rem;">
-      <span style="font-family:var(--mono); font-size:0.72rem; color:var(--blue); letter-spacing:0.15em;">// LATEST FROM FSME LOGIC</span>
-      <h2 style="font-family:var(--head); font-size:clamp(1.6rem,4vw,2.2rem); font-weight:700; color:var(--text); margin-top:0.5rem; letter-spacing:0.02em;">Watch It In Action</h2>
-      <p style="font-family:var(--mono); font-size:0.82rem; color:var(--muted); margin-top:0.5rem; line-height:1.7;">Follow the build, the validation results, and the launch on the FSME Logic YouTube channel.</p>
-    </div>
-    <div style="position:relative; width:100%; padding-bottom:56.25%; background:var(--card); border:1px solid var(--border); border-radius:4px; overflow:hidden;">
-      <iframe
-        style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;"
-        src="https://www.youtube.com/embed?listType=user_uploads&list=fsmelogic&rel=0&modestbranding=1"
-        title="FSME Logic YouTube Channel"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen>
-      </iframe>
-    </div>
-    <div style="margin-top:1rem; text-align:right;">
-      <a href="https://youtube.com/@fsmelogic" target="_blank" rel="noopener"
-         style="font-family:var(--mono); font-size:0.75rem; color:var(--blue); text-decoration:none; letter-spacing:0.08em; text-transform:uppercase;">
-        View Full Channel ↗
-      </a>
-    </div>
-  </div>
-</section>
+</main>
 
 <footer>
   <div class="foot-inner">
     <div class="foot-left">
-      <a href="easter-egg.html" style="color:inherit;text-decoration:none;cursor:default;">©</a> 2026 Alexander Kalyniuk — FSME Logic &nbsp;|&nbsp; Edmonton, Alberta, Canada<br>
-      Patent Pending &nbsp;|&nbsp; <a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a>
+      © 2026 Alexander Kalyniuk — FSME Logic &nbsp;|&nbsp; Offline Predictive Maintenance Audits | Edmonton, Alberta, Canada<br>
+      Patent Pending CA 3,297,487 &nbsp;|&nbsp; <a href="/cdn-cgi/l/email-protection#2d4c41485500464c4154434458466d4b5e404841424a444e034e4c"><span class="__cf_email__" data-cfemail="06676a637e2b6d676a7f686f736d4660756b636a69616f65286567">[email&#160;protected]</span></a>
     </div>
     <div class="foot-right">
       <a href="case-studies.html">Validation</a>
@@ -578,21 +210,12 @@
       <a href="reports.html">Validation Reports</a>
       <a href="roi.html">ROI Calculator</a>
     </div>
-    <div class="foot-social">
-      <a href="https://x.com/FsmeLogic" target="_blank" rel="noopener" aria-label="X / Twitter">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.731-8.835L1.254 2.25H8.08l4.259 5.63 5.905-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-      </a>
-      <a href="https://youtube.com/@fsmelogic" target="_blank" rel="noopener" aria-label="YouTube">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
-      </a>
-            <a href="https://www.linkedin.com/in/fsmelogic" target="_blank" rel="noopener" aria-label="LinkedIn">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-      </a>
-    </div>
   </div>
 </footer>
 
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 <script>
+  // Hamburger
   (function() {
     var btn = document.getElementById('hamburger');
     var menu = document.getElementById('mobile-menu');
@@ -604,5 +227,6 @@
     }
   })();
 </script>
+
 </body>
 </html>
