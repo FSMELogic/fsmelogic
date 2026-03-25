@@ -652,6 +652,36 @@
       if (btn) btn.setAttribute('aria-expanded', 'false');
     });
   })();
+
+  // FAQ Accordion
+  (function() {
+    var questions = document.querySelectorAll('.faq-question');
+    questions.forEach(function(btn) {
+      btn.setAttribute('aria-expanded', 'false');
+      btn.addEventListener('click', function() {
+        var answer = btn.nextElementSibling;
+        var isOpen = btn.getAttribute('aria-expanded') === 'true';
+
+        // Close all others
+        questions.forEach(function(other) {
+          if (other !== btn) {
+            other.setAttribute('aria-expanded', 'false');
+            var otherAnswer = other.nextElementSibling;
+            if (otherAnswer) otherAnswer.style.maxHeight = null;
+          }
+        });
+
+        // Toggle this one
+        if (isOpen) {
+          btn.setAttribute('aria-expanded', 'false');
+          answer.style.maxHeight = null;
+        } else {
+          btn.setAttribute('aria-expanded', 'true');
+          answer.style.maxHeight = answer.scrollHeight + 'px';
+        }
+      });
+    });
+  })();
 </script>
 </body>
 </html>
