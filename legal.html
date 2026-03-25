@@ -1,64 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-H3ZFCJGRSS"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-H3ZFCJGRSS');
-</script>
-  
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H3ZFCJGRSS');
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18021290501"></script>
+  <script>gtag('config', 'AW-18021290501');</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Legal — FSME Logic</title>
-  <meta name="description" content="Legal disclosures, intellectual property notices, terms of use, and liability limitations for FSME Logic.">
+  <title>Legal, Terms of Service & Privacy Policy — FSME Logic</title>
+  <meta name="description" content="Legal disclosures, terms of service, and privacy policy for FSME Logic. Intellectual property notices, liability limitations, and PIPEDA-compliant data handling. Edmonton, Alberta.">
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg: #0e1118; --bg2: #141822; --card: #181f2e; --steel: #1c2438;
-      --border: #242e42; --bord2: #2e3a52;
-      --blue: #3d8ef0; --blue2: #2d6fd0; --cyan: #5bb8d4; --gold: #c9a84c;
-      --text: #c5d2e8; --muted: #6e86a8; --dim: #3a4a62;
-      --head: 'Barlow Condensed', sans-serif; --mono: 'IBM Plex Mono', monospace;
-    }
-    html { scroll-behavior: smooth; }
-    body { background: var(--bg); color: var(--text); font-family: var(--mono); font-size: 16px; line-height: 1.7; min-height: 100vh; overflow-x: hidden; }
-    body::before { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none; background-image: linear-gradient(rgba(61,142,240,0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(61,142,240,0.018) 1px, transparent 1px); background-size: 52px 52px; }
-    body::after { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none; background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.04) 3px, rgba(0,0,0,0.04) 4px); }
-
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; background: rgba(8,10,16,0.96); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); box-shadow: 0 1px 0 rgba(61,142,240,0.12); }
-    .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0.85rem 2rem; }
-    .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
-    .nav-logo img { height: 42px; width: 42px; object-fit: contain; border-radius: 4px; }
-    .nav-logo-text { font-family: var(--mono); font-weight: 700; font-size: 1rem; color: var(--blue); letter-spacing: 0.1em; }
-    .nav-links { display: flex; list-style: none; align-items: center; gap: 0.25rem; }
-    .nav-links a { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.45rem 0.9rem; transition: color 0.2s, background 0.2s; }
-    .nav-links a:hover { color: var(--blue); background: rgba(61,142,240,0.08); }
-    .nav-links .nav-cta a { color: var(--blue); border: 1px solid rgba(61,142,240,0.5); padding: 0.45rem 1rem; }
-    .nav-links .nav-cta a:hover { background: var(--blue); color: #fff; }
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 0.5rem; background: none; border: none; }
-    .hamburger span { display: block; width: 24px; height: 2px; background: var(--muted); transition: all 0.3s; }
-    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-    .mobile-menu { display: none; flex-direction: column; background: rgba(8,10,16,0.98); border-top: 1px solid var(--border); padding: 1rem 2rem 1.5rem; }
-    .mobile-menu.open { display: flex; }
-    .mobile-menu a { font-family: var(--mono); font-size: 0.85rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.85rem 0; border-bottom: 1px solid var(--border); transition: color 0.2s; }
-    .mobile-menu a:last-child { color: var(--blue); border-bottom: none; margin-top: 0.5rem; }
-
-    .page-wrap { max-width: 860px; margin: 0 auto; padding: 9rem 2rem 6rem; position: relative; z-index: 1; }
+    .page-wrap { max-width: 900px; margin: 0 auto; padding: 9rem 2rem 6rem; position: relative; z-index: 1; }
     .page-eyebrow { font-family: var(--mono); font-size: 0.72rem; color: var(--blue); letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.75rem; }
     .page-eyebrow::before { content: '▸'; }
-    h1 { font-family: var(--head); font-size: clamp(2.6rem, 6vw, 4rem); font-weight: 800; color: #dde6f5; line-height: 0.95; margin-bottom: 1rem; }
-    h1 em { font-style: normal; color: var(--blue); }
+    .page-wrap > h1 { font-family: var(--head); font-size: clamp(2.6rem, 6vw, 4rem); font-weight: 800; color: #dde6f5; line-height: 0.95; margin-bottom: 1rem; }
+    .page-wrap > h1 em { font-style: normal; color: var(--blue); }
     .page-intro { font-family: var(--mono); font-size: 0.9rem; color: var(--muted); line-height: 1.9; margin-bottom: 0.5rem; }
-    .effective-date { font-family: var(--mono); font-size: 0.75rem; color: var(--dim); margin-bottom: 3rem; }
+    .effective-date { font-family: var(--mono); font-size: 0.75rem; color: var(--dim); margin-bottom: 2.5rem; }
+
+    /* TAB NAVIGATION */
+    .tab-nav { display: flex; border: 1px solid var(--border); margin-bottom: 3rem; overflow: hidden; }
+    .tab-btn { flex: 1; font-family: var(--mono); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 1rem 1.25rem; background: transparent; color: var(--muted); border: none; border-right: 1px solid var(--border); cursor: pointer; transition: all 0.2s; text-align: center; }
+    .tab-btn:last-child { border-right: none; }
+    .tab-btn:hover { color: var(--blue); background: rgba(61,142,240,0.06); }
+    .tab-btn.active { color: var(--blue); background: rgba(61,142,240,0.1); border-bottom: 2px solid var(--blue); }
+
+    /* TAB PANELS */
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
 
     /* TOC */
-    .toc { background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--blue); padding: 1.75rem 2rem; margin-bottom: 3.5rem; }
+    .toc { background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--blue); padding: 1.75rem 2rem; margin-bottom: 3rem; }
     .toc-title { font-family: var(--mono); font-size: 0.65rem; color: var(--blue); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1rem; }
     .toc ol { list-style: decimal; padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.4rem; }
     .toc ol li { font-family: var(--mono); font-size: 0.85rem; }
@@ -77,315 +58,594 @@
     .legal-section ul li { font-family: var(--mono); font-size: 0.88rem; color: var(--muted); line-height: 1.85; padding-left: 1.25rem; position: relative; }
     .legal-section ul li::before { content: '▸'; position: absolute; left: 0; color: var(--blue); font-size: 0.55rem; top: 0.45rem; }
     .legal-section strong { color: var(--text); }
+    .legal-section a { color: var(--blue); text-decoration: none; }
+    .legal-section a:hover { text-decoration: underline; }
 
-    /* HIGHLIGHT BOX */
+    /* HIGHLIGHT / WARNING BOXES */
     .legal-highlight { background: rgba(61,142,240,0.06); border: 1px solid rgba(61,142,240,0.2); border-left: 3px solid var(--blue); padding: 1.25rem 1.5rem; margin: 1.25rem 0; }
     .legal-highlight p { font-family: var(--mono); font-size: 0.85rem; color: var(--text); line-height: 1.9; margin-bottom: 0; }
-
-    /* WARNING BOX */
     .legal-warning { background: rgba(201,168,76,0.06); border: 1px solid rgba(201,168,76,0.2); border-left: 3px solid var(--gold); padding: 1.25rem 1.5rem; margin: 1.25rem 0; }
     .legal-warning p { font-family: var(--mono); font-size: 0.85rem; color: var(--text); line-height: 1.9; margin-bottom: 0; }
 
-    footer { background: #080a10; border-top: 1px solid var(--border); padding: 2.5rem 2rem; position: relative; z-index: 1; }
-    .foot-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
-    .foot-left { font-family: var(--mono); font-size: 0.77rem; color: var(--dim); line-height: 1.8; }
-    .foot-left a { color: var(--blue); text-decoration: none; }
-    .foot-right { display: flex; gap: 1.5rem; flex-wrap: wrap; }
-    .foot-right a { font-family: var(--mono); font-size: 0.73rem; color: var(--dim); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
-    .foot-right a:hover { color: var(--blue); }
-    .foot-social { display: flex; align-items: center; gap: 1rem; }
-    .foot-social a { color: var(--dim); transition: color 0.2s; display: flex; align-items: center; }
-    .foot-social a:hover { color: var(--blue); }
+    /* PRIVACY PLAIN SUMMARY */
+    .plain-summary { background: var(--steel); border: 1px solid var(--border); border-left: 3px solid var(--blue); padding: 1.5rem 1.75rem; margin-bottom: 2.5rem; }
+    .plain-summary h3 { font-family: var(--mono); font-size: 0.68rem; color: var(--blue); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 0.75rem; }
+    .plain-summary p { font-family: var(--mono); font-size: 0.88rem; color: var(--text); line-height: 1.85; margin-bottom: 0.75rem; }
+    .plain-summary p:last-child { margin-bottom: 0; }
+
+    /* PRIVACY SECTION NUMBERS */
+    .section-num { font-family: var(--mono); font-size: 0.7rem; color: var(--blue); background: rgba(61,142,240,0.1); border: 1px solid rgba(61,142,240,0.25); padding: 0.2rem 0.55rem; letter-spacing: 0.1em; font-weight: 400; margin-right: 0.5rem; }
 
     @media (max-width: 680px) {
-      .nav-links { display: none; } .hamburger { display: flex; }
       .page-wrap { padding: 7.5rem 1.25rem 5rem; }
+      .tab-btn { font-size: 0.65rem; padding: 0.75rem 0.5rem; }
     }
   </style>
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://fsmelogic.ca/legal.html">
+  <meta property="og:title" content="Legal, Terms & Privacy — FSME Logic">
+  <meta property="og:description" content="Legal disclosures, terms of service, and privacy policy for FSME Logic.">
+  <meta property="og:image" content="https://fsmelogic.ca/infographic-1.png">
+  <meta property="og:site_name" content="FSME Logic">
+  <meta property="og:locale" content="en_CA">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Legal, Terms & Privacy — FSME Logic">
+  <meta name="twitter:description" content="Legal disclosures, terms of service, and privacy policy for FSME Logic.">
+  <meta name="twitter:image" content="https://fsmelogic.ca/infographic-1.png">
+  <link rel="canonical" href="https://fsmelogic.ca/legal.html">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Alexander Kalyniuk — FSME Logic">
+  <meta name="geo.region" content="CA-AB">
+  <meta name="geo.placename" content="Edmonton, Alberta, Canada">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/web-app-manifest-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/web-app-manifest-512x512.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="manifest" href="/site.webmanifest">
 </head>
 <body>
 
 <nav>
   <div class="nav-inner">
     <a class="nav-logo" href="index.html">
-      <img src="logo.jpg" alt="FSME Logic">
+      <img src="logo.jpg" alt="FSME Logic" width="42" height="42">
       <span class="nav-logo-text">FSME Logic</span>
     </a>
     <ul class="nav-links">
       <li><a href="case-studies.html">Validation</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="faq.html">FAQ</a></li>
+      <li><a href="store.html">Store</a></li>
       <li><a href="contact.html">Contact</a></li>
-      <li class="nav-cta"><a href="contact.html">Request Audit</a></li>
+      <li class="nav-more">
+        <button class="nav-more-btn" aria-expanded="false" aria-haspopup="true">More &#9662;</button>
+        <ul class="nav-dropdown">
+          <li><a href="roi.html">ROI Calculator</a></li>
+          <li><a href="newsroom.html">Newsroom</a></li>
+          <li><a href="investors.html">Investors</a></li>
+          <li><a href="pipeline-demo.html">Live Demo</a></li>
+          <li><a href="legal.html">Legal &amp; Terms</a></li>
+          <li><a href="legal.html#privacy">Privacy Policy</a></li>
+          <li><a href="case-studies.html#reports">Validation Reports</a></li>
+        </ul>
+      </li>
+      <li class="nav-cta"><a href="payment.html">Request Audit</a></li>
     </ul>
-    <button class="hamburger" id="hamburger" aria-label="Open menu">
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
       <span></span><span></span><span></span>
     </button>
   </div>
   <div class="mobile-menu" id="mobile-menu">
+    <a href="payment.html">Request Audit &#9658;</a>
     <a href="case-studies.html">Validation</a>
     <a href="about.html">About</a>
     <a href="faq.html">FAQ</a>
+    <a href="store.html">Store</a>
     <a href="contact.html">Contact</a>
-    <a href="contact.html">Request Audit</a>
+    <a href="roi.html">ROI Calculator</a>
+    <a href="newsroom.html">Newsroom</a>
+    <a href="investors.html">Investors</a>
+    <a href="pipeline-demo.html">Live Demo</a>
+    <a href="case-studies.html#reports">Validation Reports</a>
+    <a href="legal.html">Legal &amp; Terms</a>
+    <a href="legal.html#privacy">Privacy Policy</a>
   </div>
 </nav>
 
 <div class="page-wrap">
-  <p class="page-eyebrow">Legal</p>
-  <h1>Legal Disclosures &amp;<br><em>IP Notice.</em></h1>
-  <p class="page-intro">This page governs your use of fsmelogic.ca and documents the intellectual property, liability, and commercial scope of FSME Logic. Please read carefully before engaging with this website or our services.</p>
+  <p class="page-eyebrow">Legal Centre</p>
+  <h1>Legal, Terms &amp;<br><em>Privacy.</em></h1>
+  <p class="page-intro">All legal documents governing use of fsmelogic.ca and FSME Logic services, consolidated in one place.</p>
   <p class="effective-date">Effective date: March 2026 &nbsp;|&nbsp; Jurisdiction: Alberta, Canada</p>
 
-  <!-- TABLE OF CONTENTS -->
-  <div class="toc">
-    <div class="toc-title">// Contents</div>
-    <ol>
-      <li><a href="#governance">Corporate Governance &amp; Entity Structure</a></li>
-      <li><a href="#ip">Intellectual Property &amp; Chain of Title</a></li>
-      <li><a href="#trade-secrets">Trade Secrets &amp; Calibration Methodology</a></li>
-      <li><a href="#software">Software Licensing &amp; Open-Source Compliance</a></li>
-      <li><a href="#field-of-use">Commercial Scope &amp; Field of Use</a></li>
-      <li><a href="#data">Data Handling &amp; Security Architecture</a></li>
-      <li><a href="#not-financial-advice">Signal Integrity Output — Not Financial Advice</a></li>
-      <li><a href="#disclaimers">Institutional Disclaimers &amp; Dataset Attribution</a></li>
-      <li><a href="#performance">Analytical Performance &amp; Forward-Looking Statements</a></li>
-      <li><a href="#as-is">Analytical Deliverables — As-Is Provision</a></li>
-      <li><a href="#website-terms">Website Terms of Use</a></li>
-      <li><a href="#liability">Limitation of Liability</a></li>
-      <li><a href="#third-party">Third-Party Services</a></li>
-      <li><a href="#contact-legal">Legal Contact</a></li>
-    </ol>
+  <!-- TAB NAVIGATION -->
+  <div class="tab-nav" role="tablist">
+    <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="panel-legal" onclick="switchTab('legal', this)">Legal Disclosures</button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-terms" onclick="switchTab('terms', this)">Terms of Service</button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-privacy" onclick="switchTab('privacy', this)">Privacy Policy</button>
   </div>
 
-  <!-- 1. GOVERNANCE -->
-  <div class="legal-section" id="governance">
-    <p class="section-tag">Section 01</p>
-    <h2>Corporate Governance &amp; Entity Structure</h2>
-    <p>FSME Logic operates as a registered sole proprietorship under the jurisdiction of Alberta, Canada, operated by Alexander Kalyniuk as the sole founder and equity holder.</p>
-    <ul>
-      <li><strong>Clean capitalization:</strong> There is a single equity holder. There are zero outstanding warrants, options, convertible notes, or shadow equity agreements of any kind.</li>
-      <li><strong>No litigation:</strong> FSME Logic has no pending, threatened, or active litigation, arbitration, regulatory investigation, or administrative proceedings.</li>
-      <li><strong>No encumbrances:</strong> The company operates free of any liens, security interests, or third-party claims against its intellectual property or commercial assets.</li>
-      <li><strong>Transaction structure:</strong> The corporate framework is optimized for asset purchase agreements. Any acquiring entity or exclusive licensee assumes no legacy corporate liabilities through an asset transaction.</li>
-    </ul>
-  </div>
+  <!-- ======================================================
+       TAB 1: LEGAL DISCLOSURES
+       ====================================================== -->
+  <div id="panel-legal" class="tab-panel active" role="tabpanel">
 
-  <!-- 2. IP -->
-  <div class="legal-section" id="ip">
-    <p class="section-tag">Section 02</p>
-    <h2>Intellectual Property &amp; Chain of Title</h2>
-    <p>One hundred percent (100%) of the intellectual property underlying FSME Logic — including all foundational methodology, signal processing architecture, detection logic, and physical calibration parameters — is held personally and exclusively by the founder, Alexander Kalyniuk.</p>
-    <ul>
-      <li><strong>Sole authorship:</strong> The entire software architecture, including the proprietary core engine and operational wrappers, was authored exclusively by the founder. Zero third-party contractors, overseas developers, or external contributors were involved at any stage of development. The chain of title is unbroken and unencumbered.</li>
-      <li><strong>Patent protection:</strong> The core detection methodology is actively protected under a Canadian patent application with a secured priority date of January 1, 2026. All patent rights are held solely by the founder.</li>
-      <li><strong>Defensive prior art:</strong> A defensive publication record has been formally established to establish a public prior art timestamp for the underlying physics framework. This publication prevents competing entities from independently patenting the foundational theoretical mechanisms.</li>
-      <li><strong>Copyright:</strong> All website content, documentation, reports, forensic output formats, and marketing materials are copyright © 2026 Alexander Kalyniuk. All rights reserved. Reproduction without written permission is prohibited.</li>
-    </ul>
-  </div>
-
-  <!-- 3. TRADE SECRETS -->
-  <div class="legal-section" id="trade-secrets">
-    <p class="section-tag">Section 03</p>
-    <h2>Trade Secrets &amp; Calibration Methodology</h2>
-    <p>Beyond formal patent protection, FSME Logic's commercial advantage is further defended by a body of trade secrets that are not disclosed in any public filing, publication, or website.</p>
-    <div class="legal-highlight">
-      <p>The specific hardware-calibrated constants, physical calibration methodology is derived from proprietary experimental apparatus are held as protected trade secrets. While the foundational physics are established in public prior art, the precise operational parameters that make the engine commercially functional are not publicly disclosed and are protected under applicable Canadian trade secret law.</p>
+    <div class="toc">
+      <div class="toc-title">// Contents</div>
+      <ol>
+        <li><a href="#governance">Corporate Governance &amp; Entity Structure</a></li>
+        <li><a href="#ip">Intellectual Property &amp; Chain of Title</a></li>
+        <li><a href="#trade-secrets">Trade Secrets &amp; Calibration Methodology</a></li>
+        <li><a href="#software">Software Licensing &amp; Open-Source Compliance</a></li>
+        <li><a href="#field-of-use">Commercial Scope &amp; Field of Use</a></li>
+        <li><a href="#data">Data Handling &amp; Security Architecture</a></li>
+        <li><a href="#not-financial-advice">Signal Integrity Output — Not Financial Advice</a></li>
+        <li><a href="#disclaimers">Institutional Disclaimers &amp; Dataset Attribution</a></li>
+        <li><a href="#performance">Analytical Performance &amp; Forward-Looking Statements</a></li>
+        <li><a href="#as-is">Analytical Deliverables — As-Is Provision</a></li>
+        <li><a href="#website-terms">Website Terms of Use</a></li>
+        <li><a href="#liability">Limitation of Liability</a></li>
+        <li><a href="#third-party">Third-Party Services</a></li>
+        <li><a href="#contact-legal">Legal Contact</a></li>
+      </ol>
     </div>
-    <p>Any reverse engineering, disassembly, decompilation, or attempted reconstruction of proprietary calibration parameters from FSME Logic's public outputs, forensic reports, or marketing materials is expressly prohibited. Such activity constitutes misappropriation of trade secrets and will be pursued accordingly.</p>
-    <p>The proprietary source code is maintained in offline, air-gapped cold storage, mitigating risk of unauthorized access or cloud-based exposure.</p>
-  </div>
 
-  <!-- 4. SOFTWARE LICENSING -->
-  <div class="legal-section" id="software">
-    <p class="section-tag">Section 04</p>
-    <h2>Software Licensing &amp; Open-Source Compliance</h2>
-    <p>The FSME Logic engine is structured to guarantee full commercial freedom to operate for any enterprise partner or licensee.</p>
-    <ul>
-      <li><strong>Proprietary core:</strong> The core mathematical processing engine is built on strictly proprietary architecture. No portion of the core processing logic is derived from, or encumbered by, any open-source licensed component.</li>
-      <li><strong>Permissive dependencies only:</strong> Operational wrappers utilize standard open-source libraries operating exclusively under permissive licenses (MIT and Apache 2.0). The proprietary binary is entirely free from any copyleft (GPL, LGPL, AGPL) contamination. This guarantees that no open-source license obligations extend to any commercial licensee or acquiring entity.</li>
-      <li><strong>No copyleft exposure:</strong> No component of the commercially licensed software requires licensees to disclose, open-source, or share modifications to any portion of their own technology stack.</li>
-    </ul>
-  </div>
-
-  <!-- 5. FIELD OF USE -->
-  <div class="legal-section" id="field-of-use">
-    <p class="section-tag">Section 05</p>
-    <h2>Commercial Scope &amp; Field of Use</h2>
-    <p>All commercial licensing agreements issued by FSME Logic are strictly bounded by defined Fields of Use. No single commercial agreement grants rights across all potential application domains unless explicitly negotiated and documented in a separate written instrument.</p>
-    <p>Current and anticipated commercial Fields of Use include, but are not limited to:</p>
-    <ul>
-      <li>Industrial equipment integrity monitoring and fleet failure detection</li>
-      <li>Aerospace and defense telemetry analysis</li>
-      <li>Quantum computing hardware diagnostics and calibration triggering</li>
-      <li>Financial market signal integrity and anomaly detection</li>
-      <li>Cold chain and refrigeration system monitoring</li>
-    </ul>
-    <p>Regardless of any commercial licensing arrangement, the founder expressly retains all overarching, royalty-free rights for academic research, scientific publication, and non-commercial astrophysics and theoretical physics investigation. Commercial licensing of any specific Field of Use does not restrict the founder's independent scientific research activities.</p>
-    <p>Any party seeking rights beyond a specified Field of Use must negotiate a separate, explicit written agreement. Implied rights or rights by analogy are expressly disclaimed.</p>
-  </div>
-
-  <!-- 6. DATA HANDLING -->
-  <div class="legal-section" id="data">
-    <p class="section-tag">Section 06</p>
-    <h2>Data Handling &amp; Security Architecture</h2>
-    <p>The FSME Logic engine is designed from the ground up as an air-gapped, offline signal processor. Its architecture carries specific and significant security implications for clients.</p>
-    <ul>
-      <li><strong>No PII processing:</strong> The engine does not collect, store, process, or transmit Personally Identifiable Information (PII) by design. Client operational telemetry is processed as anonymous numerical time-series data.</li>
-      <li><strong>No cloud transmission:</strong> Client data submitted for analysis is processed entirely on local, offline, air-gapped hardware. It is not transmitted over any network, uploaded to any cloud service, or processed by any third-party platform at any stage of an engagement.</li>
-      <li><strong>SHA-256 custody:</strong> Every engagement produces a SHA-256 cryptographic chain of custody receipt documenting the data hash at intake and confirming that the dataset was not modified, copied, or transmitted during processing.</li>
-      <li><strong>Zero security incidents:</strong> FSME Logic has a verifiable record of zero security incidents, data breaches, or unauthorized disclosures.</li>
-      <li><strong>Regulatory posture:</strong> The zero-PII, air-gapped architecture substantially reduces standard cybersecurity and data protection regulatory compliance burdens for enterprise clients operating under PIPEDA, GDPR, ITAR, or sector-specific data governance frameworks.</li>
-    </ul>
-  </div>
-
-  <!-- 7. NOT FINANCIAL ADVICE -->
-  <div class="legal-section" id="not-financial-advice">
-    <p class="section-tag">Section 07</p>
-    <h2>Signal Integrity Output — Not Financial Advice</h2>
-    <div class="legal-warning">
-      <p><strong>FSME Logic does not provide financial advice, investment advice, trading recommendations, or any form of fiduciary guidance.</strong> Nothing on this website, in any forensic audit report, in any analytical deliverable, or in any communication from FSME Logic constitutes financial advice or a recommendation to buy, sell, or hold any financial instrument, asset, or security.</p>
+    <div class="legal-section" id="governance">
+      <p class="section-tag">Section 01</p>
+      <h2>Corporate Governance &amp; Entity Structure</h2>
+      <p>FSME Logic operates as a registered sole proprietorship under the jurisdiction of Alberta, Canada, operated by Alexander Kalyniuk as the sole founder and equity holder.</p>
+      <ul>
+        <li><strong>Clean capitalization:</strong> There is a single equity holder. There are zero outstanding warrants, options, convertible notes, or shadow equity agreements of any kind.</li>
+        <li><strong>No litigation:</strong> FSME Logic has no pending, threatened, or active litigation, arbitration, regulatory investigation, or administrative proceedings.</li>
+        <li><strong>No encumbrances:</strong> The company operates free of any liens, security interests, or third-party claims against its intellectual property or commercial assets.</li>
+        <li><strong>Transaction structure:</strong> The corporate framework is optimized for asset purchase agreements. Any acquiring entity or exclusive licensee assumes no legacy corporate liabilities through an asset transaction.</li>
+      </ul>
     </div>
-    <p>The outputs produced by the FSME Logic engine are deterministic physical measurements of signal structure and integrity. They represent an objective analytical measurement. They are not probabilistic predictions of future market prices, future asset performance, or future financial outcomes.</p>
-    <p>All analytical outputs — whether produced in a forensic audit, pilot engagement, or any other commercial arrangement — are strictly for informational and analytical purposes only. The client is solely and exclusively responsible for all decisions made in reliance on, or in connection with, any FSME Logic output. FSME Logic assumes no fiduciary duty, no advisory duty, and no duty of care with respect to any client's financial, operational, or investment decisions.</p>
-    <p>FSME Logic is not registered as an investment adviser, broker-dealer, financial planner, or financial institution under applicable Canadian or international law. No registration, license, or regulatory approval for financial advisory services has been sought or obtained.</p>
-  </div>
 
-  <!-- 8. INSTITUTIONAL DISCLAIMERS -->
-  <div class="legal-section" id="disclaimers">
-    <p class="section-tag">Section 08</p>
-    <h2>Institutional Disclaimers &amp; Dataset Attribution</h2>
-    <p>FSME Logic has validated its detection engine against a number of publicly available datasets released by third-party institutions for open research purposes. The following disclaimers apply to all such validation work:</p>
-    <ul>
-      <li>FSME Logic has no affiliation with NASA, the Jet Propulsion Laboratory, the European Space Agency, IBM, or any other institution whose publicly released datasets were used for validation purposes.</li>
-      <li>No endorsement of FSME Logic, its technology, or its commercial claims is expressed or implied by any institution whose datasets appear in FSME Logic validation materials.</li>
-      <li>All validation results were produced independently by FSME Logic on privately owned hardware using datasets made publicly available for research purposes.</li>
-      <li>References to specific missions, hardware platforms, or institutional benchmarks are made solely for the purpose of identifying the source dataset and establishing scientific reproducibility.</li>
-    </ul>
-  </div>
-
-  <!-- 9. PERFORMANCE DISCLAIMERS -->
-  <div class="legal-section" id="performance">
-    <p class="section-tag">Section 09</p>
-    <h2>Analytical Performance &amp; Forward-Looking Statements</h2>
-    <p>Case studies, validation results, detection lead times, and forensic findings presented on this website and in FSME Logic materials represent specific, controlled analytical engagements conducted on defined datasets under defined conditions.</p>
-    <div class="legal-highlight">
-      <p>Past detection performance on historical or benchmark datasets does not guarantee identical detection performance on future datasets, different hardware configurations, or different operational environments. All performance figures are dataset-specific and condition-specific.</p>
+    <div class="legal-section" id="ip">
+      <p class="section-tag">Section 02</p>
+      <h2>Intellectual Property &amp; Chain of Title</h2>
+      <p>One hundred percent (100%) of the intellectual property underlying FSME Logic — including all foundational methodology, signal processing architecture, and detection logic — is held personally and exclusively by the founder, Alexander Kalyniuk.</p>
+      <ul>
+        <li><strong>Sole authorship:</strong> The entire software architecture was authored exclusively by the founder. Zero third-party contractors, overseas developers, or external contributors were involved at any stage. The chain of title is unbroken and unencumbered.</li>
+        <li><strong>Patent protection:</strong> The core detection methodology is actively protected under Canadian Patent Application No. 3,297,487 with a secured priority date of January 1, 2026. All patent rights are held solely by the founder.</li>
+        <li><strong>Defensive prior art:</strong> A defensive publication record has been established to prevent competing entities from independently patenting the foundational theoretical mechanisms.</li>
+        <li><strong>Copyright:</strong> All website content, documentation, reports, forensic output formats, and marketing materials are copyright &copy; 2026 Alexander Kalyniuk. All rights reserved.</li>
+      </ul>
     </div>
-    <p>Statements regarding potential future performance, potential commercial applications, or anticipated detection capabilities constitute forward-looking statements. Such statements involve inherent uncertainty and are subject to material risks including, but not limited to, dataset quality, sensor configuration, data sampling rates, and operational environment variables outside FSME Logic's control.</p>
-    <p>No warranty, express or implied, is made that any future engagement will achieve detection results equivalent to those documented in published validation materials. Clients are advised to evaluate FSME Logic's capabilities through a defined pilot engagement on their own historical data before making operational or procurement decisions.</p>
-  </div>
 
-  <!-- 10. AS-IS -->
-  <div class="legal-section" id="as-is">
-    <p class="section-tag">Section 10</p>
-    <h2>Analytical Deliverables — As-Is Provision</h2>
-    <p>All forensic audit reports, signal integrity assessments, data processing outputs, and analytical deliverables produced by FSME Logic are provided <strong>"as-is"</strong> and <strong>"as-available"</strong> based on the data provided by the client at the time of the engagement.</p>
-    <p>FSME Logic expressly disclaims all implied warranties, including but not limited to implied warranties of merchantability, fitness for a particular purpose, and non-infringement. No warranty is made that analytical outputs will be error-free, complete, or suitable for any specific operational, procurement, regulatory, or legal purpose.</p>
-    <p>The quality and completeness of analytical outputs is directly dependent on the quality, completeness, and integrity of the client-supplied input data. FSME Logic accepts no liability for analytical outputs that are incomplete or inaccurate as a result of incomplete, corrupted, mislabeled, or otherwise deficient input data.</p>
-    <p>Clients are solely responsible for independently validating any analytical finding before acting on it in an operational, financial, safety-critical, or regulatory context.</p>
-  </div>
-
-  <!-- 11. WEBSITE TERMS -->
-  <div class="legal-section" id="website-terms">
-    <p class="section-tag">Section 11</p>
-    <h2>Website Terms of Use</h2>
-    <p>By accessing fsmelogic.ca, you agree to the following terms of use:</p>
-    <ul>
-      <li>This website is provided for informational purposes only. No content on this website constitutes a binding offer, contract, or commitment of any kind.</li>
-      <li>You may not reproduce, distribute, modify, or create derivative works from any website content without prior written permission from FSME Logic.</li>
-      <li>You may not use this website for any unlawful purpose or in any manner that could damage, disable, or impair the website or its infrastructure.</li>
-      <li>FSME Logic reserves the right to modify, suspend, or discontinue any portion of this website at any time without notice.</li>
-      <li>Unauthorized access to or misuse of any portion of this website may give rise to legal liability.</li>
-    </ul>
-  </div>
-
-  <!-- 12. LIMITATION OF LIABILITY -->
-  <div class="legal-section" id="liability">
-    <p class="section-tag">Section 12</p>
-    <h2>Limitation of Liability</h2>
-    <p>To the maximum extent permitted by applicable law, FSME Logic, its founder, and its representatives shall not be liable for any direct, indirect, incidental, special, consequential, punitive, or exemplary damages arising from or related to:</p>
-    <ul>
-      <li>Your use of or reliance on this website or any content herein</li>
-      <li>Any analytical deliverable, forensic report, or signal integrity output</li>
-      <li>Any operational, financial, safety, or procurement decision made in connection with FSME Logic services</li>
-      <li>Any interruption, suspension, or discontinuation of this website or associated services</li>
-      <li>Any unauthorized access to or alteration of your data or communications</li>
-    </ul>
-    <p>In jurisdictions that do not allow the exclusion or limitation of certain damages, FSME Logic's liability shall be limited to the maximum extent permitted by law. In no event shall FSME Logic's aggregate liability to any party exceed the total fees paid by that party to FSME Logic in the twelve (12) months preceding the claim.</p>
-    <p>This limitation of liability applies regardless of the legal theory under which the claim is brought, including contract, tort, negligence, strict liability, or any other legal or equitable theory.</p>
-  </div>
-
-  <!-- 13. THIRD PARTY -->
-  <div class="legal-section" id="third-party">
-    <p class="section-tag">Section 13</p>
-    <h2>Third-Party Services</h2>
-    <p>This website and FSME Logic's commercial operations utilize the following third-party services. FSME Logic does not control and is not responsible for the practices or content of these third parties:</p>
-    <ul>
-      <li><strong>GitHub Pages</strong> — Website hosting infrastructure operated by GitHub, Inc. Subject to GitHub's Terms of Service and Privacy Policy.</li>
-      <li><strong>Cloudflare</strong> — DNS resolution and network security services. Subject to Cloudflare's Terms of Service and Privacy Policy.</li>
-      <li><strong>Formspree</strong> — Contact form submission processing. Form data submitted through this website is transmitted to and processed by Formspree, Inc. Subject to Formspree's Privacy Policy.</li>
-      <li><strong>Square</strong> — Payment processing for commercial engagements. Payment data is handled exclusively by Square, Inc. and is subject to Square's Terms of Service and Privacy Policy. FSME Logic does not store or process payment card data directly.</li>
-    </ul>
-    <p>Links to third-party websites are provided for convenience only. FSME Logic makes no representation or warranty regarding the content, accuracy, or practices of any linked third-party website.</p>
-  </div>
-
-  <!-- 14. LEGAL CONTACT -->
-  <div class="legal-section" id="contact-legal">
-    <p class="section-tag">Section 14</p>
-    <h2>Legal Contact</h2>
-    <p>For legal inquiries, intellectual property matters, licensing discussions, NDA requests, or notices under applicable law, contact:</p>
-    <div class="legal-highlight">
-      <p>
-        <strong>Alexander Kalyniuk</strong><br>
-        FSME Logic — Sole Proprietor<br>
-        Edmonton, Alberta, Canada<br>
-        <a href="mailto:alex-kalyniuk@fsmelogic.ca" style="color: var(--blue); text-decoration: none;">alex-kalyniuk@fsmelogic.ca</a>
-      </p>
+    <div class="legal-section" id="trade-secrets">
+      <p class="section-tag">Section 03</p>
+      <h2>Trade Secrets &amp; Calibration Methodology</h2>
+      <p>Beyond formal patent protection, FSME Logic's commercial advantage is further defended by a body of trade secrets that are not disclosed in any public filing, publication, or website.</p>
+      <div class="legal-highlight">
+        <p>The specific hardware-calibrated operational parameters that make the engine commercially functional are held as protected trade secrets. While the foundational physics are established in public prior art, the precise calibration methodology is not publicly disclosed and is protected under applicable Canadian trade secret law.</p>
+      </div>
+      <p>Any reverse engineering, disassembly, decompilation, or attempted reconstruction of proprietary calibration parameters from FSME Logic's public outputs, forensic reports, or marketing materials is expressly prohibited and constitutes misappropriation of trade secrets.</p>
+      <p>The proprietary source code is maintained in offline, air-gapped cold storage, mitigating risk of unauthorized access or cloud-based exposure.</p>
     </div>
-    <p>This legal page does not constitute legal advice. FSME Logic recommends that prospective partners, licensees, and clients obtain independent legal counsel before entering into any commercial arrangement.</p>
-    <p>These terms are governed by the laws of the Province of Alberta and the federal laws of Canada applicable therein. Any dispute arising from these terms shall be subject to the exclusive jurisdiction of the courts of Alberta.</p>
-  </div>
 
-</div>
+    <div class="legal-section" id="software">
+      <p class="section-tag">Section 04</p>
+      <h2>Software Licensing &amp; Open-Source Compliance</h2>
+      <ul>
+        <li><strong>Proprietary core:</strong> The core mathematical processing engine is built on strictly proprietary architecture. No portion of the core processing logic is derived from any open-source licensed component.</li>
+        <li><strong>Permissive dependencies only:</strong> Operational wrappers utilize standard open-source libraries under permissive licenses (MIT and Apache 2.0) only. The proprietary binary is entirely free from copyleft (GPL, LGPL, AGPL) contamination.</li>
+        <li><strong>No copyleft exposure:</strong> No component of the commercially licensed software requires licensees to disclose, open-source, or share modifications to any portion of their technology stack.</li>
+      </ul>
+    </div>
+
+    <div class="legal-section" id="field-of-use">
+      <p class="section-tag">Section 05</p>
+      <h2>Commercial Scope &amp; Field of Use</h2>
+      <p>All commercial licensing agreements are strictly bounded by defined Fields of Use. No single agreement grants rights across all potential application domains unless explicitly negotiated in a separate written instrument. Current and anticipated Fields of Use include:</p>
+      <ul>
+        <li>Industrial equipment integrity monitoring and fleet failure detection</li>
+        <li>Aerospace and defense telemetry analysis</li>
+        <li>Quantum computing hardware diagnostics and calibration triggering</li>
+        <li>Financial market signal integrity and anomaly detection</li>
+        <li>Cold chain and refrigeration system monitoring</li>
+      </ul>
+      <p>The founder expressly retains all overarching, royalty-free rights for academic research, scientific publication, and non-commercial theoretical physics investigation, regardless of any commercial licensing arrangement.</p>
+    </div>
+
+    <div class="legal-section" id="data">
+      <p class="section-tag">Section 06</p>
+      <h2>Data Handling &amp; Security Architecture</h2>
+      <ul>
+        <li><strong>No PII processing:</strong> The engine does not collect, store, process, or transmit Personally Identifiable Information by design. Client telemetry is processed as anonymous numerical time-series data.</li>
+        <li><strong>No cloud transmission:</strong> Client data is processed entirely on local, offline, air-gapped hardware. It is not transmitted over any network, uploaded to any cloud service, or processed by any third-party platform.</li>
+        <li><strong>SHA-256 custody:</strong> Every engagement produces a SHA-256 cryptographic chain of custody receipt confirming the data hash at intake and confirming secure, unmodified handling.</li>
+        <li><strong>Zero security incidents:</strong> FSME Logic has a verifiable record of zero security incidents, data breaches, or unauthorized disclosures.</li>
+        <li><strong>Regulatory posture:</strong> The zero-PII, air-gapped architecture substantially reduces compliance burdens for enterprise clients operating under PIPEDA, GDPR, ITAR, or sector-specific data governance frameworks.</li>
+      </ul>
+    </div>
+
+    <div class="legal-section" id="not-financial-advice">
+      <p class="section-tag">Section 07</p>
+      <h2>Signal Integrity Output — Not Financial Advice</h2>
+      <div class="legal-warning">
+        <p><strong>FSME Logic does not provide financial advice, investment advice, trading recommendations, or any form of fiduciary guidance.</strong> Nothing on this website, in any forensic audit report, or in any communication from FSME Logic constitutes financial advice or a recommendation to buy, sell, or hold any financial instrument.</p>
+      </div>
+      <p>The outputs produced by the FSME Logic engine are deterministic physical measurements of signal structure and integrity. They are not probabilistic predictions of future market prices or financial outcomes. Clients are solely and exclusively responsible for all decisions made in reliance on any FSME Logic output.</p>
+    </div>
+
+    <div class="legal-section" id="disclaimers">
+      <p class="section-tag">Section 08</p>
+      <h2>Institutional Disclaimers &amp; Dataset Attribution</h2>
+      <ul>
+        <li>FSME Logic has no affiliation with NASA, the Jet Propulsion Laboratory, the European Space Agency, IBM, or any other institution whose publicly released datasets were used for validation purposes.</li>
+        <li>No endorsement of FSME Logic, its technology, or its commercial claims is expressed or implied by any institution whose datasets appear in FSME Logic validation materials.</li>
+        <li>All validation results were produced independently by FSME Logic on privately owned hardware using datasets made publicly available for research purposes.</li>
+        <li>References to specific missions, hardware platforms, or institutional benchmarks are made solely for the purpose of identifying the source dataset and establishing scientific reproducibility.</li>
+      </ul>
+    </div>
+
+    <div class="legal-section" id="performance">
+      <p class="section-tag">Section 09</p>
+      <h2>Analytical Performance &amp; Forward-Looking Statements</h2>
+      <div class="legal-highlight">
+        <p>Past detection performance on historical or benchmark datasets does not guarantee identical detection performance on future datasets, different hardware configurations, or different operational environments. All performance figures are dataset-specific and condition-specific.</p>
+      </div>
+      <p>No warranty is made that any future engagement will achieve detection results equivalent to those documented in published validation materials. Clients are advised to evaluate FSME Logic's capabilities through a defined pilot engagement on their own historical data before making operational or procurement decisions.</p>
+    </div>
+
+    <div class="legal-section" id="as-is">
+      <p class="section-tag">Section 10</p>
+      <h2>Analytical Deliverables — As-Is Provision</h2>
+      <p>All forensic audit reports, signal integrity assessments, and analytical deliverables produced by FSME Logic are provided <strong>"as-is"</strong> and <strong>"as-available"</strong> based on the data provided by the client at the time of the engagement.</p>
+      <p>FSME Logic expressly disclaims all implied warranties, including warranties of merchantability, fitness for a particular purpose, and non-infringement. The quality and completeness of analytical outputs is directly dependent on the quality, completeness, and integrity of the client-supplied input data.</p>
+    </div>
+
+    <div class="legal-section" id="website-terms">
+      <p class="section-tag">Section 11</p>
+      <h2>Website Terms of Use</h2>
+      <ul>
+        <li>This website is provided for informational purposes only. No content constitutes a binding offer, contract, or commitment of any kind.</li>
+        <li>You may not reproduce, distribute, modify, or create derivative works from any website content without prior written permission from FSME Logic.</li>
+        <li>You may not use this website for any unlawful purpose or in any manner that could damage, disable, or impair the website or its infrastructure.</li>
+        <li>FSME Logic reserves the right to modify, suspend, or discontinue any portion of this website at any time without notice.</li>
+      </ul>
+    </div>
+
+    <div class="legal-section" id="liability">
+      <p class="section-tag">Section 12</p>
+      <h2>Limitation of Liability</h2>
+      <p>To the maximum extent permitted by applicable law, FSME Logic, its founder, and its representatives shall not be liable for any direct, indirect, incidental, special, consequential, punitive, or exemplary damages arising from or related to use of this website, any analytical deliverable, or any decision made in connection with FSME Logic services.</p>
+      <p>In no event shall FSME Logic's aggregate liability to any party exceed the total fees paid by that party to FSME Logic in the twelve (12) months preceding the claim.</p>
+    </div>
+
+    <div class="legal-section" id="third-party">
+      <p class="section-tag">Section 13</p>
+      <h2>Third-Party Services</h2>
+      <ul>
+        <li><strong>GitHub Pages</strong> — Website hosting infrastructure operated by GitHub, Inc.</li>
+        <li><strong>Cloudflare</strong> — DNS resolution and network security services.</li>
+        <li><strong>Formspree</strong> — Contact form submission processing. Form data is transmitted to and processed by Formspree, Inc.</li>
+        <li><strong>Square</strong> — Payment processing for commercial engagements. FSME Logic does not store or process payment card data directly.</li>
+        <li><strong>Google Analytics / Google Ads</strong> — Site performance measurement and advertising. Subject to Google's Terms of Service and Privacy Policy.</li>
+      </ul>
+    </div>
+
+    <div class="legal-section" id="contact-legal">
+      <p class="section-tag">Section 14</p>
+      <h2>Legal Contact</h2>
+      <div class="legal-highlight">
+        <p><strong>Alexander Kalyniuk</strong><br>FSME Logic — Sole Proprietor<br>Edmonton, Alberta, Canada<br><a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a></p>
+      </div>
+      <p>These terms are governed by the laws of the Province of Alberta and the federal laws of Canada. Any dispute shall be subject to the exclusive jurisdiction of the courts of Alberta.</p>
+    </div>
+
+  </div><!-- /panel-legal -->
+
+
+  <!-- ======================================================
+       TAB 2: TERMS OF SERVICE
+       ====================================================== -->
+  <div id="panel-terms" class="tab-panel" role="tabpanel">
+
+    <div class="toc">
+      <div class="toc-title">// Contents</div>
+      <ol>
+        <li><a href="#acceptance">Acceptance of Terms</a></li>
+        <li><a href="#services">Description of Services</a></li>
+        <li><a href="#eligibility">Eligibility</a></li>
+        <li><a href="#ip-tos">Intellectual Property</a></li>
+        <li><a href="#prohibited">Prohibited Uses</a></li>
+        <li><a href="#engagements">Commercial Engagements</a></li>
+        <li><a href="#payment-tos">Payment Terms</a></li>
+        <li><a href="#confidentiality">Confidentiality</a></li>
+        <li><a href="#disclaimers-tos">Disclaimers</a></li>
+        <li><a href="#liability-tos">Limitation of Liability</a></li>
+        <li><a href="#indemnification">Indemnification</a></li>
+        <li><a href="#governing-law">Governing Law</a></li>
+        <li><a href="#contact-tos">Contact</a></li>
+      </ol>
+    </div>
+
+    <div class="legal-section" id="acceptance">
+      <p class="section-tag">Section 01</p>
+      <h2>Acceptance of Terms</h2>
+      <p>By accessing fsmelogic.ca, submitting any inquiry, or engaging FSME Logic for any commercial service, you confirm that you have read, understood, and agree to be bound by these Terms of Service and our Legal Disclosures and Privacy Policy.</p>
+      <p>If you are accessing this website or engaging FSME Logic on behalf of an organization, you represent that you have the authority to bind that organization to these terms.</p>
+    </div>
+
+    <div class="legal-section" id="services">
+      <p class="section-tag">Section 02</p>
+      <h2>Description of Services</h2>
+      <p>FSME Logic provides physics-based signal integrity analysis and forensic audit services for industrial, aerospace, quantum computing, and commercial fleet applications. Services include:</p>
+      <ul>
+        <li>Forensic integrity audits of client-supplied time-series sensor data</li>
+        <li>Detection and reporting of signal degradation patterns and failure precursors</li>
+        <li>Delivery of written forensic reports documenting analytical findings</li>
+        <li>Consultation regarding data compatibility and engagement scope</li>
+      </ul>
+      <p>FSME Logic reserves the right to modify, expand, or discontinue any service offering at any time without prior notice.</p>
+    </div>
+
+    <div class="legal-section" id="eligibility">
+      <p class="section-tag">Section 03</p>
+      <h2>Eligibility</h2>
+      <p>This website and FSME Logic's services are intended for use by businesses, organizations, and individuals acting in a professional or commercial capacity. By using this website you represent that you are at least 18 years of age, have legal capacity to enter into binding agreements, and that your use complies with all applicable laws in your jurisdiction.</p>
+    </div>
+
+    <div class="legal-section" id="ip-tos">
+      <p class="section-tag">Section 04</p>
+      <h2>Intellectual Property</h2>
+      <p>All content on this website — including text, graphics, logos, images, case study data, validation results, and the underlying detection methodology — is the exclusive intellectual property of Alexander Kalyniuk and FSME Logic.</p>
+      <ul>
+        <li>You may view and print pages from this website for your own internal business evaluation purposes only</li>
+        <li>You may not reproduce, distribute, publish, transmit, modify, or create derivative works from any website content without prior written permission</li>
+        <li>You may not scrape or systematically extract data from this website for any commercial purpose</li>
+      </ul>
+    </div>
+
+    <div class="legal-section" id="prohibited">
+      <p class="section-tag">Section 05</p>
+      <h2>Prohibited Uses</h2>
+      <ul>
+        <li>Any unlawful purpose or in violation of any applicable law or regulation</li>
+        <li>Attempting to gain unauthorized access to any portion of this website or associated systems</li>
+        <li>Reverse engineering, decompiling, or attempting to extract the underlying methodology or calibration parameters of the FSME Logic engine</li>
+        <li>Impersonating FSME Logic, its founder, or any other person or entity</li>
+        <li>Using any FSME Logic output as the sole basis for any safety-critical operational decision without independent verification</li>
+      </ul>
+    </div>
+
+    <div class="legal-section" id="engagements">
+      <p class="section-tag">Section 06</p>
+      <h2>Commercial Engagements</h2>
+      <p>All commercial engagements are subject to a separate written engagement agreement. General terms:</p>
+      <ul>
+        <li>FSME Logic will not begin any engagement involving client data without written confirmation of scope and, where applicable, a signed Non-Disclosure Agreement</li>
+        <li>All analytical outputs are produced based exclusively on client-supplied data — the quality of outputs is directly dependent on the quality and completeness of input data</li>
+        <li>Engagement results may not be reproduced or disclosed to third parties without prior written consent</li>
+      </ul>
+    </div>
+
+    <div class="legal-section" id="payment-tos">
+      <p class="section-tag">Section 07</p>
+      <h2>Payment Terms</h2>
+      <ul>
+        <li>Accepted payment methods include credit card and debit card via Square, Interac e-transfer, cheque, and cash</li>
+        <li>All fees are quoted and invoiced in Canadian dollars (CAD) unless otherwise agreed in writing</li>
+        <li>Applicable taxes will be added to invoices as required by law</li>
+        <li>FSME Logic reserves the right to withhold delivery of forensic reports pending confirmation of payment</li>
+      </ul>
+    </div>
+
+    <div class="legal-section" id="confidentiality">
+      <p class="section-tag">Section 08</p>
+      <h2>Confidentiality</h2>
+      <p>Any information you share with FSME Logic in connection with an engagement inquiry or active engagement will be treated as confidential and will not be disclosed to third parties except as required by law. Where either party requires a formal confidentiality framework, a mutual Non-Disclosure Agreement is available upon request prior to any data exchange.</p>
+    </div>
+
+    <div class="legal-section" id="disclaimers-tos">
+      <p class="section-tag">Section 09</p>
+      <h2>Disclaimers</h2>
+      <p>This website and all FSME Logic services are provided on an <strong>"as-is"</strong> and <strong>"as-available"</strong> basis without warranties of any kind. FSME Logic expressly disclaims all implied warranties including merchantability, fitness for a particular purpose, and non-infringement. Website content and validation results are provided for informational purposes only and do not constitute professional engineering, safety, financial, legal, or regulatory advice.</p>
+    </div>
+
+    <div class="legal-section" id="liability-tos">
+      <p class="section-tag">Section 10</p>
+      <h2>Limitation of Liability</h2>
+      <p>To the fullest extent permitted by applicable law, FSME Logic, its founder, and its representatives shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from use of this website or any FSME Logic service. FSME Logic's total aggregate liability to any party for any claim shall not exceed the total fees paid by that party to FSME Logic in the twelve (12) months preceding the claim.</p>
+    </div>
+
+    <div class="legal-section" id="indemnification">
+      <p class="section-tag">Section 11</p>
+      <h2>Indemnification</h2>
+      <p>You agree to indemnify, defend, and hold harmless FSME Logic and its founder from and against any claims, liabilities, damages, losses, and expenses — including reasonable legal fees — arising from your use of this website or any FSME Logic service in violation of these Terms of Service, or from any operational, financial, or safety decision made in reliance on FSME Logic analytical outputs.</p>
+    </div>
+
+    <div class="legal-section" id="governing-law">
+      <p class="section-tag">Section 12</p>
+      <h2>Governing Law</h2>
+      <p>These Terms of Service are governed by the laws of the Province of Alberta and the applicable federal laws of Canada. Any dispute that cannot be resolved informally shall be subject to the exclusive jurisdiction of the courts of the Province of Alberta.</p>
+    </div>
+
+    <div class="legal-section" id="contact-tos">
+      <p class="section-tag">Section 13</p>
+      <h2>Contact</h2>
+      <div class="legal-highlight">
+        <p><strong>Alexander Kalyniuk</strong><br>FSME Logic — Sole Proprietor<br>Edmonton, Alberta, Canada<br><a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a></p>
+      </div>
+    </div>
+
+  </div><!-- /panel-terms -->
+
+
+  <!-- ======================================================
+       TAB 3: PRIVACY POLICY
+       ====================================================== -->
+  <div id="panel-privacy" class="tab-panel" role="tabpanel">
+
+    <p class="effective-date" style="margin-bottom:1.5rem;">Last updated: March 13, 2026</p>
+
+    <div class="plain-summary">
+      <h3>// Plain Language Summary</h3>
+      <p>We collect only the information you give us through our contact form — your name, company, email, and message. We use it only to respond to your inquiry. We do not sell it, share it with third parties, or use it for advertising.</p>
+      <p>This website uses Google Analytics and Google Ads for site performance measurement. If you accept cookies, anonymous usage data is collected. You can decline.</p>
+      <p>If you send us data for an audit, it is processed entirely on local, offline, air-gapped hardware in Edmonton. It never passes through this website and is not stored on any server we operate.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2><span class="section-num">01</span> Who We Are</h2>
+      <p>This Privacy Policy applies to FSME Logic, operated by Alexander Kalyniuk, a sole proprietor based in Edmonton, Alberta, Canada. For privacy-related questions, contact us at <a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a>.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2><span class="section-num">02</span> Information We Collect</h2>
+      <p><strong>Contact form submissions.</strong> When you submit our contact form, we collect: name, company name, role, email address, phone number (optional), industry, and message. This is transmitted securely to Formspree and forwarded to our business email address.</p>
+      <p><strong>Website analytics.</strong> This website uses Google Analytics and Google Ads to measure site performance. If you accept cookies, anonymous usage data is collected. No advertising cookies are placed without your consent.</p>
+      <p><strong>Audit data.</strong> Operational sensor data provided for audit purposes is processed entirely on local, offline, air-gapped hardware in Edmonton. It is not transmitted through this website or stored on any server operated by FSME Logic. Handling of audit data is governed by the engagement agreement and, where applicable, a separate Non-Disclosure Agreement.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2><span class="section-num">03</span> How We Use Your Information</h2>
+      <p>We use the information you provide solely to respond to your inquiry, confirm data compatibility and schedule audit engagements, communicate about engagement status, and deliver forensic reports following a completed audit. We do not add you to any mailing list without your explicit consent.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2><span class="section-num">04</span> How We Share Your Information</h2>
+      <p>We do not sell, rent, or trade your personal information to any third party. Contact form submissions are processed by Formspree, Inc., which acts as a data processor on our behalf. We may disclose your information if required to do so by law or in response to a valid legal process.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2><span class="section-num">05</span> Data Retention</h2>
+      <p>Contact form submissions and email correspondence are retained for as long as necessary to manage the business relationship and for reasonable record-keeping purposes. To request deletion of your information, contact us at <a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a>.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2><span class="section-num">06</span> Your Rights (PIPEDA)</h2>
+      <p>As a Canadian business, we operate in compliance with the Personal Information Protection and Electronic Documents Act (PIPEDA). Under PIPEDA, you have the right to know what personal information we hold, request access to or correction of your information, withdraw consent, and file a complaint with the Office of the Privacy Commissioner of Canada.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2><span class="section-num">07</span> Cookies</h2>
+      <p>We use a cookie consent banner to obtain your consent before activating Google Analytics or Google Ads cookies. Your preference is stored locally in your browser and not transmitted to our servers. Our DNS and CDN provider (Cloudflare) may set security-related cookies necessary for the secure delivery of the website; these do not track you across other sites.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2><span class="section-num">08</span> Security</h2>
+      <p>This website is hosted on GitHub Pages and served through Cloudflare's CDN with TLS encryption. All data transmitted through the contact form is encrypted in transit. We take reasonable steps to protect your personal information from unauthorized access, use, or disclosure.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2><span class="section-num">09</span> Changes to This Policy</h2>
+      <p>We may update this Privacy Policy from time to time. When we do, we will update the "Last updated" date above. Continued use of this website after changes are posted constitutes acceptance of the updated policy.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2><span class="section-num">10</span> Contact</h2>
+      <p>For any questions or requests related to this Privacy Policy or your personal information, contact us at:</p>
+      <div class="legal-highlight">
+        <p><strong>Alexander Kalyniuk — FSME Logic</strong><br>Edmonton, Alberta, Canada<br><a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a></p>
+      </div>
+    </div>
+
+  </div><!-- /panel-privacy -->
+
+</div><!-- /page-wrap -->
 
 <footer>
   <div class="foot-inner">
     <div class="foot-left">
-      © 2026 Alexander Kalyniuk — FSME Logic &nbsp;|&nbsp; Edmonton, Alberta, Canada<br>
+      &copy; 2026 Alexander Kalyniuk &mdash; FSME Logic &nbsp;|&nbsp; Edmonton, Alberta, Canada<br>
       Patent Pending &nbsp;|&nbsp; <a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a>
     </div>
     <div class="foot-right">
       <a href="case-studies.html">Validation</a>
       <a href="about.html">About</a>
       <a href="faq.html">FAQ</a>
-      <a href="privacy.html">Privacy</a>
       <a href="contact.html">Contact</a>
+      <a href="privacy.html">Privacy</a>
+    </div>
+    <div class="foot-right" style="margin-top:0.5rem;">
+      <a href="store.html">Store</a>
+      <a href="legal.html">Legal &amp; Terms</a>
+      <a href="investors.html">Investors</a>
+      <a href="newsroom.html">Newsroom</a>
+      <a href="case-studies.html#reports">Validation Reports</a>
+      <a href="roi.html">ROI Calculator</a>
     </div>
     <div class="foot-social">
-      <a href="https://x.com/FsmeLogic" target="_blank" rel="noopener" aria-label="X / Twitter">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.731-8.835L1.254 2.25H8.08l4.259 5.63 5.905-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-      </a>
-      <a href="https://youtube.com/@fsmelogic" target="_blank" rel="noopener" aria-label="YouTube">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
-      </a>
-      <a href="https://ca.linkedin.com/in/alexander-kalyniuk-4b8b552b" target="_blank" rel="noopener" aria-label="LinkedIn">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-      </a>
+      <a href="https://x.com/FsmeLogic" target="_blank" rel="noopener" aria-label="X / Twitter"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.731-8.835L1.254 2.25H8.08l4.259 5.63 5.905-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+      <a href="https://youtube.com/@fsmelogic" target="_blank" rel="noopener" aria-label="YouTube"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg></a>
+      <a href="https://www.linkedin.com/in/fsmelogic" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
     </div>
   </div>
 </footer>
 
+<!-- COOKIE BANNER -->
+<div id="cookie-banner">
+  <p>This site uses Google Analytics and Google Ads to measure site performance. We do not sell your data. <a href="privacy.html">Privacy Policy</a></p>
+  <button onclick="acceptCookies()">Accept</button>
+</div>
+
 <script>
+  // Cookie banner
+  (function() {
+    if (!localStorage.getItem('fsme_cookies_ok')) {
+      document.getElementById('cookie-banner').style.display = 'flex';
+    }
+  })();
+  function acceptCookies() {
+    localStorage.setItem('fsme_cookies_ok', '1');
+    document.getElementById('cookie-banner').style.display = 'none';
+  }
+
+  // Hamburger with ARIA
   (function() {
     var btn = document.getElementById('hamburger');
     var menu = document.getElementById('mobile-menu');
     if (btn && menu) {
       btn.addEventListener('click', function() {
+        var expanded = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!expanded));
         btn.classList.toggle('open');
         menu.classList.toggle('open');
       });
     }
+  })();
+
+  // Tab switching + URL hash support
+  function switchTab(name, btn) {
+    document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+    document.querySelectorAll('.tab-btn').forEach(function(b) {
+      b.classList.remove('active');
+      b.setAttribute('aria-selected', 'false');
+    });
+    document.getElementById('panel-' + name).classList.add('active');
+    btn.classList.add('active');
+    btn.setAttribute('aria-selected', 'true');
+    history.replaceState(null, '', '#' + name);
+  }
+
+  // Check URL hash on load
+  (function() {
+    var hash = window.location.hash.replace('#', '');
+    var validTabs = ['legal', 'terms', 'privacy'];
+    if (validTabs.indexOf(hash) !== -1) {
+      var btn = document.querySelector('[onclick*="switchTab(\'' + hash + '\'"]');
+      if (btn) switchTab(hash, btn);
+    }
+  })();
+
+  // Dropdown toggle
+  (function() {
+    var btn = document.querySelector('.nav-more-btn');
+    if (!btn) return;
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!expanded));
+    });
+    document.addEventListener('click', function() {
+      if (btn) btn.setAttribute('aria-expanded', 'false');
+    });
   })();
 </script>
 </body>

@@ -1,14 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Performance: preconnect for Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-H3ZFCJGRSS"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-H3ZFCJGRSS');
-</script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H3ZFCJGRSS');
+  </script>
+  <!-- Google Ads -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18021290501"></script>
+  <script>
+    gtag('config', 'AW-18021290501');
+  </script>
+  
   
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,13 +25,14 @@
   <meta name="description" content="Industrial telemetry data tools. Download the FSME Data Ingestion Desktop Client to convert massive .tdms, .h5, and .nc files to CSV out-of-memory without LabVIEW or Python.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --bg: #0e1118; --bg2: #141822; --card: #181f2e; --steel: #1c2438;
       --border: #242e42; --bord2: #2e3a52;
       --blue: #3d8ef0; --blue2: #2d6fd0; --cyan: #5bb8d4; --gold: #c9a84c;
-      --text: #c5d2e8; --muted: #6e86a8; --dim: #3a4a62;
+      --text: #c5d2e8; --muted: #6e86a8; --dim: #8a9bb8;
       --head: 'Barlow Condensed', sans-serif; --mono: 'IBM Plex Mono', monospace;
     }
     html { scroll-behavior: smooth; }
@@ -165,33 +175,47 @@
 <nav>
   <div class="nav-inner">
     <a class="nav-logo" href="index.html">
-      <img src="logo.jpg" alt="FSME Logic">
+      <img src="logo.jpg" alt="FSME Logic" width="42" height="42">
       <span class="nav-logo-text">FSME Logic</span>
     </a>
     <ul class="nav-links">
       <li><a href="case-studies.html">Validation</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="faq.html">FAQ</a></li>
-      <li><a href="store.html" style="color:var(--blue);">Store</a></li>
+      <li><a href="store.html" class="active">Store</a></li>
       <li><a href="contact.html">Contact</a></li>
+      <li class="nav-more">
+        <button class="nav-more-btn" aria-expanded="false" aria-haspopup="true">More &#9662;</button>
+        <ul class="nav-dropdown">
+          <li><a href="roi.html">ROI Calculator</a></li>
+          <li><a href="newsroom.html">Newsroom</a></li>
+          <li><a href="investors.html">Investors</a></li>
+          <li><a href="pipeline-demo.html">Live Demo</a></li>
+          <li><a href="legal.html">Legal &amp; Terms</a></li>
+          <li><a href="legal.html#privacy">Privacy Policy</a></li>
+          <li><a href="case-studies.html#reports">Validation Reports</a></li>
+        </ul>
+      </li>
       <li class="nav-cta"><a href="payment.html">Request Audit</a></li>
     </ul>
-    <button class="hamburger" id="hamburger" aria-label="Open menu">
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
       <span></span><span></span><span></span>
     </button>
   </div>
   <div class="mobile-menu" id="mobile-menu">
+    <a href="payment.html">Request Audit &#9658;</a>
     <a href="case-studies.html">Validation</a>
     <a href="about.html">About</a>
     <a href="faq.html">FAQ</a>
     <a href="store.html">Store</a>
-    <a href="reports.html">Reports</a>
+    <a href="contact.html">Contact</a>
     <a href="roi.html">ROI Calculator</a>
     <a href="newsroom.html">Newsroom</a>
     <a href="investors.html">Investors</a>
-    <a href="legal.html">Legal</a>
-    <a href="terms.html">Terms</a>
-    <a href="contact.html">Request Audit</a>
+    <a href="pipeline-demo.html">Live Demo</a>
+    <a href="case-studies.html#reports">Validation Reports</a>
+    <a href="legal.html">Legal &amp; Terms</a>
+    <a href="legal.html#privacy">Privacy Policy</a>
   </div>
 </nav>
 
@@ -362,7 +386,7 @@
 
       <p class="form-note">
         Your email is used only to deliver your document. It will not be added to any mailing list.
-        All purchases are subject to the <a href="terms.html">Terms of Service</a>.
+        All purchases are subject to the <a href="legal.html#terms">Terms of Service</a>.
         The $50 purchase price is credited in full toward your first FSME Forensic Pilot Audit.
       </p>
     </div>
@@ -380,8 +404,8 @@
 <footer>
   <div class="foot-inner">
     <div class="foot-left">
-      © 2026 Alexander Kalyniuk — FSME Logic &nbsp;|&nbsp; Edmonton, Alberta, Canada<br>
-      Patent Pending &nbsp;|&nbsp; <a href="/cdn-cgi/l/email-protection#2d4c41485500464c4154434458466d4b5e404841424a444e034e4c"><span class="__cf_email__" data-cfemail="06676a637e2b6d676a7f686f736d4660756b636a69616f65286567">[email&#160;protected]</span></a>
+      &#169; 2026 Alexander Kalyniuk &#8212; FSME Logic &nbsp;|&nbsp; Edmonton, Alberta, Canada<br>
+      Patent Pending &nbsp;|&nbsp; <a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a>
     </div>
     <div class="foot-right">
       <a href="case-studies.html">Validation</a>
@@ -392,11 +416,10 @@
     </div>
     <div class="foot-right" style="margin-top:0.5rem;">
       <a href="store.html">Store</a>
-      <a href="legal.html">Legal</a>
-      <a href="terms.html">Terms of Service</a>
+      <a href="legal.html">Legal &amp; Terms</a>
       <a href="investors.html">Investors</a>
       <a href="newsroom.html">Newsroom</a>
-      <a href="reports.html">Validation Reports</a>
+      <a href="case-studies.html#reports">Validation Reports</a>
       <a href="roi.html">ROI Calculator</a>
     </div>
     <div class="foot-social">
@@ -414,54 +437,48 @@
 </footer>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<!-- COOKIE BANNER -->
+<div id="cookie-banner">
+  <p>This site uses Google Analytics and Google Ads to measure site performance. We do not sell your data. <a href="privacy.html">Privacy Policy</a></p>
+  <button onclick="acceptCookies()">Accept</button>
+</div>
+
 <script>
-  // Hamburger
+  // Cookie banner — show once per browser
+  (function() {
+    if (!localStorage.getItem('fsme_cookies_ok')) {
+      document.getElementById('cookie-banner').style.display = 'flex';
+    }
+  })();
+  function acceptCookies() {
+    localStorage.setItem('fsme_cookies_ok', '1');
+    document.getElementById('cookie-banner').style.display = 'none';
+  }
+  // Hamburger with ARIA
   (function() {
     var btn = document.getElementById('hamburger');
     var menu = document.getElementById('mobile-menu');
     if (btn && menu) {
       btn.addEventListener('click', function() {
+        var expanded = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!expanded));
         btn.classList.toggle('open');
         menu.classList.toggle('open');
       });
     }
   })();
 
-  // Form submission
+  // Dropdown toggle
   (function() {
-    var form = document.getElementById('delivery-form');
-    var success = document.getElementById('form-success');
-    var submitBtn = document.getElementById('submit-btn');
-
-    if (!form) return;
-
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Sending...';
-
-      var data = new FormData(form);
-
-      fetch(form.action, {
-        method: 'POST',
-        body: data,
-        headers: { 'Accept': 'application/json' }
-      })
-      .then(function(res) {
-        if (res.ok) {
-          form.style.display = 'none';
-          success.classList.add('show');
-        } else {
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'Send Delivery Request';
-          alert('Something went wrong. Please email alex-kalyniuk@fsmelogic.ca directly.');
-        }
-      })
-      .catch(function() {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Send Delivery Request';
-        alert('Something went wrong. Please email alex-kalyniuk@fsmelogic.ca directly.');
-      });
+    var btn = document.querySelector('.nav-more-btn');
+    if (!btn) return;
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!expanded));
+    });
+    document.addEventListener('click', function() {
+      if (btn) btn.setAttribute('aria-expanded', 'false');
     });
   })();
 </script>

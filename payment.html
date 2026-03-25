@@ -1,20 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Performance: preconnect for Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-H3ZFCJGRSS"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-H3ZFCJGRSS');
-</script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H3ZFCJGRSS');
+  </script>
+  <!-- Google Ads -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18021290501"></script>
+  <script>
+    gtag('config', 'AW-18021290501');
+  </script>
+  
   
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Secure Payment – FSME Logic Audit</title>
   <meta name="description" content="Secure payment portal for FSME Logic audit engagements. Processed via Square. E-transfer also accepted.">
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -28,7 +38,7 @@
       --blue2:  #2d6fd0;
       --text:   #c5d2e8;
       --muted:  #6e86a8;
-      --dim:    #3a4a62;
+      --dim:    #8a9bb8;
       --head:   'Barlow Condensed', sans-serif;
       --mono:   'IBM Plex Mono', monospace;
     }
@@ -242,26 +252,47 @@
 <nav>
   <div class="nav-inner">
     <a class="nav-logo" href="index.html">
-      <img src="logo.jpg" alt="FSME Logic">
+      <img src="logo.jpg" alt="FSME Logic" width="42" height="42">
       <span class="nav-logo-text">FSME Logic</span>
     </a>
     <ul class="nav-links">
       <li><a href="case-studies.html">Validation</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="faq.html">FAQ</a></li>
+      <li><a href="store.html">Store</a></li>
       <li><a href="contact.html">Contact</a></li>
+      <li class="nav-more">
+        <button class="nav-more-btn" aria-expanded="false" aria-haspopup="true">More &#9662;</button>
+        <ul class="nav-dropdown">
+          <li><a href="roi.html">ROI Calculator</a></li>
+          <li><a href="newsroom.html">Newsroom</a></li>
+          <li><a href="investors.html">Investors</a></li>
+          <li><a href="pipeline-demo.html">Live Demo</a></li>
+          <li><a href="legal.html">Legal &amp; Terms</a></li>
+          <li><a href="legal.html#privacy">Privacy Policy</a></li>
+          <li><a href="case-studies.html#reports">Validation Reports</a></li>
+        </ul>
+      </li>
       <li class="nav-cta"><a href="payment.html">Request Audit</a></li>
     </ul>
-    <button class="hamburger" id="hamburger" aria-label="Open menu">
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
       <span></span><span></span><span></span>
     </button>
   </div>
   <div class="mobile-menu" id="mobile-menu">
+    <a href="payment.html">Request Audit &#9658;</a>
     <a href="case-studies.html">Validation</a>
     <a href="about.html">About</a>
     <a href="faq.html">FAQ</a>
+    <a href="store.html">Store</a>
     <a href="contact.html">Contact</a>
-    <a href="payment.html">Request Audit</a>
+    <a href="roi.html">ROI Calculator</a>
+    <a href="newsroom.html">Newsroom</a>
+    <a href="investors.html">Investors</a>
+    <a href="pipeline-demo.html">Live Demo</a>
+    <a href="case-studies.html#reports">Validation Reports</a>
+    <a href="legal.html">Legal &amp; Terms</a>
+    <a href="legal.html#privacy">Privacy Policy</a>
   </div>
 </nav>
 
@@ -401,17 +432,49 @@
       <a href="about.html">About</a>
       <a href="faq.html">
 
+<!-- COOKIE BANNER -->
+<div id="cookie-banner">
+  <p>This site uses Google Analytics and Google Ads to measure site performance. We do not sell your data. <a href="privacy.html">Privacy Policy</a></p>
+  <button onclick="acceptCookies()">Accept</button>
+</div>
+
 <script>
-  // Hamburger menu
+  // Cookie banner — show once per browser
+  (function() {
+    if (!localStorage.getItem('fsme_cookies_ok')) {
+      document.getElementById('cookie-banner').style.display = 'flex';
+    }
+  })();
+  function acceptCookies() {
+    localStorage.setItem('fsme_cookies_ok', '1');
+    document.getElementById('cookie-banner').style.display = 'none';
+  }
+  // Hamburger with ARIA
   (function() {
     var btn = document.getElementById('hamburger');
     var menu = document.getElementById('mobile-menu');
     if (btn && menu) {
       btn.addEventListener('click', function() {
+        var expanded = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!expanded));
         btn.classList.toggle('open');
         menu.classList.toggle('open');
       });
     }
+  })();
+
+  // Dropdown toggle
+  (function() {
+    var btn = document.querySelector('.nav-more-btn');
+    if (!btn) return;
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!expanded));
+    });
+    document.addEventListener('click', function() {
+      if (btn) btn.setAttribute('aria-expanded', 'false');
+    });
   })();
 </script>
 </body>

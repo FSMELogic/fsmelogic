@@ -1,21 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-H3ZFCJGRSS"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-H3ZFCJGRSS');
-</script>
-  
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H3ZFCJGRSS');
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18021290501"></script>
+  <script>gtag('config', 'AW-18021290501');</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Validation Results – NASA, ESA, Industrial Datasets</title>
   <meta name="description" content="FSME Logic validation results: 9-month ESA lead time, 6.3-hour NASA Curiosity warning, 78% fleet detection rate across 509 jet engines. Fully offline edge hardware.">
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
   <style>
+    /* Report Cards */
+    .reports-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; margin-bottom: 4rem; }
+    .report-card { background: var(--card); border: 1px solid var(--border); display: flex; flex-direction: column; transition: border-color 0.25s, transform 0.25s; position: relative; overflow: hidden; }
+    .report-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--blue); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
+    .report-card:hover { border-color: rgba(61,142,240,0.4); transform: translateY(-3px); }
+    .report-card:hover::before { transform: scaleX(1); }
+    .report-card-header { padding: 1.75rem 1.75rem 1.25rem; border-bottom: 1px solid var(--border); }
+    .report-badge { display: inline-flex; align-items: center; gap: 0.4rem; font-family: var(--mono); font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.2rem 0.6rem; margin-bottom: 1rem; border: 1px solid; }
+    .badge-nasa { color: #4a9eff; border-color: rgba(74,158,255,0.3); background: rgba(74,158,255,0.08); }
+    .badge-esa { color: #f0a030; border-color: rgba(240,160,48,0.3); background: rgba(240,160,48,0.08); }
+    .badge-ibm { color: #7b8cde; border-color: rgba(123,140,222,0.3); background: rgba(123,140,222,0.08); }
+    .badge-industrial { color: var(--cyan); border-color: rgba(91,184,212,0.3); background: rgba(91,184,212,0.08); }
+    .badge-multi { color: var(--gold); border-color: rgba(201,168,76,0.3); background: rgba(201,168,76,0.08); }
+    .report-card h3 { font-family: var(--head); font-size: 1.35rem; font-weight: 800; color: #dde6f5; line-height: 1.2; margin-bottom: 0.35rem; }
+    .report-source { font-family: var(--mono); font-size: 0.72rem; color: var(--dim); }
+    .report-card-body { padding: 1.25rem 1.75rem; flex: 1; }
+    .report-meta { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.25rem; }
+    .report-meta-row { display: flex; align-items: baseline; gap: 0.75rem; }
+    .report-meta-key { font-family: var(--mono); font-size: 0.62rem; color: var(--dim); letter-spacing: 0.1em; text-transform: uppercase; min-width: 90px; flex-shrink: 0; }
+    .report-meta-val { font-family: var(--mono); font-size: 0.85rem; color: var(--text); }
+    .report-desc { font-family: var(--mono); font-size: 0.85rem; color: var(--muted); line-height: 1.8; }
+    .report-card-footer { padding: 1.25rem 1.75rem; border-top: 1px solid var(--border); display: flex; gap: 0.75rem; }
+    .btn-view { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--mono); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.65rem 1.25rem; text-decoration: none; transition: all 0.2s; border: 1px solid; }
+    .btn-view-primary { background: var(--blue); color: #fff; border-color: var(--blue); }
+    .btn-view-primary:hover { background: var(--blue2); border-color: var(--blue2); }
+    .btn-view-secondary { background: transparent; color: var(--muted); border-color: var(--bord2); }
+    .btn-view-secondary:hover { color: var(--text); border-color: var(--text); }
+  
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --bg:     #0e1118;
@@ -31,7 +62,7 @@
       --green:  #3db87a;
       --text:   #c5d2e8;
       --muted:  #6e86a8;
-      --dim:    #3a4a62;
+      --dim:    #8a9bb8;
       --head:   'Barlow Condensed', sans-serif;
       --mono:   'IBM Plex Mono', monospace;
     }
@@ -256,26 +287,47 @@
 <nav>
   <div class="nav-inner">
     <a class="nav-logo" href="index.html">
-      <img src="logo.jpg" alt="FSME Logic">
+      <img src="logo.jpg" alt="FSME Logic" width="42" height="42">
       <span class="nav-logo-text">FSME Logic</span>
     </a>
     <ul class="nav-links">
       <li><a href="case-studies.html" class="active">Validation</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="faq.html">FAQ</a></li>
+      <li><a href="store.html">Store</a></li>
       <li><a href="contact.html">Contact</a></li>
+      <li class="nav-more">
+        <button class="nav-more-btn" aria-expanded="false" aria-haspopup="true">More &#9662;</button>
+        <ul class="nav-dropdown">
+          <li><a href="roi.html">ROI Calculator</a></li>
+          <li><a href="newsroom.html">Newsroom</a></li>
+          <li><a href="investors.html">Investors</a></li>
+          <li><a href="pipeline-demo.html">Live Demo</a></li>
+          <li><a href="legal.html">Legal &amp; Terms</a></li>
+          <li><a href="legal.html#privacy">Privacy Policy</a></li>
+          <li><a href="case-studies.html#reports">Validation Reports</a></li>
+        </ul>
+      </li>
       <li class="nav-cta"><a href="payment.html">Request Audit</a></li>
     </ul>
-    <button class="hamburger" id="hamburger" aria-label="Open menu">
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
       <span></span><span></span><span></span>
     </button>
   </div>
   <div class="mobile-menu" id="mobile-menu">
+    <a href="payment.html">Request Audit &#9658;</a>
     <a href="case-studies.html">Validation</a>
     <a href="about.html">About</a>
     <a href="faq.html">FAQ</a>
+    <a href="store.html">Store</a>
     <a href="contact.html">Contact</a>
-    <a href="payment.html">Request Audit</a>
+    <a href="roi.html">ROI Calculator</a>
+    <a href="newsroom.html">Newsroom</a>
+    <a href="investors.html">Investors</a>
+    <a href="pipeline-demo.html">Live Demo</a>
+    <a href="case-studies.html#reports">Validation Reports</a>
+    <a href="legal.html">Legal &amp; Terms</a>
+    <a href="legal.html#privacy">Privacy Policy</a>
   </div>
 </nav>
 
@@ -516,6 +568,148 @@
   </div>
 </section>
 
+
+<!-- VALIDATION REPORTS (merged) -->
+<section id="reports" class="bg-alt">
+  <div class="wrap">
+    <p class="section-label">Forensic Reports</p>
+    <h2 class="section-title">Full Forensic<br><em>Audit Reports.</em></h2>
+    <p class="section-sub">Deep-dive validation reports from FSME Logic engagements. Each report documents the full detection timeline, channel-by-channel analysis, and forensic findings.</p>
+    <div style="background:rgba(61,142,240,0.06);border:1px solid rgba(61,142,240,0.2);border-left:3px solid var(--blue);padding:1.25rem 1.5rem;margin-bottom:2.5rem;">
+      <p style="font-family:var(--mono);font-size:0.85rem;color:var(--muted);line-height:1.8;"><strong style="color:var(--text);">Note on sensitive reports:</strong> Reports containing proprietary methodology details or client-specific data are available under NDA only. Contact us directly to request access.</p>
+    </div>
+<div class="reports-grid">
+
+    <!-- NASA SMAP -->
+    <div class="report-card">
+      <div class="report-card-header">
+        <span class="report-badge badge-nasa">▸ NASA</span>
+        <h3>SMAP Satellite Reaction Wheel Failure</h3>
+        <div class="report-source">NASA JPL Telemanom Benchmark Dataset</div>
+      </div>
+      <div class="report-card-body">
+        <div class="report-meta">
+          <div class="report-meta-row"><span class="report-meta-key">Lead Time</span><span class="report-meta-val">84.7 hours (E-4), 68.6 hours (A-2)</span></div>
+          <div class="report-meta-row"><span class="report-meta-key">Dataset</span><span class="report-meta-val">SMAP orbital telemetry, channels E-4, A-2, D-12</span></div>
+          <div class="report-meta-row"><span class="report-meta-key">False Positives</span><span class="report-meta-val">Zero across D-12 healthy baseline</span></div>
+        </div>
+        <p class="report-desc">Full channel-by-channel detection timeline for NASA's SMAP satellite. Documents 3.5-day advance warning on orbital reaction wheel failure with zero false positives on verified stable channels.</p>
+      </div>
+      <div class="report-card-footer">
+        <a class="btn-view btn-view-primary" href="FSME_ESA_Mission1_v3_FINAL.pdf" target="_blank">▸ View Report</a>
+        <a class="btn-view btn-view-secondary" href="FSME_ESA_Mission1_v3_FINAL.pdf" download>↓ Download</a>
+      </div>
+    </div>
+
+    <!-- NASA Curiosity -->
+    <div class="report-card">
+      <div class="report-card-header">
+        <span class="report-badge badge-nasa">▸ NASA</span>
+        <h3>Curiosity Rover Actuator Binding Detection</h3>
+        <div class="report-source">NASA MSL Curiosity Mission Dataset</div>
+      </div>
+      <div class="report-card-body">
+        <div class="report-meta">
+          <div class="report-meta-row"><span class="report-meta-key">Lead Time</span><span class="report-meta-val">6.3 hours / 382 operational steps</span></div>
+          <div class="report-meta-row"><span class="report-meta-key">Asset</span><span class="report-meta-val">Actuator T-13, Martian surface operation</span></div>
+          <div class="report-meta-row"><span class="report-meta-key">Environment</span><span class="report-meta-val">Extreme temperature variance, terrain resistance</span></div>
+        </div>
+        <p class="report-desc">Detection of mechanical actuator binding on the Mars Curiosity Rover 382 operational steps before NASA's official failure label. Differentiates internal degradation from normal terrain load.</p>
+      </div>
+      <div class="report-card-footer">
+        <a class="btn-view btn-view-primary" href="FSME_Logic_Capability_Brief.pdf" target="_blank">▸ View Report</a>
+        <a class="btn-view btn-view-secondary" href="FSME_Logic_Capability_Brief.pdf" download>↓ Download</a>
+      </div>
+    </div>
+
+    <!-- ESA OPS-SAT -->
+    <div class="report-card">
+      <div class="report-card-header">
+        <span class="report-badge badge-esa">▸ ESA</span>
+        <h3>OPS-SAT CubeSat Blind Validation</h3>
+        <div class="report-source">ESA OPS-SAT 3U CubeSat Mission</div>
+      </div>
+      <div class="report-card-body">
+        <div class="report-meta">
+          <div class="report-meta-row"><span class="report-meta-key">Lead Time</span><span class="report-meta-val">11.5 minutes orbital warning</span></div>
+          <div class="report-meta-row"><span class="report-meta-key">Deployment</span><span class="report-meta-val">Edge-native, resource-constrained flight computer</span></div>
+          <div class="report-meta-row"><span class="report-meta-key">Test Type</span><span class="report-meta-val">Blind — ground truth withheld until after detection</span></div>
+        </div>
+        <p class="report-desc">Blind validation on active ESA CubeSat mission data. Engine detected in-orbit sensor degradation 11.5 minutes before ESA's official monitoring systems flagged the event, with zero false positives.</p>
+      </div>
+      <div class="report-card-footer">
+        <a class="btn-view btn-view-primary" href="FSME_ESA_Mission1_v3_FINAL.pdf" target="_blank">▸ View Report</a>
+        <a class="btn-view btn-view-secondary" href="FSME_ESA_Mission1_v3_FINAL.pdf" download>↓ Download</a>
+      </div>
+    </div>
+
+    <!-- IBM Quantum -->
+    <div class="report-card">
+      <div class="report-card-header">
+        <span class="report-badge badge-ibm">▸ IBM Quantum</span>
+        <h3>IBM Processor Fleet Audit</h3>
+        <div class="report-source">IBM Boston, Athens, Melbourne, Santiago</div>
+      </div>
+      <div class="report-card-body">
+        <div class="report-meta">
+          <div class="report-meta-row"><span class="report-meta-key">Processors</span><span class="report-meta-val">4 superconducting quantum processors</span></div>
+          <div class="report-meta-row"><span class="report-meta-key">Volume</span><span class="report-meta-val">66,747 circuit executions per processor</span></div>
+          <div class="report-meta-row"><span class="report-meta-key">Key Result</span><span class="report-meta-val">Topological cascade mapping — exact failure propagation sequence</span></div>
+        </div>
+        <p class="report-desc">Four-processor quantum audit documenting hardware degradation cascades, environmental shock signatures, and sequential domino failure propagation across superconducting qubit systems.</p>
+      </div>
+      <div class="report-card-footer">
+        <a class="btn-view btn-view-primary" href="FSME_Logic_Capability_Brief.pdf" target="_blank">▸ View Report</a>
+        <a class="btn-view btn-view-secondary" href="FSME_Logic_Capability_Brief.pdf" download>↓ Download</a>
+      </div>
+    </div>
+
+    <!-- NASA C-MAPSS -->
+    <div class="report-card">
+      <div class="report-card-header">
+        <span class="report-badge badge-industrial">▸ Industrial</span>
+        <h3>NASA C-MAPSS Fleet Detection</h3>
+        <div class="report-source">NASA Commercial Modular Aero-Propulsion System Simulation</div>
+      </div>
+      <div class="report-card-body">
+        <div class="report-meta">
+          <div class="report-meta-row"><span class="report-meta-key">Fleet Size</span><span class="report-meta-val">509 commercial turbofan engines</span></div>
+          <div class="report-meta-row"><span class="report-meta-key">Detection Rate</span><span class="report-meta-val">78% fleet-wide</span></div>
+          <div class="report-meta-row"><span class="report-meta-key">Avg Lead Time</span><span class="report-meta-val">126 flight cycles advance warning</span></div>
+        </div>
+        <p class="report-desc">Fleet-scale detection across 509 turbofan engines. Documents 78% detection rate with 126 flight cycle average advance warning. Zero false positives on verified healthy baseline engines.</p>
+      </div>
+      <div class="report-card-footer">
+        <a class="btn-view btn-view-primary" href="FSME_Engine_Credibility_Reference.pdf" target="_blank">▸ View Report</a>
+        <a class="btn-view btn-view-secondary" href="FSME_Engine_Credibility_Reference.pdf" download>↓ Download</a>
+      </div>
+    </div>
+
+    <!-- Multi-Domain -->
+    <div class="report-card">
+      <div class="report-card-header">
+        <span class="report-badge badge-multi">▸ Multi-Domain</span>
+        <h3>Full Capability Brief</h3>
+        <div class="report-source">All Validated Domains — NASA, ESA, IBM, Industrial</div>
+      </div>
+      <div class="report-card-body">
+        <div class="report-meta">
+          <div class="report-meta-row"><span class="report-meta-key">Coverage</span><span class="report-meta-val">Quantum, aerospace, fleet, refrigeration</span></div>
+          <div class="report-meta-row"><span class="report-meta-key">Format</span><span class="report-meta-val">Executive summary + full case studies</span></div>
+          <div class="report-meta-row"><span class="report-meta-key">Audience</span><span class="report-meta-val">CTOs, procurement, technical evaluators</span></div>
+        </div>
+        <p class="report-desc">Complete multi-domain validation brief covering all case studies, competitive landscape analysis, and commercial value proposition. The recommended starting point for technical evaluators.</p>
+      </div>
+      <div class="report-card-footer">
+        <a class="btn-view btn-view-primary" href="FSME_Logic_Capability_Brief.pdf" target="_blank">▸ View Report</a>
+        <a class="btn-view btn-view-secondary" href="FSME_Logic_Capability_Brief.pdf" download>↓ Download</a>
+      </div>
+    </div>
+
+  </div>
+  </div>
+</section>
+
 <!-- CTA -->
 <section class="cta">
   <h2>Want to see what FSME Logic<br>finds in your data?</h2>
@@ -529,10 +723,10 @@
 <footer>
   <div class="foot-inner">
     <div class="foot-left">
-      © 2026 Alexander Kalyniuk — FSME Logic &nbsp;|&nbsp; Edmonton, Alberta, Canada<br>
+      &copy; 2026 Alexander Kalyniuk &mdash; FSME Logic &nbsp;|&nbsp; Edmonton, Alberta, Canada<br>
       Patent Pending &nbsp;|&nbsp; <a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a>
     </div>
-        <div class="foot-right">
+    <div class="foot-right">
       <a href="case-studies.html">Validation</a>
       <a href="about.html">About</a>
       <a href="faq.html">FAQ</a>
@@ -540,29 +734,63 @@
       <a href="privacy.html">Privacy</a>
     </div>
     <div class="foot-right" style="margin-top:0.5rem;">
-      <a href="legal.html" style="opacity:0.45;" title="Coming soon">Legal</a>
-      <a href="terms.html" style="opacity:0.45;" title="Coming soon">Terms of Service</a>
-      <a href="investors.html" style="opacity:0.45;" title="Coming soon">Investors</a>
-      <a href="newsroom.html" style="opacity:0.45;" title="Coming soon">Newsroom</a>
-      <a href="reports.html">Validation Reports</a>
+      <a href="store.html">Store</a>
+      <a href="legal.html">Legal &amp; Terms</a>
+      <a href="investors.html">Investors</a>
+      <a href="newsroom.html">Newsroom</a>
+      <a href="case-studies.html#reports">Validation Reports</a>
       <a href="roi.html">ROI Calculator</a>
+    </div>
+    <div class="foot-social">
+      <a href="https://x.com/FsmeLogic" target="_blank" rel="noopener" aria-label="X / Twitter"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.731-8.835L1.254 2.25H8.08l4.259 5.63 5.905-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+      <a href="https://youtube.com/@fsmelogic" target="_blank" rel="noopener" aria-label="YouTube"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg></a>
+      <a href="https://www.linkedin.com/in/fsmelogic" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
     </div>
   </div>
 </footer>
 
 
 
+<!-- COOKIE BANNER -->
+<div id="cookie-banner">
+  <p>This site uses Google Analytics and Google Ads to measure site performance. We do not sell your data. <a href="privacy.html">Privacy Policy</a></p>
+  <button onclick="acceptCookies()">Accept</button>
+</div>
 <script>
-  // Hamburger menu
+  (function() {
+    if (!localStorage.getItem('fsme_cookies_ok')) {
+      document.getElementById('cookie-banner').style.display = 'flex';
+    }
+  })();
+  function acceptCookies() {
+    localStorage.setItem('fsme_cookies_ok', '1');
+    document.getElementById('cookie-banner').style.display = 'none';
+  }
   (function() {
     var btn = document.getElementById('hamburger');
     var menu = document.getElementById('mobile-menu');
     if (btn && menu) {
       btn.addEventListener('click', function() {
+        var expanded = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!expanded));
         btn.classList.toggle('open');
         menu.classList.toggle('open');
       });
     }
+  })();
+
+  // Dropdown toggle
+  (function() {
+    var btn = document.querySelector('.nav-more-btn');
+    if (!btn) return;
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!expanded));
+    });
+    document.addEventListener('click', function() {
+      if (btn) btn.setAttribute('aria-expanded', 'false');
+    });
   })();
 </script>
 </body>
