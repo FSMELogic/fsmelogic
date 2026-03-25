@@ -343,60 +343,8 @@
       </a>
     </div>
   </div>
-</footer>
+</footer
 
-<script>
-  function fmt(n) { return n >= 1000 ? '$' + Math.round(n).toLocaleString('en-CA') : (n > 0 ? '$' + Math.round(n) : '—'); }
-  function fmtHrs(n) { return n > 0 ? Math.round(n) + ' hrs' : '—'; }
-
-  function calcROI() {
-    var units    = parseFloat(document.getElementById('roi-units').value)    || 0;
-    var repair   = parseFloat(document.getElementById('roi-repair').value)   || 0;
-    var failures = parseFloat(document.getElementById('roi-failures').value) || 0;
-    var downtime = parseFloat(document.getElementById('roi-downtime').value) || 0;
-    var hours    = parseFloat(document.getElementById('roi-hours').value)    || 0;
-
-    var repairCost   = repair * failures;
-    var downtimeCost = downtime * hours * failures;
-    var current      = repairCost + downtimeCost;
-    var savings      = current * 0.70;
-    var perUnit      = units > 0 ? current / units : 0;
-    var threeYear    = current * 3;
-    var hoursBack    = hours * failures * 0.70;
-
-    document.getElementById('out-current').textContent   = current   > 0 ? fmt(current)   : '—';
-    document.getElementById('out-savings').textContent   = savings   > 0 ? fmt(savings)   : '—';
-    document.getElementById('out-per-unit').textContent  = perUnit   > 0 ? fmt(perUnit)   : '—';
-    document.getElementById('out-three-year').textContent = threeYear > 0 ? fmt(threeYear) : '—';
-    document.getElementById('out-hours').textContent     = hoursBack > 0 ? fmtHrs(hoursBack) : '—';
-  }
-
-  // Hamburger
-  (function() {
-    var btn = document.getElementById('hamburger');
-    var menu = document.getElementById('mobile-menu');
-    if (btn && menu) {
-      btn.addEventListener('click', function() {
-        btn.classList.toggle('open');
-        menu.classList.toggle('open');
-      });
-    }
-  })();
-
-  // Dropdown toggle
-  (function() {
-    var btn = document.querySelector('.nav-more-btn');
-    if (!btn) return;
-    btn.addEventListener('click', function(e) {
-      e.stopPropagation();
-      var expanded = btn.getAttribute('aria-expanded') === 'true';
-      btn.setAttribute('aria-expanded', String(!expanded));
-    });
-    document.addEventListener('click', function() {
-      if (btn) btn.setAttribute('aria-expanded', 'false');
-    });
-  })();
-</script>
 <!-- COOKIE BANNER -->
 <div id="cookie-banner">
   <p>This site uses Google Analytics and Google Ads to measure site performance. We do not sell your data. <a href="privacy.html">Privacy Policy</a></p>
@@ -404,7 +352,7 @@
 </div>
 
 <script>
-  // Cookie banner — show once per browser
+  // Cookie banner
   (function() {
     if (!localStorage.getItem('fsme_cookies_ok')) {
       document.getElementById('cookie-banner').style.display = 'flex';
@@ -414,19 +362,54 @@
     localStorage.setItem('fsme_cookies_ok', '1');
     document.getElementById('cookie-banner').style.display = 'none';
   }
-  // Hamburger with ARIA
+  // Hamburger
   (function() {
-    var btn = document.getElementById('hamburger');
-    var menu = document.getElementById('mobile-menu');
-    if (btn && menu) {
-      btn.addEventListener('click', function() {
-        var expanded = btn.getAttribute('aria-expanded') === 'true';
-        btn.setAttribute('aria-expanded', String(!expanded));
-        btn.classList.toggle('open');
-        menu.classList.toggle('open');
+    var hbtn = document.getElementById('hamburger');
+    var hmenu = document.getElementById('mobile-menu');
+    if (hbtn && hmenu) {
+      hbtn.addEventListener('click', function() {
+        var expanded = hbtn.getAttribute('aria-expanded') === 'true';
+        hbtn.setAttribute('aria-expanded', String(!expanded));
+        hbtn.classList.toggle('open');
+        hmenu.classList.toggle('open');
       });
     }
   })();
+  // More dropdown
+  (function() {
+    var dbtn = document.querySelector('.nav-more-btn');
+    if (!dbtn) return;
+    dbtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var expanded = dbtn.getAttribute('aria-expanded') === 'true';
+      dbtn.setAttribute('aria-expanded', String(!expanded));
+    });
+    document.addEventListener('click', function() {
+      if (dbtn) dbtn.setAttribute('aria-expanded', 'false');
+    });
+  })();
+  // ROI Calculator
+  function fmt(n) { return n >= 1000 ? '$' + Math.round(n).toLocaleString('en-CA') : (n > 0 ? '$' + Math.round(n) : '—'); }
+  function fmtHrs(n) { return n > 0 ? Math.round(n) + ' hrs' : '—'; }
+  function calcROI() {
+    var units    = parseFloat(document.getElementById('roi-units').value)    || 0;
+    var repair   = parseFloat(document.getElementById('roi-repair').value)   || 0;
+    var failures = parseFloat(document.getElementById('roi-failures').value) || 0;
+    var downtime = parseFloat(document.getElementById('roi-downtime').value) || 0;
+    var hours    = parseFloat(document.getElementById('roi-hours').value)    || 0;
+    var repairCost   = repair * failures;
+    var downtimeCost = downtime * hours * failures;
+    var current      = repairCost + downtimeCost;
+    var savings      = current * 0.70;
+    var perUnit      = units > 0 ? current / units : 0;
+    var threeYear    = current * 3;
+    var hoursBack    = hours * failures * 0.70;
+    document.getElementById('out-current').textContent    = current   > 0 ? fmt(current)   : '—';
+    document.getElementById('out-savings').textContent    = savings   > 0 ? fmt(savings)   : '—';
+    document.getElementById('out-per-unit').textContent   = perUnit   > 0 ? fmt(perUnit)   : '—';
+    document.getElementById('out-three-year').textContent = threeYear > 0 ? fmt(threeYear) : '—';
+    document.getElementById('out-hours').textContent      = hoursBack > 0 ? fmtHrs(hoursBack) : '—';
+  }
 </script>
 </body>
 </html>

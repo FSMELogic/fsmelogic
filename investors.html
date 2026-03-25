@@ -417,32 +417,6 @@
   </div>
 </footer>
 
-<script>
-  (function() {
-    var btn = document.getElementById('hamburger');
-    var menu = document.getElementById('mobile-menu');
-    if (btn && menu) {
-      btn.addEventListener('click', function() {
-        btn.classList.toggle('open');
-        menu.classList.toggle('open');
-      });
-    }
-  })();
-
-  // Dropdown toggle
-  (function() {
-    var btn = document.querySelector('.nav-more-btn');
-    if (!btn) return;
-    btn.addEventListener('click', function(e) {
-      e.stopPropagation();
-      var expanded = btn.getAttribute('aria-expanded') === 'true';
-      btn.setAttribute('aria-expanded', String(!expanded));
-    });
-    document.addEventListener('click', function() {
-      if (btn) btn.setAttribute('aria-expanded', 'false');
-    });
-  })();
-</script>
 <!-- COOKIE BANNER -->
 <div id="cookie-banner">
   <p>This site uses Google Analytics and Google Ads to measure site performance. We do not sell your data. <a href="privacy.html">Privacy Policy</a></p>
@@ -450,7 +424,6 @@
 </div>
 
 <script>
-  // Cookie banner — show once per browser
   (function() {
     if (!localStorage.getItem('fsme_cookies_ok')) {
       document.getElementById('cookie-banner').style.display = 'flex';
@@ -460,18 +433,29 @@
     localStorage.setItem('fsme_cookies_ok', '1');
     document.getElementById('cookie-banner').style.display = 'none';
   }
-  // Hamburger with ARIA
   (function() {
-    var btn = document.getElementById('hamburger');
-    var menu = document.getElementById('mobile-menu');
-    if (btn && menu) {
-      btn.addEventListener('click', function() {
-        var expanded = btn.getAttribute('aria-expanded') === 'true';
-        btn.setAttribute('aria-expanded', String(!expanded));
-        btn.classList.toggle('open');
-        menu.classList.toggle('open');
+    var hbtn = document.getElementById('hamburger');
+    var hmenu = document.getElementById('mobile-menu');
+    if (hbtn && hmenu) {
+      hbtn.addEventListener('click', function() {
+        var expanded = hbtn.getAttribute('aria-expanded') === 'true';
+        hbtn.setAttribute('aria-expanded', String(!expanded));
+        hbtn.classList.toggle('open');
+        hmenu.classList.toggle('open');
       });
     }
+  })();
+  (function() {
+    var dbtn = document.querySelector('.nav-more-btn');
+    if (!dbtn) return;
+    dbtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var expanded = dbtn.getAttribute('aria-expanded') === 'true';
+      dbtn.setAttribute('aria-expanded', String(!expanded));
+    });
+    document.addEventListener('click', function() {
+      if (dbtn) dbtn.setAttribute('aria-expanded', 'false');
+    });
   })();
 </script>
 </body>
