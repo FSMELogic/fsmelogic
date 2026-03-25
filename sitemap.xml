@@ -1,39 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- PRIMARY PAGES -->
   <url>
     <loc>https://fsmelogic.ca/</loc>
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-03-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://fsmelogic.ca/about.html</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://fsmelogic.ca/case-studies.html</loc>
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-03-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://fsmelogic.ca/faq.html</loc>
-    <lastmod>2026-03-09</lastmod>
+    <loc>https://fsmelogic.ca/contact.html</loc>
+    <lastmod>2026-03-25</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://fsmelogic.ca/contact.html</loc>
-    <lastmod>2026-03-09</lastmod>
+    <loc>https://fsmelogic.ca/about.html</loc>
+    <lastmod>2026-03-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fsmelogic.ca/privacy.html</loc>
-    <lastmod>2026-03-09</lastmod>
+    <loc>https://fsmelogic.ca/store.html</loc>
+    <lastmod>2026-03-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://fsmelogic.ca/payment.html</loc>
+    <lastmod>2026-03-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- SECONDARY PAGES -->
+  <url>
+    <loc>https://fsmelogic.ca/faq.html</loc>
+    <lastmod>2026-03-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://fsmelogic.ca/roi.html</loc>
+    <lastmod>2026-03-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://fsmelogic.ca/newsroom.html</loc>
+    <lastmod>2026-03-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://fsmelogic.ca/investors.html</loc>
+    <lastmod>2026-03-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://fsmelogic.ca/pipeline-demo.html</loc>
+    <lastmod>2026-03-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- LEGAL (merged page) -->
+  <url>
+    <loc>https://fsmelogic.ca/legal.html</loc>
+    <lastmod>2026-03-25</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
+
+  <!-- NOTE: success.html, reports.html, terms.html, privacy.html
+       are intentionally excluded — either noindex redirects or
+       conversion tracking pages that should not be crawled -->
+
 </urlset>
