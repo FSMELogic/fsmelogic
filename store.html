@@ -227,6 +227,15 @@
     <p>Operational guides, offline data ingestion tools, and technical templates for reliability engineers dealing with complex sensor data.</p>
   </div>
 
+  <div style="max-width:1100px;margin:0 auto;padding:1.5rem 2rem 0;">
+    <div style="background:rgba(61,142,240,0.06);border:1px solid rgba(61,142,240,0.2);border-left:3px solid var(--blue);padding:1.25rem 1.5rem;">
+      <p style="font-family:var(--mono);font-size:0.82rem;color:var(--muted);line-height:1.9;margin:0;">
+        <strong style="color:var(--text);">On pricing:</strong> Software and documents are priced to minimize procurement friction for individuals and small teams. Enterprise licensing and volume arrangements available — <a href="contact.html" style="color:var(--blue);text-decoration:none;">contact us</a>.&nbsp;&nbsp;
+        <strong style="color:var(--text);">On code signing:</strong> The Data Ingestion Desktop Client (.exe) does not currently carry a Microsoft Authenticode certificate. Windows Defender SmartScreen may flag it on first run — this is normal for unsigned independent software, not an indicator of malware. The binary is verifiable by SHA-256 hash. If your organization requires a signed executable, contact us to discuss arrangements.
+      </p>
+    </div>
+  </div>
+
   <section class="store-section">
     <div class="store-grid">
 
@@ -272,12 +281,12 @@
         <p style="font-family:var(--mono);font-size:0.7rem;color:var(--dim);text-align:center;margin-top:0.25rem;">After purchase, complete the delivery form below ↓</p>
       </div>
 
-      <div class="product-card">
+      <div class="product-card" style="border-top:3px solid var(--gold);">
         <div>
-          <span class="card-badge badge-featured">★ New</span>&nbsp;
+          <span class="card-badge badge-featured">★ Featured</span>&nbsp;
           <span class="card-badge badge-live">Available Now</span>
         </div>
-        <h2 class="card-title">Convert Large Telemetry Files (TDMS, HDF5, NetCDF): FSME Data Ingestion Desktop Client</h2>
+        <h2 class="card-title">FSME Data Ingestion Desktop Client — Convert TDMS, HDF5 &amp; NetCDF</h2>
         <div class="card-desc">How to open massive .tdms and .h5 files out of memory: A standalone Windows application that converts industrial telemetry files into clean, audit-ready CSVs for the FSME Engine. Handles formats your spreadsheet software can't open — HDF5, TDMS, NetCDF, MATLAB, SQLite, and more.</div>
         <hr class="card-divider">
         <ul class="card-includes">
@@ -289,10 +298,14 @@
           <li>Single double-clickable .exe — no Python required</li>
         </ul>
         <hr class="card-divider">
-        <div class="card-price">Regular: $249 Sale:$149 <span>CAD</span></div>
-        <a class="btn-buy" href="pipeline-demo.html" style="background:transparent;color:var(--cyan);border:1px solid rgba(91,184,212,0.6);margin-bottom:0.5rem;">⌕ &nbsp;Try Interactive Demo</a>
-        <a class="btn-buy" href="contact.html">Request License — $249</a>
-        <p style="font-family:var(--mono);font-size:0.7rem;color:var(--dim);text-align:center;margin-top:0.25rem;">License delivered by email within 24 hours.</p>
+        <div style="margin-bottom:0.5rem;">
+          <div class="card-price" style="display:inline;">$250 <span>CAD</span></div>
+          <span style="font-family:var(--mono);font-size:0.75rem;color:var(--muted);margin-left:0.75rem;">Individual / SME</span>
+        </div>
+        <div style="margin-bottom:1rem;font-family:var(--mono);font-size:0.78rem;color:var(--gold);">Enterprise: $450 CAD &nbsp;<span style="color:var(--dim);font-size:0.7rem;">(multi-seat, priority support)</span></div>
+        <a class="btn-buy" href="pipeline-demo.html" style="background:transparent;color:var(--cyan);border:1px solid rgba(91,184,212,0.6);margin-bottom:0.5rem;">&#9901; &nbsp;Try Interactive Demo First</a>
+        <a class="btn-buy" href="contact.html">Request License &#9658;</a>
+        <p style="font-family:var(--mono);font-size:0.7rem;color:var(--dim);text-align:center;margin-top:0.25rem;">License delivered by email. Enterprise pricing includes priority support.</p>
       </div>
 
       <!-- ZEROPORT TIER 1 -->
@@ -408,9 +421,10 @@
               <option value="" disabled selected>Select a product</option>
               <option value="Data Readiness &amp; Integration Protocol — $25">Data Readiness &amp; Integration Protocol — $25</option>
               <option value="Equipment Failure Cost Calculator — $20">Equipment Failure Cost Calculator — $20</option>
-              <option value="FSME Data Ingestion Desktop Client — $249">FSME Data Ingestion Desktop Client — $249</option>
+              <option value="FSME Data Ingestion Desktop Client — $250">FSME Data Ingestion Desktop Client — $250 (Individual)</option>
               <option value="ZeroPort Storefront: Blueprint — $50">ZeroPort Storefront: Blueprint — $50</option>
               <option value="ZeroPort Storefront: Blueprint + Scripts — $130">ZeroPort Storefront: Blueprint + Scripts — $130</option>
+              <option value="FSME Data Ingestion Desktop Client — $450 Enterprise">FSME Data Ingestion Desktop Client — $450 (Enterprise)</option>
             </select>
           </div>
 
@@ -435,7 +449,7 @@
       <p class="form-note">
         Your email is used only to deliver your document. It will not be added to any mailing list.
         All purchases are subject to the <a href="legal.html#terms">Terms of Service</a>.
-        The $50 purchase price is credited in full toward your first FSME Forensic Pilot Audit.
+        The Data Readiness Protocol purchase price is credited toward your first FSME Forensic Pilot Audit.
       </p>
     </div>
   </section>

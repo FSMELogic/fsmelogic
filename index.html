@@ -111,7 +111,9 @@
       .step { border-right: none; border-bottom: 1px solid var(--border); }
       .step:last-child { border-bottom: none; }
     }
+    .demo-controls { grid-template-columns: 1fr 1fr; }
     @media (max-width: 680px) {
+      .demo-controls { grid-template-columns: 1fr; }
       .hero { padding: 7rem 1.25rem 4rem; }
       .hero-stats { gap: 1rem; }
       .hero-stat { min-width: 130px; padding: 1rem 1.25rem; }
@@ -218,26 +220,27 @@
   <div class="hero-bg"></div>
   <div class="hero-inner">
     <p class="hero-eyebrow">Predictive Integrity Engine — Edmonton, Alberta</p>
+    <p style="font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--blue);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.75rem;min-height:1.2em;" id="typeTarget"></p>
     <h1>We detect failure<br><em>before</em><br><span class="dim">it happens.</span></h1>
     <div class="hero-quote">
       "We detect when systems stop telling the truth — before people pay the price."
       <strong>— Alexander Kalyniuk, Founder, FSME Logic</strong>
     </div>
-    <div class="hero-stats">
+    <div class="hero-stats" id="hero-counters">
       <div class="hero-stat">
-        <div class="val">9<span style="font-size:1.4rem">mo</span></div>
+        <div class="val count-up" data-target="9" data-suffix="mo">0</div>
         <div class="lbl">Lead time<br>ESA spacecraft</div>
       </div>
       <div class="hero-stat">
-        <div class="val gold">6.3<span style="font-size:1.4rem">hr</span></div>
-        <div class="lbl">Warning before failure<br>NASA Curiosity Rover</div>
+        <div class="val gold count-up" data-target="63" data-suffix="" data-decimal="true">0</div>
+        <div class="lbl">Hour warning<br>NASA Curiosity Rover</div>
       </div>
       <div class="hero-stat">
-        <div class="val">78<span style="font-size:1.4rem">%</span></div>
+        <div class="val count-up" data-target="78" data-suffix="%">0</div>
         <div class="lbl">Fleet detection rate<br>509 jet engines</div>
       </div>
       <div class="hero-stat">
-        <div class="val">0</div>
+        <div class="val count-up" data-target="0" data-suffix="">0</div>
         <div class="lbl">False positives<br>full baseline window</div>
       </div>
     </div>
@@ -245,7 +248,7 @@
       <a class="btn btn-primary" href="contact.html">Book a Pilot Audit ▸</a>
       <a class="btn btn-secondary" href="case-studies.html">View Validation Results</a>
     </div>
-    <p class="hero-microcopy">No new infrastructure required &nbsp;·&nbsp; Offline Audits &nbsp;·&nbsp; We Do Not Store Your Data</p>
+    <p class="hero-microcopy">No infrastructure required &nbsp;·&nbsp; Same-day results &nbsp;·&nbsp; Data never leaves your facility</p>
   </div>
 </section>
 
@@ -366,6 +369,56 @@
   <a href="case-studies.html">View all validation data →</a>
 </div>
 
+<!-- SIGNAL VISUALIZER -->
+<section style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="wrap">
+    <p class="section-label">Interactive Signal Demo</p>
+    <h2 class="section-title">What degradation actually<br><em>looks like.</em></h2>
+    <p class="section-sub">Select your equipment type and operating hours. The visualization simulates the signal signature FSME Logic reads — showing the early stress pattern that appears long before any threshold alarm would trigger. Based on real benchmark degradation profiles.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem;align-items:end;" class="demo-controls">
+      <div>
+        <label style="font-family:var(--mono);font-size:0.65rem;color:var(--blue);letter-spacing:0.15em;text-transform:uppercase;display:block;margin-bottom:0.5rem;">Equipment Type</label>
+        <select id="demo-asset" onchange="updateDemo()" style="background:var(--card);border:1px solid var(--border);color:var(--text);font-family:var(--mono);font-size:0.85rem;padding:0.75rem 1rem;width:100%;outline:none;-webkit-appearance:none;appearance:none;">
+          <option value="bearing">Ball Bearing / Rotating Equipment</option>
+          <option value="hydraulic">Hydraulic System</option>
+          <option value="refrigeration">Commercial Refrigeration</option>
+          <option value="fleet">Long-Haul Truck Engine</option>
+          <option value="compressor">Industrial Compressor / Pump</option>
+        </select>
+      </div>
+      <div>
+        <label style="font-family:var(--mono);font-size:0.65rem;color:var(--blue);letter-spacing:0.15em;text-transform:uppercase;display:block;margin-bottom:0.5rem;">Operating Hours Since Last Service: <span id="demo-hours-val" style="color:var(--cyan);">1,200</span></label>
+        <input type="range" id="demo-hours" min="100" max="8000" value="1200" oninput="updateDemo()" style="width:100%;accent-color:var(--blue);">
+      </div>
+    </div>
+
+    <div style="position:relative;">
+      <canvas id="demoCanvas" style="width:100%;height:220px;display:block;background:#080a10;border:1px solid var(--border);"></canvas>
+      <!-- Status overlay -->
+      <div id="demo-status" style="position:absolute;top:12px;right:12px;background:rgba(8,10,16,0.85);border:1px solid var(--border);padding:0.6rem 1rem;font-family:var(--mono);font-size:0.72rem;line-height:1.7;"></div>
+    </div>
+
+    <!-- Legend -->
+    <div style="display:flex;gap:1.5rem;flex-wrap:wrap;margin-top:1rem;">
+      <div style="display:flex;align-items:center;gap:0.5rem;font-family:var(--mono);font-size:0.72rem;color:var(--muted);">
+        <span style="display:inline-block;width:20px;height:2px;background:var(--blue);"></span>Signal
+      </div>
+      <div style="display:flex;align-items:center;gap:0.5rem;font-family:var(--mono);font-size:0.72rem;color:var(--green);">
+        <span style="display:inline-block;width:2px;height:16px;background:var(--green);"></span>FSME Detection Point
+      </div>
+      <div style="display:flex;align-items:center;gap:0.5rem;font-family:var(--mono);font-size:0.72rem;color:var(--red);">
+        <span style="display:inline-block;width:2px;height:16px;background:var(--red);"></span>Threshold Alarm
+      </div>
+    </div>
+
+    <div style="background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.2);border-left:3px solid var(--gold);padding:0.9rem 1.25rem;margin-top:1.25rem;">
+      <p style="font-family:var(--mono);font-size:0.75rem;color:var(--muted);line-height:1.7;margin:0;"><strong style="color:var(--gold);">Simulation note:</strong> Signal patterns are based on real degradation profiles from published benchmark datasets (CWRU Bearing, NASA C-MAPSS, LIGO O3b, and proprietary refrigeration measurements). Displayed waveforms are illustrative simulations, not live sensor output. Actual detection lead times vary by equipment type and data quality.</p>
+    </div>
+  </div>
+</section>
+
+
 <!-- PROCESS -->
 <section>
   <div class="wrap">
@@ -375,7 +428,7 @@
       <div class="step">
         <div class="step-num">01</div>
         <h3>Export Your Data</h3>
-        <p>Pull data from your existing monitoring system. 30–90 days of sensor readings is ideal. No special format required — SCADA, BMS, or data logger output all work.</p>
+        <p>Pull a CSV from your existing monitoring system. 30–90 days of sensor readings is ideal. No special format required — SCADA, BMS, or data logger output all work.</p>
       </div>
       <div class="step">
         <div class="step-num">02</div>
@@ -477,6 +530,260 @@
     localStorage.setItem('fsme_cookies_ok', '1');
     document.getElementById('cookie-banner').style.display = 'none';
   }
+
+  // ── TYPEWRITER ──────────────────────────────────────────────────────
+  (function() {
+    var phrases = [
+      'ENTROPY REVEALS WHAT SENSORS CONCEAL.',
+      'PREDICT FAILURE. NOT FROM THRESHOLDS. FROM PHYSICS.',
+      'NO CLOUD. NO NEW SENSORS. NO COMPROMISE.',
+      'YOUR DATA. YOUR HARDWARE. YOUR INSIGHT.',
+    ];
+    var idx = 0, ch = 0, typing = true, tmr;
+    function tick() {
+      var el = document.getElementById('typeTarget');
+      if (!el) return;
+      var p = phrases[idx];
+      if (typing) {
+        el.textContent = p.substring(0, ++ch);
+        if (ch === p.length) { typing = false; tmr = setTimeout(tick, 2000); return; }
+      } else {
+        el.textContent = p.substring(0, --ch);
+        if (ch === 0) { typing = true; idx = (idx + 1) % phrases.length; }
+      }
+      tmr = setTimeout(tick, typing ? 50 : 25);
+    }
+    tick();
+  })();
+
+  // ── ANIMATED COUNTERS (Intersection Observer) ─────────────────────
+  (function() {
+    var counters = document.querySelectorAll('.count-up');
+    if (!counters.length) return;
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (!e.isIntersecting) return;
+        var el = e.target;
+        var target = parseInt(el.dataset.target);
+        var isDecimal = el.dataset.decimal === 'true';
+        var suffix = el.dataset.suffix || '';
+        if (target === 0) { el.textContent = '0' + suffix; return; }
+        var n = 0, steps = 60;
+        var step = target / steps;
+        var tick = setInterval(function() {
+          n = Math.min(n + step, target);
+          if (isDecimal) {
+            el.textContent = (n / 10).toFixed(1) + suffix;
+          } else {
+            el.textContent = Math.round(n) + suffix;
+          }
+          if (n >= target) clearInterval(tick);
+        }, 22);
+        obs.unobserve(el);
+      });
+    }, { threshold: 0.4 });
+    counters.forEach(function(c) { obs.observe(c); });
+  })();
+
+  // ── SIGNAL CANVAS VISUALIZER ──────────────────────────────────────
+  (function() {
+    var canvas = document.getElementById('demoCanvas');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var raf;
+
+    // Machine degradation profiles — based on real benchmark characteristics
+    var profiles = {
+      bearing: {
+        label: 'Ball Bearing / Rotating Equipment',
+        baseFreq: 4.2, noiseBase: 0.08, degradeRate: 0.00032,
+        fsmeOffset: 0.35, thresholdOffset: 0.78,
+        src: 'CWRU Bearing Benchmark'
+      },
+      hydraulic: {
+        label: 'Hydraulic System',
+        baseFreq: 2.1, noiseBase: 0.12, degradeRate: 0.00018,
+        fsmeOffset: 0.40, thresholdOffset: 0.82,
+        src: 'Industry Maintenance Data'
+      },
+      refrigeration: {
+        label: 'Commercial Refrigeration',
+        baseFreq: 1.4, noiseBase: 0.06, degradeRate: 0.00022,
+        fsmeOffset: 0.38, thresholdOffset: 0.80,
+        src: 'FSME Proprietary Dataset'
+      },
+      fleet: {
+        label: 'Long-Haul Truck Engine',
+        baseFreq: 3.3, noiseBase: 0.10, degradeRate: 0.00015,
+        fsmeOffset: 0.42, thresholdOffset: 0.85,
+        src: 'NASA C-MAPSS Turbofan Dataset'
+      },
+      compressor: {
+        label: 'Industrial Compressor / Pump',
+        baseFreq: 5.1, noiseBase: 0.09, degradeRate: 0.00025,
+        fsmeOffset: 0.37, thresholdOffset: 0.79,
+        src: 'Industry Maintenance Data'
+      }
+    };
+
+    var t = 0;
+    var currentProfile = profiles.bearing;
+    var currentHours = 1200;
+    var maxHours = 8000;
+
+    function getHealthFactor(hours, profile) {
+      return Math.min(1.0, hours * profile.degradeRate);
+    }
+
+    function draw() {
+      var dpr = window.devicePixelRatio || 1;
+      var w = canvas.offsetWidth;
+      var h = 220;
+      canvas.width  = w * dpr;
+      canvas.height = h * dpr;
+      ctx.scale(dpr, dpr);
+
+      var p = currentProfile;
+      var hf = getHealthFactor(currentHours, p);
+
+      // Background
+      ctx.fillStyle = '#080a10';
+      ctx.fillRect(0, 0, w, h);
+
+      // Grid lines
+      ctx.strokeStyle = 'rgba(61,142,240,0.06)';
+      ctx.lineWidth = 1;
+      for (var gx = 0; gx < w; gx += 52) {
+        ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, h); ctx.stroke();
+      }
+      for (var gy = 0; gy < h; gy += 40) {
+        ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(w, gy); ctx.stroke();
+      }
+
+      // Marker X positions
+      var fsmeX = w * p.fsmeOffset;
+      var threshX = w * p.thresholdOffset;
+
+      // Progress marker (current hours position)
+      var nowX = (currentHours / maxHours) * w;
+
+      // FSME detection line
+      ctx.strokeStyle = 'rgba(61,192,122,0.7)';
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([4, 3]);
+      ctx.beginPath(); ctx.moveTo(fsmeX, 0); ctx.lineTo(fsmeX, h); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = 'rgba(61,192,122,0.9)';
+      ctx.font = '10px "IBM Plex Mono"';
+      ctx.fillText('FSME Detection', fsmeX + 5, 18);
+
+      // Threshold alarm line
+      ctx.strokeStyle = 'rgba(224,82,82,0.7)';
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([4, 3]);
+      ctx.beginPath(); ctx.moveTo(threshX, 0); ctx.lineTo(threshX, h); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = 'rgba(224,82,82,0.9)';
+      ctx.fillText('Threshold Alarm', threshX + 5, 18);
+
+      // Signal waveform
+      ctx.beginPath();
+      var mid = h / 2;
+      var amp = h * 0.18;
+      var noise = p.noiseBase;
+
+      for (var x = 0; x < w; x++) {
+        var progress = x / w;
+        var localHf = Math.min(1.0, (progress * maxHours) * p.degradeRate);
+
+        // Base oscillation
+        var signal = Math.sin((x * p.baseFreq * 0.08) + t) * amp;
+
+        // Noise increases with degradation
+        var n1 = (Math.sin(x * 17.3 + t * 2.1) * 0.4 + Math.sin(x * 31.7 + t * 1.3) * 0.3 + Math.sin(x * 7.9 + t * 0.7) * 0.3);
+        signal += n1 * (noise + localHf * 0.35) * amp * 1.5;
+
+        // Harmonic distortion after FSME detection point
+        if (progress > p.fsmeOffset) {
+          var dist = (progress - p.fsmeOffset) / (1 - p.fsmeOffset);
+          signal += Math.sin(x * p.baseFreq * 0.24 + t * 1.8) * amp * dist * 0.6;
+        }
+
+        // Severity spikes after threshold (catastrophic zone)
+        if (progress > p.thresholdOffset) {
+          signal += Math.sin(x * p.baseFreq * 0.05 + t) * amp * 1.8;
+        }
+
+        var y = mid - signal;
+        if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+
+      // Color the signal: green before FSME, gold between, red after threshold
+      var grad = ctx.createLinearGradient(0, 0, w, 0);
+      grad.addColorStop(0, 'rgba(61,142,240,0.9)');
+      grad.addColorStop(p.fsmeOffset - 0.01, 'rgba(61,142,240,0.9)');
+      grad.addColorStop(p.fsmeOffset, 'rgba(201,168,76,0.9)');
+      grad.addColorStop(p.thresholdOffset - 0.01, 'rgba(201,168,76,0.9)');
+      grad.addColorStop(p.thresholdOffset, 'rgba(224,82,82,0.95)');
+      grad.addColorStop(1, 'rgba(224,82,82,0.95)');
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = 1.8;
+      ctx.stroke();
+
+      // Current position marker
+      if (nowX < w) {
+        ctx.strokeStyle = 'rgba(255,255,255,0.6)';
+        ctx.lineWidth = 1;
+        ctx.setLineDash([2, 4]);
+        ctx.beginPath(); ctx.moveTo(nowX, 0); ctx.lineTo(nowX, h); ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle = 'rgba(255,255,255,0.8)';
+        ctx.font = '10px "IBM Plex Mono"';
+        var label = 'Now';
+        var lw = ctx.measureText(label).width;
+        ctx.fillText(label, Math.min(nowX + 5, w - lw - 5), h - 8);
+      }
+
+      t += 0.025;
+    }
+
+    function updateStatus() {
+      var p = currentProfile;
+      var hf = getHealthFactor(currentHours, p);
+      var statusEl = document.getElementById('demo-status');
+      if (!statusEl) return;
+      var inFsmeZone = (currentHours / maxHours) > p.fsmeOffset;
+      var inFailZone = (currentHours / maxHours) > p.thresholdOffset;
+      var healthColor = inFailZone ? '#e05252' : inFsmeZone ? '#c9a84c' : '#3db87a';
+      var healthLabel = inFailZone ? '⚠ FAILURE ZONE' : inFsmeZone ? '↗ FSME DETECTION ZONE' : '✓ NOMINAL';
+      var leadTime = inFsmeZone && !inFailZone
+        ? 'Est. warning lead time: ' + Math.round((p.thresholdOffset - currentHours/maxHours) * maxHours / 24) + ' operating days'
+        : inFailZone ? 'Standard alarm already triggered' : 'No anomaly detected by threshold monitoring';
+
+      statusEl.innerHTML =
+        '<span style="color:' + healthColor + ';font-weight:700;">' + healthLabel + '</span><br>' +
+        '<span style="color:var(--dim);">' + leadTime + '</span><br>' +
+        '<span style="color:var(--dim);font-size:0.65rem;">Source: ' + p.src + '</span>';
+    }
+
+    function loop() { draw(); raf = requestAnimationFrame(loop); }
+
+    window.updateDemo = function() {
+      var sel = document.getElementById('demo-asset');
+      var hrs = document.getElementById('demo-hours');
+      var hrsVal = document.getElementById('demo-hours-val');
+      if (sel) currentProfile = profiles[sel.value] || profiles.bearing;
+      if (hrs) {
+        currentHours = parseInt(hrs.value);
+        if (hrsVal) hrsVal.textContent = currentHours.toLocaleString();
+      }
+      updateStatus();
+    };
+
+    // Start
+    updateDemo();
+    loop();
+  })();
 
   // Hamburger menu with ARIA
   (function() {
