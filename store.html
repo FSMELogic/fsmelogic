@@ -168,6 +168,10 @@
     .foot-social { display: flex; gap: 1rem; align-items: center; margin-top: 0.5rem; }
     .foot-social a { color: var(--dim); text-decoration: none; transition: color 0.2s; display: flex; align-items: center; }
     .foot-social a:hover { color: var(--blue); }
+
+    /* Kit grid — 2-col on desktop, 1-col on mobile */
+    .kit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    @media (max-width: 700px) { .kit-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -230,11 +234,73 @@
   <div style="max-width:1100px;margin:0 auto;padding:1.5rem 2rem 0;">
     <div style="background:rgba(61,142,240,0.06);border:1px solid rgba(61,142,240,0.2);border-left:3px solid var(--blue);padding:1.25rem 1.5rem;">
       <p style="font-family:var(--mono);font-size:0.82rem;color:var(--muted);line-height:1.9;margin:0;">
-        <strong style="color:var(--text);">On pricing:</strong> Software and documents are priced to minimize procurement friction for individuals and small teams. Enterprise licensing and volume arrangements available — <a href="contact.html" style="color:var(--blue);text-decoration:none;">contact us</a>.&nbsp;&nbsp;
+        <strong style="color:var(--text);">On pricing:</strong> All rates shown are introductory and subject to adjustment as enterprise deployment volumes scale. Priced to clear individual and small-team P-card limits without procurement overhead. Enterprise licensing and volume arrangements available — <a href="contact.html" style="color:var(--blue);text-decoration:none;">contact us</a>.&nbsp;&nbsp;
         <strong style="color:var(--text);">On code signing:</strong> The Data Ingestion Desktop Client (.exe) does not currently carry a Microsoft Authenticode certificate. Windows Defender SmartScreen may flag it on first run — this is normal for unsigned independent software, not an indicator of malware. The binary is verifiable by SHA-256 hash. If your organization requires a signed executable, contact us to discuss arrangements.
       </p>
     </div>
   </div>
+
+  <!-- FREE KIT + $99 BUNDLE SECTION -->
+  <div style="max-width:1100px;margin:0 auto;padding:2rem 2rem 0;">
+    <div class="kit-grid">
+
+      <!-- FREE ENGINEERING PROCUREMENT KIT -->
+      <div style="background:var(--bg2);border:1px solid var(--border);border-top:3px solid var(--cyan);padding:1.75rem;display:flex;flex-direction:column;gap:1rem;">
+        <div>
+          <span class="card-badge" style="background:rgba(91,184,212,0.1);color:var(--cyan);border:1px solid rgba(91,184,212,0.3);">Free Download</span>
+        </div>
+        <h2 class="card-title">Engineering Procurement Kit</h2>
+        <div class="card-desc">Everything a reliability engineer needs to evaluate, justify, and pitch FSME Logic internally — before spending a dollar. No email required. Direct download.</div>
+        <hr class="card-divider">
+        <ul class="card-includes">
+          <li>Air-Gapped AI Security Compliance Matrix (xlsx) — pre-fills ISO 27001 justification for IT</li>
+          <li>Sensor Telemetry Export Guide (pdf) — how to pull clean .tdms, .h5, .csv from SCADA/BMS</li>
+          <li>Internal Pilot Justification Memo (docx) — pre-written memo to VP requesting $999 assessment</li>
+          <li>Downtime Cost Reference Sheet (pdf) — industry benchmark figures with citations</li>
+        </ul>
+        <hr class="card-divider">
+        <div class="card-price" style="font-size:1.6rem;color:var(--cyan);">Free</div>
+        <a class="btn-buy" style="background:transparent;color:var(--cyan);border:1px solid rgba(91,184,212,0.5);"
+           href="downloads/FSME_Engineering_Procurement_Kit.zip" download
+           onclick="gtag('event','file_download',{file_name:'FSME_Engineering_Procurement_Kit',category:'free_kit'});">
+          &#8659; Download Free Kit
+        </a>
+        <p style="font-family:var(--mono);font-size:0.7rem;color:var(--dim);text-align:center;margin-top:0.25rem;">No email required. No strings attached.</p>
+      </div>
+
+      <!-- $99 STARTER KIT -->
+      <div style="background:var(--card);border:1px solid var(--border);border-top:3px solid var(--blue);padding:1.75rem;display:flex;flex-direction:column;gap:1rem;">
+        <div>
+          <span class="card-badge badge-live">Available Now</span>&nbsp;
+          <span class="card-badge" style="background:rgba(61,142,240,0.1);color:var(--blue);border:1px solid rgba(61,142,240,0.3);">100% Credit Included</span>
+        </div>
+        <h2 class="card-title">Predictive Reliability Starter Kit</h2>
+        <div class="card-desc">All FSME Logic operational documents in one package. 100% of the purchase price is credited toward any software purchase or forensic audit — making this a risk-free entry point.</div>
+        <hr class="card-divider">
+        <ul class="card-includes">
+          <li>Sensor Data Readiness &amp; Integration Protocol (9-page guide)</li>
+          <li>Unplanned Downtime Cost Calculator (Excel workbook)</li>
+          <li>Predictive Maintenance Audit Template (Word + Excel)</li>
+          <li>Everything in the Free Engineering Procurement Kit</li>
+          <li><strong style="color:var(--blue);">$99 credited in full toward any software or audit</strong></li>
+          <li>Use promo code FSME-CREDIT-99 at checkout on any product</li>
+        </ul>
+        <hr class="card-divider">
+        <div class="card-price">$99 <span>CAD</span></div>
+        <a class="btn-buy" href="https://square.link/u/fsme-starter-kit" target="_blank" rel="noopener"
+           onclick="gtag('event','begin_checkout',{value:99,currency:'CAD',item:'Starter_Kit'});">
+          Buy Starter Kit — $99
+        </a>
+        <p style="font-family:var(--mono);font-size:0.7rem;color:var(--dim);text-align:center;margin-top:0.25rem;">After purchase, complete the delivery form below ↓</p>
+      </div>
+
+    </div>
+  </div>
+  <!-- DIVIDER -->
+  <div style="max-width:1100px;margin:1.5rem auto 0;padding:0 2rem;">
+    <div style="border-top:1px solid var(--border);padding-top:0.75rem;font-family:var(--mono);font-size:0.65rem;color:var(--dim);letter-spacing:0.12em;text-transform:uppercase;">// Software &amp; Services</div>
+  </div>
+
 
   <section class="store-section">
     <div class="store-grid">
@@ -286,7 +352,7 @@
           <span class="card-badge badge-featured">★ Featured</span>&nbsp;
           <span class="card-badge badge-live">Available Now</span>
         </div>
-        <h2 class="card-title">FSME Data Ingestion Desktop Client — Convert TDMS, HDF5 &amp; NetCDF</h2>
+        <h2 class="card-title">FSME Data Ingestion Desktop Client <span style="font-size:0.75em;color:var(--muted);font-weight:400;">— Audit Prep Edition</span></h2>
         <div class="card-desc">How to open massive .tdms and .h5 files out of memory: A standalone Windows application that converts industrial telemetry files into clean, audit-ready CSVs for the FSME Engine. Handles formats your spreadsheet software can't open — HDF5, TDMS, NetCDF, MATLAB, SQLite, and more.</div>
         <hr class="card-divider">
         <ul class="card-includes">
@@ -354,6 +420,58 @@
         <p style="font-family:var(--mono);font-size:0.7rem;color:var(--dim);text-align:center;margin-top:0.25rem;">After purchase, complete the delivery form below ↓</p>
       </div>
 
+
+      <!-- $999 VIABILITY ASSESSMENT -->
+      <div class="product-card" style="border-top:3px solid var(--gold);grid-column:span 1;">
+        <div>
+          <span class="card-badge" style="background:rgba(201,168,76,0.15);color:var(--gold);border:1px solid rgba(201,168,76,0.4);">&#9733; Bridge Product</span>&nbsp;
+          <span class="card-badge badge-live">Available Now</span>
+        </div>
+        <h2 class="card-title">Single-Asset Viability Assessment</h2>
+        <div class="card-desc">Send us historical telemetry from one asset that experienced an unexpected failure. We prove the FSME engine would have detected the stress accumulation before your alarms triggered — or the fee is refunded in full.</div>
+        <hr class="card-divider">
+        <ul class="card-includes">
+          <li>You provide: telemetry from one historical failure event (any format)</li>
+          <li>We deliver: 5–8 page forensic PDF documenting detection lead time vs. alarm trigger</li>
+          <li>Includes: stress accumulation timeline, channel-by-channel analysis, SHA-256 custody receipt</li>
+          <li>Includes: fleet-wide extrapolation section projecting findings across your asset base</li>
+          <li><strong style="color:var(--gold);">Full refund if early detection cannot be demonstrated</strong></li>
+          <li>$999 credited in full toward any fleet-wide forensic audit engagement</li>
+        </ul>
+        <hr class="card-divider">
+        <div style="background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.2);border-left:2px solid var(--gold);padding:0.75rem 1rem;font-family:var(--mono);font-size:0.75rem;color:var(--muted);line-height:1.75;margin-bottom:0.5rem;">
+          <strong style="color:var(--gold);">How it works:</strong> Contact us first. We confirm your data format, sign an NDA if required, then you transfer the file via your preferred secure method. Analysis runs on air-gapped hardware in Edmonton.
+        </div>
+        <div class="card-price" style="color:var(--gold);">$999 <span>CAD</span></div>
+        <a class="btn-buy" style="background:rgba(201,168,76,0.15);color:var(--gold);border:1px solid rgba(201,168,76,0.4);" href="contact.html">Request Viability Assessment &#9658;</a>
+        <p style="font-family:var(--mono);font-size:0.7rem;color:var(--dim);text-align:center;margin-top:0.25rem;">Contact us first to confirm data compatibility before purchasing.</p>
+      </div>
+
+      <!-- $49/YR HOT FOLDER ADD-ON -->
+      <div class="product-card" style="border-top:3px solid var(--bord2);background:var(--bg2);">
+        <div>
+          <span class="card-badge" style="background:rgba(46,58,82,0.6);color:var(--muted);border:1px solid var(--border);">Enterprise Add-On</span>&nbsp;
+          <span class="card-badge badge-live">Available Now</span>
+        </div>
+        <h2 class="card-title" style="color:var(--muted);">Automated Hot-Folder Daemon</h2>
+        <div style="background:rgba(224,82,82,0.08);border:1px solid rgba(224,82,82,0.2);border-left:2px solid #e05252;padding:0.6rem 0.85rem;font-family:var(--mono);font-size:0.72rem;color:var(--muted);margin-bottom:0.75rem;line-height:1.6;">
+          <strong style="color:#e08080;">Requires an active FSME Enterprise Desktop License ($450) to function.</strong> This is an annual license key add-on, not a standalone product.
+        </div>
+        <div class="card-desc">Unlocks the background hot-folder processing daemon in your existing Enterprise installation. Drop files into a monitored folder and the conversion pipeline runs automatically — no manual intervention.</div>
+        <hr class="card-divider">
+        <ul class="card-includes">
+          <li>Continuous background monitoring of a designated input folder</li>
+          <li>Auto-converts any supported format dropped into the folder</li>
+          <li>Output routed to configured destination (CSV, SQL, or Parquet)</li>
+          <li>Annual license key — same binary, new key activates daemon</li>
+          <li>Key expires after 12 months; renewal required to continue daemon operation</li>
+        </ul>
+        <hr class="card-divider">
+        <div class="card-price" style="font-size:1.6rem;">$49 <span>CAD / year</span></div>
+        <a class="btn-buy" style="background:var(--steel);color:var(--muted);border:1px solid var(--border);" href="contact.html">Request Add-On Key &#9658;</a>
+        <p style="font-family:var(--mono);font-size:0.7rem;color:var(--dim);text-align:center;margin-top:0.25rem;">Email us your existing Enterprise license ID to receive the add-on key.</p>
+      </div>
+
       <div class="product-card coming-soon">
         <div>
           <span class="card-badge badge-soon">Coming Soon</span>
@@ -419,12 +537,14 @@
             <label for="product">Product Purchased *</label>
             <select id="product" name="product" required>
               <option value="" disabled selected>Select a product</option>
+              <option value="Predictive Reliability Starter Kit — $99">Predictive Reliability Starter Kit — $99</option>
               <option value="Data Readiness &amp; Integration Protocol — $25">Data Readiness &amp; Integration Protocol — $25</option>
               <option value="Equipment Failure Cost Calculator — $20">Equipment Failure Cost Calculator — $20</option>
-              <option value="FSME Data Ingestion Desktop Client — $250">FSME Data Ingestion Desktop Client — $250 (Individual)</option>
+              <option value="FSME Data Ingestion Desktop Client — $250 (Individual)">FSME Data Ingestion Desktop Client — $250 (Individual)</option>
+              <option value="FSME Data Ingestion Desktop Client — $450 (Enterprise)">FSME Data Ingestion Desktop Client — $450 (Enterprise)</option>
+              <option value="Hot-Folder Daemon Add-On — $49/yr">Hot-Folder Daemon Add-On — $49/yr</option>
               <option value="ZeroPort Storefront: Blueprint — $50">ZeroPort Storefront: Blueprint — $50</option>
               <option value="ZeroPort Storefront: Blueprint + Scripts — $130">ZeroPort Storefront: Blueprint + Scripts — $130</option>
-              <option value="FSME Data Ingestion Desktop Client — $450 Enterprise">FSME Data Ingestion Desktop Client — $450 (Enterprise)</option>
             </select>
           </div>
 
@@ -456,8 +576,8 @@
 
   <div class="audit-note">
     <div class="audit-note-inner">
-      <p>Looking for forensic audit and offline diagnostic services? All audit engagements are custom-quoted based on your dataset and asset type.</p>
-      <a href="contact.html">Request a Custom Audit →</a>
+      <p>Ready to move from tools to a full forensic engagement? The $999 Single-Asset Viability Assessment is the logical next step — or contact us to discuss fleet-wide audit scoping directly.</p>
+      <a href="contact.html">Discuss a Forensic Audit →</a>
     </div>
   </div>
 
