@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H3ZFCJGRSS"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-H3ZFCJGRSS');</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FSME Logic Methodology White Paper — Free Download</title>
+  <meta name="description" content="Download the FSME Logic methodology white paper. Physics-based predictive integrity — the technical framework behind the FSME engine, validated on NASA, ESA, and LIGO datasets.">
+  <meta name="robots" content="index, follow">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;800&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .wp-wrap { max-width: 680px; margin: 0 auto; padding: 8rem 2rem 6rem; position: relative; z-index: 1; }
+    .page-eyebrow { font-family: var(--mono); font-size: 0.72rem; color: var(--blue); letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.75rem; }
+    .page-eyebrow::before { content: '▸'; }
+    h1 { font-family: var(--head); font-size: clamp(2.4rem, 6vw, 3.8rem); font-weight: 800; color: #dde6f5; line-height: 0.95; margin-bottom: 1rem; }
+    h1 em { font-style: normal; color: var(--blue); }
+    .wp-sub { font-family: var(--mono); font-size: 0.92rem; color: var(--muted); line-height: 1.9; margin-bottom: 2.5rem; }
+    .includes-block { background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--blue); padding: 1.5rem; margin-bottom: 2rem; }
+    .includes-block .label { font-family: var(--mono); font-size: 0.65rem; color: var(--blue); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 0.75rem; }
+    .includes-list { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+    .includes-list li { font-family: var(--mono); font-size: 0.83rem; color: var(--muted); padding-left: 1.1rem; position: relative; line-height: 1.5; }
+    .includes-list li::before { content: '▸'; position: absolute; left: 0; color: var(--blue); font-size: 0.65rem; top: 0.15rem; }
+    .form-card { background: var(--card); border: 1px solid var(--border); border-top: 3px solid var(--blue); padding: 2rem; }
+    .form-card h2 { font-family: var(--head); font-size: 1.6rem; font-weight: 800; color: #dde6f5; margin-bottom: 0.3rem; }
+    .form-card p { font-family: var(--mono); font-size: 0.83rem; color: var(--muted); line-height: 1.8; margin-bottom: 1.5rem; }
+    .field { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 1.25rem; }
+    .field label { font-family: var(--mono); font-size: 0.65rem; color: var(--blue); letter-spacing: 0.15em; text-transform: uppercase; }
+    .field input { background: var(--bg2); border: 1px solid var(--border); color: var(--text); font-family: var(--mono); font-size: 0.95rem; padding: 0.85rem 1rem; outline: none; transition: border-color 0.2s, box-shadow 0.2s; width: 100%; }
+    .field input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(61,142,240,0.12); }
+    .field input::placeholder { color: var(--dim); }
+    .field .hint { font-family: var(--mono); font-size: 0.68rem; color: var(--dim); }
+    .btn-submit { width: 100%; background: var(--blue); color: #fff; font-family: var(--mono); font-size: 0.88rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 1rem 2rem; border: 2px solid var(--blue); cursor: pointer; transition: all 0.2s; }
+    .btn-submit:hover { background: var(--blue2); border-color: var(--blue2); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(61,142,240,0.3); }
+    .form-note { font-family: var(--mono); font-size: 0.72rem; color: var(--dim); line-height: 1.7; margin-top: 1rem; }
+    .form-note a { color: var(--blue); text-decoration: none; }
+    /* Success state */
+    .success-panel { display: none; background: var(--card); border: 1px solid var(--border); border-top: 3px solid #3db87a; padding: 2rem; text-align: center; }
+    .success-panel .check { font-size: 2.5rem; margin-bottom: 0.75rem; }
+    .success-panel h3 { font-family: var(--head); font-size: 1.8rem; font-weight: 800; color: #dde6f5; margin-bottom: 0.5rem; }
+    .success-panel p { font-family: var(--mono); font-size: 0.85rem; color: var(--muted); line-height: 1.85; margin-bottom: 1.5rem; }
+    .btn-download { display: inline-flex; align-items: center; gap: 0.5rem; background: #3db87a; color: #fff; font-family: var(--mono); font-size: 0.88rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 1rem 2rem; text-decoration: none; border: 2px solid #3db87a; transition: all 0.2s; }
+    .btn-download:hover { background: #2ea066; border-color: #2ea066; }
+    .store-link { display: inline-block; margin-top: 1rem; font-family: var(--mono); font-size: 0.78rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .store-link:hover { color: var(--blue); }
+    @media(max-width:680px){ .wp-wrap { padding: 7rem 1.25rem 5rem; } .form-card { padding: 1.5rem; } }
+  </style>
+  <link rel="canonical" href="https://fsmelogic.ca/whitepaper.html">
+  <meta property="og:title" content="FSME Logic Methodology White Paper — Free Download">
+  <meta property="og:description" content="The technical framework behind the FSME predictive integrity engine. Validated on NASA, ESA, LIGO, and IBM quantum datasets.">
+  <meta property="og:url" content="https://fsmelogic.ca/whitepaper.html">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">
+      <img src="logo.jpg" alt="FSME Logic" width="42" height="42">
+      <span class="nav-logo-text">FSME Logic</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="case-studies.html">Validation</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="store.html">Store</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li class="nav-more">
+        <button class="nav-more-btn" aria-expanded="false" aria-haspopup="true">More &#9662;</button>
+        <ul class="nav-dropdown">
+          <li><a href="roi.html">ROI Calculator</a></li>
+          <li><a href="newsroom.html">Newsroom</a></li>
+          <li><a href="investors.html">Investors</a></li>
+          <li><a href="pipeline-demo.html">Live Demo</a></li>
+          <li><a href="legal.html">Legal &amp; Terms</a></li>
+          <li><a href="legal.html#privacy">Privacy Policy</a></li>
+          <li><a href="case-studies.html#reports">Validation Reports</a></li>
+        </ul>
+      </li>
+      <li class="nav-cta"><a href="payment.html">Request Audit</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="payment.html">Request Audit &#9658;</a>
+    <a href="case-studies.html">Validation</a>
+    <a href="about.html">About</a>
+    <a href="faq.html">FAQ</a>
+    <a href="store.html">Store</a>
+    <a href="contact.html">Contact</a>
+    <a href="roi.html">ROI Calculator</a>
+    <a href="newsroom.html">Newsroom</a>
+    <a href="investors.html">Investors</a>
+    <a href="pipeline-demo.html">Live Demo</a>
+    <a href="case-studies.html#reports">Validation Reports</a>
+    <a href="legal.html">Legal &amp; Terms</a>
+    <a href="legal.html#privacy">Privacy Policy</a>
+  </div>
+</nav>
+
+<div class="wp-wrap">
+  <p class="page-eyebrow">Free Resource</p>
+  <h1>FSME Logic<br><em>Methodology</em><br>White Paper</h1>
+  <p class="wp-sub">The technical framework behind the FSME predictive integrity engine — written for reliability engineers and technical evaluators. No marketing fluff. Enter your email below for the direct download.</p>
+
+  <div class="includes-block">
+    <div class="label">// What&#8217;s Inside</div>
+    <ul class="includes-list">
+      <li>The Unified Information Potential (UIP) theoretical framework — what it measures and why it works</li>
+      <li>Why deterministic physics outperforms statistical machine learning for rare failure event detection</li>
+      <li>Cross-domain validation summary: industrial machinery, aerospace telemetry, quantum processors, gravitational wave data</li>
+      <li>The Green Dashboard Fallacy — why your current threshold alarms are lagging indicators</li>
+      <li>Benchmark results: ESA, NASA C-MAPSS, Curiosity Rover, LIGO O3b/O4a, NANOGrav</li>
+      <li>Engineering-level depth with no vendor lock-in bias</li>
+    </ul>
+  </div>
+
+  <!-- FORM STATE -->
+  <div class="form-card" id="form-panel">
+    <h2>Get the White Paper</h2>
+    <p>Enter your email below. The download starts immediately after submission. Your email will not be added to any marketing list — you&#8217;ll receive a copy of this page&#8217;s download link and nothing else unless you reach out to us directly.</p>
+
+    <form id="wp-form" action="https://formspree.io/f/mlgpdqdq" method="POST">
+      <input type="hidden" name="_subject" value="White Paper Download — FSME Logic">
+      <input type="hidden" name="_gotcha" style="display:none">
+      <input type="hidden" name="source" value="whitepaper_page">
+
+      <div class="field">
+        <label for="wp-email">Email Address *</label>
+        <input type="email" id="wp-email" name="email" required placeholder="you@company.com">
+        <span class="hint">Used only to log this download. No newsletters, no sequences.</span>
+      </div>
+      <div class="field">
+        <label for="wp-name">Name (optional)</label>
+        <input type="text" id="wp-name" name="name" placeholder="Your name">
+      </div>
+      <button type="submit" class="btn-submit" id="wp-submit">&#8659; &nbsp;Get White Paper</button>
+    </form>
+
+    <p class="form-note">By submitting, you agree to our <a href="legal.html#privacy">Privacy Policy</a>. We are GST/HST registered in Canada (BN 79820 1570 RT0001). Questions? <a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a></p>
+  </div>
+
+  <!-- SUCCESS STATE -->
+  <div class="success-panel" id="success-panel">
+    <div class="check">&#10003;</div>
+    <h3>Download Ready</h3>
+    <p>Your email has been logged. Click below to download the white paper. If the download doesn&#8217;t start automatically, use the button below.</p>
+    <a class="btn-download" href="downloads/FSME_Methodology_White_Paper.pdf" download
+       onclick="gtag('event','file_download',{file_name:'FSME_Methodology_White_Paper',category:'white_paper_confirmed'});">
+      &#8659; &nbsp;Download White Paper (PDF)
+    </a>
+    <br>
+    <a class="store-link" href="store.html">&#8592; Back to Store</a>
+  </div>
+
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-left">&copy; 2026 Alexander Kalyniuk &mdash; FSME Logic &nbsp;|&nbsp; Edmonton, Alberta, Canada<br>Patent Pending &nbsp;|&nbsp; GST/HST BN: 79820&nbsp;1570&nbsp;RT0001 &nbsp;|&nbsp; <a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a></div>
+    <div class="foot-right"><a href="store.html">Store</a><a href="case-studies.html">Validation</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="legal.html#privacy">Privacy</a></div>
+  </div>
+</footer>
+
+<div id="cookie-banner"><p>This site uses Google Analytics to measure site performance. We do not sell your data. <a href="legal.html#privacy">Privacy Policy</a></p><button onclick="acceptCookies()">Accept</button></div>
+
+<script>
+(function(){if(!localStorage.getItem('fsme_cookies_ok')){document.getElementById('cookie-banner').style.display='flex';}})();
+function acceptCookies(){localStorage.setItem('fsme_cookies_ok','1');document.getElementById('cookie-banner').style.display='none';}
+(function(){var h=document.getElementById('hamburger'),m=document.getElementById('mobile-menu');if(h&&m){h.addEventListener('click',function(){var e=h.getAttribute('aria-expanded')==='true';h.setAttribute('aria-expanded',String(!e));h.classList.toggle('open');m.classList.toggle('open');});}})();
+(function(){var d=document.querySelector('.nav-more-btn');if(!d)return;d.addEventListener('click',function(e){e.stopPropagation();var x=d.getAttribute('aria-expanded')==='true';d.setAttribute('aria-expanded',String(!x));});document.addEventListener('click',function(){if(d)d.setAttribute('aria-expanded','false');});})();
+
+// Form handler — fire Formspree async, show download immediately
+document.getElementById('wp-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  var email = document.getElementById('wp-email').value;
+  if (!email) return;
+
+  var btn = document.getElementById('wp-submit');
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+
+  // Fire to Formspree in background (don't wait for response)
+  fetch('https://formspree.io/f/mlgpdqdq', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify({
+      email: email,
+      name: document.getElementById('wp-name').value,
+      source: 'whitepaper_page',
+      _subject: 'White Paper Download — FSME Logic'
+    })
+  }).catch(function(){});  // silent fail — download still proceeds
+
+  // Fire GA event
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'file_download', {file_name: 'FSME_Methodology_White_Paper', category: 'white_paper'});
+    gtag('event', 'generate_lead', {item: 'White_Paper_Email_Capture'});
+  }
+
+  // Show download immediately
+  document.getElementById('form-panel').style.display = 'none';
+  document.getElementById('success-panel').style.display = 'block';
+
+  // Trigger download automatically
+  var a = document.createElement('a');
+  a.href = 'downloads/FSME_Methodology_White_Paper.pdf';
+  a.download = 'FSME_Methodology_White_Paper.pdf';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+});
+</script>
+</body>
+</html>

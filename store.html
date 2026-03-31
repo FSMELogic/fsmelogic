@@ -17,6 +17,8 @@
   <script>
     gtag('config', 'AW-18021290501');
   </script>
+  <!-- Gumroad overlay -->
+  <script src="https://gumroad.com/js/gumroad.js"></script>
   
   
   <meta charset="UTF-8">
@@ -33,7 +35,7 @@
       --border: #242e42; --bord2: #2e3a52;
       --blue: #3d8ef0; --blue2: #2d6fd0; --cyan: #5bb8d4; --gold: #c9a84c;
       --text: #c5d2e8; --muted: #6e86a8; --dim: #8a9bb8;
-      --head: 'Barlow Condensed', sans-serif; --mono: 'IBM Plex Mono', monospace;
+      --head: 'Barlow Condensed', 'Arial Narrow', 'Helvetica Neue', Helvetica, sans-serif; --mono: 'IBM Plex Mono', 'Consolas', 'Courier New', monospace;
     }
     html { scroll-behavior: smooth; }
     body { background: var(--bg); color: var(--text); font-family: var(--mono); min-height: 100vh; }
@@ -172,6 +174,24 @@
     /* Kit grid — 2-col on desktop, 1-col on mobile */
     .kit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
     @media (max-width: 700px) { .kit-grid { grid-template-columns: 1fr; } }
+
+    /* ── PRINT STYLESHEET ── */
+    @media print {
+      body { background: #fff !important; color: #000 !important; }
+      body::before, body::after { display: none !important; }
+      nav, .mobile-menu, #cookie-banner, .btn-buy, .btn-soon, .foot-social { display: none !important; }
+      .page-header, .store-section, .kit-grid { padding: 0 !important; max-width: 100% !important; }
+      .product-card, .product-card.coming-soon { opacity: 1 !important; pointer-events: auto !important; background: #fff !important; border: 1px solid #ccc !important; border-top: 2px solid #333 !important; color: #000 !important; page-break-inside: avoid; margin-bottom: 12pt; }
+      .card-title { color: #000 !important; font-size: 14pt !important; }
+      .card-desc, .card-includes li { color: #333 !important; font-size: 10pt !important; }
+      .card-price { color: #000 !important; }
+      .card-badge { border: 1px solid #ccc !important; color: #333 !important; background: #f5f5f5 !important; }
+      .store-grid { grid-template-columns: 1fr 1fr !important; }
+      .kit-grid { grid-template-columns: 1fr 1fr !important; }
+      footer .foot-right, footer .foot-social { display: none !important; }
+      footer .foot-left { color: #666 !important; font-size: 8pt !important; }
+      a[href]::after { content: "" !important; }
+    }
   </style>
 </head>
 <body>
@@ -234,7 +254,7 @@
   <div style="max-width:1100px;margin:0 auto;padding:1.5rem 2rem 0;">
     <div style="background:rgba(61,142,240,0.06);border:1px solid rgba(61,142,240,0.2);border-left:3px solid var(--blue);padding:1.25rem 1.5rem;">
       <p style="font-family:var(--mono);font-size:0.82rem;color:var(--muted);line-height:1.9;margin:0;">
-        <strong style="color:var(--text);">On pricing:</strong> All rates shown are introductory and subject to adjustment as enterprise deployment volumes scale. Priced to clear individual and small-team P-card limits without procurement overhead. Enterprise licensing and volume arrangements available — <a href="contact.html" style="color:var(--blue);text-decoration:none;">contact us</a>.&nbsp;&nbsp;
+        <strong style="color:var(--text);">On pricing:</strong> All rates shown are introductory and subject to adjustment as enterprise deployment volumes scale. Priced to clear individual and small-team P-card limits without procurement overhead. Enterprise licensing and volume arrangements available — <a href="contact.html" style="color:var(--blue);text-decoration:none;">contact us</a>. &nbsp;<strong style="color:var(--text);">GST/HST:</strong> FSME Logic is registered for GST/HST (BN 79820 1570 RT0001, effective March 1, 2026). Canadian purchases are subject to applicable GST/HST; Gumroad handles tax collection automatically at checkout.&nbsp;&nbsp;
         <strong style="color:var(--text);">On code signing:</strong> The Data Ingestion Desktop Client (.exe) does not currently carry a Microsoft Authenticode certificate. Windows Defender SmartScreen may flag it on first run — this is normal for unsigned independent software, not an indicator of malware. The binary is verifiable by SHA-256 hash. If your organization requires a signed executable, contact us to discuss arrangements.
       </p>
     </div>
@@ -245,7 +265,7 @@
     <div class="kit-grid">
 
       <!-- FREE ENGINEERING PROCUREMENT KIT -->
-      <div style="background:var(--bg2);border:1px solid var(--border);border-top:3px solid var(--cyan);padding:1.75rem;display:flex;flex-direction:column;gap:1rem;">
+      <div id="free-kit" style="background:var(--bg2);border:1px solid var(--border);border-top:3px solid var(--cyan);padding:1.75rem;display:flex;flex-direction:column;gap:1rem;">
         <div>
           <span class="card-badge" style="background:rgba(91,184,212,0.1);color:var(--cyan);border:1px solid rgba(91,184,212,0.3);">Free Download</span>
         </div>
@@ -269,7 +289,7 @@
       </div>
 
       <!-- $99 STARTER KIT -->
-      <div style="background:var(--card);border:1px solid var(--border);border-top:3px solid var(--blue);padding:1.75rem;display:flex;flex-direction:column;gap:1rem;">
+      <div id="starter-kit" style="background:var(--card);border:1px solid var(--border);border-top:3px solid var(--blue);padding:1.75rem;display:flex;flex-direction:column;gap:1rem;">
         <div>
           <span class="card-badge badge-live">Available Now</span>&nbsp;
           <span class="card-badge" style="background:rgba(61,142,240,0.1);color:var(--blue);border:1px solid rgba(61,142,240,0.3);">100% Credit Included</span>
@@ -283,11 +303,11 @@
           <li>Predictive Maintenance Audit Template (Word + Excel)</li>
           <li>Everything in the Free Engineering Procurement Kit</li>
           <li><strong style="color:var(--blue);">$99 credited in full toward any software or audit</strong></li>
-          
+          <li>Use promo code FSME-CREDIT-99 at checkout on any product</li>
         </ul>
         <hr class="card-divider">
         <div class="card-price">$99 <span>CAD</span></div>
-        <a class="btn-buy" href="https://square.link/u/fsme-starter-kit" target="_blank" rel="noopener"
+        <a class="btn-buy" href="https://fsmelogic.gumroad.com/l/ythog"
            onclick="gtag('event','begin_checkout',{value:99,currency:'CAD',item:'Starter_Kit'});">
           Buy Starter Kit — $99
         </a>
@@ -310,7 +330,7 @@
           <span class="card-badge badge-featured">★ Featured</span>&nbsp;
           <span class="card-badge badge-live">Available Now</span>
         </div>
-        <h2 class="card-title">Sensor Data Readiness &amp; Integration Protocol</h2>
+        <h2 id="readiness-protocol" class="card-title">Sensor Data Readiness &amp; Integration Protocol</h2>
         <div class="card-desc">The complete operational guide to preparing your sensor data for an offline predictive physics audit. Includes extraction playbook, security overview, report decoder, and a bridge page for your decision-maker.</div>
         <hr class="card-divider">
         <ul class="card-includes">
@@ -319,12 +339,13 @@
           <li>Good data vs. bad data visual reference</li>
           <li>Audit lifecycle walkthrough</li>
           <li>Glossary of key terms</li>
-          <li>Discount code off your first audit</li>
+          <li>Code FSME-READY — 15% off your first audit</li>
           <li>$200 referral credit program</li>
         </ul>
         <hr class="card-divider">
         <div class="card-price">$25 <span>CAD</span></div>
-        <a class="btn-buy" href="https://fsmelogic.square.site/product/fsme-data-readiness-protocol/OO7MWUV3AZTNJZ7N2DCSZTKZ" target="_blank" rel="noopener">Buy Now — $25</a>
+        <a class="btn-buy" href="https://fsmelogic.gumroad.com/l/hifhga"
+           onclick="gtag('event','begin_checkout',{value:25,currency:'CAD',item:'Readiness_Protocol'});">Buy Now — $25</a>
         <p style="font-family:var(--mono);font-size:0.7rem;color:var(--dim);text-align:center;margin-top:0.25rem;">After purchase, complete the delivery form below ↓</p>
       </div>
 
@@ -332,7 +353,7 @@
         <div>
           <span class="card-badge badge-live">Available Now</span>
         </div>
-        <h2 class="card-title">Unplanned Downtime Cost Calculator</h2>
+        <h2 id="roi-calculator" class="card-title">Unplanned Downtime Cost Calculator</h2>
         <div class="card-desc">A pre-built Excel spreadsheet version of the FSME ROI calculator. Plug in your fleet size, repair costs, and downtime rates — get a presentation-ready cost analysis for internal approval.</div>
         <hr class="card-divider">
         <ul class="card-includes">
@@ -343,7 +364,8 @@
         </ul>
         <hr class="card-divider">
         <div class="card-price">$20 <span>CAD</span></div>
-        <a class="btn-buy" href="https://square.link/u/HE1tTTII" target="_blank" rel="noopener">Buy Now — $20</a>
+        <a class="btn-buy" href="https://fsmelogic.gumroad.com/l/ozcfmi"
+           onclick="gtag('event','begin_checkout',{value:20,currency:'CAD',item:'Downtime_Calculator'});">Buy Now — $20</a>
         <p style="font-family:var(--mono);font-size:0.7rem;color:var(--dim);text-align:center;margin-top:0.25rem;">After purchase, complete the delivery form below ↓</p>
       </div>
 
@@ -352,7 +374,7 @@
           <span class="card-badge badge-featured">★ Featured</span>&nbsp;
           <span class="card-badge badge-live">Available Now</span>
         </div>
-        <h2 class="card-title">FSME Data Ingestion Desktop Client <span style="font-size:0.75em;color:var(--muted);font-weight:400;">— Audit Prep Edition</span></h2>
+        <h2 id="desktop-client" class="card-title">FSME Data Ingestion Desktop Client <span style="font-size:0.75em;color:var(--muted);font-weight:400;">— Audit Prep Edition</span></h2>
         <div class="card-desc">How to open massive .tdms and .h5 files out of memory: A standalone Windows application that converts industrial telemetry files into clean, audit-ready CSVs for the FSME Engine. Handles formats your spreadsheet software can't open — HDF5, TDMS, NetCDF, MATLAB, SQLite, and more.</div>
         <hr class="card-divider">
         <ul class="card-includes">
@@ -368,10 +390,13 @@
           <div class="card-price" style="display:inline;">$250 <span>CAD</span></div>
           <span style="font-family:var(--mono);font-size:0.75rem;color:var(--muted);margin-left:0.75rem;">Individual / SME</span>
         </div>
-        <div style="margin-bottom:1rem;font-family:var(--mono);font-size:0.78rem;color:var(--gold);">Enterprise: $450 CAD &nbsp;<span style="color:var(--dim);font-size:0.7rem;">(multi-seat, priority support)</span></div>
+        <a class="btn-buy" style="background:rgba(201,168,76,0.12);color:var(--gold);border:1px solid rgba(201,168,76,0.35);margin-bottom:0.5rem;" href="https://fsmelogic.gumroad.com/l/hmpgiw"
+           onclick="gtag('event','begin_checkout',{value:450,currency:'CAD',item:'Desktop_Client_Enterprise'});">Buy Enterprise — $450 &#9658;</a>
+        <div style="margin-bottom:0.5rem;font-family:var(--mono);font-size:0.75rem;color:var(--dim);">Multi-seat &amp; priority support included</div>
         <a class="btn-buy" href="pipeline-demo.html" style="background:transparent;color:var(--cyan);border:1px solid rgba(91,184,212,0.6);margin-bottom:0.5rem;">&#9901; &nbsp;Try Interactive Demo First</a>
-        <a class="btn-buy" href="contact.html">Request License &#9658;</a>
-        <p style="font-family:var(--mono);font-size:0.7rem;color:var(--dim);text-align:center;margin-top:0.25rem;">License delivered by email. Enterprise pricing includes priority support.</p>
+        <a class="btn-buy" href="contact.html"
+           onclick="gtag('event','generate_lead',{item:'Desktop_Client_Request'});">Request License &#9658;</a>
+        <p style="font-family:var(--mono);font-size:0.7rem;color:var(--dim);text-align:center;margin-top:0.25rem;">License delivered by email within 24 hours.</p>
       </div>
 
       <!-- ZEROPORT TIER 1 -->
@@ -380,7 +405,7 @@
           <span class="card-badge badge-featured">★ New</span>&nbsp;
           <span class="card-badge badge-live">Available Now</span>
         </div>
-        <h2 class="card-title">ZeroPort Storefront: Self-Hosted Digital Store Blueprint</h2>
+        <h2 id="zeroport-blueprint" class="card-title">ZeroPort Storefront: Self-Hosted Digital Store Blueprint</h2>
         <div class="card-desc">A step-by-step production manual for building a military-grade, self-hosted digital product server — zero open router ports, zero monthly SaaS fees, zero third-party data exposure. Built on Ubuntu 24.04 LTS, Nginx, Flask, Cloudflare Zero Trust Tunnel, and Square Webhooks. Stop paying rent on your own business.</div>
         <hr class="card-divider">
         <ul class="card-includes">
@@ -393,7 +418,8 @@
         </ul>
         <hr class="card-divider">
         <div class="card-price">$50 <span>CAD</span></div>
-        <a class="btn-buy" href="https://square.link/u/zeroport-blueprint" target="_blank" rel="noopener">Buy Blueprint — $50</a>
+        <a class="btn-buy" href="https://fsmelogic.gumroad.com/l/cwqij"
+           onclick="gtag('event','begin_checkout',{value:50,currency:'CAD',item:'ZeroPort_Blueprint'});">Buy Blueprint — $50</a>
         <p style="font-family:var(--mono);font-size:0.7rem;color:var(--dim);text-align:center;margin-top:0.25rem;">After purchase, complete the delivery form below ↓</p>
       </div>
 
@@ -403,7 +429,7 @@
           <span class="card-badge badge-featured">★ New</span>&nbsp;
           <span class="card-badge" style="background:rgba(201,168,76,0.12);color:var(--gold);border:1px solid rgba(201,168,76,0.35);">Complete Stack</span>
         </div>
-        <h2 class="card-title">ZeroPort Storefront: Blueprint + Plug-and-Play Automation Scripts</h2>
+        <h2 id="zeroport-complete" class="card-title">ZeroPort Storefront: Blueprint + Plug-and-Play Automation Scripts</h2>
         <div class="card-desc">Everything in the Blueprint tier, plus the full automation script package. Skip the 40–80 hours of debugging syntax errors across LUKS, AppArmor, and HMAC webhook validation. Every script is production-tested, commented, and ready to deploy.</div>
         <hr class="card-divider">
         <ul class="card-includes">
@@ -416,7 +442,8 @@
         </ul>
         <hr class="card-divider">
         <div class="card-price">$130 <span>CAD</span></div>
-        <a class="btn-buy" href="https://square.link/u/zeroport-complete" target="_blank" rel="noopener">Buy Complete Stack — $130</a>
+        <a class="btn-buy" href="https://fsmelogic.gumroad.com/l/cwqij"
+           onclick="gtag('event','begin_checkout',{value:130,currency:'CAD',item:'ZeroPort_Complete'});">Buy Complete Stack — $130</a>
         <p style="font-family:var(--mono);font-size:0.7rem;color:var(--dim);text-align:center;margin-top:0.25rem;">After purchase, complete the delivery form below ↓</p>
       </div>
 
@@ -427,7 +454,7 @@
           <span class="card-badge" style="background:rgba(201,168,76,0.15);color:var(--gold);border:1px solid rgba(201,168,76,0.4);">&#9733; Bridge Product</span>&nbsp;
           <span class="card-badge badge-live">Available Now</span>
         </div>
-        <h2 class="card-title">Single-Asset Viability Assessment</h2>
+        <h2 id="viability-assessment" class="card-title">Single-Asset Viability Assessment</h2>
         <div class="card-desc">Send us historical telemetry from one asset that experienced an unexpected failure. We prove the FSME engine would have detected the stress accumulation before your alarms triggered — or the fee is refunded in full.</div>
         <hr class="card-divider">
         <ul class="card-includes">
@@ -443,7 +470,8 @@
           <strong style="color:var(--gold);">How it works:</strong> Contact us first. We confirm your data format, sign an NDA if required, then you transfer the file via your preferred secure method. Analysis runs on air-gapped hardware in Edmonton.
         </div>
         <div class="card-price" style="color:var(--gold);">$999 <span>CAD</span></div>
-        <a class="btn-buy" style="background:rgba(201,168,76,0.15);color:var(--gold);border:1px solid rgba(201,168,76,0.4);" href="contact.html">Request Viability Assessment &#9658;</a>
+        <a class="btn-buy" style="background:rgba(201,168,76,0.15);color:var(--gold);border:1px solid rgba(201,168,76,0.4);" href="contact.html"
+           onclick="gtag('event','generate_lead',{value:999,currency:'CAD',item:'Viability_Assessment_Request'});">Request Viability Assessment &#9658;</a>
         <p style="font-family:var(--mono);font-size:0.7rem;color:var(--dim);text-align:center;margin-top:0.25rem;">Contact us first to confirm data compatibility before purchasing.</p>
       </div>
 
@@ -453,7 +481,7 @@
           <span class="card-badge" style="background:rgba(46,58,82,0.6);color:var(--muted);border:1px solid var(--border);">Enterprise Add-On</span>&nbsp;
           <span class="card-badge badge-live">Available Now</span>
         </div>
-        <h2 class="card-title" style="color:var(--muted);">Automated Hot-Folder Daemon</h2>
+        <h2 id="hot-folder-addon" class="card-title" style="color:var(--muted);">Automated Hot-Folder Daemon</h2>
         <div style="background:rgba(224,82,82,0.08);border:1px solid rgba(224,82,82,0.2);border-left:2px solid #e05252;padding:0.6rem 0.85rem;font-family:var(--mono);font-size:0.72rem;color:var(--muted);margin-bottom:0.75rem;line-height:1.6;">
           <strong style="color:#e08080;">Requires an active FSME Enterprise Desktop License ($450) to function.</strong> This is an annual license key add-on, not a standalone product.
         </div>
@@ -468,26 +496,58 @@
         </ul>
         <hr class="card-divider">
         <div class="card-price" style="font-size:1.6rem;">$49 <span>CAD / year</span></div>
-        <a class="btn-buy" style="background:var(--steel);color:var(--muted);border:1px solid var(--border);" href="contact.html">Request Add-On Key &#9658;</a>
-        <p style="font-family:var(--mono);font-size:0.7rem;color:var(--dim);text-align:center;margin-top:0.25rem;">Email us your existing Enterprise license ID to receive the add-on key.</p>
+        <a class="btn-buy" style="background:var(--steel);color:var(--muted);border:1px solid var(--border);" href="https://fsmelogic.gumroad.com/l/etwlnu"
+           onclick="gtag('event','begin_checkout',{value:50,currency:'CAD',item:'Hot_Folder_Addon'});">Buy Add-On Key — $50/yr</a>
+        <p style="font-family:var(--mono);font-size:0.7rem;color:var(--dim);text-align:center;margin-top:0.25rem;">Purchased via Gumroad. Enter your existing Enterprise license ID in the order notes.</p>
       </div>
 
-      <div class="product-card coming-soon">
+
+      <!-- AUDIT TEMPLATE $30 -->
+      <div id="audit-template" class="product-card">
         <div>
-          <span class="card-badge badge-soon">Coming Soon</span>
+          <span class="card-badge badge-live">Available Now</span>
         </div>
-        <h2 class="card-title">Predictive Maintenance Audit Template</h2>
-        <div class="card-desc">A formatted Word and Excel template pack for small operations to run their own basic anomaly logging before committing to a full offline predictive forensic audit.</div>
+        <h2 class="card-title">Predictive Maintenance Audit Template Pack</h2>
+        <div class="card-desc">A structured three-part system for operations that aren't ready for automated software yet. Log anomalies rigorously, score them consistently, and present findings to management — with a built-in path to the FSME engine when manual logging reaches its limit.</div>
         <hr class="card-divider">
         <ul class="card-includes">
-          <li>Word report template</li>
-          <li>Excel anomaly log worksheet</li>
-          <li>Scoring rubric included</li>
-          <li>Compatible with all asset types</li>
+          <li>Excel Anomaly Log — 40-row tracker, auto-formulas, severity dropdowns, FSME Blind Spot Flag column</li>
+          <li>Scoring Rubric tab — 4-dimension 1–5 matrix with priority matrix (Low through Critical)</li>
+          <li>Asset Health Summary tab — management-ready reporting table</li>
+          <li>Word Report Template — full formal anomaly report with executive summary, statistics table, and diagnostic limitations clause</li>
+          <li>README PDF — step-by-step instructions and scoring rubric explained</li>
+          <li>$30 credited in full toward any software or audit (code FSME-CREDIT-99)</li>
         </ul>
         <hr class="card-divider">
         <div class="card-price">$30 <span>CAD</span></div>
-        <div class="btn-soon">Coming Soon</div>
+        <a class="btn-buy" href="https://fsmelogic.gumroad.com/l/rzxer"
+           onclick="gtag('event','begin_checkout',{value:30,currency:'CAD',item:'Audit_Template_Pack'});">Buy Template Pack — $30</a>
+        <p style="font-family:var(--mono);font-size:0.7rem;color:var(--dim);text-align:center;margin-top:0.25rem;">Instant delivery via Gumroad.</p>
+      </div>
+
+      <!-- WHITE PAPER — FREE with email -->
+      <div id="white-paper" class="product-card" style="border-top:3px solid var(--dim);">
+        <div>
+          <span class="card-badge" style="background:rgba(138,155,184,0.1);color:var(--dim);border:1px solid rgba(138,155,184,0.3);">Free — Email Required</span>
+        </div>
+        <h2 class="card-title" style="color:var(--dim);">FSME Methodology White Paper</h2>
+        <div class="card-desc">A technical overview of the physics-based framework behind the FSME predictive integrity engine. Written for reliability engineers and technical evaluators who want to understand the methodology before committing to a full engagement.</div>
+        <hr class="card-divider">
+        <ul class="card-includes">
+          <li>Overview of the Unified Information Potential (UIP) theoretical framework</li>
+          <li>Why deterministic physics outperforms statistical ML for rare-event detection</li>
+          <li>Cross-domain validation summary — industrial, aerospace, quantum, and gravitational wave datasets</li>
+          <li>The Green Dashboard Fallacy explained with benchmark data</li>
+          <li>Engineering-level depth — no marketing fluff</li>
+        </ul>
+        <hr class="card-divider">
+        <div class="card-price" style="font-size:1.5rem;color:var(--dim);">Free</div>
+        <a class="btn-buy" style="background:transparent;color:var(--muted);border:1px solid rgba(138,155,184,0.4);"
+           href="whitepaper.html"
+           onclick="gtag('event','file_download',{file_name:'FSME_Methodology_White_Paper',category:'white_paper'});">
+          Get White Paper &#9658;
+        </a>
+        <p style="font-family:var(--mono);font-size:0.7rem;color:var(--dim);text-align:center;margin-top:0.25rem;">Enter your email to receive the download link.</p>
       </div>
 
       <div class="product-card coming-soon">
@@ -511,72 +571,9 @@
     </div>
   </section>
 
-  <section class="delivery-section">
-    <div class="delivery-box">
-      <div class="label">// Document Delivery</div>
-      <h2>Request Your Download</h2>
-      <p>After completing your purchase, fill out the form below. Your document will be emailed to you within 24 hours. Include your order confirmation number if you have it — not required.</p>
-
-      <form id="delivery-form" action="https://formspree.io/f/mlgpdqdq" method="POST">
-        <input type="hidden" name="_subject" value="FSME Store — Document Delivery Request">
-        <input type="hidden" name="_next" value="">
-
-        <div class="form-row">
-          <div class="form-row-2">
-            <div class="form-group">
-              <label for="name">Full Name *</label>
-              <input type="text" id="name" name="name" required placeholder="Your name">
-            </div>
-            <div class="form-group">
-              <label for="email">Email Address *</label>
-              <input type="email" id="email" name="email" required placeholder="your@email.com">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="product">Product Purchased *</label>
-            <select id="product" name="product" required>
-              <option value="" disabled selected>Select a product</option>
-              <option value="Predictive Reliability Starter Kit — $99">Predictive Reliability Starter Kit — $99</option>
-              <option value="Data Readiness &amp; Integration Protocol — $25">Data Readiness &amp; Integration Protocol — $25</option>
-              <option value="Equipment Failure Cost Calculator — $20">Equipment Failure Cost Calculator — $20</option>
-              <option value="FSME Data Ingestion Desktop Client — $250 (Individual)">FSME Data Ingestion Desktop Client — $250 (Individual)</option>
-              <option value="FSME Data Ingestion Desktop Client — $450 (Enterprise)">FSME Data Ingestion Desktop Client — $450 (Enterprise)</option>
-              <option value="Hot-Folder Daemon Add-On — $49/yr">Hot-Folder Daemon Add-On — $49/yr</option>
-              <option value="ZeroPort Storefront: Blueprint — $50">ZeroPort Storefront: Blueprint — $50</option>
-              <option value="ZeroPort Storefront: Blueprint + Scripts — $130">ZeroPort Storefront: Blueprint + Scripts — $130</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="order">Order Confirmation Number (optional)</label>
-            <input type="text" id="order" name="order" placeholder="From your Square receipt email">
-          </div>
-
-          <div class="form-group">
-            <label for="message">Anything else? (optional)</label>
-            <textarea id="message" name="message" placeholder="Questions, company name, how you heard about us..."></textarea>
-          </div>
-
-          <button type="submit" class="btn-submit" id="submit-btn">Send Delivery Request</button>
-        </div>
-      </form>
-
-      <div class="form-success" id="form-success">
-        <p>✓ &nbsp;<strong>Request received.</strong><br>Your document will be emailed to you within 24 hours.<br>Check your spam folder if you don't see it. Questions? <a href="/cdn-cgi/l/email-protection#2a4b464f5207414b465344435f416a4c59474f46454d434904494b" style="color:var(--blue);"><span class="__cf_email__" data-cfemail="94f5f8f1ecb9fff5f8edfafde1ffd4f2e7f9f1f8fbf3fdf7baf7f5">[email&#160;protected]</span></a></p>
-      </div>
-
-      <p class="form-note">
-        Your email is used only to deliver your document. It will not be added to any mailing list.
-        All purchases are subject to the <a href="legal.html#terms">Terms of Service</a>.
-        The Data Readiness Protocol purchase price is credited toward your first FSME Forensic Pilot Audit.
-      </p>
-    </div>
-  </section>
-
   <div class="audit-note">
     <div class="audit-note-inner">
-      <p>Ready to move from tools to a full forensic engagement? The $999 Single-Asset Viability Assessment is the logical next step — or contact us to discuss fleet-wide audit scoping directly.</p>
+      <p>All digital products are delivered instantly via Gumroad. For the $999 Viability Assessment or Desktop Client licenses, contact us directly — these are handled personally.</p>
       <a href="contact.html">Discuss a Forensic Audit →</a>
     </div>
   </div>
@@ -587,7 +584,7 @@
   <div class="foot-inner">
     <div class="foot-left">
       &#169; 2026 Alexander Kalyniuk &#8212; FSME Logic &nbsp;|&nbsp; Edmonton, Alberta, Canada<br>
-      Patent Pending &nbsp;|&nbsp; <a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a>
+      Patent Pending &nbsp;|&nbsp; GST/HST BN: 79820&nbsp;1570&nbsp;RT0001 &nbsp;|&nbsp; <a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a>
     </div>
     <div class="foot-right">
       <a href="case-studies.html">Validation</a>
