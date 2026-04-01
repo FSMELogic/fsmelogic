@@ -1,9 +1,21 @@
-- name: Claude Code Action Official
+name: Claude Code
 
-  uses: anthropics/claude-code-action@v1
+on:
+  issue_comment:
+    types: [created]
+  pull_request_review_comment:
+    types: [created]
 
-- name: Claude Code Base Action
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
 
-  uses: anthropics/claude-code-base-action@beta
-
-  
+jobs:
+  claude:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Claude Code
+        uses: anthropics/claude-code-action@beta
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
