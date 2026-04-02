@@ -660,5 +660,97 @@
     });
   })();
 </script>
+
+<!-- ── FSME LOGIC CHAT WIDGET ─────────────────────────────────────────── -->
+<script>const FSME_WORKER_URL = 'https://fsme-assistant.fsme-logic.workers.dev';</script>
+<style>
+  #fsme-chat-btn{position:fixed;bottom:28px;right:28px;z-index:9000;width:56px;height:56px;border-radius:50%;background:#3d8ef0;border:none;cursor:pointer;box-shadow:0 4px 20px rgba(61,142,240,0.45);display:flex;align-items:center;justify-content:center;transition:transform 0.2s,box-shadow 0.2s;}
+  #fsme-chat-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(61,142,240,0.55);}
+  #fsme-chat-window{position:fixed;bottom:96px;right:28px;z-index:9001;width:370px;max-width:calc(100vw - 32px);height:520px;max-height:calc(100vh - 120px);background:#141822;border:1px solid #242e42;border-top:3px solid #3d8ef0;display:none;flex-direction:column;box-shadow:0 16px 48px rgba(0,0,0,0.55);font-family:'IBM Plex Mono','Consolas','Courier New',monospace;}
+  #fsme-chat-window.open{display:flex;}
+  .fsme-chat-header{display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.1rem;background:#1c2438;border-bottom:1px solid #242e42;flex-shrink:0;}
+  .fsme-chat-header-left{display:flex;align-items:center;gap:.6rem;}
+  .fsme-chat-dot{width:8px;height:8px;border-radius:50%;background:#3db87a;flex-shrink:0;}
+  .fsme-chat-title{font-size:.78rem;font-weight:700;color:#c5d2e8;letter-spacing:.06em;text-transform:uppercase;}
+  .fsme-chat-sub{font-size:.62rem;color:#6e86a8;letter-spacing:.04em;}
+  #fsme-close-btn{background:none;border:none;color:#6e86a8;cursor:pointer;padding:4px;line-height:1;font-size:1.1rem;transition:color .2s;}
+  #fsme-close-btn:hover{color:#c5d2e8;}
+  #fsme-messages{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:.75rem;scroll-behavior:smooth;}
+  #fsme-messages::-webkit-scrollbar{width:4px;}
+  #fsme-messages::-webkit-scrollbar-thumb{background:#242e42;border-radius:2px;}
+  .fsme-msg{max-width:88%;padding:.65rem .85rem;font-size:.82rem;line-height:1.65;border-radius:2px;}
+  .fsme-msg.bot{background:#181f2e;border:1px solid #242e42;color:#c5d2e8;align-self:flex-start;border-left:2px solid #3d8ef0;}
+  .fsme-msg.user{background:rgba(61,142,240,0.12);border:1px solid rgba(61,142,240,0.25);color:#c5d2e8;align-self:flex-end;}
+  .fsme-msg.typing{background:#181f2e;border:1px solid #242e42;color:#6e86a8;align-self:flex-start;font-style:italic;}
+  .fsme-msg a{color:#3d8ef0;text-decoration:none;}
+  .fsme-msg a:hover{text-decoration:underline;}
+  .fsme-chat-footer{border-top:1px solid #242e42;padding:.75rem;display:flex;gap:.5rem;flex-shrink:0;background:#141822;}
+  #fsme-input{flex:1;background:#0e1118;border:1px solid #242e42;color:#c5d2e8;font-family:inherit;font-size:.82rem;padding:.6rem .8rem;outline:none;resize:none;line-height:1.5;max-height:100px;transition:border-color .2s;}
+  #fsme-input:focus{border-color:#3d8ef0;}
+  #fsme-input::placeholder{color:#3a4a62;}
+  #fsme-send-btn{background:#3d8ef0;border:none;color:#fff;font-family:inherit;font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.6rem .85rem;cursor:pointer;transition:background .2s;flex-shrink:0;align-self:flex-end;}
+  #fsme-send-btn:hover{background:#2d6fd0;}
+  #fsme-send-btn:disabled{background:#242e42;color:#6e86a8;cursor:not-allowed;}
+  .fsme-chat-note{text-align:center;font-size:.62rem;color:#3a4a62;padding:.3rem .75rem .5rem;flex-shrink:0;}
+  @media(max-width:440px){#fsme-chat-window{right:8px;bottom:88px;width:calc(100vw - 16px);}#fsme-chat-btn{right:16px;bottom:16px;}}
+</style>
+<button id="fsme-chat-btn" aria-label="Chat with FSME Logic Assistant" title="Ask the FSME Logic Assistant">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+</button>
+<div id="fsme-chat-window" role="dialog" aria-label="FSME Logic Assistant">
+  <div class="fsme-chat-header">
+    <div class="fsme-chat-header-left">
+      <div class="fsme-chat-dot"></div>
+      <div><div class="fsme-chat-title">FSME Logic Assistant</div><div class="fsme-chat-sub">Predictive Integrity &middot; Edmonton, AB</div></div>
+    </div>
+    <button id="fsme-close-btn" aria-label="Close chat">&times;</button>
+  </div>
+  <div id="fsme-messages">
+    <div class="fsme-msg bot">// FSME Logic Assistant online.<br><br>I can help with product questions, the audit process, data compatibility, pricing, and security. What are you working with?</div>
+  </div>
+  <div class="fsme-chat-footer">
+    <textarea id="fsme-input" placeholder="Ask about products, the audit process, data formats..." rows="1" maxlength="2000"></textarea>
+    <button id="fsme-send-btn">Send</button>
+  </div>
+  <div class="fsme-chat-note">FSME Logic &middot; fsmelogic.ca</div>
+</div>
+<script>
+(function(){
+  var btn=document.getElementById('fsme-chat-btn'),win=document.getElementById('fsme-chat-window'),
+      closeBtn=document.getElementById('fsme-close-btn'),input=document.getElementById('fsme-input'),
+      sendBtn=document.getElementById('fsme-send-btn'),messages=document.getElementById('fsme-messages');
+  var sessionId='fsme-'+Math.random().toString(36).slice(2,10);
+  var isOpen=false,isLoading=false;
+  function toggleChat(){isOpen=!isOpen;win.classList.toggle('open',isOpen);if(isOpen){input.focus();messages.scrollTop=messages.scrollHeight;}}
+  btn.addEventListener('click',toggleChat);
+  closeBtn.addEventListener('click',toggleChat);
+  input.addEventListener('input',function(){this.style.height='auto';this.style.height=Math.min(this.scrollHeight,100)+'px';});
+  input.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage();}});
+  sendBtn.addEventListener('click',sendMessage);
+  function addMessage(text,type){
+    var div=document.createElement('div');div.className='fsme-msg '+type;
+    div.innerHTML=text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/\n/g,'<br>').replace(/(https?:\/\/[^\s<]+)/g,'<a href="$1" target="_blank" rel="noopener">$1</a>');
+    messages.appendChild(div);messages.scrollTop=messages.scrollHeight;return div;
+  }
+  async function sendMessage(){
+    var text=input.value.trim();if(!text||isLoading)return;
+    addMessage(text,'user');input.value='';input.style.height='auto';
+    isLoading=true;sendBtn.disabled=true;
+    var typingEl=addMessage('// Processing...','typing');
+    try{
+      var response=await fetch(FSME_WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({message:text,session_id:sessionId})});
+      var data=await response.json();typingEl.remove();
+      addMessage(data.reply||'Something went wrong. Email alex-kalyniuk@fsmelogic.ca for help.','bot');
+    }catch(err){
+      typingEl.remove();
+      addMessage('Connection issue. Email alex-kalyniuk@fsmelogic.ca directly.','bot');
+    }finally{isLoading=false;sendBtn.disabled=false;input.focus();}
+  }
+})();
+</script>
+<!-- ── END FSME CHAT WIDGET ────────────────────────────────────────────── -->
+
 </body>
 </html>
