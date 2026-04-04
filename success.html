@@ -88,7 +88,7 @@
     display: flex; flex-direction: column; align-items: center; gap: 6px;
   }
   #fsme-chat-btn {
-    position: relative; bottom: 0; right: 0;
+    position: fixed; bottom: 28px; right: 28px;
     width: 56px; height: 56px; border-radius: 50%;
     background: #3d8ef0; border: none; cursor: pointer;
     display: flex; align-items: center; justify-content: center;
@@ -179,6 +179,14 @@
 <div id="fsme-chat-window" role="dialog" aria-label="FSME Logic Assistant">
   <div class="fsme-chat-header">
     <div class="fsme-chat-header-left">
+      <div id="fsme-robot">
+        <div class="robot-top">
+          <div class="robot-antenna"></div>
+          <div class="robot-eye left"></div>
+          <div class="robot-eye right"></div>
+        </div>
+        <div class="robot-bottom"></div>
+      </div>
       <div class="fsme-chat-dot"></div>
       <div><div class="fsme-chat-title">FSME Logic Assistant</div><div class="fsme-chat-sub">Predictive Integrity &middot; Edmonton, AB</div></div>
     </div>
