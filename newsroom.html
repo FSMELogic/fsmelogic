@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Performance: preconnect for Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-H3ZFCJGRSS"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -12,465 +10,295 @@
     gtag('js', new Date());
     gtag('config', 'G-H3ZFCJGRSS');
   </script>
-  <!-- Google Ads -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18021290501"></script>
   <script>
     gtag('config', 'AW-18021290501');
   </script>
-  
-  
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Newsroom — FSME Logic</title>
-  <meta name="description" content="Latest updates and announcements from FSME Logic.">
-  <meta name="robots" content="noindex">
+  <title>Newsroom, FSME Logic</title>
+  <meta name="description" content="Announcements, milestones, and updates from FSME Logic. Predictive maintenance and offline signal integrity analysis from Edmonton, Alberta.">
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg: #0e1118; --bg2: #141822; --card: #181f2e; --steel: #1c2438;
-      --border: #242e42; --bord2: #2e3a52;
-      --blue: #3d8ef0; --blue2: #2d6fd0; --cyan: #5bb8d4;
-      --text: #c5d2e8; --muted: #6e86a8; --dim: #8a9bb8;
-      --head: 'Barlow Condensed', sans-serif; --mono: 'IBM Plex Mono', monospace;
+    .newsroom-wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+      position: relative;
+      z-index: 1;
     }
-    html { scroll-behavior: smooth; }
-    body { background: var(--bg); color: var(--text); font-family: var(--mono); font-size: 16px; line-height: 1.7; min-height: 100vh; overflow-x: hidden; }
-    body::before { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none; background-image: linear-gradient(rgba(61,142,240,0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(61,142,240,0.018) 1px, transparent 1px); background-size: 52px 52px; }
-    body::after { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none; background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.04) 3px, rgba(0,0,0,0.04) 4px); }
-
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; background: rgba(8,10,16,0.96); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); box-shadow: 0 1px 0 rgba(61,142,240,0.12); }
-    .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0.85rem 2rem; }
-    .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
-    .nav-logo img { height: 42px; width: 42px; object-fit: contain; border-radius: 4px; }
-    .nav-logo-text { font-family: var(--mono); font-weight: 700; font-size: 1rem; color: var(--blue); letter-spacing: 0.1em; }
-    .nav-links { display: flex; list-style: none; align-items: center; gap: 0.25rem; }
-    .nav-links a { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.45rem 0.9rem; transition: color 0.2s, background 0.2s; }
-    .nav-links a:hover { color: var(--blue); background: rgba(61,142,240,0.08); }
-    .nav-links .nav-cta a { color: var(--blue); border: 1px solid rgba(61,142,240,0.5); padding: 0.45rem 1rem; }
-    .nav-links .nav-cta a:hover { background: var(--blue); color: #fff; }
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 0.5rem; background: none; border: none; }
-    .hamburger span { display: block; width: 24px; height: 2px; background: var(--muted); transition: all 0.3s; }
-    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-    .mobile-menu { display: none; flex-direction: column; background: rgba(8,10,16,0.98); border-top: 1px solid var(--border); padding: 1rem 2rem 1.5rem; }
-    .mobile-menu.open { display: flex; }
-    .mobile-menu a { font-family: var(--mono); font-size: 0.85rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.85rem 0; border-bottom: 1px solid var(--border); transition: color 0.2s; }
-    .mobile-menu a:last-child { color: var(--blue); border-bottom: none; margin-top: 0.5rem; }
-
-    .page-wrap { max-width: 860px; margin: 0 auto; padding: 9rem 2rem 6rem; position: relative; z-index: 1; }
-    .page-eyebrow { font-family: var(--mono); font-size: 0.72rem; color: var(--blue); letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.75rem; }
-    .page-eyebrow::before { content: '▸'; }
-    h1 { font-family: var(--head); font-size: clamp(2.6rem, 6vw, 4rem); font-weight: 800; color: #dde6f5; line-height: 0.95; margin-bottom: 1rem; }
-    h1 em { font-style: normal; color: var(--blue); }
-    .page-intro { font-family: var(--mono); font-size: 0.9rem; color: var(--muted); line-height: 1.9; margin-bottom: 3.5rem; }
-
-    /* POST */
-    .post { background: var(--card); border: 1px solid var(--border); border-top: 3px solid var(--blue); padding: 2.5rem; margin-bottom: 2rem; }
-    .post-meta { display: flex; align-items: center; gap: 1.25rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
-    .post-date { font-family: var(--mono); font-size: 0.72rem; color: var(--dim); letter-spacing: 0.1em; }
-    .post-tag { font-family: var(--mono); font-size: 0.6rem; font-weight: 700; color: var(--blue); background: rgba(61,142,240,0.1); border: 1px solid rgba(61,142,240,0.25); padding: 0.2rem 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; }
-    .post h2 { font-family: var(--head); font-size: 1.9rem; font-weight: 800; color: #dde6f5; line-height: 1.15; margin-bottom: 1.25rem; }
-    .post-body p { font-family: var(--mono); font-size: 0.9rem; color: var(--muted); line-height: 2; margin-bottom: 1rem; }
-    .post-body p:last-child { margin-bottom: 0; }
-    .post-sig { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border); font-family: var(--mono); font-size: 0.78rem; color: var(--dim); }
-    .post-sig strong { color: var(--muted); }
-
-    /* MORE COMING SOON */
-    .coming-soon { background: var(--bg2); border: 1px solid var(--border); border-left: 3px solid var(--dim); padding: 2rem 2.25rem; text-align: center; }
-    .coming-soon p { font-family: var(--mono); font-size: 0.82rem; color: var(--dim); line-height: 1.9; }
-
-    footer { background: #080a10; border-top: 1px solid var(--border); padding: 2.5rem 2rem; position: relative; z-index: 1; }
-    .foot-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
-    .foot-left { font-family: var(--mono); font-size: 0.77rem; color: var(--dim); line-height: 1.8; }
-    .foot-left a { color: var(--blue); text-decoration: none; }
-    .foot-right { display: flex; gap: 1.5rem; flex-wrap: wrap; }
-    .foot-right a { font-family: var(--mono); font-size: 0.73rem; color: var(--dim); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
-    .foot-right a:hover { color: var(--blue); }
-    .foot-social { display: flex; align-items: center; gap: 1rem; }
-    .foot-social a { color: var(--dim); transition: color 0.2s; display: flex; align-items: center; }
-    .foot-social a:hover { color: var(--blue); }
-
-    @media (max-width: 680px) {
-      .nav-links { display: none; } .hamburger { display: flex; }
-      .page-wrap { padding: 7.5rem 1.25rem 5rem; }
-      .post { padding: 1.75rem 1.25rem; }
+    .newsroom-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .newsroom-header h1 {
+      font-family: var(--head);
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 800;
+      color: #dde6f5;
+      margin-bottom: 1rem;
+      line-height: 1.1;
+    }
+    .newsroom-header h1 em {
+      font-style: normal;
+      color: var(--blue);
+    }
+    .newsroom-header p {
+      font-family: var(--mono);
+      font-size: 0.95rem;
+      color: var(--muted);
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+    .tag-filter {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid #242e42;
+    }
+    .tag-btn {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #8a9bb8;
+      background: transparent;
+      border: 1px solid #242e42;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tag-btn:hover {
+      color: #dde6f5;
+      border-color: var(--blue);
+    }
+    .tag-btn.active {
+      color: #fff;
+      background: var(--blue);
+      border-color: var(--blue);
+    }
+    .post-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    .post {
+      background: #141822;
+      border: 1px solid #242e42;
+      border-left: 3px solid var(--blue);
+      padding: 2rem;
+      transition: border-color 0.2s;
+    }
+    .post:hover {
+      border-left-color: #5fa3f7;
+    }
+    .post-meta {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      margin-bottom: 1rem;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: #6e86a8;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .post-tag {
+      color: var(--blue);
+      font-weight: 700;
+    }
+    .post-date {
+      color: #6e86a8;
+    }
+    .post h2 {
+      font-family: var(--head);
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #dde6f5;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+    .post-body {
+      font-family: var(--mono);
+      font-size: 0.9rem;
+      color: #a8b5cc;
+      line-height: 1.8;
+      white-space: pre-wrap;
+    }
+    .post-signature {
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px dashed #242e42;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: #6e86a8;
+    }
+    .loading, .no-posts {
+      text-align: center;
+      font-family: var(--mono);
+      color: #6e86a8;
+      padding: 4rem 0;
+    }
+    .error {
+      text-align: center;
+      font-family: var(--mono);
+      color: #e07575;
+      padding: 2rem;
+      border: 1px dashed #3a1f1f;
+      background: #1a0f0f;
     }
   </style>
 </head>
 <body>
 
-<nav>
-  <div class="nav-inner">
-    <a class="nav-logo" href="index.html">
-      <img src="logo.jpg" alt="FSME Logic" width="42" height="42">
-      <span class="nav-logo-text">FSME Logic</span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="case-studies.html">Validation</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="faq.html">FAQ</a></li>
-      <li><a href="store.html">Store</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li class="nav-more">
-        <button class="nav-more-btn" aria-expanded="false" aria-haspopup="true">More &#9662;</button>
-        <ul class="nav-dropdown">
-          <li><a href="roi.html">ROI Calculator</a></li>
-          <li><a href="newsroom.html">Newsroom</a></li>
-          <li><a href="investors.html">Investors</a></li>
-          <li><a href="pipeline-demo.html">Live Demo</a></li>
-          <li><a href="legal.html">Legal &amp; Terms</a></li>
-          <li><a href="legal.html#privacy">Privacy Policy</a></li>
-          <li><a href="case-studies.html#reports">Validation Reports</a></li>
-        </ul>
-      </li>
-      <li class="nav-cta"><a href="payment.html">Request Audit</a></li>
-    </ul>
-    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
-      <span></span><span></span><span></span>
-    </button>
+<header class="site-header">
+  <div class="nav-wrap">
+    <a href="index.html" class="logo">FSME Logic</a>
+    <nav class="main-nav">
+      <a href="case-studies.html">Validation</a>
+      <a href="about.html">About</a>
+      <a href="faq.html">FAQ</a>
+      <a href="store.html">Store</a>
+      <a href="contact.html">Contact</a>
+      <div class="nav-more">
+        <button class="nav-more-btn">More &#9662;</button>
+        <div class="nav-more-menu">
+          <a href="roi.html">ROI Calculator</a>
+          <a href="newsroom.html">Newsroom</a>
+          <a href="investors.html">Investors</a>
+          <a href="pipeline-demo.html">Live Demo</a>
+          <a href="legal.html">Legal &amp; Terms</a>
+          <a href="legal.html#privacy">Privacy Policy</a>
+          <a href="reports.html">Validation Reports</a>
+        </div>
+      </div>
+    </nav>
+    <a href="contact.html" class="btn btn-primary btn-sm">Request Audit &#9658;</a>
   </div>
-  <div class="mobile-menu" id="mobile-menu">
-    <a href="payment.html">Request Audit &#9658;</a>
-    <a href="case-studies.html">Validation</a>
-    <a href="about.html">About</a>
-    <a href="faq.html">FAQ</a>
-    <a href="store.html">Store</a>
-    <a href="contact.html">Contact</a>
-    <a href="roi.html">ROI Calculator</a>
-    <a href="newsroom.html">Newsroom</a>
-    <a href="investors.html">Investors</a>
-    <a href="pipeline-demo.html">Live Demo</a>
-    <a href="case-studies.html#reports">Validation Reports</a>
-    <a href="legal.html">Legal &amp; Terms</a>
-    <a href="legal.html#privacy">Privacy Policy</a>
-  </div>
-</nav>
+</header>
 
-<div class="page-wrap">
-  <p class="page-eyebrow">Newsroom</p>
-  <h1>Updates From<br><em>FSME Logic.</em></h1>
-  <p class="page-intro">Announcements, milestones, and dispatches from the field. Check back here for the latest on what we are building and where we are headed.</p>
-
-  <div class="post">
-    <div class="post-meta">
-      <span class="post-date">March 2026</span>
-      <span class="post-tag">Announcement</span>
-    </div>
-    <h2>FSME Logic Is Launching Commercially This Quarter</h2>
-    <div class="post-body">
-      <p>After months of focused development, validation, and infrastructure work, FSME Logic is moving into its first commercial phase this quarter. The engine is built, tested, and ready — and we are now actively engaging our first clients.</p>
-      <p>This marks the transition from a research and validation operation into a fully commercial signal integrity platform. The same technology that has been validated against aerospace telemetry and industrial fleet datasets is now available for engagement by any organization running equipment that generates sensor data.</p>
-      <p>We will have more to share in the coming weeks — including details on our first client engagements, new validation results, and updates on the company's development roadmap. If you have been following our work or are curious about what FSME Logic can do for your operation, now is a good time to get in touch.</p>
-      <p>Exciting things ahead. Stay tuned.</p>
-    </div>
-    <div class="post-sig">
-      <strong>Alexander Kalyniuk</strong> &nbsp;—&nbsp; Founder, FSME Logic &nbsp;|&nbsp; Edmonton, Alberta
-    </div>
+<div class="newsroom-wrap">
+  <div class="newsroom-header">
+    <h1>Updates From <em>FSME Logic.</em></h1>
+    <p>Announcements, milestones, and dispatches from the field. Check back here for the latest on what we are building and where we are headed.</p>
   </div>
 
-  <div class="coming-soon">
-    <p>// More updates coming soon. Follow us on <a href="https://x.com/FsmeLogic" style="color:var(--blue);text-decoration:none;" target="_blank">X&nbsp;@FsmeLogic</a> or <a href="https://ca.linkedin.com/in/alexander-kalyniuk-4b8b552b" style="color:var(--blue);text-decoration:none;" target="_blank">LinkedIn</a> for the latest.</p>
+  <div class="tag-filter" id="tag-filter">
+    <button class="tag-btn active" data-tag="all">All</button>
+  </div>
+
+  <div id="post-list" class="post-list">
+    <div class="loading">// Loading posts...</div>
   </div>
 </div>
 
-<footer>
-  <div class="foot-inner">
-    <div class="foot-left">
-      &#169; 2026 Alexander Kalyniuk &#8212; FSME Logic &nbsp;|&nbsp; Edmonton, Alberta, Canada<br>
-      Patent Pending &nbsp;|&nbsp; <a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a>
-    </div>
-    <div class="foot-right">
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p>&copy; 2026 Alexander Kalyniuk, FSME Logic. Edmonton, Alberta, Canada.<br>
+    <a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a></p>
+    <nav class="footer-nav">
       <a href="case-studies.html">Validation</a>
       <a href="about.html">About</a>
       <a href="faq.html">FAQ</a>
       <a href="contact.html">Contact</a>
-      <a href="privacy.html">Privacy</a>
-    </div>
-    <div class="foot-right" style="margin-top:0.5rem;">
+      <a href="legal.html#privacy">Privacy</a>
       <a href="store.html">Store</a>
       <a href="legal.html">Legal &amp; Terms</a>
       <a href="investors.html">Investors</a>
       <a href="newsroom.html">Newsroom</a>
-      <a href="case-studies.html#reports">Validation Reports</a>
+      <a href="reports.html">Validation Reports</a>
       <a href="roi.html">ROI Calculator</a>
-    </div>
-    <div class="foot-social">
-      <a href="https://x.com/FsmeLogic" target="_blank" rel="noopener" aria-label="X / Twitter">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.731-8.835L1.254 2.25H8.08l4.259 5.63 5.905-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-      </a>
-      <a href="https://youtube.com/@fsmelogic" target="_blank" rel="noopener" aria-label="YouTube">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
-      </a>
-      <a href="https://www.linkedin.com/in/fsmelogic" target="_blank" rel="noopener" aria-label="LinkedIn">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-      </a>
-    </div>
+    </nav>
   </div>
 </footer>
 
-<!-- COOKIE BANNER -->
-<div id="cookie-banner">
-  <p>This site uses Google Analytics and Google Ads to measure site performance. We do not sell your data. <a href="privacy.html">Privacy Policy</a></p>
-  <button onclick="acceptCookies()">Accept</button>
-</div>
-
 <script>
-  (function() {
-    if (!localStorage.getItem('fsme_cookies_ok')) {
-      document.getElementById('cookie-banner').style.display = 'flex';
+  const NEWSROOM_API = 'https://fsme-newsroom.fsme-logic.workers.dev';
+  const postList = document.getElementById('post-list');
+  const tagFilter = document.getElementById('tag-filter');
+  let currentTag = 'all';
+  let allPosts = [];
+
+  function formatDate(isoString) {
+    if (!isoString) return '';
+    const d = new Date(isoString.replace(' ', 'T') + 'Z');
+    const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    return months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+  }
+
+  function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  function renderPosts(posts) {
+    if (posts.length === 0) {
+      postList.innerHTML = '<div class="no-posts">// No posts in this category yet.</div>';
+      return;
     }
-  })();
-  function acceptCookies() {
-    localStorage.setItem('fsme_cookies_ok', '1');
-    document.getElementById('cookie-banner').style.display = 'none';
+    postList.innerHTML = posts.map(function(p) {
+      return '<article class="post">' +
+        '<div class="post-meta">' +
+          '<span class="post-tag">// ' + escapeHtml(p.tag) + '</span>' +
+          '<span class="post-date">' + formatDate(p.published_at) + '</span>' +
+        '</div>' +
+        '<h2>' + escapeHtml(p.title) + '</h2>' +
+        '<div class="post-body">' + escapeHtml(p.body) + '</div>' +
+        '<div class="post-signature">Alexander Kalyniuk, Founder, FSME Logic. Edmonton, Alberta.</div>' +
+      '</article>';
+    }).join('');
   }
-  (function() {
-    var hbtn = document.getElementById('hamburger');
-    var hmenu = document.getElementById('mobile-menu');
-    if (hbtn && hmenu) {
-      hbtn.addEventListener('click', function() {
-        var expanded = hbtn.getAttribute('aria-expanded') === 'true';
-        hbtn.setAttribute('aria-expanded', String(!expanded));
-        hbtn.classList.toggle('open');
-        hmenu.classList.toggle('open');
-      });
+
+  function renderTags(tags) {
+    const existingButtons = tagFilter.querySelectorAll('.tag-btn:not([data-tag="all"])');
+    existingButtons.forEach(function(b) { b.remove(); });
+    tags.forEach(function(t) {
+      const btn = document.createElement('button');
+      btn.className = 'tag-btn';
+      btn.dataset.tag = t.tag;
+      btn.textContent = t.tag + ' (' + t.count + ')';
+      btn.addEventListener('click', function() { filterByTag(t.tag); });
+      tagFilter.appendChild(btn);
+    });
+    document.querySelector('.tag-btn[data-tag="all"]').addEventListener('click', function() {
+      filterByTag('all');
+    });
+  }
+
+  function filterByTag(tag) {
+    currentTag = tag;
+    document.querySelectorAll('.tag-btn').forEach(function(b) {
+      b.classList.toggle('active', b.dataset.tag === tag);
+    });
+    const filtered = tag === 'all' ? allPosts : allPosts.filter(function(p) { return p.tag === tag; });
+    renderPosts(filtered);
+  }
+
+  async function loadNewsroom() {
+    try {
+      const [postsRes, tagsRes] = await Promise.all([
+        fetch(NEWSROOM_API + '/posts'),
+        fetch(NEWSROOM_API + '/tags')
+      ]);
+      const postsData = await postsRes.json();
+      const tagsData = await tagsRes.json();
+      allPosts = postsData.posts || [];
+      renderTags(tagsData.tags || []);
+      renderPosts(allPosts);
+    } catch (err) {
+      postList.innerHTML = '<div class="error">Unable to load posts right now. Email alex-kalyniuk@fsmelogic.ca if this persists.</div>';
     }
-  })();
-  (function() {
-    var dbtn = document.querySelector('.nav-more-btn');
-    if (!dbtn) return;
-    dbtn.addEventListener('click', function(e) {
-      e.stopPropagation();
-      var expanded = dbtn.getAttribute('aria-expanded') === 'true';
-      dbtn.setAttribute('aria-expanded', String(!expanded));
-    });
-    document.addEventListener('click', function() {
-      if (dbtn) dbtn.setAttribute('aria-expanded', 'false');
-    });
-  })();
+  }
+
+  loadNewsroom();
 </script>
-
-<!-- ── FSME LOGIC CHAT WIDGET ─────────────────────────────────────────── -->
-<script>const FSME_WORKER_URL = 'https://fsme-assistant-v2.fsme-logic.workers.dev';</script>
-<style>
-  #fsme-chat-btn{position:fixed;bottom:28px;right:28px;z-index:9000;width:56px;height:56px;border-radius:50%;background:#3d8ef0;border:none;cursor:pointer;box-shadow:0 4px 20px rgba(61,142,240,0.45);display:flex;align-items:center;justify-content:center;transition:transform 0.2s,box-shadow 0.2s;}
-  #fsme-chat-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(61,142,240,0.55);}
-  #fsme-chat-window{position:fixed;bottom:96px;right:28px;z-index:9001;width:370px;max-width:calc(100vw - 32px);height:520px;max-height:calc(100vh - 120px);background:#141822;border:1px solid #242e42;border-top:3px solid #3d8ef0;display:none;flex-direction:column;box-shadow:0 16px 48px rgba(0,0,0,0.55);font-family:'IBM Plex Mono','Consolas','Courier New',monospace;}
-  #fsme-chat-window.open{display:flex;}
-  .fsme-chat-header{display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.1rem;background:#1c2438;border-bottom:1px solid #242e42;flex-shrink:0;}
-  .fsme-chat-header-left{display:flex;align-items:center;gap:.6rem;}
-  .fsme-chat-dot{width:8px;height:8px;border-radius:50%;background:#3db87a;flex-shrink:0;}
-  .fsme-chat-title{font-size:.78rem;font-weight:700;color:#c5d2e8;letter-spacing:.06em;text-transform:uppercase;}
-  .fsme-chat-sub{font-size:.62rem;color:#6e86a8;letter-spacing:.04em;}
-  #fsme-close-btn{background:none;border:none;color:#6e86a8;cursor:pointer;padding:4px;line-height:1;font-size:1.1rem;transition:color .2s;}
-  #fsme-close-btn:hover{color:#c5d2e8;}
-  #fsme-messages{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:.75rem;scroll-behavior:smooth;}
-  #fsme-messages::-webkit-scrollbar{width:4px;}
-  #fsme-messages::-webkit-scrollbar-thumb{background:#242e42;border-radius:2px;}
-  .fsme-msg{max-width:88%;padding:.65rem .85rem;font-size:.82rem;line-height:1.65;border-radius:2px;}
-  .fsme-msg.bot{background:#181f2e;border:1px solid #242e42;color:#c5d2e8;align-self:flex-start;border-left:2px solid #3d8ef0;}
-  .fsme-msg.user{background:rgba(61,142,240,0.12);border:1px solid rgba(61,142,240,0.25);color:#c5d2e8;align-self:flex-end;}
-  .fsme-msg.typing{background:#181f2e;border:1px solid #242e42;color:#6e86a8;align-self:flex-start;font-style:italic;}
-  .fsme-msg a{color:#3d8ef0;text-decoration:none;}
-  .fsme-msg a:hover{text-decoration:underline;}
-  .fsme-chat-footer{border-top:1px solid #242e42;padding:.75rem;display:flex;gap:.5rem;flex-shrink:0;background:#141822;}
-  #fsme-input{flex:1;background:#0e1118;border:1px solid #242e42;color:#c5d2e8;font-family:inherit;font-size:.82rem;padding:.6rem .8rem;outline:none;resize:none;line-height:1.5;max-height:100px;transition:border-color .2s;}
-  #fsme-input:focus{border-color:#3d8ef0;}
-  #fsme-input::placeholder{color:#3a4a62;}
-  #fsme-send-btn{background:#3d8ef0;border:none;color:#fff;font-family:inherit;font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.6rem .85rem;cursor:pointer;transition:background .2s;flex-shrink:0;align-self:flex-end;}
-  #fsme-send-btn:hover{background:#2d6fd0;}
-  #fsme-send-btn:disabled{background:#242e42;color:#6e86a8;cursor:not-allowed;}
-  .fsme-chat-note{text-align:center;font-size:.62rem;color:#3a4a62;padding:.3rem .75rem .5rem;flex-shrink:0;}
-  @media(max-width:440px){#fsme-chat-window{right:8px;bottom:88px;width:calc(100vw - 16px);}#fsme-chat-btn{right:16px;bottom:16px;}}
-
-  /* ── CHAT BUTTON WRAPPER & LABEL ─────────────────────────── */
-  #fsme-chat-btn-wrapper {
-    position: fixed; bottom: 28px; right: 28px; z-index: 9000;
-    display: flex; flex-direction: column; align-items: center; gap: 6px;
-  }
-  #fsme-chat-btn {
-    position: fixed; bottom: 28px; right: 28px;
-    width: 56px; height: 56px; border-radius: 50%;
-    background: #3d8ef0; border: none; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: transform 0.2s, background 0.2s;
-    animation: radar-pulse 2.8s infinite;
-  }
-  #fsme-chat-btn:hover {
-    transform: translateY(-2px); background: #2d6fd0;
-    animation: none; box-shadow: 0 8px 28px rgba(61,142,240,0.55);
-  }
-  @keyframes radar-pulse {
-    0%   { box-shadow: 0 0 0 0 rgba(61,142,240,0.7); }
-    70%  { box-shadow: 0 0 0 14px rgba(61,142,240,0); }
-    100% { box-shadow: 0 0 0 0 rgba(61,142,240,0); }
-  }
-  @keyframes flare-anim {
-    0%   { box-shadow: 0 0 0 0 rgba(201,168,76,0.8); filter: brightness(1); }
-    50%  { box-shadow: 0 0 18px 6px rgba(201,168,76,0.5); filter: brightness(1.3); transform: scale(1.06); }
-    100% { box-shadow: 0 0 0 0 rgba(201,168,76,0); filter: brightness(1); transform: scale(1); }
-  }
-  #fsme-chat-btn.flare { animation: flare-anim 0.6s ease-out; }
-  .chat-btn-label {
-    font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; font-weight: 700;
-    color: #c9a84c; background: #0e1117; border: 1px solid #1e2535;
-    padding: 0.25rem 0.55rem; border-radius: 4px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-    white-space: nowrap; text-transform: uppercase; letter-spacing: 0.07em;
-    animation: radar-pulse 2.8s infinite 1.4s;
-    pointer-events: none;
-  }
-
-  /* ── SOUTH PARK CANADIAN ROBOT ───────────────────────────── */
-  #fsme-robot {
-    width: 30px; height: 34px; position: relative;
-    margin-right: 10px; flex-shrink: 0; cursor: default;
-  }
-  .robot-top, .robot-bottom {
-    background: #8a9bb8; width: 100%; position: absolute;
-    left: 0; border: 2px solid #141822;
-  }
-  .robot-top {
-    height: 17px; top: 0; border-radius: 6px 6px 0 0;
-    transform-origin: bottom center;
-    border-bottom: 2px solid #080a10; z-index: 2;
-    transition: transform 0.08s;
-  }
-  .robot-bottom {
-    height: 17px; bottom: 0; border-radius: 0 0 6px 6px;
-  }
-  .robot-eye {
-    width: 5px; height: 5px; background: #080a10;
-    border-radius: 50%; position: absolute; top: 5px;
-  }
-  .robot-eye.left  { left: 5px; }
-  .robot-eye.right { right: 5px; }
-  .robot-antenna {
-    width: 3px; height: 7px; background: #8a9bb8;
-    position: absolute; top: -7px; left: 50%;
-    transform: translateX(-50%); border-radius: 2px 2px 0 0;
-  }
-  .robot-antenna::after {
-    content: ''; display: block; width: 6px; height: 6px;
-    background: #3d8ef0; border-radius: 50%;
-    margin: -3px 0 0 -1.5px;
-    box-shadow: 0 0 6px #3d8ef0;
-  }
-  @keyframes flap-head {
-    0%   { transform: translateY(0) rotate(0deg); }
-    30%  { transform: translateY(-7px) rotate(10deg); }
-    60%  { transform: translateY(-3px) rotate(-4deg); }
-    100% { transform: translateY(0) rotate(0deg); }
-  }
-  @keyframes idle-bob {
-    0%, 100% { transform: translateY(0); }
-    50%       { transform: translateY(-2px); }
-  }
-  #fsme-robot .robot-top {
-    animation: idle-bob 3s ease-in-out infinite;
-  }
-  #fsme-robot.talking .robot-top {
-    animation: flap-head 0.28s ease-in-out infinite !important;
-  }
-
-  </style>
-<button id="fsme-chat-btn" aria-label="Chat with FSME Logic Assistant" title="Ask the FSME Logic Assistant">
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-</button>
-<div id="fsme-chat-window" role="dialog" aria-label="FSME Logic Assistant">
-  <div class="fsme-chat-header">
-    <div class="fsme-chat-header-left">
-      <div id="fsme-robot">
-        <div class="robot-top">
-          <div class="robot-antenna"></div>
-          <div class="robot-eye left"></div>
-          <div class="robot-eye right"></div>
-        </div>
-        <div class="robot-bottom"></div>
-      </div>
-      <div class="fsme-chat-dot"></div>
-      <div><div class="fsme-chat-title">FSME Logic Assistant</div><div class="fsme-chat-sub">Predictive Integrity &middot; Edmonton, AB</div></div>
-    </div>
-    <button id="fsme-close-btn" aria-label="Close chat">&times;</button>
-  </div>
-  <div id="fsme-messages">
-    <div class="fsme-msg bot">// FSME Logic Assistant online.<br><br>I can help with product questions, the audit process, data compatibility, pricing, and security. What are you working with?</div>
-  </div>
-  <div class="fsme-chat-footer">
-    <textarea id="fsme-input" placeholder="Ask about products, the audit process, data formats..." rows="1" maxlength="2000"></textarea>
-    <button id="fsme-send-btn">Send</button>
-  </div>
-  <div class="fsme-chat-note">FSME Logic &middot; fsmelogic.ca</div>
-</div>
-<script>
-(function(){
-  var btn=document.getElementById('fsme-chat-btn'),win=document.getElementById('fsme-chat-window'),
-      closeBtn=document.getElementById('fsme-close-btn'),input=document.getElementById('fsme-input'),
-      sendBtn=document.getElementById('fsme-send-btn'),messages=document.getElementById('fsme-messages');
-  var sessionId='fsme-'+Math.random().toString(36).slice(2,10);
-  var isOpen=false,isLoading=false;
-  var canFlare=true;
-  function triggerFlare(){
-    if(!canFlare||isOpen)return;
-    btn.classList.add('flare');
-    canFlare=false;
-    setTimeout(function(){btn.classList.remove('flare');},600);
-    setTimeout(function(){canFlare=true;},3500);
-  }
-  window.addEventListener('scroll',triggerFlare,{passive:true});
-  document.addEventListener('click',function(e){
-    if(!e.target.closest('#fsme-chat-btn-wrapper'))triggerFlare();
-  });
-  function toggleChat(){isOpen=!isOpen;win.classList.toggle('open',isOpen);if(isOpen){input.focus();messages.scrollTop=messages.scrollHeight;}}
-  btn.addEventListener('click',toggleChat);
-  closeBtn.addEventListener('click',toggleChat);
-  input.addEventListener('input',function(){this.style.height='auto';this.style.height=Math.min(this.scrollHeight,100)+'px';});
-  input.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage();}});
-  sendBtn.addEventListener('click',sendMessage);
-  function addMessage(text,type){
-    var div=document.createElement('div');div.className='fsme-msg '+type;
-    div.innerHTML=text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-      .replace(/\n/g,'<br>').replace(/(https?:\/\/[^\s<]+)/g,'<a href="$1" target="_blank" rel="noopener">$1</a>');
-    messages.appendChild(div);messages.scrollTop=messages.scrollHeight;return div;
-  }
-  async function sendMessage(){
-    var text=input.value.trim();if(!text||isLoading)return;
-    addMessage(text,'user');input.value='';input.style.height='auto';
-    isLoading=true;sendBtn.disabled=true;
-    var robot=document.getElementById('fsme-robot');
-    if(robot) robot.classList.add('talking');
-    var typingEl=(function(){
-        var phrases=[
-          '// Consulting the entropy logs...',
-          '// Parsing telemetry signatures...',
-          '// Searching the air-gapped archives...',
-          '// Running physics simulation...',
-          '// Calculating degradation vectors...',
-          '// Cross-referencing benchmark data...',
-          '// Translating engineering jargon...',
-          '// Scanning the signal history...',
-          '// Checking the Green Dashboard...',
-          '// Crunching failure probabilities...'
-        ];
-        return addMessage(phrases[Math.floor(Math.random()*phrases.length)],'typing');
-      })();
-    try{
-      var response=await fetch(FSME_WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({message:text,session_id:sessionId})});
-      var data=await response.json();typingEl.remove();
-      addMessage(data.reply||'Something went wrong. Email alex-kalyniuk@fsmelogic.ca for help.','bot');
-    }catch(err){
-      typingEl.remove();
-      addMessage('Connection issue. Email alex-kalyniuk@fsmelogic.ca directly.','bot');
-    }finally{isLoading=false;sendBtn.disabled=false;input.focus();
-    if(robot) robot.classList.remove('talking');}
-  }
-})();
-</script>
-<!-- ── END FSME CHAT WIDGET ────────────────────────────────────────────── -->
 
 </body>
 </html>
