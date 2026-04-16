@@ -237,6 +237,7 @@
     }
   })();
 </script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
 
@@ -387,7 +388,7 @@
         <p>Tell us about your operation. We&#8217;ll take it from there.</p>
       </div>
       <div class="form-body">
-        <form id="contact-form" action="https://formspree.io/f/mlgpdqdq" method="POST">
+        <form id="contact-form" action="https://fsme-form-proxy.fsme-logic.workers.dev" method="POST">
           <input type="text" name="_gotcha" style="display:none" aria-hidden="true">
           <input type="hidden" name="_subject" value="New Audit Inquiry — FSME Logic">
           <input type="hidden" name="_next" value="https://fsmelogic.ca/success.html">
@@ -475,8 +476,77 @@
 
           <p class="form-note">By submitting this form you agree to our <a href="legal.html#privacy">Privacy Policy</a>. We do not share your information with third parties.</p>
 
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAAC-RwdliB1810WP8" data-theme="dark" style="margin: 1rem 0;"></div>
+
+          <div id="form-error-msg" style="display:none; padding:1rem; margin-bottom:1rem; background:rgba(224,117,117,0.08); border:1px solid #3a1f1f; color:#e07575; font-family:var(--mono); font-size:0.82rem;"></div>
+
           <button type="submit" class="btn-submit" id="submit-btn">Send Inquiry &#9658;</button>
         </form>
+
+        <script>
+          (function() {
+            var form = document.getElementById('contact-form');
+            var submitBtn = document.getElementById('submit-btn');
+            var errorMsg = document.getElementById('form-error-msg');
+            var successDiv = document.getElementById('form-success');
+
+            form.addEventListener('submit', async function(e) {
+              e.preventDefault();
+              errorMsg.style.display = 'none';
+
+              // Verify Turnstile token is present
+              var tokenField = form.querySelector('input[name="cf-turnstile-response"]');
+              if (!tokenField || !tokenField.value) {
+                errorMsg.textContent = 'Please complete the verification before submitting.';
+                errorMsg.style.display = 'block';
+                return;
+              }
+
+              submitBtn.disabled = true;
+              submitBtn.textContent = 'Sending...';
+
+              try {
+                var formData = new FormData(form);
+                var response = await fetch(form.action, {
+                  method: 'POST',
+                  body: formData,
+                });
+                var data = await response.json();
+
+                if (response.ok && data.success) {
+                  // Show success state
+                  form.style.display = 'none';
+                  if (successDiv) successDiv.style.display = 'block';
+                  // Fire conversion event if gtag is loaded
+                  if (typeof gtag === 'function') {
+                    gtag('event', 'conversion', {'send_to': 'AW-18021290501/edRqCPqQo4ocEIWknJFD'});
+                  }
+                  // Redirect after brief delay
+                  setTimeout(function() {
+                    window.location.href = data.redirect || 'https://fsmelogic.ca/success.html';
+                  }, 1500);
+                } else {
+                  errorMsg.textContent = (data && data.error) ? data.error : 'Something went wrong, please try again or email alex-kalyniuk@fsmelogic.ca';
+                  errorMsg.style.display = 'block';
+                  submitBtn.disabled = false;
+                  submitBtn.innerHTML = 'Send Inquiry &#9658;';
+                  // Reset Turnstile so user can retry
+                  if (typeof turnstile !== 'undefined') {
+                    turnstile.reset();
+                  }
+                }
+              } catch (err) {
+                errorMsg.textContent = 'Connection error, please check your internet and try again.';
+                errorMsg.style.display = 'block';
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Send Inquiry &#9658;';
+                if (typeof turnstile !== 'undefined') {
+                  turnstile.reset();
+                }
+              }
+            });
+          })();
+        </script>
 
         <div class="form-success" id="form-success">
           <div class="success-icon">&#10003;</div>
