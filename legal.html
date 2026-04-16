@@ -104,6 +104,11 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="manifest" href="/site.webmanifest">
+<style>
+  /* Ensure chat widget does not overlap footer social icons */
+  footer { padding-bottom: 7rem !important; }
+  @media (max-width: 680px) { footer { padding-bottom: 6rem !important; } }
+</style>
 </head>
 <body>
 
@@ -554,7 +559,7 @@
   <div class="foot-inner">
     <div class="foot-left">
       &copy; 2026 Alexander Kalyniuk &mdash; FSME Logic &nbsp;|&nbsp; Edmonton, Alberta, Canada<br>
-      Patent Pending &nbsp;|&nbsp; <a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a>
+      <a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a>
     </div>
     <div class="foot-right">
       <a href="case-studies.html">Validation</a>
@@ -688,7 +693,7 @@
     display: flex; flex-direction: column; align-items: center; gap: 6px;
   }
   #fsme-chat-btn {
-    position: fixed; bottom: 28px; right: 28px;
+    position: relative; bottom: 0; right: 0;
     width: 56px; height: 56px; border-radius: 50%;
     background: #3d8ef0; border: none; cursor: pointer;
     display: flex; align-items: center; justify-content: center;
@@ -779,21 +784,13 @@
 <div id="fsme-chat-window" role="dialog" aria-label="FSME Logic Assistant">
   <div class="fsme-chat-header">
     <div class="fsme-chat-header-left">
-      <div id="fsme-robot">
-        <div class="robot-top">
-          <div class="robot-antenna"></div>
-          <div class="robot-eye left"></div>
-          <div class="robot-eye right"></div>
-        </div>
-        <div class="robot-bottom"></div>
-      </div>
       <div class="fsme-chat-dot"></div>
       <div><div class="fsme-chat-title">FSME Logic Assistant</div><div class="fsme-chat-sub">Predictive Integrity &middot; Edmonton, AB</div></div>
     </div>
     <button id="fsme-close-btn" aria-label="Close chat">&times;</button>
   </div>
   <div id="fsme-messages">
-    <div class="fsme-msg bot">// FSME Logic Assistant online.<br><br>I can help with product questions, the audit process, data compatibility, pricing, and security. What are you working with?</div>
+    <div class="fsme-msg bot">// FSME Logic Assistant online.<br><br>I can help with product questions, the audit process, data compatibility, pricing, and security. What are you working with?<br><br><span style="font-size:.72rem;color:#6e86a8;">Note: conversations may be logged to improve this assistant. Do not share confidential information here.</span></div>
   </div>
   <div class="fsme-chat-footer">
     <textarea id="fsme-input" placeholder="Ask about products, the audit process, data formats..." rows="1" maxlength="2000"></textarea>

@@ -109,6 +109,11 @@
     .state-msg { text-align: center; font-family: var(--mono); font-size: 0.82rem; color: var(--dim); padding: 3rem 1rem; border: 1px dashed var(--border); }
     .state-msg.error { color: #e07575; border-color: #3a1f1f; background: rgba(58, 15, 15, 0.2); }
   </style>
+<style>
+  /* Ensure chat widget does not overlap footer social icons */
+  footer { padding-bottom: 7rem !important; }
+  @media (max-width: 680px) { footer { padding-bottom: 6rem !important; } }
+</style>
 </head>
 <body>
 
@@ -273,7 +278,7 @@
   <div class="foot-inner">
     <div class="foot-left">
       &#169; 2026 Alexander Kalyniuk &#8212; FSME Logic &nbsp;|&nbsp; Edmonton, Alberta, Canada<br>
-      Patent Pending &nbsp;|&nbsp; <a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a>
+      <a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a>
     </div>
     <div class="foot-right">
       <a href="case-studies.html">Validation</a>
@@ -482,7 +487,7 @@
     <button id="fsme-close-btn" aria-label="Close chat">&times;</button>
   </div>
   <div id="fsme-messages">
-    <div class="fsme-msg bot">// FSME Logic Assistant online.<br><br>I can help with product questions, the audit process, data compatibility, pricing, and security. What are you working with?</div>
+    <div class="fsme-msg bot">// FSME Logic Assistant online.<br><br>I can help with product questions, the audit process, data compatibility, pricing, and security. What are you working with?<br><br><span style="font-size:.72rem;color:#6e86a8;">Note: conversations may be logged to improve this assistant. Do not share confidential information here.</span></div>
   </div>
   <div class="fsme-chat-footer">
     <textarea id="fsme-input" placeholder="Ask about products, the audit process, data formats..." rows="1" maxlength="2000"></textarea>
