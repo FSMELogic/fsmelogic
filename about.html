@@ -248,7 +248,117 @@
   /* Ensure chat widget does not overlap footer social icons */
   footer { padding-bottom: 7rem !important; }
   @media (max-width: 680px) { footer { padding-bottom: 6rem !important; } }
+
+  /* Keep chat widget button anchored bottom-right (overrides conflicting rule in body CSS) */
+  #fsme-chat-btn {
+    position: fixed !important;
+    bottom: 28px !important;
+    right: 28px !important;
+    left: auto !important;
+    top: auto !important;
+  }
+  @media (max-width: 440px) {
+    #fsme-chat-btn {
+      bottom: 16px !important;
+      right: 16px !important;
+    }
+  }
+
+  /* Chat tooltip: first-visit call-to-action */
+  .fsme-chat-tooltip {
+    position: fixed;
+    bottom: 38px;
+    right: 96px;
+    z-index: 8999;
+    background: #141822;
+    border: 1px solid #242e42;
+    border-right: 3px solid #3d8ef0;
+    padding: 0.7rem 1rem;
+    font-family: 'IBM Plex Mono', 'Consolas', monospace;
+    font-size: 0.78rem;
+    color: #c5d2e8;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    opacity: 0;
+    transform: translateX(10px);
+    transition: opacity 0.4s, transform 0.4s;
+    pointer-events: none;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .fsme-chat-tooltip.show {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+  .fsme-chat-tooltip-close {
+    background: none;
+    border: none;
+    color: #6e86a8;
+    cursor: pointer;
+    padding: 0 0.15rem;
+    font-size: 1rem;
+    line-height: 1;
+  }
+  .fsme-chat-tooltip-close:hover { color: #c5d2e8; }
+  @media (max-width: 680px) {
+    .fsme-chat-tooltip {
+      bottom: 38px;
+      right: 84px;
+      font-size: 0.72rem;
+      max-width: calc(100vw - 120px);
+    }
+  }
 </style>
+<script>
+  (function() {
+    try {
+      if (window.sessionStorage && sessionStorage.getItem('fsme_tooltip_shown')) return;
+    } catch (e) {}
+    var shown = false;
+    function showTooltip() {
+      if (shown) return;
+      shown = true;
+      try { sessionStorage.setItem('fsme_tooltip_shown', '1'); } catch (e) {}
+      var tip = document.createElement('div');
+      tip.className = 'fsme-chat-tooltip';
+      tip.innerHTML = '<span>Ask me anything</span><button class="fsme-chat-tooltip-close" aria-label="Close">&times;</button>';
+      document.body.appendChild(tip);
+      setTimeout(function() { tip.classList.add('show'); }, 120);
+      var hideTimer = setTimeout(function() { hide(); }, 9000);
+      function hide() {
+        clearTimeout(hideTimer);
+        tip.classList.remove('show');
+        setTimeout(function() { if (tip.parentNode) tip.remove(); }, 500);
+      }
+      tip.querySelector('.fsme-chat-tooltip-close').addEventListener('click', function(e) {
+        e.stopPropagation();
+        hide();
+      });
+      tip.addEventListener('click', function(e) {
+        if (e.target.classList.contains('fsme-chat-tooltip-close')) return;
+        var btn = document.getElementById('fsme-chat-btn');
+        if (btn) btn.click();
+        hide();
+      });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+    function init() {
+      window.addEventListener('scroll', function onScroll() {
+        if (window.scrollY > 80) {
+          showTooltip();
+          window.removeEventListener('scroll', onScroll);
+        }
+      }, { passive: true });
+      setTimeout(showTooltip, 7000);
+    }
+  })();
+</script>
 </head>
 <body>
 
