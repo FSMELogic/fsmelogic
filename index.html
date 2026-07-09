@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Performance: preconnect for Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- Google Analytics -->
@@ -19,130 +18,137 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Offline Predictive Maintenance & Air-Gapped Equipment Audits | FSME Logic</title>
-  <meta name="description" content="Stop unplanned downtime costs before alarms trigger. FSME Logic provides air-gapped, offline predictive maintenance audits for industrial fleets, plus Stratum, a secure-by-construction runtime that bounds untrusted and AI-generated code. No cloud required.">
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <title>Stratum — Run Code You Can't Trust, Safely | FSME Logic</title>
+  <meta name="description" content="Stratum is a secure-by-construction language and runtime where untrusted or AI-generated code physically cannot exceed the permissions you grant it. Fully offline. Build governed AI gateways, forensic health analysis, and bounded systems on top of it. Free on PyPI.">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
     /* HERO */
     .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 8rem 2rem 5rem; position: relative; overflow: hidden; }
-    .hero-bg { position: absolute; inset: 0; z-index: 0; background: radial-gradient(ellipse 80% 60% at 60% 40%, rgba(61,142,240,0.07) 0%, transparent 70%), radial-gradient(ellipse 40% 40% at 15% 75%, rgba(91,184,212,0.04) 0%, transparent 60%); }
+    .hero-bg { position: absolute; inset: 0; z-index: 0; background: radial-gradient(ellipse 80% 60% at 62% 38%, rgba(74,151,245,0.09) 0%, transparent 70%), radial-gradient(ellipse 40% 40% at 12% 78%, rgba(91,184,212,0.05) 0%, transparent 60%); }
     .hero-inner { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; width: 100%; }
-    .hero-eyebrow { font-family: var(--mono); font-size: 0.75rem; color: var(--blue); letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; animation: fadeUp 0.5s ease both; }
-    .hero-eyebrow::before { content: '▸'; }
-    .hero h1 { font-family: var(--head); font-size: clamp(3rem, 8.5vw, 6.5rem); font-weight: 800; line-height: 0.95; color: #dde6f5; margin-bottom: 1.75rem; animation: fadeUp 0.5s 0.1s ease both; }
+    .hero-eyebrow { font-family: var(--mono); font-size: 0.75rem; color: var(--blue); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1rem; min-height: 1.2em; }
+    .hero h1 { font-family: var(--head); font-size: clamp(3rem, 8.5vw, 6.5rem); font-weight: 800; line-height: 0.95; color: #eef3fb; margin-bottom: 1.5rem; animation: fadeUp 0.5s 0.1s ease both; letter-spacing: 0.01em; }
     .hero h1 em { font-style: normal; color: var(--blue); }
-    .hero h1 .dim { color: var(--muted); }
-    .hero-sub { font-family: var(--mono); font-size: clamp(0.95rem, 1.8vw, 1.1rem); color: var(--muted); max-width: 62ch; line-height: 1.9; margin-bottom: 2.25rem; animation: fadeUp 0.5s 0.2s ease both; }
-    .hero-sub strong { color: var(--text); }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; animation: fadeUp 0.5s 0.4s ease both; margin-bottom: 1rem; }
-    .hero-microcopy { font-family: var(--mono); font-size: 0.78rem; color: var(--dim); animation: fadeUp 0.5s 0.5s ease both; letter-spacing: 0.04em; }
+    .hero-sub { font-family: var(--body); font-size: clamp(1.05rem, 2vw, 1.3rem); color: var(--text); max-width: 60ch; line-height: 1.7; margin-bottom: 2.25rem; animation: fadeUp 0.5s 0.2s ease both; }
+    .hero-sub strong { color: #fff; font-weight: 600; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; animation: fadeUp 0.5s 0.45s ease both; margin-bottom: 1rem; }
+    .hero-microcopy { font-family: var(--mono); font-size: 0.78rem; color: var(--dim); animation: fadeUp 0.5s 0.55s ease both; letter-spacing: 0.03em; }
 
-    /* TERMINAL BLOCK */
-    .term { background: #080a10; border: 1px solid var(--bord2); border-top: 2px solid var(--blue); max-width: 620px; margin-bottom: 2.25rem; animation: fadeUp 0.5s 0.3s ease both; box-shadow: 0 12px 40px rgba(0,0,0,0.45); }
-    .term-head { display: flex; align-items: center; gap: 6px; padding: 0.65rem 1rem; border-bottom: 1px solid var(--border); }
+    /* TERMINAL */
+    .term { background: #06080d; border: 1px solid var(--bord2); border-top: 2px solid var(--blue); max-width: 600px; margin-bottom: 2.25rem; animation: fadeUp 0.5s 0.3s ease both; box-shadow: 0 16px 48px rgba(0,0,0,0.5); }
+    .term-head { display: flex; align-items: center; gap: 6px; padding: 0.6rem 1rem; border-bottom: 1px solid var(--border); }
     .term-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--border); }
-    .term-dot.r { background: rgba(224,82,82,0.55); } .term-dot.y { background: rgba(201,168,76,0.55); } .term-dot.g { background: rgba(61,184,122,0.55); }
-    .term-title { font-family: var(--mono); font-size: 0.68rem; color: var(--dim); letter-spacing: 0.1em; margin-left: 0.5rem; text-transform: uppercase; }
+    .term-dot.r { background: rgba(224,82,82,0.6); } .term-dot.y { background: rgba(201,168,76,0.6); } .term-dot.g { background: rgba(69,192,127,0.6); }
+    .term-title { font-family: var(--mono); font-size: 0.66rem; color: var(--dim); letter-spacing: 0.1em; margin-left: 0.5rem; text-transform: uppercase; }
     .term-body { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.15rem 1.25rem; flex-wrap: wrap; }
-    .term-cmd { font-family: var(--mono); font-size: clamp(0.9rem, 2.2vw, 1.05rem); color: var(--text); }
+    .term-cmd { font-family: var(--mono); font-size: clamp(0.92rem, 2.2vw, 1.1rem); color: var(--text); }
     .term-cmd .ps1 { color: var(--green); user-select: none; }
-    .term-copy { font-family: var(--mono); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--blue); background: rgba(61,142,240,0.1); border: 1px solid rgba(61,142,240,0.4); padding: 0.5rem 0.9rem; cursor: pointer; transition: all 0.2s; }
+    .term-copy { font-family: var(--mono); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--blue); background: rgba(74,151,245,0.1); border: 1px solid rgba(74,151,245,0.4); padding: 0.5rem 0.9rem; cursor: pointer; transition: all 0.2s; }
     .term-copy:hover { background: var(--blue); color: #fff; }
     .term-note { font-family: var(--mono); font-size: 0.72rem; color: var(--dim); padding: 0 1.25rem 1rem; }
     .term-note span { color: var(--green); }
 
-    /* LADDER */
-    .ladder { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); border: 1px solid var(--border); margin-top: 2rem; background: var(--bg); }
-    .rung { padding: 2.5rem 2.25rem; border-right: 1px solid var(--border); position: relative; }
-    .rung:last-child { border-right: none; }
-    .rung-num { font-family: var(--head); font-size: 4rem; font-weight: 800; color: rgba(61,142,240,0.14); line-height: 1; margin-bottom: 1rem; }
-    .rung h3 { font-family: var(--head); font-size: 1.5rem; font-weight: 700; color: #dde6f5; margin-bottom: 0.6rem; }
-    .rung p { font-family: var(--mono); font-size: 0.88rem; color: var(--muted); line-height: 1.85; margin-bottom: 1.1rem; }
-    .rung a { font-family: var(--mono); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); text-decoration: none; }
-    .rung a:hover { color: var(--cyan); }
-    .rung.apex { background: linear-gradient(180deg, rgba(201,168,76,0.05), transparent); }
-    .rung.apex .rung-num { color: rgba(201,168,76,0.2); }
+    /* TOOL PHILOSOPHY BAND */
+    .tool-band { border-left: 3px solid var(--blue); padding: 0.5rem 0 0.5rem 2rem; max-width: 74ch; }
+    .tool-band p { font-family: var(--body); font-size: 1.1rem; color: var(--text); line-height: 1.8; margin-bottom: 1rem; }
+    .tool-band p:last-child { margin-bottom: 0; color: var(--muted); font-size: 1rem; }
+    .tool-band strong { color: #fff; font-weight: 600; }
 
-    /* PILLARS (why trust the free thing) */
+    /* PILLARS */
     .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
     .pillar { background: var(--card); border: 1px solid var(--border); border-top: 3px solid var(--blue); padding: 2rem; }
-    .pillar h3 { font-family: var(--head); font-size: 1.35rem; font-weight: 700; color: #dde6f5; margin-bottom: 0.7rem; }
-    .pillar p { font-family: var(--mono); font-size: 0.86rem; color: var(--muted); line-height: 1.85; }
+    .pillar h3 { font-family: var(--head); font-size: 1.4rem; font-weight: 700; color: #eef3fb; margin-bottom: 0.7rem; letter-spacing: 0.01em; }
+    .pillar p { font-family: var(--body); font-size: 0.95rem; color: var(--muted); line-height: 1.7; }
+
+    /* LADDER */
+    .ladder { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); border: 1px solid var(--border); margin-top: 2rem; background: var(--bg); }
+    .rung { padding: 2.5rem 2.25rem; border-right: 1px solid var(--border); }
+    .rung:last-child { border-right: none; }
+    .rung-num { font-family: var(--head); font-size: 3.5rem; font-weight: 800; color: rgba(74,151,245,0.16); line-height: 1; margin-bottom: 0.75rem; }
+    .rung h3 { font-family: var(--head); font-size: 1.5rem; font-weight: 700; color: #eef3fb; margin-bottom: 0.6rem; letter-spacing: 0.01em; }
+    .rung p { font-family: var(--body); font-size: 0.95rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.1rem; }
+    .rung a { font-family: var(--mono); font-size: 0.76rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); text-decoration: none; }
+    .rung a:hover { color: var(--cyan); }
+    .rung.apex { background: linear-gradient(180deg, rgba(201,168,76,0.05), transparent); }
+    .rung.apex .rung-num { color: rgba(201,168,76,0.22); }
 
     /* PRODUCT CARDS */
-    .prod-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.75rem; margin-top: 2rem; }
-    .prod-card { background: var(--card); border: 1px solid var(--border); padding: 2.5rem; display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s; }
+    .prod-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+    .prod-card { background: var(--card); border: 1px solid var(--border); padding: 2.25rem; display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s; }
     .prod-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.3); }
     .prod-card.gov { border-top: 3px solid var(--cyan); }
     .prod-card.ana { border-top: 3px solid var(--gold); }
-    .prod-tag { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 0.9rem; }
+    .prod-card.conv { border-top: 3px solid var(--blue); }
+    .prod-tag { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 0.8rem; }
     .prod-card.gov .prod-tag { color: var(--cyan); }
     .prod-card.ana .prod-tag { color: var(--gold); }
-    .prod-card h3 { font-family: var(--head); font-size: 1.9rem; font-weight: 800; color: #dde6f5; margin-bottom: 0.75rem; }
-    .prod-card > p { font-family: var(--mono); font-size: 0.9rem; color: var(--muted); line-height: 1.9; margin-bottom: 1.25rem; }
-    .prod-proof { background: var(--bg); border: 1px solid var(--border); border-left: 3px solid var(--green); padding: 1.1rem 1.25rem; font-family: var(--mono); font-size: 0.8rem; color: var(--muted); line-height: 1.8; margin-bottom: 1.5rem; }
-    .prod-proof strong { color: var(--green); display: block; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.4rem; }
+    .prod-card.conv .prod-tag { color: var(--blue); }
+    .prod-card h3 { font-family: var(--head); font-size: 1.75rem; font-weight: 800; color: #eef3fb; margin-bottom: 0.65rem; letter-spacing: 0.01em; }
+    .prod-card > p { font-family: var(--body); font-size: 0.95rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.1rem; }
+    .prod-honest { font-family: var(--body); font-size: 0.82rem; color: var(--dim); line-height: 1.6; border-top: 1px solid var(--border); padding-top: 0.9rem; margin-bottom: 1.25rem; font-style: italic; }
     .prod-cta { margin-top: auto; }
+    .prod-cta a { font-family: var(--mono); font-size: 0.76rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; }
+    .prod-card.gov .prod-cta a { color: var(--cyan); }
+    .prod-card.ana .prod-cta a { color: var(--gold); }
+    .prod-card.conv .prod-cta a { color: var(--blue); }
 
-    /* COMPLIANCE STRIP */
-    .reg-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 2rem; }
-    .reg { background: var(--bg2); padding: 1.75rem; }
-    .reg .reg-name { font-family: var(--mono); font-size: 0.78rem; font-weight: 700; color: var(--gold); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.5rem; }
-    .reg p { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); line-height: 1.75; }
-
-    /* APEX / STRATUM PRO */
-    .apex-wrap { background: var(--steel); border: 1px solid var(--border); border-top: 3px solid var(--gold); padding: 3rem; margin-top: 2rem; }
+    /* APEX / PRO */
     .apex-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem; }
     .apex-proof { background: var(--bg); border: 1px solid var(--border); padding: 1.75rem; }
-    .apex-proof .src { font-family: var(--mono); font-size: 0.72rem; color: var(--blue); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 0.75rem; }
-    .apex-proof h4 { font-family: var(--head); font-size: 1.35rem; font-weight: 700; color: #dde6f5; margin-bottom: 0.6rem; }
-    .apex-proof p { font-family: var(--mono); font-size: 0.84rem; color: var(--muted); line-height: 1.85; }
-    .apex-degrade { border-left: 3px solid var(--gold); padding-left: 1.5rem; margin-top: 2rem; font-family: var(--mono); font-size: 0.9rem; color: var(--muted); line-height: 1.9; max-width: 72ch; }
+    .apex-proof .src { font-family: var(--mono); font-size: 0.7rem; color: var(--blue); letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 0.7rem; }
+    .apex-proof h4 { font-family: var(--head); font-size: 1.35rem; font-weight: 700; color: #eef3fb; margin-bottom: 0.55rem; letter-spacing: 0.01em; }
+    .apex-proof p { font-family: var(--body); font-size: 0.9rem; color: var(--muted); line-height: 1.7; }
+    .apex-degrade { border-left: 3px solid var(--gold); padding-left: 1.5rem; margin-top: 2rem; font-family: var(--body); font-size: 1rem; color: var(--muted); line-height: 1.8; max-width: 74ch; }
     .apex-degrade strong { color: var(--gold); }
 
-    /* TRUST STRIP (demoted) */
+    /* TRUST STRIP */
     .trust-strip { display: flex; flex-wrap: wrap; gap: 1.25rem; justify-content: center; padding: 2.5rem 2rem; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--bg2); }
     .trust-item { text-align: center; min-width: 140px; }
     .trust-item .val { font-family: var(--head); font-size: 2rem; font-weight: 800; color: var(--blue); line-height: 1; }
     .trust-item .val.gold { color: var(--gold); }
-    .trust-item .lbl { font-family: var(--mono); font-size: 0.7rem; color: var(--dim); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 0.35rem; }
+    .trust-item .lbl { font-family: var(--mono); font-size: 0.7rem; color: var(--dim); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.35rem; }
 
-    /* LEAD MAGNET */
-    .kit-card { background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--green); padding: 2.5rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; margin-top: 2rem; }
-    .kit-info h3 { font-family: var(--head); font-size: 1.7rem; font-weight: 700; color: #dde6f5; margin-bottom: 0.5rem; }
-    .kit-info p { font-family: var(--mono); font-size: 0.88rem; color: var(--muted); line-height: 1.85; max-width: 58ch; }
-    .kit-free { font-family: var(--mono); font-size: 0.72rem; font-weight: 700; color: var(--green); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; }
+    /* REG STRIP */
+    .reg-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 2rem; }
+    .reg { background: var(--bg2); padding: 1.6rem; }
+    .reg .reg-name { font-family: var(--mono); font-size: 0.76rem; font-weight: 700; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem; }
+    .reg p { font-family: var(--body); font-size: 0.88rem; color: var(--muted); line-height: 1.65; }
+
+    /* REQUEST LINE */
+    .req-line { background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--green); padding: 1.75rem 2rem; margin-top: 2rem; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
+    .req-line p { font-family: var(--body); font-size: 0.98rem; color: var(--muted); line-height: 1.6; max-width: 62ch; }
+    .req-line strong { color: var(--text); }
 
     /* CTA */
     .cta { background: var(--steel); border-top: 1px solid var(--border); text-align: center; padding: 6rem 2rem; position: relative; overflow: hidden; }
-    .cta::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(61,142,240,0.06) 0%, transparent 70%); pointer-events: none; }
-    .cta h2 { font-family: var(--head); font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 800; color: #dde6f5; margin-bottom: 1rem; position: relative; }
-    .cta p { font-family: var(--mono); font-size: 0.95rem; color: var(--muted); max-width: 56ch; margin: 0 auto 2.5rem; line-height: 1.9; position: relative; }
+    .cta::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(74,151,245,0.07) 0%, transparent 70%); pointer-events: none; }
+    .cta h2 { font-family: var(--head); font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 800; color: #eef3fb; margin-bottom: 1rem; position: relative; letter-spacing: 0.01em; }
+    .cta p { font-family: var(--body); font-size: 1.05rem; color: var(--muted); max-width: 56ch; margin: 0 auto 2.5rem; line-height: 1.7; position: relative; }
     .cta-row { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; position: relative; }
 
     @media (max-width: 900px) {
       .rung { border-right: none; border-bottom: 1px solid var(--border); }
       .rung:last-child { border-bottom: none; }
-      .apex-wrap { padding: 2rem 1.5rem; }
     }
     @media (max-width: 680px) {
       .hero { padding: 7rem 1.25rem 4rem; }
       .cta { padding: 4rem 1.25rem; }
       .term-body { flex-direction: column; align-items: flex-start; }
+      .tool-band { padding-left: 1.25rem; }
     }
   </style>
-  <!-- SEO: Open Graph -->
+  <!-- SEO -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://fsmelogic.ca/">
-  <meta property="og:title" content="Offline Predictive Maintenance & Air-Gapped Equipment Audits | FSME Logic">
-  <meta property="og:description" content="Stop unplanned downtime costs before alarms trigger. FSME Logic provides air-gapped, offline predictive maintenance audits for industrial fleets, plus Stratum, a secure-by-construction runtime that bounds untrusted and AI-generated code. No cloud required.">
+  <meta property="og:title" content="Stratum — Run Code You Can't Trust, Safely | FSME Logic">
+  <meta property="og:description" content="A secure-by-construction language and runtime where untrusted or AI-generated code physically cannot exceed the permissions you grant it. Fully offline. Free on PyPI.">
   <meta property="og:image" content="https://fsmelogic.ca/infographic-1.png">
   <meta property="og:site_name" content="FSME Logic">
   <meta property="og:locale" content="en_CA">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Offline Predictive Maintenance & Air-Gapped Equipment Audits | FSME Logic">
-  <meta name="twitter:description" content="Stop unplanned downtime costs before alarms trigger. FSME Logic provides air-gapped, offline predictive maintenance audits for industrial fleets, plus Stratum, a secure-by-construction runtime that bounds untrusted and AI-generated code. No cloud required.">
+  <meta name="twitter:title" content="Stratum — Run Code You Can't Trust, Safely | FSME Logic">
+  <meta name="twitter:description" content="A secure-by-construction language and runtime where untrusted or AI-generated code physically cannot exceed the permissions you grant it. Fully offline. Free on PyPI.">
   <meta name="twitter:image" content="https://fsmelogic.ca/infographic-1.png">
   <link rel="canonical" href="https://fsmelogic.ca/">
   <meta name="robots" content="index, follow">
@@ -156,14 +162,14 @@
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": "FSME Logic",
-    "description": "Predictive integrity audits for industrial and commercial fleet operations. Fully offline, air-gapped analysis conducted in Edmonton. Benchmarked against publicly available NASA, ESA, and IBM quantum datasets — independent research, no affiliation.",
+    "description": "Stratum: a secure-by-construction language and runtime that bounds untrusted and AI-generated code by design. Plus offline, physics-based predictive health analysis. Fully offline, air-gapped, built in Edmonton.",
     "url": "https://fsmelogic.ca",
     "email": "alex-kalyniuk@fsmelogic.ca",
     "founder": { "@type": "Person", "name": "Alexander Kalyniuk" },
     "address": { "@type": "PostalAddress", "addressLocality": "Edmonton", "addressRegion": "AB", "addressCountry": "CA" },
     "areaServed": { "@type": "City", "name": "Edmonton" },
-    "serviceType": ["Predictive Maintenance","Equipment Health Monitoring","Fleet Integrity Audit","Industrial Sensor Analysis","On-site Equipment Audit"],
-    "knowsAbout": ["Predictive maintenance","Equipment failure detection","Industrial fleet monitoring","Aerospace telemetry analysis","Edge hardware deployment","Air-gapped data processing"],
+    "serviceType": ["Secure Runtime","AI Governance","Predictive Maintenance","Equipment Health Analysis","Industrial Sensor Analysis"],
+    "knowsAbout": ["Capability security","Secure-by-construction languages","AI governance","Equipment failure detection","Air-gapped data processing"],
     "sameAs": ["https://github.com/FSMELogic/fsmelogic"]
   }
   </script>
@@ -177,8 +183,6 @@
 </head>
 <body>
 
-<!-- NOTE (phase 2): nav product links point to in-page anchors until stratum.html,
-     governor.html, analyzer.html, and docs.html are built. Switch hrefs then. -->
 <nav>
   <div class="nav-inner">
     <a class="nav-logo" href="index.html">
@@ -186,11 +190,9 @@
       <span class="nav-logo-text">FSME Logic</span>
     </a>
     <ul class="nav-links">
-      <li><a href="#stratum">Stratum</a></li>
-      <li><a href="#governor">Governor</a></li>
-      <li><a href="#analyzer">Analyzer</a></li>
+      <li><a href="#what-is-stratum">Stratum</a></li>
+      <li><a href="#products">Products</a></li>
       <li><a href="store.html">Store</a></li>
-      <li><a href="#install">Docs</a></li>
       <li><a href="contact.html">Contact</a></li>
       <li class="nav-cta"><a href="#install">Install Free</a></li>
     </ul>
@@ -200,15 +202,12 @@
   </div>
   <div class="mobile-menu" id="mobile-menu">
     <a href="#install">Install Free &#9658;</a>
-    <a href="#stratum">Stratum</a>
-    <a href="#governor">Governor</a>
-    <a href="#analyzer">Analyzer</a>
+    <a href="#what-is-stratum">Stratum</a>
+    <a href="#products">Products</a>
     <a href="store.html">Store</a>
     <a href="contact.html">Contact</a>
     <a href="about.html">About</a>
-    <a href="newsroom.html">Newsroom</a>
     <a href="legal.html">Legal &amp; Terms</a>
-    <a href="privacy.html">Privacy Policy</a>
   </div>
 </nav>
 
@@ -216,10 +215,9 @@
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-inner">
-    <p class="hero-eyebrow">Secure-by-Construction Software — Edmonton, Alberta</p>
-    <p style="font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--blue);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.75rem;min-height:1.2em;" id="typeTarget"></p>
+    <p class="hero-eyebrow" id="typeTarget"></p>
     <h1>Run code you<br>can't trust.<br><em>Safely.</em></h1>
-    <p class="hero-sub">Stratum is a programming language and runtime where untrusted or AI-generated code <strong>physically cannot exceed the permissions you grant it</strong>. A built-in detector watches from inside the runtime, where the watched code can't reach it. Fully offline. Nothing phones home.</p>
+    <p class="hero-sub">Stratum is a programming language and runtime where untrusted or AI-generated code <strong>physically cannot exceed the permissions you grant it</strong>. The bound is built into the language, not bolted on as a check that code can argue its way around. Everything runs offline. Nothing phones home.</p>
 
     <div class="term" id="install">
       <div class="term-head">
@@ -230,14 +228,44 @@
         <code class="term-cmd"><span class="ps1">$&nbsp;</span>pip install stratum-lang</code>
         <button class="term-copy" id="copyBtn" aria-label="Copy install command">Copy</button>
       </div>
-      <p class="term-note"><span>&#10003;</span> Free forever &middot; MIT licensed &middot; full language, all engines &middot; live on PyPI</p>
+      <p class="term-note"><span>&#10003;</span> Free forever &middot; MIT licensed &middot; the full language, both engines &middot; live on PyPI</p>
     </div>
 
     <div class="hero-actions">
       <a class="btn btn-primary" href="https://pypi.org/project/stratum-lang/" target="_blank" rel="noopener">Get Stratum Free &#9658;</a>
-      <a class="btn btn-secondary" href="contact.html">Talk to Engineering</a>
+      <a class="btn btn-secondary" href="#what-is-stratum">See what it does</a>
     </div>
-    <p class="hero-microcopy">No sign-up. No approval. No cloud. Python 3 and two minutes.</p>
+    <p class="hero-microcopy">No sign-up. No approval. No cloud. Python 3.13 and two minutes.</p>
+  </div>
+</section>
+
+<!-- WHAT IS STRATUM -->
+<section id="what-is-stratum">
+  <div class="wrap">
+    <p class="section-label">What Stratum Is</p>
+    <h2 class="section-title">A tool, not a <em>promise.</em></h2>
+    <div class="tool-band">
+      <p>A hammer builds a house or breaks a window, and the toolmaker is neither the carpenter nor the vandal. Stratum is the same kind of thing: <strong>a substrate that gives you structural guarantees</strong>, so what you build on top of it is bounded by construction. What you build is yours.</p>
+      <p>So we are precise about what this is. We did not ship "AI safety." We did not ship a "system monitor." We shipped the <strong>language and runtime</strong> that governed gateways, forensic analyzers, and bounded control systems get built on. Below is what the tool actually gives you.</p>
+    </div>
+    <div class="grid-4">
+      <div class="pillar">
+        <h3>Capability security</h3>
+        <p>A program can only do what you grant at startup. A nested call can never gain a permission its caller lacked. These bounds are SMT-proved, not just tested.</p>
+      </div>
+      <div class="pillar">
+        <h3>Rejects tampering at load</h3>
+        <p>Import a vendor module under an empty capability ceiling. A tampered version that declares even one effect outside that ceiling is refused before a single instruction runs.</p>
+      </div>
+      <div class="pillar">
+        <h3>An in-runtime detector</h3>
+        <p>The FSME detector watches from inside the runtime, where the watched code cannot reach or disable it. Sabotage that passes ordinary range checks still gets caught as a structural shift.</p>
+      </div>
+      <div class="pillar">
+        <h3>Byte-identical engines</h3>
+        <p>The same source produces byte-identical output on the interpreter and the WebAssembly engine. The code you audit is exactly the code that runs.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -246,18 +274,18 @@
   <div class="wrap">
     <p class="section-label">The Path</p>
     <h2 class="section-title">Start free. Own a tool.<br>Then <em>build your own.</em></h2>
-    <p class="section-sub">Every FSME Logic product runs on the same engine. You can prove it works for free before a dollar changes hands.</p>
+    <p class="section-sub">Everything here runs on the same engine, so you can prove it works for free before a dollar changes hands.</p>
     <div class="ladder">
       <div class="rung">
         <div class="rung-num">01</div>
         <h3>Try it free</h3>
-        <p>Install Stratum Basic from PyPI. The full secure-by-construction language, capability security, and the standard anomaly detector. MIT licensed, no strings.</p>
-        <a href="#stratum">Why it's trustworthy &#8595;</a>
+        <p>Install Stratum from PyPI. The full secure-by-construction language, capability security, and the standard detector. MIT licensed, no strings.</p>
+        <a href="#install">Install &#8593;</a>
       </div>
       <div class="rung">
         <div class="rung-num">02</div>
         <h3>Own a working tool</h3>
-        <p>Governor gates every answer a local AI gives, offline, with a signed record. The Health Analyzer turns recorded sensor data into a signed, tamper-evident forensic report.</p>
+        <p>Three things we built on Stratum: a governance gateway for local AI, a forensic health analyzer, and an offline data converter. Real tools, not reports.</p>
         <a href="#products">See the products &#8595;</a>
       </div>
       <div class="rung apex">
@@ -270,134 +298,91 @@
   </div>
 </section>
 
-<!-- WHY TRUST THE FREE THING -->
-<section id="stratum">
+<!-- PRODUCTS -->
+<section id="products">
   <div class="wrap">
-    <p class="section-label">The Foundation</p>
-    <h2 class="section-title">Security you can <em>verify,</em><br>not security you're promised.</h2>
-    <p class="section-sub">Every guarantee in Stratum is structural. It doesn't ask untrusted code to behave; it removes the ability to misbehave.</p>
-    <div class="grid-4">
-      <div class="pillar">
-        <h3>Capability security</h3>
-        <p>A program can only do what you grant at start. A nested call can never gain a permission its caller lacked. Bounds are SMT-proved, not just tested.</p>
-      </div>
-      <div class="pillar">
-        <h3>Rejects trojans at load</h3>
-        <p>Import a vendor module under an empty capability ceiling. If a tampered version declares one effect outside that ceiling, it's refused before a single instruction runs.</p>
-      </div>
-      <div class="pillar">
-        <h3>A detector code can't touch</h3>
-        <p>The FSME anomaly detector runs inside the runtime, where application code cannot reach or disable it. Sabotage that passes range checks still gets caught.</p>
-      </div>
-      <div class="pillar">
-        <h3>Byte-identical engines</h3>
-        <p>The same source produces byte-identical output on the interpreter and the WebAssembly engine. The code you audit is exactly the code you run.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- THE TWO WORKING PRODUCTS -->
-<section class="bg-alt" id="products">
-  <div class="wrap">
-    <p class="section-label">Working Products</p>
-    <h2 class="section-title">Two tools you can own <em>today.</em></h2>
-    <p class="section-sub">Both are built on Stratum. Both run entirely on your hardware. Nothing you feed them ever leaves your building.</p>
+    <p class="section-label">Built On Stratum</p>
+    <h2 class="section-title">Three tools you can own <em>today.</em></h2>
+    <p class="section-sub">Each one runs entirely on your hardware. Nothing you feed them ever leaves your building. We describe each honestly, including what it is not.</p>
     <div class="prod-grid">
-      <div class="prod-card gov" id="governor">
+
+      <div class="prod-card gov">
         <p class="prod-tag">AI Governance &middot; Offline</p>
-        <h3>Stratum Governance Gateway</h3>
-        <p>A customs gate for your local AI. Every request and every answer passes through it on your own machine, gets allowed or blocked by deterministic rules, and walks away with an Ed25519-signed, tamper-evident record. Point your app at it with a one-line change; it speaks the same API as OpenAI and sits in front of any agent stack.</p>
-        <div class="prod-proof">
-          <strong>Proof, not promise</strong>
-          Simulated a fully jailbroken model behind the gate: the deterministic screens still blocked the output. Dangerous output isn't argued with. It's structurally unable to leave.
-        </div>
-        <div class="prod-cta"><a class="btn btn-secondary" href="contact.html">Contact Engineering &#9658;</a></div>
+        <h3>Governor</h3>
+        <p>A gateway that sits in front of a local AI. Every request and answer passes through it on your machine, is allowed or blocked by deterministic rules, and leaves with an Ed25519-signed record. Refusals are structural, enforced by capability, not by a filter a clever prompt can talk around.</p>
+        <p class="prod-honest">What it is not: a guarantee that a model is "safe." It bounds what the model can do and proves what it did. The judgment of what to allow is yours, written as rules you own.</p>
+        <div class="prod-cta"><a href="store.html#governor">Learn more &#9658;</a></div>
       </div>
-      <div class="prod-card ana" id="analyzer">
-        <p class="prod-tag">Predictive Maintenance &middot; Offline</p>
+
+      <div class="prod-card ana">
+        <p class="prod-tag">Predictive Health &middot; Offline</p>
         <h3>FSME Health Analyzer</h3>
-        <p>Drop in a CSV of recorded sensor data. Get back a cryptographically signed, tamper-evident report showing where and how early a machine began to degrade, and how much warning you would have had. After-the-fact, advisory analysis on your own PC. Nothing is uploaded, ever.</p>
-        <div class="prod-proof">
-          <strong>The differentiator</strong>
-          Every report carries an Ed25519 signature. Change one character after the fact and verification fails. A genuine chain-of-custody artifact for maintenance disputes, insurers, and regulators.
-        </div>
-        <div class="prod-cta"><a class="btn btn-secondary" href="contact.html">Contact Engineering &#9658;</a></div>
+        <p>Drop in a CSV of recorded sensor data. Get back a signed, tamper-evident report of where a machine began to structurally degrade and how early it was detectable. It reads the history your sensors already logged and finds the early signal a threshold alarm misses.</p>
+        <p class="prod-honest">What it is not: a live monitor or a safety device. It is after-the-fact and advisory: it analyzes data you already recorded, it does not watch your equipment in real time.</p>
+        <div class="prod-cta"><a href="store.html#analyzer">Learn more &#9658;</a></div>
       </div>
+
+      <div class="prod-card conv">
+        <p class="prod-tag">Data Utility &middot; Offline</p>
+        <h3>Data Ingestion Client</h3>
+        <p>Converts massive industrial telemetry files (.tdms, .h5, .nc, .mat) into clean, audit-ready CSV, out-of-memory, with a SHA-256 hash on every output. No Python install, no cloud. It removes the days of fragile parsing scripts before any analysis.</p>
+        <p class="prod-honest">The one product here you can buy and download right now, self-serve. The rest are scoped to your deployment.</p>
+        <div class="prod-cta"><a href="store.html#desktop-client">Buy or learn more &#9658;</a></div>
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- COMPLIANCE / ROI STRIP (credibility, not the headline) -->
-<section>
-  <div class="wrap" style="padding-top:4rem;padding-bottom:4rem;">
-    <p class="section-label">Why It Pays</p>
-    <h2 class="section-title" style="font-size:clamp(1.8rem,4vw,2.6rem);">Regulators now demand what<br>this software <em>produces by default.</em></h2>
-    <div class="reg-strip">
-      <div class="reg">
-        <p class="reg-name">EU AI Act &middot; Art. 12</p>
-        <p>Tamper-evident, lifetime logging of high-risk AI systems. Binding August 2, 2026. Signed records are Governor's native output.</p>
-      </div>
-      <div class="reg">
-        <p class="reg-name">NIS2</p>
-        <p>Supply-chain security obligations for critical-sector operators. Bounding untrusted vendor code is what Stratum does structurally.</p>
-      </div>
-      <div class="reg">
-        <p class="reg-name">Canada CCSPA</p>
-        <p>Cyber security for critical infrastructure, with penalties that scale by the day. Air-gapped operation keeps your data your own.</p>
-      </div>
-      <div class="reg">
-        <p class="reg-name">FDA 524B &middot; EU CRA</p>
-        <p>Software provenance and integrity evidence for devices. Ed25519 attestation gives every module a verifiable origin.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- THE APEX: STRATUM PRO -->
+<!-- APEX: STRATUM PRO -->
 <section class="bg-alt" id="pro">
   <div class="wrap">
-    <p class="section-label">The Apex</p>
+    <p class="section-label">The Flagship</p>
     <h2 class="section-title">Stratum <em>Pro.</em><br>Build your own governed systems.</h2>
-    <p class="section-sub">When your prototype graduates to production, Pro adds what enterprises are required to have: cryptographic identity and attestation, the high-precision detection kernel, fleet licensing, and a vendor who signs an SLA.</p>
+    <p class="section-sub">When a prototype graduates to production, Pro adds what regulated buyers are required to have: cryptographic identity and attestation, the high-precision detection kernel, fleet licensing, and a vendor who signs an SLA. These two artifacts are what make "build your own" believable rather than a claim.</p>
     <div class="apex-grid">
       <div class="apex-proof">
         <p class="src">Proof Artifact 01</p>
         <h4>The water-treatment gateway</h4>
-        <p>A dosing gateway embeds an unaudited third-party module under an empty capability ceiling. The trojaned twin is rejected at load. Sabotage that passes range validation is caught by the runtime detector, and the actor quarantines itself. One command, PASS/FAIL, runnable on your machine.</p>
+        <p>A dosing gateway embeds an unaudited third-party module under an empty capability ceiling. The trojaned twin is rejected at load. Sabotage that passes range validation is caught by the runtime detector, and the actor quarantines itself. One command, PASS or FAIL, runnable on your own machine.</p>
       </div>
       <div class="apex-proof">
         <p class="src">Proof Artifact 02</p>
-        <h4>The SAGE Guardian logs</h4>
-        <p>Verbatim transcripts of a governed AI refusing logic-trap and emotional-coercion jailbreaks, with deterministic, Ed25519-sealed reasoning: the same input produces the identical signed seal, twice. Including one honest red-team find, and the structural gate that closed it.</p>
+        <h4>The Guardian jailbreak logs</h4>
+        <p>Verbatim transcripts of a governed model refusing logic-trap and coercion jailbreaks, with deterministic, Ed25519-sealed reasoning: the same input produces the identical signed seal twice. Including one honest red-team find and the structural gate that closed it.</p>
       </div>
     </div>
-    <p class="apex-degrade"><strong>No key-person risk.</strong> The same source compiles unchanged on the free and paid tiers. If a Pro license lapses, or the vendor disappears tomorrow, your system degrades cleanly to MIT-licensed Stratum Basic and keeps running. Your plant never depends on our uptime, or on us existing.</p>
+    <p class="apex-degrade"><strong>No key-person risk.</strong> The same source compiles unchanged on the free and paid tiers. If a Pro license lapses, or the vendor disappears tomorrow, your system degrades cleanly to MIT-licensed Stratum and keeps running. Your plant never depends on our uptime, or on us existing.</p>
     <div style="margin-top:2.5rem;">
       <a class="btn btn-primary" href="contact.html">Scope a Pro Deployment &#9658;</a>
     </div>
   </div>
 </section>
 
-<!-- TRUST STRIP (demoted, small) -->
+<!-- TRUST STRIP -->
 <div class="trust-strip">
   <div class="trust-item"><div class="val"><span class="count-up" data-target="194">0</span></div><div class="lbl">Automated tests</div></div>
   <div class="trust-item"><div class="val"><span class="count-up" data-target="16">0</span>/16</div><div class="lbl">Pentests stopped</div></div>
-  <div class="trust-item"><div class="val"><span class="count-up" data-target="3">0</span></div><div class="lbl">Engines, byte-identical</div></div>
+  <div class="trust-item"><div class="val"><span class="count-up" data-target="2">0</span></div><div class="lbl">Engines, byte-identical</div></div>
   <div class="trust-item"><div class="val gold">100%</div><div class="lbl">Offline. Always.</div></div>
 </div>
 
-<!-- FREE LEAD MAGNET -->
+<!-- COMPLIANCE STRIP -->
 <section>
   <div class="wrap" style="padding-top:4rem;padding-bottom:4rem;">
-    <p class="section-label">Free Resource</p>
-    <div class="kit-card">
-      <div class="kit-info">
-        <p class="kit-free">Free download</p>
-        <h3>Engineering Procurement Kit</h3>
-        <p>The collateral your internal champion needs: the methodology white paper, data-readiness checklist, and the downtime cost framing to justify the purchase upstairs.</p>
-      </div>
-      <a class="btn btn-primary" href="store.html">Get the Kit &#9658;</a>
+    <p class="section-label">Why It Pays</p>
+    <h2 class="section-title" style="font-size:clamp(1.8rem,4vw,2.6rem);">Regulators now demand what<br>this software <em>produces by default.</em></h2>
+    <div class="reg-strip">
+      <div class="reg"><p class="reg-name">EU AI Act &middot; Art. 12</p><p>Tamper-evident, lifetime logging of high-risk AI systems, binding August 2, 2026. Signed records are Governor's native output.</p></div>
+      <div class="reg"><p class="reg-name">NIS2</p><p>Supply-chain security duties for critical-sector operators. Bounding untrusted vendor code is what Stratum does structurally.</p></div>
+      <div class="reg"><p class="reg-name">Canada CCSPA</p><p>Cyber security for critical infrastructure, penalties that scale by the day. Air-gapped operation keeps your data your own.</p></div>
+      <div class="reg"><p class="reg-name">FDA 524B &middot; EU CRA</p><p>Software provenance and integrity evidence for devices. Ed25519 attestation gives every module a verifiable origin.</p></div>
+    </div>
+
+    <!-- REQUEST LINE -->
+    <div class="req-line">
+      <p><strong>Evaluating internally?</strong> The Engineering Procurement Kit and the FSME Methodology Whitepaper are available on request, the collateral your team needs to justify a deployment upstairs.</p>
+      <a class="btn btn-secondary" href="contact.html">Request it &#9658;</a>
     </div>
   </div>
 </section>
@@ -405,7 +390,7 @@
 <!-- FINAL CTA -->
 <section class="cta">
   <h2>Install it before<br>you believe it.</h2>
-  <p>The free tier is the full language. Run the demos, try to break the sandbox, then talk to us when it's time to ship.</p>
+  <p>The free tier is the full language. Run the demos, try to break the sandbox, then talk to us when it is time to ship.</p>
   <div class="cta-row">
     <a class="btn btn-primary" href="https://pypi.org/project/stratum-lang/" target="_blank" rel="noopener">pip install stratum-lang</a>
     <a class="btn btn-secondary" href="contact.html">Contact Engineering</a>
@@ -419,17 +404,11 @@
       <a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a>
     </div>
     <div class="foot-right">
-      <a href="case-studies.html">Validation</a>
-      <a href="about.html">About</a>
-      <a href="faq.html">FAQ</a>
-      <a href="contact.html">Contact</a>
-      <a href="privacy.html">Privacy</a>
-    </div>
-    <div class="foot-right" style="margin-top:0.5rem;">
+      <a href="#what-is-stratum">Stratum</a>
       <a href="store.html">Store</a>
-      <a href="legal.html">Legal &amp; Terms</a>
-      <a href="newsroom.html">Newsroom</a>
-      <a href="case-studies.html#reports">Validation Reports</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="legal.html">Legal</a>
     </div>
     <div class="foot-social">
       <a href="https://x.com/FsmeLogic" target="_blank" rel="noopener" aria-label="X / Twitter">
@@ -447,12 +426,11 @@
 
 <!-- COOKIE BANNER -->
 <div id="cookie-banner">
-  <p>This site uses Google Analytics and Google Ads to measure site performance. We do not sell your data. <a href="privacy.html">Privacy Policy</a></p>
+  <p>This site uses Google Analytics and Google Ads to measure site performance. We do not sell your data. <a href="legal.html#privacy">Privacy Policy</a></p>
   <button onclick="acceptCookies()">Accept</button>
 </div>
 
 <script>
-  // Cookie banner — show once
   (function() {
     if (!localStorage.getItem('fsme_cookies_ok')) {
       document.getElementById('cookie-banner').style.display = 'flex';
@@ -463,7 +441,7 @@
     document.getElementById('cookie-banner').style.display = 'none';
   }
 
-  // ── COPY INSTALL COMMAND ────────────────────────────────────────────
+  // Copy install command
   (function() {
     var btn = document.getElementById('copyBtn');
     if (!btn) return;
@@ -472,38 +450,36 @@
         btn.textContent = 'Copied ✓';
         gtag('event', 'copy_install_command', { 'event_category': 'engagement' });
         setTimeout(function() { btn.textContent = 'Copy'; }, 2000);
-      }).catch(function() {
-        btn.textContent = 'pip install stratum-lang';
-      });
+      }).catch(function() { btn.textContent = 'pip install stratum-lang'; });
     });
   })();
 
-  // ── TYPEWRITER ──────────────────────────────────────────────────────
+  // Typewriter eyebrow
   (function() {
     var phrases = [
+      'SECURE-BY-CONSTRUCTION SOFTWARE — EDMONTON, ALBERTA',
       'UNTRUSTED CODE, BOUNDED BY CONSTRUCTION.',
-      'EVERY GUARANTEE IS STRUCTURAL. NOT A PROMISE.',
+      'EVERY GUARANTEE IS STRUCTURAL, NOT A PROMISE.',
       'NO CLOUD. NO PHONE HOME. NO COMPROMISE.',
-      'SIGNED, TAMPER-EVIDENT, VERIFIABLE OFFLINE.',
     ];
-    var idx = 0, ch = 0, typing = true, tmr;
+    var idx = 0, ch = 0, typing = true;
     function tick() {
       var el = document.getElementById('typeTarget');
       if (!el) return;
       var p = phrases[idx];
       if (typing) {
         el.textContent = p.substring(0, ++ch);
-        if (ch === p.length) { typing = false; tmr = setTimeout(tick, 2000); return; }
+        if (ch === p.length) { typing = false; setTimeout(tick, 2200); return; }
       } else {
         el.textContent = p.substring(0, --ch);
         if (ch === 0) { typing = true; idx = (idx + 1) % phrases.length; }
       }
-      tmr = setTimeout(tick, typing ? 50 : 25);
+      setTimeout(tick, typing ? 45 : 20);
     }
     tick();
   })();
 
-  // ── ANIMATED COUNTERS (Intersection Observer) ─────────────────────
+  // Animated counters
   (function() {
     var counters = document.querySelectorAll('.count-up');
     if (!counters.length) return;
@@ -512,19 +488,12 @@
         if (!e.isIntersecting) return;
         var el = e.target;
         var target = parseInt(el.dataset.target);
-        var isDecimal = el.dataset.decimal === 'true';
-        var suffix = el.dataset.suffix || '';
-        if (target === 0) { el.textContent = '0' + suffix; return; }
-        var n = 0, steps = 60;
-        var step = target / steps;
-        var tick = setInterval(function() {
+        if (target === 0) { el.textContent = '0'; return; }
+        var n = 0, step = target / 60;
+        var t = setInterval(function() {
           n = Math.min(n + step, target);
-          if (isDecimal) {
-            el.textContent = (n / 10).toFixed(1) + suffix;
-          } else {
-            el.textContent = Math.round(n) + suffix;
-          }
-          if (n >= target) clearInterval(tick);
+          el.textContent = Math.round(n);
+          if (n >= target) clearInterval(t);
         }, 22);
         obs.unobserve(el);
       });
@@ -532,7 +501,7 @@
     counters.forEach(function(c) { obs.observe(c); });
   })();
 
-  // Hamburger menu with ARIA
+  // Hamburger
   (function() {
     var btn = document.getElementById('hamburger');
     var menu = document.getElementById('mobile-menu');
@@ -543,7 +512,6 @@
         btn.classList.toggle('open');
         menu.classList.toggle('open');
       });
-      // Close mobile menu when an in-page anchor is tapped
       menu.querySelectorAll('a[href^="#"]').forEach(function(a) {
         a.addEventListener('click', function() {
           btn.setAttribute('aria-expanded', 'false');

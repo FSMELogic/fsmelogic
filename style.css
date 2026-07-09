@@ -1,14 +1,17 @@
 /* ============================================================
    FSME Logic — Universal Stylesheet
-   Last updated: March 2026
+   Readability rebuild 2026-07-09:
+   - Body copy now IBM Plex Sans (was IBM Plex Mono). Mono kept ONLY for
+     the terminal, code, labels, prices, and nav — where fixed width earns
+     its keep. Long prose in mono is what made the site hard to read.
+   - Contrast lifted to clear WCAG AA on the dark steel palette.
+   - Palette hues preserved for brand recognition with the product GUIs.
    ============================================================ */
 
 /* RESET */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* VARIABLES — readability pass 2026-07: body copy (--muted) lifted to #aab8d0
-   for comfortable long-form reading; --dim stays #8a9bb8 (still WCAG AA on --bg)
-   and is reserved for true de-emphasis only. */
+/* VARIABLES — steel/matte-grey + blue, contrast-corrected */
 :root {
   --bg:     #0e1118;
   --bg2:    #141822;
@@ -16,17 +19,18 @@
   --steel:  #1c2438;
   --border: #242e42;
   --bord2:  #2e3a52;
-  --blue:   #3d8ef0;
-  --blue2:  #2d6fd0;
+  --blue:   #4a97f5;   /* accent / links */
+  --blue2:  #2d6fd0;   /* deeper fills, hovers */
   --cyan:   #5bb8d4;
   --gold:   #c9a84c;
-  --green:  #3db87a;
+  --green:  #45c07f;
   --red:    #e05252;
-  --text:   #d3ddef;
-  --muted:  #aab8d0;
-  --dim:    #8a9bb8;
-  --head:   'Barlow Condensed', sans-serif;
-  --mono:   'IBM Plex Mono', monospace;
+  --text:   #dbe4f2;   /* primary body */
+  --muted:  #aab8d0;   /* secondary prose (AA on --bg) */
+  --dim:    #8a9bb8;   /* de-emphasis only */
+  --head:   'Barlow Condensed', 'Arial Narrow', sans-serif;
+  --body:   'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --mono:   'IBM Plex Mono', 'Consolas', 'Courier New', monospace;
 }
 
 html { scroll-behavior: smooth; }
@@ -34,24 +38,25 @@ html { scroll-behavior: smooth; }
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: var(--mono);
+  font-family: var(--body);
   font-size: 16px;
-  line-height: 1.7;
+  line-height: 1.75;
   min-height: 100vh;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* GRID BACKGROUND */
+/* GRID BACKGROUND (kept, softened) */
 body::before {
   content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
   background-image:
-    linear-gradient(rgba(61,142,240,0.018) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(61,142,240,0.018) 1px, transparent 1px);
+    linear-gradient(rgba(74,151,245,0.016) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(74,151,245,0.016) 1px, transparent 1px);
   background-size: 52px 52px;
 }
 body::after {
   content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
-  background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.04) 3px, rgba(0,0,0,0.04) 4px);
+  background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.035) 3px, rgba(0,0,0,0.035) 4px);
 }
 
 /* ============================================================
@@ -62,7 +67,7 @@ nav {
   background: rgba(8,10,16,0.96);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
-  box-shadow: 0 1px 0 rgba(61,142,240,0.12);
+  box-shadow: 0 1px 0 rgba(74,151,245,0.12);
 }
 .nav-inner {
   max-width: 1200px; margin: 0 auto;
@@ -79,9 +84,9 @@ nav {
   text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase;
   padding: 0.45rem 0.9rem; transition: color 0.2s, background 0.2s;
 }
-.nav-links a:hover, .nav-links a.active { color: var(--blue); background: rgba(61,142,240,0.08); }
+.nav-links a:hover, .nav-links a.active { color: var(--blue); background: rgba(74,151,245,0.08); }
 .nav-links .nav-cta a {
-  color: var(--blue); border: 1px solid rgba(61,142,240,0.5); padding: 0.45rem 1rem;
+  color: var(--blue); border: 1px solid rgba(74,151,245,0.5); padding: 0.45rem 1rem;
 }
 .nav-links .nav-cta a:hover { background: var(--blue); color: #fff; }
 
@@ -109,10 +114,7 @@ nav {
   padding: 0.85rem 0; border-bottom: 1px solid var(--border); transition: color 0.2s;
 }
 .mobile-menu a:hover { color: var(--blue); }
-/* First link = Request Audit (highlighted blue, no border at bottom) */
-.mobile-menu a:first-child {
-  color: var(--blue); font-weight: 700; border-bottom: 1px solid var(--border);
-}
+.mobile-menu a:first-child { color: var(--blue); font-weight: 700; }
 .mobile-menu a:last-child { border-bottom: none; }
 
 /* ============================================================
@@ -130,13 +132,14 @@ section, .wrap { position: relative; z-index: 1; }
 
 .section-title {
   font-family: var(--head); font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 800; color: #dde6f5; line-height: 1.05; margin-bottom: 1.25rem;
+  font-weight: 800; color: #eef3fb; line-height: 1.05; margin-bottom: 1.25rem;
+  letter-spacing: 0.01em;
 }
 .section-title em { font-style: normal; color: var(--blue); }
 
 .section-sub {
-  font-family: var(--mono); font-size: 1rem; color: var(--muted);
-  max-width: 66ch; line-height: 1.9; margin-bottom: 3rem;
+  font-family: var(--body); font-size: 1.05rem; color: var(--muted);
+  max-width: 68ch; line-height: 1.8; margin-bottom: 3rem;
 }
 
 .bg-alt {
@@ -153,12 +156,12 @@ section, .wrap { position: relative; z-index: 1; }
   letter-spacing: 0.1em; text-transform: uppercase;
   padding: 1rem 2rem; text-decoration: none;
   display: inline-flex; align-items: center; gap: 0.6rem;
-  transition: all 0.2s;
+  transition: all 0.2s; cursor: pointer;
 }
 .btn-primary { background: var(--blue); color: #fff; border: 2px solid var(--blue); }
 .btn-primary:hover {
   background: var(--blue2); border-color: var(--blue2);
-  transform: translateY(-2px); box-shadow: 0 8px 24px rgba(61,142,240,0.3);
+  transform: translateY(-2px); box-shadow: 0 8px 24px rgba(74,151,245,0.3);
 }
 .btn-secondary { background: transparent; color: var(--text); border: 2px solid var(--bord2); }
 .btn-secondary:hover { border-color: var(--blue); color: var(--blue); }
@@ -172,7 +175,7 @@ footer { background: #080a10; border-top: 1px solid var(--border); padding: 2.5r
   display: flex; justify-content: space-between; align-items: flex-start;
   flex-wrap: wrap; gap: 1.25rem;
 }
-.foot-left { font-family: var(--mono); font-size: 0.77rem; color: var(--dim); line-height: 1.8; }
+.foot-left { font-family: var(--body); font-size: 0.85rem; color: var(--muted); line-height: 1.8; }
 .foot-left a { color: var(--blue); text-decoration: none; }
 .foot-right { display: flex; gap: 1.5rem; flex-wrap: wrap; }
 .foot-right a {
@@ -186,33 +189,23 @@ footer { background: #080a10; border-top: 1px solid var(--border); padding: 2.5r
 .foot-social a:hover { color: var(--blue); }
 
 /* ============================================================
-   TABLE WCAG FIX
+   TABLE
    ============================================================ */
 .tbl-wrap { overflow-x: auto; margin-top: 2rem; }
 table { width: 100%; border-collapse: collapse; }
 th {
   font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.12em;
   text-transform: uppercase; padding: 1rem 1.25rem; text-align: left;
-  border-bottom: 2px solid var(--border);
+  border-bottom: 2px solid var(--border); color: var(--muted);
 }
-th:first-child { color: var(--dim); }
-th:nth-child(2) { color: var(--muted); }
-th:last-child { color: var(--blue); background: rgba(61,142,240,0.06); }
+th:last-child { color: var(--blue); background: rgba(74,151,245,0.06); }
 td {
-  font-family: var(--mono); font-size: 0.84rem; color: var(--muted);
+  font-family: var(--body); font-size: 0.95rem; color: var(--muted);
   padding: 1rem 1.25rem; border-bottom: 1px solid var(--border); vertical-align: middle;
 }
-td:first-child { color: var(--text); font-weight: 500; }
-td:last-child { background: rgba(61,142,240,0.04); color: var(--text); }
+td:first-child { color: var(--text); font-weight: 600; }
+td:last-child { background: rgba(74,151,245,0.04); color: var(--text); }
 tr:last-child td { border-bottom: none; }
-.tag-bad {
-  display: inline-block; font-size: 0.78rem; padding: 0.2rem 0.55rem;
-  background: rgba(180,60,60,0.14); color: #e08080; border: 1px solid rgba(180,60,60,0.28);
-}
-.tag-good {
-  display: inline-block; font-size: 0.78rem; padding: 0.2rem 0.55rem;
-  background: rgba(61,142,240,0.12); color: var(--blue); border: 1px solid rgba(61,142,240,0.3);
-}
 
 /* ============================================================
    COOKIE BANNER
@@ -227,8 +220,8 @@ tr:last-child td { border-bottom: none; }
   box-shadow: 0 -4px 24px rgba(0,0,0,0.4);
 }
 #cookie-banner p {
-  font-family: var(--mono); font-size: 0.8rem; color: var(--muted);
-  max-width: 700px; line-height: 1.7; flex: 1;
+  font-family: var(--body); font-size: 0.88rem; color: var(--muted);
+  max-width: 720px; line-height: 1.6; flex: 1;
 }
 #cookie-banner a { color: var(--blue); text-decoration: none; }
 #cookie-banner button {
@@ -236,8 +229,7 @@ tr:last-child td { border-bottom: none; }
   font-family: var(--mono); font-size: 0.78rem; font-weight: 700;
   letter-spacing: 0.08em; text-transform: uppercase;
   padding: 0.65rem 1.5rem; border: none; cursor: pointer;
-  transition: background 0.2s;
-  white-space: nowrap;
+  transition: background 0.2s; white-space: nowrap;
 }
 #cookie-banner button:hover { background: var(--blue2); }
 
@@ -259,7 +251,7 @@ tr:last-child td { border-bottom: none; }
 }
 
 /* ============================================================
-   DESKTOP "MORE" DROPDOWN
+   DESKTOP "MORE" DROPDOWN (retained for legacy pages)
    ============================================================ */
 .nav-more { position: relative; }
 .nav-more-btn {
@@ -285,4 +277,4 @@ tr:last-child td { border-bottom: none; }
   border-bottom: 1px solid var(--border); transition: color 0.2s, background 0.2s;
 }
 .nav-dropdown li:last-child a { border-bottom: none; }
-.nav-dropdown li a:hover { color: var(--blue); background: rgba(61,142,240,0.08); }
+.nav-dropdown li a:hover { color: var(--blue); background: rgba(74,151,245,0.08); }
