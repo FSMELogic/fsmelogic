@@ -30,97 +30,106 @@
     .hero-inner { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; width: 100%; }
     .hero-eyebrow { font-family: var(--mono); font-size: 0.75rem; color: var(--blue); letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; animation: fadeUp 0.5s ease both; }
     .hero-eyebrow::before { content: '▸'; }
-    .hero h1 { font-family: var(--head); font-size: clamp(3.2rem, 9vw, 7rem); font-weight: 800; line-height: 0.93; color: #dde6f5; margin-bottom: 2rem; animation: fadeUp 0.5s 0.1s ease both; }
+    .hero h1 { font-family: var(--head); font-size: clamp(3rem, 8.5vw, 6.5rem); font-weight: 800; line-height: 0.95; color: #dde6f5; margin-bottom: 1.75rem; animation: fadeUp 0.5s 0.1s ease both; }
     .hero h1 em { font-style: normal; color: var(--blue); }
     .hero h1 .dim { color: var(--muted); }
-    .hero-quote { font-family: var(--mono); font-size: clamp(0.9rem, 1.8vw, 1.1rem); color: var(--muted); max-width: 640px; line-height: 1.9; border-left: 3px solid var(--blue); padding-left: 1.5rem; margin-bottom: 2.5rem; animation: fadeUp 0.5s 0.2s ease both; }
-    .hero-quote strong { color: var(--text); display: block; margin-top: 0.75rem; font-size: 0.78rem; letter-spacing: 0.06em; }
-    .hero-stats { display: flex; flex-wrap: wrap; gap: 1.25rem; margin-bottom: 2.5rem; animation: fadeUp 0.5s 0.3s ease both; }
-    .hero-stat { background: var(--card); border: 1px solid var(--border); border-top: 2px solid var(--blue); padding: 1.25rem 1.75rem; min-width: 150px; }
-    .hero-stat .val { font-family: var(--head); font-size: 2.8rem; font-weight: 800; color: var(--blue); line-height: 1; }
-    .hero-stat .val.gold { color: var(--gold); }
-    .hero-stat .lbl { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.3rem; line-height: 1.5; }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 1rem; animation: fadeUp 0.5s 0.4s ease both; margin-bottom: 0.75rem; }
-    .hero-microcopy { font-family: var(--mono); font-size: 0.75rem; color: var(--dim); animation: fadeUp 0.5s 0.5s ease both; letter-spacing: 0.04em; }
+    .hero-sub { font-family: var(--mono); font-size: clamp(0.95rem, 1.8vw, 1.1rem); color: var(--muted); max-width: 62ch; line-height: 1.9; margin-bottom: 2.25rem; animation: fadeUp 0.5s 0.2s ease both; }
+    .hero-sub strong { color: var(--text); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; animation: fadeUp 0.5s 0.4s ease both; margin-bottom: 1rem; }
+    .hero-microcopy { font-family: var(--mono); font-size: 0.78rem; color: var(--dim); animation: fadeUp 0.5s 0.5s ease both; letter-spacing: 0.04em; }
 
-    /* PROBLEM */
-    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
-    .prob-card { background: var(--bg); border: 1px solid var(--border); border-left: 3px solid var(--bord2); padding: 2rem; }
-    .prob-card h3 { font-family: var(--head); font-size: 1.4rem; font-weight: 700; color: #dde6f5; margin-bottom: 0.75rem; }
-    .prob-card p { font-family: var(--mono); font-size: 0.87rem; color: var(--muted); line-height: 1.85; }
+    /* TERMINAL BLOCK */
+    .term { background: #080a10; border: 1px solid var(--bord2); border-top: 2px solid var(--blue); max-width: 620px; margin-bottom: 2.25rem; animation: fadeUp 0.5s 0.3s ease both; box-shadow: 0 12px 40px rgba(0,0,0,0.45); }
+    .term-head { display: flex; align-items: center; gap: 6px; padding: 0.65rem 1rem; border-bottom: 1px solid var(--border); }
+    .term-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--border); }
+    .term-dot.r { background: rgba(224,82,82,0.55); } .term-dot.y { background: rgba(201,168,76,0.55); } .term-dot.g { background: rgba(61,184,122,0.55); }
+    .term-title { font-family: var(--mono); font-size: 0.68rem; color: var(--dim); letter-spacing: 0.1em; margin-left: 0.5rem; text-transform: uppercase; }
+    .term-body { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.15rem 1.25rem; flex-wrap: wrap; }
+    .term-cmd { font-family: var(--mono); font-size: clamp(0.9rem, 2.2vw, 1.05rem); color: var(--text); }
+    .term-cmd .ps1 { color: var(--green); user-select: none; }
+    .term-copy { font-family: var(--mono); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--blue); background: rgba(61,142,240,0.1); border: 1px solid rgba(61,142,240,0.4); padding: 0.5rem 0.9rem; cursor: pointer; transition: all 0.2s; }
+    .term-copy:hover { background: var(--blue); color: #fff; }
+    .term-note { font-family: var(--mono); font-size: 0.72rem; color: var(--dim); padding: 0 1.25rem 1rem; }
+    .term-note span { color: var(--green); }
 
-    /* WHAT WE DO */
-    .grid-3-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 1.5rem; }
-    .what-card { background: var(--card); border: 1px solid var(--border); border-top: 3px solid var(--blue); padding: 2.25rem; transition: transform 0.2s, box-shadow 0.2s; }
-    .what-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.3); }
-    .what-icon { font-size: 1.7rem; margin-bottom: 1.1rem; }
-    .what-card h3 { font-family: var(--head); font-size: 1.45rem; font-weight: 700; color: #dde6f5; margin-bottom: 0.7rem; }
-    .what-card p { font-family: var(--mono); font-size: 0.86rem; color: var(--muted); line-height: 1.85; }
+    /* LADDER */
+    .ladder { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); border: 1px solid var(--border); margin-top: 2rem; background: var(--bg); }
+    .rung { padding: 2.5rem 2.25rem; border-right: 1px solid var(--border); position: relative; }
+    .rung:last-child { border-right: none; }
+    .rung-num { font-family: var(--head); font-size: 4rem; font-weight: 800; color: rgba(61,142,240,0.14); line-height: 1; margin-bottom: 1rem; }
+    .rung h3 { font-family: var(--head); font-size: 1.5rem; font-weight: 700; color: #dde6f5; margin-bottom: 0.6rem; }
+    .rung p { font-family: var(--mono); font-size: 0.88rem; color: var(--muted); line-height: 1.85; margin-bottom: 1.1rem; }
+    .rung a { font-family: var(--mono); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); text-decoration: none; }
+    .rung a:hover { color: var(--cyan); }
+    .rung.apex { background: linear-gradient(180deg, rgba(201,168,76,0.05), transparent); }
+    .rung.apex .rung-num { color: rgba(201,168,76,0.2); }
 
-    /* INFOGRAPHIC SPLIT */
-    .info-split { display: flex; align-items: center; gap: 4rem; }
-    .info-text { flex: 1; min-width: 260px; }
-    .info-text h2 { font-family: var(--head); font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 800; color: #dde6f5; line-height: 1.05; margin-bottom: 1.25rem; }
-    .info-text p { font-family: var(--mono); font-size: 0.9rem; color: var(--muted); line-height: 1.9; margin-bottom: 1.25rem; }
-    .info-img { flex: 1; min-width: 240px; max-width: 460px; }
-    .info-img img { width: 100%; height: auto; display: block; border: 1px solid var(--border); }
+    /* PILLARS (why trust the free thing) */
+    .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+    .pillar { background: var(--card); border: 1px solid var(--border); border-top: 3px solid var(--blue); padding: 2rem; }
+    .pillar h3 { font-family: var(--head); font-size: 1.35rem; font-weight: 700; color: #dde6f5; margin-bottom: 0.7rem; }
+    .pillar p { font-family: var(--mono); font-size: 0.86rem; color: var(--muted); line-height: 1.85; }
 
-    /* VALIDATION SUMMARY (streamlined) */
-    .val-summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
-    .val-sum-card { background: var(--steel); border: 1px solid var(--border); padding: 2rem; position: relative; overflow: hidden; }
-    .val-sum-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--blue), var(--cyan)); }
-    .val-sum-card .src { font-family: var(--mono); font-size: 0.78rem; color: var(--blue); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 0.75rem; }
-    .val-sum-card .metric { font-family: var(--head); font-size: 3rem; font-weight: 800; color: #dde6f5; line-height: 1; margin-bottom: 0.3rem; }
-    .val-sum-card .metric-lbl { font-family: var(--head); font-size: 1rem; font-weight: 600; color: var(--blue); margin-bottom: 0.6rem; }
-    .val-sum-card p { font-family: var(--mono); font-size: 0.83rem; color: var(--muted); line-height: 1.75; }
+    /* PRODUCT CARDS */
+    .prod-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.75rem; margin-top: 2rem; }
+    .prod-card { background: var(--card); border: 1px solid var(--border); padding: 2.5rem; display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s; }
+    .prod-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.3); }
+    .prod-card.gov { border-top: 3px solid var(--cyan); }
+    .prod-card.ana { border-top: 3px solid var(--gold); }
+    .prod-tag { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 0.9rem; }
+    .prod-card.gov .prod-tag { color: var(--cyan); }
+    .prod-card.ana .prod-tag { color: var(--gold); }
+    .prod-card h3 { font-family: var(--head); font-size: 1.9rem; font-weight: 800; color: #dde6f5; margin-bottom: 0.75rem; }
+    .prod-card > p { font-family: var(--mono); font-size: 0.9rem; color: var(--muted); line-height: 1.9; margin-bottom: 1.25rem; }
+    .prod-proof { background: var(--bg); border: 1px solid var(--border); border-left: 3px solid var(--green); padding: 1.1rem 1.25rem; font-family: var(--mono); font-size: 0.8rem; color: var(--muted); line-height: 1.8; margin-bottom: 1.5rem; }
+    .prod-proof strong { color: var(--green); display: block; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.4rem; }
+    .prod-cta { margin-top: auto; }
 
-    /* MICRO-CTA STRIP */
-    .micro-cta { background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 2rem; text-align: center; }
-    .micro-cta p { font-family: var(--mono); font-size: 0.9rem; color: var(--muted); display: inline; }
-    .micro-cta a { font-family: var(--mono); font-size: 0.9rem; color: var(--blue); text-decoration: none; font-weight: 700; margin-left: 0.5rem; transition: color 0.2s; }
-    .micro-cta a:hover { color: var(--cyan); }
+    /* COMPLIANCE STRIP */
+    .reg-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 2rem; }
+    .reg { background: var(--bg2); padding: 1.75rem; }
+    .reg .reg-name { font-family: var(--mono); font-size: 0.78rem; font-weight: 700; color: var(--gold); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.5rem; }
+    .reg p { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); line-height: 1.75; }
 
-    /* PROCESS */
-    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); border: 1px solid var(--border); margin-top: 2rem; }
-    .step { padding: 2.25rem; border-right: 1px solid var(--border); }
-    .step:last-child { border-right: none; }
-    .step-num { font-family: var(--head); font-size: 4rem; font-weight: 800; color: rgba(61,142,240,0.12); line-height: 1; margin-bottom: 1rem; }
-    .step h3 { font-family: var(--head); font-size: 1.3rem; font-weight: 700; color: #dde6f5; margin-bottom: 0.6rem; }
-    .step p { font-family: var(--mono); font-size: 0.84rem; color: var(--muted); line-height: 1.8; }
+    /* APEX / STRATUM PRO */
+    .apex-wrap { background: var(--steel); border: 1px solid var(--border); border-top: 3px solid var(--gold); padding: 3rem; margin-top: 2rem; }
+    .apex-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem; }
+    .apex-proof { background: var(--bg); border: 1px solid var(--border); padding: 1.75rem; }
+    .apex-proof .src { font-family: var(--mono); font-size: 0.72rem; color: var(--blue); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 0.75rem; }
+    .apex-proof h4 { font-family: var(--head); font-size: 1.35rem; font-weight: 700; color: #dde6f5; margin-bottom: 0.6rem; }
+    .apex-proof p { font-family: var(--mono); font-size: 0.84rem; color: var(--muted); line-height: 1.85; }
+    .apex-degrade { border-left: 3px solid var(--gold); padding-left: 1.5rem; margin-top: 2rem; font-family: var(--mono); font-size: 0.9rem; color: var(--muted); line-height: 1.9; max-width: 72ch; }
+    .apex-degrade strong { color: var(--gold); }
+
+    /* TRUST STRIP (demoted) */
+    .trust-strip { display: flex; flex-wrap: wrap; gap: 1.25rem; justify-content: center; padding: 2.5rem 2rem; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--bg2); }
+    .trust-item { text-align: center; min-width: 140px; }
+    .trust-item .val { font-family: var(--head); font-size: 2rem; font-weight: 800; color: var(--blue); line-height: 1; }
+    .trust-item .val.gold { color: var(--gold); }
+    .trust-item .lbl { font-family: var(--mono); font-size: 0.7rem; color: var(--dim); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 0.35rem; }
+
+    /* LEAD MAGNET */
+    .kit-card { background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--green); padding: 2.5rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; margin-top: 2rem; }
+    .kit-info h3 { font-family: var(--head); font-size: 1.7rem; font-weight: 700; color: #dde6f5; margin-bottom: 0.5rem; }
+    .kit-info p { font-family: var(--mono); font-size: 0.88rem; color: var(--muted); line-height: 1.85; max-width: 58ch; }
+    .kit-free { font-family: var(--mono); font-size: 0.72rem; font-weight: 700; color: var(--green); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; }
 
     /* CTA */
     .cta { background: var(--steel); border-top: 1px solid var(--border); text-align: center; padding: 6rem 2rem; position: relative; overflow: hidden; }
     .cta::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(61,142,240,0.06) 0%, transparent 70%); pointer-events: none; }
     .cta h2 { font-family: var(--head); font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 800; color: #dde6f5; margin-bottom: 1rem; position: relative; }
-    .cta p { font-family: var(--mono); font-size: 0.95rem; color: var(--muted); max-width: 520px; margin: 0 auto 2.5rem; line-height: 1.9; position: relative; }
+    .cta p { font-family: var(--mono); font-size: 0.95rem; color: var(--muted); max-width: 56ch; margin: 0 auto 2.5rem; line-height: 1.9; position: relative; }
     .cta-row { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; position: relative; }
 
-    /* YOUTUBE / CHANNEL CARD */
-    .channel-card { background: var(--card); border: 1px solid var(--border); border-left: 3px solid #ff0000; padding: 2rem 2.5rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
-    .channel-info { flex: 1; }
-    .channel-label { font-family: var(--mono); font-size: 0.72rem; color: #ff6b6b; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; }
-    .channel-info h3 { font-family: var(--head); font-size: 1.8rem; font-weight: 700; color: #dde6f5; margin-bottom: 0.4rem; }
-    .channel-info p { font-family: var(--mono); font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
-    .btn-youtube { background: #ff0000; color: #fff; font-family: var(--mono); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.9rem 1.75rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.6rem; transition: background 0.2s; border: none; white-space: nowrap; }
-    .btn-youtube:hover { background: #cc0000; }
-
     @media (max-width: 900px) {
-      .info-split { flex-direction: column; }
-      .info-img { max-width: 100%; }
-      .steps { grid-template-columns: 1fr 1fr; }
-      .step { border-right: none; border-bottom: 1px solid var(--border); }
-      .step:last-child { border-bottom: none; }
+      .rung { border-right: none; border-bottom: 1px solid var(--border); }
+      .rung:last-child { border-bottom: none; }
+      .apex-wrap { padding: 2rem 1.5rem; }
     }
-    .demo-controls { grid-template-columns: 1fr 1fr; }
     @media (max-width: 680px) {
-      .demo-controls { grid-template-columns: 1fr; }
       .hero { padding: 7rem 1.25rem 4rem; }
-      .hero-stats { gap: 1rem; }
-      .hero-stat { min-width: 130px; padding: 1rem 1.25rem; }
-      .hero-stat .val { font-size: 2.2rem; }
-      .steps { grid-template-columns: 1fr; }
-      .step { border-right: none; border-bottom: 1px solid var(--border); }
       .cta { padding: 4rem 1.25rem; }
+      .term-body { flex-direction: column; align-items: flex-start; }
     }
   </style>
   <!-- SEO: Open Graph -->
@@ -165,124 +174,11 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="manifest" href="/site.webmanifest">
-<style>
-  /* Ensure chat widget does not overlap footer social icons */
-  footer { padding-bottom: 7rem !important; }
-  @media (max-width: 680px) { footer { padding-bottom: 6rem !important; } }
-
-  /* Keep chat widget button anchored bottom-right (overrides conflicting rule in body CSS) */
-  #fsme-chat-btn {
-    position: fixed !important;
-    bottom: 28px !important;
-    right: 28px !important;
-    left: auto !important;
-    top: auto !important;
-  }
-  @media (max-width: 440px) {
-    #fsme-chat-btn {
-      bottom: 16px !important;
-      right: 16px !important;
-    }
-  }
-
-  /* Chat tooltip: first-visit call-to-action */
-  .fsme-chat-tooltip {
-    position: fixed;
-    bottom: 38px;
-    right: 96px;
-    z-index: 8999;
-    background: #141822;
-    border: 1px solid #242e42;
-    border-right: 3px solid #3d8ef0;
-    padding: 0.7rem 1rem;
-    font-family: 'IBM Plex Mono', 'Consolas', monospace;
-    font-size: 0.78rem;
-    color: #c5d2e8;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
-    opacity: 0;
-    transform: translateX(10px);
-    transition: opacity 0.4s, transform 0.4s;
-    pointer-events: none;
-    white-space: nowrap;
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-  }
-  .fsme-chat-tooltip.show {
-    opacity: 1;
-    transform: translateX(0);
-    pointer-events: auto;
-  }
-  .fsme-chat-tooltip-close {
-    background: none;
-    border: none;
-    color: #6e86a8;
-    cursor: pointer;
-    padding: 0 0.15rem;
-    font-size: 1rem;
-    line-height: 1;
-  }
-  .fsme-chat-tooltip-close:hover { color: #c5d2e8; }
-  @media (max-width: 680px) {
-    .fsme-chat-tooltip {
-      bottom: 38px;
-      right: 84px;
-      font-size: 0.72rem;
-      max-width: calc(100vw - 120px);
-    }
-  }
-</style>
-<script>
-  (function() {
-    try {
-      if (window.sessionStorage && sessionStorage.getItem('fsme_tooltip_shown')) return;
-    } catch (e) {}
-    var shown = false;
-    function showTooltip() {
-      if (shown) return;
-      shown = true;
-      try { sessionStorage.setItem('fsme_tooltip_shown', '1'); } catch (e) {}
-      var tip = document.createElement('div');
-      tip.className = 'fsme-chat-tooltip';
-      tip.innerHTML = '<span>Ask me anything</span><button class="fsme-chat-tooltip-close" aria-label="Close">&times;</button>';
-      document.body.appendChild(tip);
-      setTimeout(function() { tip.classList.add('show'); }, 120);
-      var hideTimer = setTimeout(function() { hide(); }, 9000);
-      function hide() {
-        clearTimeout(hideTimer);
-        tip.classList.remove('show');
-        setTimeout(function() { if (tip.parentNode) tip.remove(); }, 500);
-      }
-      tip.querySelector('.fsme-chat-tooltip-close').addEventListener('click', function(e) {
-        e.stopPropagation();
-        hide();
-      });
-      tip.addEventListener('click', function(e) {
-        if (e.target.classList.contains('fsme-chat-tooltip-close')) return;
-        var btn = document.getElementById('fsme-chat-btn');
-        if (btn) btn.click();
-        hide();
-      });
-    }
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', init);
-    } else {
-      init();
-    }
-    function init() {
-      window.addEventListener('scroll', function onScroll() {
-        if (window.scrollY > 80) {
-          showTooltip();
-          window.removeEventListener('scroll', onScroll);
-        }
-      }, { passive: true });
-      setTimeout(showTooltip, 7000);
-    }
-  })();
-</script>
 </head>
 <body>
 
+<!-- NOTE (phase 2): nav product links point to in-page anchors until stratum.html,
+     governor.html, analyzer.html, and docs.html are built. Switch hrefs then. -->
 <nav>
   <div class="nav-inner">
     <a class="nav-logo" href="index.html">
@@ -290,43 +186,29 @@
       <span class="nav-logo-text">FSME Logic</span>
     </a>
     <ul class="nav-links">
-      <li><a href="case-studies.html">Validation</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="#stratum">Stratum</a></li>
+      <li><a href="#governor">Governor</a></li>
+      <li><a href="#analyzer">Analyzer</a></li>
       <li><a href="store.html">Store</a></li>
+      <li><a href="#install">Docs</a></li>
       <li><a href="contact.html">Contact</a></li>
-      <li class="nav-more">
-        <button class="nav-more-btn" aria-expanded="false" aria-haspopup="true">More &#9662;</button>
-        <ul class="nav-dropdown">
-          <li><a href="roi.html">ROI Calculator</a></li>
-          <li><a href="newsroom.html">Newsroom</a></li>
-          <li><a href="investors.html">Investors</a></li>
-          <li><a href="pipeline-demo.html">Live Demo</a></li>
-          <li><a href="legal.html">Legal &amp; Terms</a></li>
-          <li><a href="legal.html#privacy">Privacy Policy</a></li>
-          <li><a href="case-studies.html#reports">Validation Reports</a></li>
-        </ul>
-      </li>
-      <li class="nav-cta"><a href="payment.html">Request Audit</a></li>
+      <li class="nav-cta"><a href="#install">Install Free</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
       <span></span><span></span><span></span>
     </button>
   </div>
   <div class="mobile-menu" id="mobile-menu">
-    <a href="payment.html">Request Audit &#9658;</a>
-    <a href="case-studies.html">Validation</a>
-    <a href="about.html">About</a>
-    <a href="faq.html">FAQ</a>
+    <a href="#install">Install Free &#9658;</a>
+    <a href="#stratum">Stratum</a>
+    <a href="#governor">Governor</a>
+    <a href="#analyzer">Analyzer</a>
     <a href="store.html">Store</a>
     <a href="contact.html">Contact</a>
-    <a href="roi.html">ROI Calculator</a>
+    <a href="about.html">About</a>
     <a href="newsroom.html">Newsroom</a>
-    <a href="investors.html">Investors</a>
-    <a href="pipeline-demo.html">Live Demo</a>
-    <a href="case-studies.html#reports">Validation Reports</a>
     <a href="legal.html">Legal &amp; Terms</a>
-    <a href="legal.html#privacy">Privacy Policy</a>
+    <a href="privacy.html">Privacy Policy</a>
   </div>
 </nav>
 
@@ -334,308 +216,199 @@
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-inner">
-    <p class="hero-eyebrow">Predictive Integrity Engine — Edmonton, Alberta</p>
+    <p class="hero-eyebrow">Secure-by-Construction Software — Edmonton, Alberta</p>
     <p style="font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--blue);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.75rem;min-height:1.2em;" id="typeTarget"></p>
-    <h1>We detect failure<br><em>before</em><br><span class="dim">it happens.</span></h1>
-    <div class="hero-quote">
-      "We detect when systems stop telling the truth — before people pay the price."
-      <strong>— Alexander Kalyniuk, Founder, FSME Logic</strong>
-    </div>
-    <div class="hero-stats" id="hero-counters">
-      <div class="hero-stat">
-        <div class="val count-up" data-target="9" data-suffix="mo">0</div>
-        <div class="lbl">Lead time<br>ESA spacecraft</div>
-      </div>
-      <div class="hero-stat">
-        <div class="val gold count-up" data-target="63" data-suffix="" data-decimal="true">0</div>
-        <div class="lbl">Hour warning<br>NASA Curiosity Rover</div>
-      </div>
-      <div class="hero-stat">
-        <div class="val count-up" data-target="78" data-suffix="%">0</div>
-        <div class="lbl">Fleet detection rate<br>509 jet engines</div>
-      </div>
-      <div class="hero-stat">
-        <div class="val count-up" data-target="0" data-suffix="">0</div>
-        <div class="lbl">False positives<br>full baseline window</div>
-      </div>
-    </div>
-    <div class="hero-actions">
-      <a class="btn btn-primary" href="contact.html">Book a Pilot Audit ▸</a>
-      <a class="btn btn-secondary" href="case-studies.html">View Validation Results</a>
-    </div>
-    
-    <div style="margin-top:1rem;margin-bottom:1rem;font-family:'IBM Plex Mono',monospace;font-size:0.82rem;display:flex;align-items:center;gap:0.6rem;">
-      <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#4ade80;box-shadow:0 0 8px #4ade80;flex-shrink:0;"></span>
-      <a href="#" onclick="document.getElementById('fsme-chat-btn').click();return false;" style="color:#8a9bb8;text-decoration:none;border-bottom:1px dashed #1e2535;transition:color 0.2s;" onmouseover="this.style.color='#3d8ef0'" onmouseout="this.style.color='#8a9bb8'">
-        FSME Assistant is online. <span style="color:#3d8ef0;">Ask if your data format is compatible ↘</span>
-      </a>
-    </div>
-    <p class="hero-microcopy">No infrastructure required &nbsp;·&nbsp; Same-day results &nbsp;·&nbsp; Data never leaves your facility</p>
-  </div>
-</section>
+    <h1>Run code you<br>can't trust.<br><em>Safely.</em></h1>
+    <p class="hero-sub">Stratum is a programming language and runtime where untrusted or AI-generated code <strong>physically cannot exceed the permissions you grant it</strong>. A built-in detector watches from inside the runtime, where the watched code can't reach it. Fully offline. Nothing phones home.</p>
 
-<!-- ── STRATUM LAUNCH ANNOUNCEMENT ──────────────────────────────────── -->
-<section style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
-  <div class="wrap">
-    <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;flex-wrap:wrap;">
-      <span style="display:inline-block;font-family:var(--mono);font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.25rem 0.7rem;border-radius:2px;background:rgba(201,168,76,0.12);color:var(--gold);border:1px solid rgba(201,168,76,0.35);">&#9733; New Release</span>
-      <span style="display:inline-block;font-family:var(--mono);font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.25rem 0.7rem;border-radius:2px;background:rgba(61,142,240,0.12);color:var(--blue);border:1px solid rgba(61,142,240,0.3);">Founders Edition &mdash; Limited</span>
-    </div>
-    <h2 class="section-title">Introducing <em>Stratum.</em><br>The runtime that boxes in code you can't trust.</h2>
-    <p class="section-sub">A new product line from FSME Logic. Stratum is an AI-first, secure-by-construction programming language and hardened runtime. You embed it inside software you didn't write and can't fully audit &mdash; a vendor plugin, an AI-generated module, untrusted automation &mdash; and the language itself makes that code physically unable to exceed the permissions you grant it. The bound is structural, not a check the code can talk its way around. It runs fully offline and compiles to a single WebAssembly module that drops into Go, Java, Python, Node, or Rust.</p>
-
-    <div class="val-summary" style="margin-bottom:2rem;">
-      <div class="val-sum-card">
-        <div class="src">Proven, Not Promised</div>
-        <div class="metric">194</div>
-        <div class="metric-lbl">Automated Tests Passing</div>
-        <p>Plus 16 of 16 penetration tests stopped, and byte-identical output across three independent execution engines. What you audit in test is bit-for-bit what runs in production.</p>
+    <div class="term" id="install">
+      <div class="term-head">
+        <span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span>
+        <span class="term-title">terminal</span>
       </div>
-      <div class="val-sum-card">
-        <div class="src">Structural Security</div>
-        <div class="metric">SMT</div>
-        <div class="metric-lbl">Machine-Proved Capabilities</div>
-        <p>Granted powers only ever narrow &mdash; a nested call can never gain a permission its caller lacked. Mathematically proved, not just tested. A trojaned module is rejected before it loads.</p>
+      <div class="term-body">
+        <code class="term-cmd"><span class="ps1">$&nbsp;</span>pip install stratum-lang</code>
+        <button class="term-copy" id="copyBtn" aria-label="Copy install command">Copy</button>
       </div>
-      <div class="val-sum-card">
-        <div class="src">AI Governance (Pro)</div>
-        <div class="metric">Signed</div>
-        <div class="metric-lbl">Jailbreak-Resistant Reasoning</div>
-        <p>Wrap any local model so every answer is gated, scored, and cryptographically signed. Structurally resistant to jailbreaks, and deterministic &mdash; the same prompt produces the same signed reasoning every time.</p>
-      </div>
+      <p class="term-note"><span>&#10003;</span> Free forever &middot; MIT licensed &middot; full language, all engines &middot; live on PyPI</p>
     </div>
 
     <div class="hero-actions">
-      <a class="btn btn-primary" href="store.html#stratum">Get Stratum Basic &mdash; $500 &#9658;</a>
-      <a class="btn btn-secondary" href="contact.html">Stratum Pro &mdash; Enterprise, contact us</a>
+      <a class="btn btn-primary" href="https://pypi.org/project/stratum-lang/" target="_blank" rel="noopener">Get Stratum Free &#9658;</a>
+      <a class="btn btn-secondary" href="contact.html">Talk to Engineering</a>
     </div>
-    <p class="hero-microcopy" style="margin-top:1rem;">Basic founders price locked for life &nbsp;&middot;&nbsp; Pro licensed per deployment &nbsp;&middot;&nbsp; Windows &amp; Linux x64 &nbsp;&middot;&nbsp; Runs fully offline</p>
+    <p class="hero-microcopy">No sign-up. No approval. No cloud. Python 3 and two minutes.</p>
   </div>
 </section>
 
-<!-- THE PROBLEM -->
+<!-- THE LADDER -->
 <section class="bg-alt">
   <div class="wrap">
-    <p class="section-label">The Problem</p>
-    <h2 class="section-title">Standard monitoring<br>only sees the <em>crash.</em></h2>
-    <p class="section-sub">Threshold alarms fire when a value exceeds a preset limit. By the time the alarm sounds, the damage is already in progress. The warning window has already closed.</p>
-    <div class="grid-3">
-      <div class="prob-card">
-        <h3>How to predict equipment failure: Alarms, not answers.</h3>
-        <p>Standard sensors tell you when something has already gone wrong. They trigger on amplitude spikes — the symptom, not the cause. Maintenance teams respond to emergencies instead of planning ahead.</p>
+    <p class="section-label">The Path</p>
+    <h2 class="section-title">Start free. Own a tool.<br>Then <em>build your own.</em></h2>
+    <p class="section-sub">Every FSME Logic product runs on the same engine. You can prove it works for free before a dollar changes hands.</p>
+    <div class="ladder">
+      <div class="rung">
+        <div class="rung-num">01</div>
+        <h3>Try it free</h3>
+        <p>Install Stratum Basic from PyPI. The full secure-by-construction language, capability security, and the standard anomaly detector. MIT licensed, no strings.</p>
+        <a href="#stratum">Why it's trustworthy &#8595;</a>
       </div>
-      <div class="prob-card">
-        <h3>Why unexpected shutdowns happen: The Green Dashboard Fallacy.</h3>
-        <p>A system can show perfectly normal readings right up until failure. Internal structural degradation is invisible to threshold monitoring — no spikes, no alerts, perfectly healthy on every dashboard — until it isn't.</p>
+      <div class="rung">
+        <div class="rung-num">02</div>
+        <h3>Own a working tool</h3>
+        <p>Governor gates every answer a local AI gives, offline, with a signed record. The Health Analyzer turns recorded sensor data into a signed, tamper-evident forensic report.</p>
+        <a href="#products">See the products &#8595;</a>
       </div>
-      <div class="prob-card">
-        <h3>Predictive maintenance without the cloud.</h3>
-        <p>Most AI-based predictive platforms require your operational telemetry to be uploaded for processing. Your data leaves your facility. For industrial and fleet operations, that's an unacceptable security exposure.</p>
+      <div class="rung apex">
+        <div class="rung-num">03</div>
+        <h3>Build your own</h3>
+        <p>Stratum Pro: embed the engine in your own systems with cryptographic identity, the high-precision kernel, and fleet controls. Governed, bounded software you build.</p>
+        <a href="#pro">Stratum Pro &#8595;</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- WHAT WE DO -->
+<!-- WHY TRUST THE FREE THING -->
+<section id="stratum">
+  <div class="wrap">
+    <p class="section-label">The Foundation</p>
+    <h2 class="section-title">Security you can <em>verify,</em><br>not security you're promised.</h2>
+    <p class="section-sub">Every guarantee in Stratum is structural. It doesn't ask untrusted code to behave; it removes the ability to misbehave.</p>
+    <div class="grid-4">
+      <div class="pillar">
+        <h3>Capability security</h3>
+        <p>A program can only do what you grant at start. A nested call can never gain a permission its caller lacked. Bounds are SMT-proved, not just tested.</p>
+      </div>
+      <div class="pillar">
+        <h3>Rejects trojans at load</h3>
+        <p>Import a vendor module under an empty capability ceiling. If a tampered version declares one effect outside that ceiling, it's refused before a single instruction runs.</p>
+      </div>
+      <div class="pillar">
+        <h3>A detector code can't touch</h3>
+        <p>The FSME anomaly detector runs inside the runtime, where application code cannot reach or disable it. Sabotage that passes range checks still gets caught.</p>
+      </div>
+      <div class="pillar">
+        <h3>Byte-identical engines</h3>
+        <p>The same source produces byte-identical output on the interpreter and the WebAssembly engine. The code you audit is exactly the code you run.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE TWO WORKING PRODUCTS -->
+<section class="bg-alt" id="products">
+  <div class="wrap">
+    <p class="section-label">Working Products</p>
+    <h2 class="section-title">Two tools you can own <em>today.</em></h2>
+    <p class="section-sub">Both are built on Stratum. Both run entirely on your hardware. Nothing you feed them ever leaves your building.</p>
+    <div class="prod-grid">
+      <div class="prod-card gov" id="governor">
+        <p class="prod-tag">AI Governance &middot; Offline</p>
+        <h3>Stratum Governance Gateway</h3>
+        <p>A customs gate for your local AI. Every request and every answer passes through it on your own machine, gets allowed or blocked by deterministic rules, and walks away with an Ed25519-signed, tamper-evident record. Point your app at it with a one-line change; it speaks the same API as OpenAI and sits in front of any agent stack.</p>
+        <div class="prod-proof">
+          <strong>Proof, not promise</strong>
+          Simulated a fully jailbroken model behind the gate: the deterministic screens still blocked the output. Dangerous output isn't argued with. It's structurally unable to leave.
+        </div>
+        <div class="prod-cta"><a class="btn btn-secondary" href="contact.html">Contact Engineering &#9658;</a></div>
+      </div>
+      <div class="prod-card ana" id="analyzer">
+        <p class="prod-tag">Predictive Maintenance &middot; Offline</p>
+        <h3>FSME Health Analyzer</h3>
+        <p>Drop in a CSV of recorded sensor data. Get back a cryptographically signed, tamper-evident report showing where and how early a machine began to degrade, and how much warning you would have had. After-the-fact, advisory analysis on your own PC. Nothing is uploaded, ever.</p>
+        <div class="prod-proof">
+          <strong>The differentiator</strong>
+          Every report carries an Ed25519 signature. Change one character after the fact and verification fails. A genuine chain-of-custody artifact for maintenance disputes, insurers, and regulators.
+        </div>
+        <div class="prod-cta"><a class="btn btn-secondary" href="contact.html">Contact Engineering &#9658;</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPLIANCE / ROI STRIP (credibility, not the headline) -->
 <section>
-  <div class="wrap">
-    <p class="section-label">What FSME Logic Does</p>
-    <h2 class="section-title">We read the <em>history</em><br>your sensors ignore.</h2>
-    <p class="section-sub">Physical systems accumulate stress over time. That stress leaves a measurable trace in the signal record. FSME Logic reads that trace — identifying structural degradation weeks or months before any threshold alarm would trigger.</p>
-    <div class="grid-3-cards">
-      <div class="what-card">
-        <div class="what-icon">📡</div>
-        <h3>Offline Predictive Maintenance: Beyond Thresholds</h3>
-        <p>We detect the earliest signs of structural stress accumulation in your signal record — long before any visible symptom appears.</p>
+  <div class="wrap" style="padding-top:4rem;padding-bottom:4rem;">
+    <p class="section-label">Why It Pays</p>
+    <h2 class="section-title" style="font-size:clamp(1.8rem,4vw,2.6rem);">Regulators now demand what<br>this software <em>produces by default.</em></h2>
+    <div class="reg-strip">
+      <div class="reg">
+        <p class="reg-name">EU AI Act &middot; Art. 12</p>
+        <p>Tamper-evident, lifetime logging of high-risk AI systems. Binding August 2, 2026. Signed records are Governor's native output.</p>
       </div>
-      <div class="what-card">
-        <div class="what-icon">🔒</div>
-        <h3>Air-Gapped Analysis: Zero Data Exit.</h3>
-        <p>All analysis runs on local, air-gapped hardware in our Edmonton facility. Your data is never uploaded to any cloud server or transmitted over any network. SHA-256 custody receipt included.</p>
+      <div class="reg">
+        <p class="reg-name">NIS2</p>
+        <p>Supply-chain security obligations for critical-sector operators. Bounding untrusted vendor code is what Stratum does structurally.</p>
       </div>
-      <div class="what-card">
-        <div class="what-icon">⚡</div>
-        <h3>No Historical Failure Data Required</h3>
-        <p>Most AI maintenance platforms need months of failure data before they can operate. FSME Logic deploys cold — on any new asset, from the first day of operation.</p>
+      <div class="reg">
+        <p class="reg-name">Canada CCSPA</p>
+        <p>Cyber security for critical infrastructure, with penalties that scale by the day. Air-gapped operation keeps your data your own.</p>
       </div>
-      <div class="what-card">
-        <div class="what-icon">📋</div>
-        <h3>Works With Existing SCADA Exports</h3>
-        <p>No new sensors. No new hardware. No infrastructure changes. We work directly from your existing SCADA, BMS, or data logger CSV exports.</p>
-      </div>
-      <div class="what-card">
-        <div class="what-icon">🏭</div>
-        <h3>Any Industry, Any Asset</h3>
-        <p>Validated across aerospace telemetry, commercial vehicle fleets, industrial bearings, refrigeration systems, and orbital satellite hardware.</p>
-      </div>
-      <div class="what-card">
-        <div class="what-icon">📊</div>
-        <h3>Plain-Language Reports</h3>
-        <p>Every audit delivers a clear, actionable summary — which systems showed early warning indicators, what the stress timeline looks like, and what action is recommended. Written for operations managers, not physicists.</p>
+      <div class="reg">
+        <p class="reg-name">FDA 524B &middot; EU CRA</p>
+        <p>Software provenance and integrity evidence for devices. Ed25519 attestation gives every module a verifiable origin.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- INFOGRAPHIC -->
-<section class="bg-alt">
+<!-- THE APEX: STRATUM PRO -->
+<section class="bg-alt" id="pro">
   <div class="wrap">
-    <div class="info-split">
-      <div class="info-text">
-        <p class="section-label">Precision Physics</p>
-        <h2>Offline predictive maintenance: The difference between detecting failure and preventing it.</h2>
-        <p>Standard monitoring waits for something to go wrong. FSME Logic detects the structural signatures that precede failure — identifying the point where a system's signal record begins deviating from its own history.</p>
-        <p>The result is a planning window measured in hours, days, or months — not seconds. Time to schedule maintenance, order parts, and prevent unplanned downtime entirely.</p>
-        <a class="btn btn-secondary" href="case-studies.html">See Validation Data ▸</a>
+    <p class="section-label">The Apex</p>
+    <h2 class="section-title">Stratum <em>Pro.</em><br>Build your own governed systems.</h2>
+    <p class="section-sub">When your prototype graduates to production, Pro adds what enterprises are required to have: cryptographic identity and attestation, the high-precision detection kernel, fleet licensing, and a vendor who signs an SLA.</p>
+    <div class="apex-grid">
+      <div class="apex-proof">
+        <p class="src">Proof Artifact 01</p>
+        <h4>The water-treatment gateway</h4>
+        <p>A dosing gateway embeds an unaudited third-party module under an empty capability ceiling. The trojaned twin is rejected at load. Sabotage that passes range validation is caught by the runtime detector, and the actor quarantines itself. One command, PASS/FAIL, runnable on your machine.</p>
       </div>
-      <div class="info-img">
-        <img src="infographic-1.png" alt="FSME Logic — Predictive Integrity for Critical Assets" width="640" height="1146" loading="lazy">
+      <div class="apex-proof">
+        <p class="src">Proof Artifact 02</p>
+        <h4>The SAGE Guardian logs</h4>
+        <p>Verbatim transcripts of a governed AI refusing logic-trap and emotional-coercion jailbreaks, with deterministic, Ed25519-sealed reasoning: the same input produces the identical signed seal, twice. Including one honest red-team find, and the structural gate that closed it.</p>
       </div>
+    </div>
+    <p class="apex-degrade"><strong>No key-person risk.</strong> The same source compiles unchanged on the free and paid tiers. If a Pro license lapses, or the vendor disappears tomorrow, your system degrades cleanly to MIT-licensed Stratum Basic and keeps running. Your plant never depends on our uptime, or on us existing.</p>
+    <div style="margin-top:2.5rem;">
+      <a class="btn btn-primary" href="contact.html">Scope a Pro Deployment &#9658;</a>
     </div>
   </div>
 </section>
 
-<!-- VALIDATION HIGHLIGHTS (streamlined — full results on case-studies.html) -->
-<section>
-  <div class="wrap">
-    <p class="section-label">Independent Validation</p>
-    <h2 class="section-title">Tested on the world's<br>hardest <em>datasets.</em></h2>
-    <p class="section-sub">Produced on offline edge hardware. No cloud compute. No GPU clusters. No training phase. Every result confirmed against official ground-truth labels after detection.</p>
-    <div class="val-summary">
-      <div class="val-sum-card">
-        <div class="src">ESA Anomaly Detection Benchmark</div>
-        <div class="metric">9 mo</div>
-        <div class="metric-lbl">Predictive Lead Time</div>
-        <p>Detected a four-channel spacecraft subsystem cascade 9 months before the first officially recorded ESA ground truth anomaly.</p>
-      </div>
-      <div class="val-sum-card">
-        <div class="src">NASA Mars Science Laboratory</div>
-        <div class="metric">6.3 hr</div>
-        <div class="metric-lbl">Warning Before Failure</div>
-        <p>Detected mechanical actuator binding on the Curiosity Rover 382 steps before NASA's official failure label.</p>
-      </div>
-      <div class="val-sum-card">
-        <div class="src">NASA C-MAPSS — 509 Turbofan Engines</div>
-        <div class="metric">78%</div>
-        <div class="metric-lbl">Fleet Detection Rate</div>
-        <p>Successfully identified degradation across 509 commercial turbofan engines with an average 126-cycle warning advantage.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- MICRO-CTA -->
-<div class="micro-cta">
-  <p>Want to see the full NASA, ESA, CWRU, and refrigeration results?</p>
-  <a href="case-studies.html">View all validation data →</a>
+<!-- TRUST STRIP (demoted, small) -->
+<div class="trust-strip">
+  <div class="trust-item"><div class="val"><span class="count-up" data-target="194">0</span></div><div class="lbl">Automated tests</div></div>
+  <div class="trust-item"><div class="val"><span class="count-up" data-target="16">0</span>/16</div><div class="lbl">Pentests stopped</div></div>
+  <div class="trust-item"><div class="val"><span class="count-up" data-target="3">0</span></div><div class="lbl">Engines, byte-identical</div></div>
+  <div class="trust-item"><div class="val gold">100%</div><div class="lbl">Offline. Always.</div></div>
 </div>
 
-<!-- SIGNAL VISUALIZER -->
-<section style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
-  <div class="wrap">
-    <p class="section-label">Interactive Signal Demo</p>
-    <h2 class="section-title">What degradation actually<br><em>looks like.</em></h2>
-    <p class="section-sub">Select your equipment type and operating hours. The visualization simulates the signal signature FSME Logic reads — showing the early stress pattern that appears long before any threshold alarm would trigger. Based on real benchmark degradation profiles.</p>
-
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem;align-items:end;" class="demo-controls">
-      <div>
-        <label style="font-family:var(--mono);font-size:0.65rem;color:var(--blue);letter-spacing:0.15em;text-transform:uppercase;display:block;margin-bottom:0.5rem;">Equipment Type</label>
-        <select id="demo-asset" onchange="updateDemo()" style="background:var(--card);border:1px solid var(--border);color:var(--text);font-family:var(--mono);font-size:0.85rem;padding:0.75rem 1rem;width:100%;outline:none;-webkit-appearance:none;appearance:none;">
-          <option value="bearing">Ball Bearing / Rotating Equipment</option>
-          <option value="hydraulic">Hydraulic System</option>
-          <option value="refrigeration">Commercial Refrigeration</option>
-          <option value="fleet">Long-Haul Truck Engine</option>
-          <option value="compressor">Industrial Compressor / Pump</option>
-        </select>
-      </div>
-      <div>
-        <label style="font-family:var(--mono);font-size:0.65rem;color:var(--blue);letter-spacing:0.15em;text-transform:uppercase;display:block;margin-bottom:0.5rem;">Operating Hours Since Last Service: <span id="demo-hours-val" style="color:var(--cyan);">1,200</span></label>
-        <input type="range" id="demo-hours" min="100" max="8000" value="1200" oninput="updateDemo()" style="width:100%;accent-color:var(--blue);">
-      </div>
-    </div>
-
-    <div style="position:relative;">
-      <canvas id="demoCanvas" style="width:100%;height:220px;display:block;background:#080a10;border:1px solid var(--border);"></canvas>
-      <!-- Status overlay -->
-      <div id="demo-status" style="position:absolute;top:12px;right:12px;background:rgba(8,10,16,0.85);border:1px solid var(--border);padding:0.6rem 1rem;font-family:var(--mono);font-size:0.72rem;line-height:1.7;"></div>
-    </div>
-
-    <!-- Legend -->
-    <div style="display:flex;gap:1.5rem;flex-wrap:wrap;margin-top:1rem;">
-      <div style="display:flex;align-items:center;gap:0.5rem;font-family:var(--mono);font-size:0.72rem;color:var(--muted);">
-        <span style="display:inline-block;width:20px;height:2px;background:var(--blue);"></span>Signal
-      </div>
-      <div style="display:flex;align-items:center;gap:0.5rem;font-family:var(--mono);font-size:0.72rem;color:var(--green);">
-        <span style="display:inline-block;width:2px;height:16px;background:var(--green);"></span>FSME Detection Point
-      </div>
-      <div style="display:flex;align-items:center;gap:0.5rem;font-family:var(--mono);font-size:0.72rem;color:var(--red);">
-        <span style="display:inline-block;width:2px;height:16px;background:var(--red);"></span>Threshold Alarm
-      </div>
-    </div>
-
-    <div style="background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.2);border-left:3px solid var(--gold);padding:0.9rem 1.25rem;margin-top:1.25rem;">
-      <p style="font-family:var(--mono);font-size:0.75rem;color:var(--muted);line-height:1.7;margin:0;"><strong style="color:var(--gold);">Simulation note:</strong> Signal patterns are based on real degradation profiles from published benchmark datasets (CWRU Bearing, NASA C-MAPSS, LIGO O3b, and proprietary refrigeration measurements). Displayed waveforms are illustrative simulations, not live sensor output. Actual detection lead times vary by equipment type and data quality.</p>
-    </div>
-  </div>
-</section>
-
-
-<!-- PROCESS -->
+<!-- FREE LEAD MAGNET -->
 <section>
-  <div class="wrap">
-    <p class="section-label">The Process</p>
-    <h2 class="section-title">Export. Audit.<br><em>Report.</em></h2>
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">01</div>
-        <h3>Export Your Data</h3>
-        <p>Pull a CSV from your existing monitoring system. 30–90 days of sensor readings is ideal. No special format required — SCADA, BMS, or data logger output all work.</p>
+  <div class="wrap" style="padding-top:4rem;padding-bottom:4rem;">
+    <p class="section-label">Free Resource</p>
+    <div class="kit-card">
+      <div class="kit-info">
+        <p class="kit-free">Free download</p>
+        <h3>Engineering Procurement Kit</h3>
+        <p>The collateral your internal champion needs: the methodology white paper, data-readiness checklist, and the downtime cost framing to justify the purchase upstairs.</p>
       </div>
-      <div class="step">
-        <div class="step-num">02</div>
-        <h3>Send to FSME Logic</h3>
-        <p>Transfer your data file to us securely. All analysis runs on our local, offline hardware in Edmonton — no internet connection, no cloud uploads. We do not store your data.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">03</div>
-        <h3>Forensic Report</h3>
-        <p>A comprehensive summary identifying which systems showed early warning indicators, what the stress timeline looks like, and what action is recommended.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">04</div>
-        <h3>Custody Receipt</h3>
-        <p>A SHA-256 cryptographic chain of custody document confirming your data was handled securely and never transmitted at any stage.</p>
-      </div>
+      <a class="btn btn-primary" href="store.html">Get the Kit &#9658;</a>
     </div>
   </div>
 </section>
 
-<!-- CTA -->
+<!-- FINAL CTA -->
 <section class="cta">
-  <h2>Ready to see what your<br>sensors are missing?</h2>
-  <p>Book a Pilot Integrity Audit. Fully offline, no new infrastructure required. Results delivered the same day.</p>
+  <h2>Install it before<br>you believe it.</h2>
+  <p>The free tier is the full language. Run the demos, try to break the sandbox, then talk to us when it's time to ship.</p>
   <div class="cta-row">
-    <a class="btn btn-primary" href="contact.html">Book a Pilot Audit ▸</a>
-    <a class="btn btn-secondary" href="case-studies.html">Review Validation Data</a>
-  </div>
-</section>
-
-<!-- YOUTUBE CHANNEL -->
-<section style="background:var(--bg2); border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:3.5rem 2rem;">
-  <div style="max-width:860px; margin:0 auto;">
-    <span style="font-family:var(--mono); font-size:0.72rem; color:var(--blue); letter-spacing:0.15em;">// LATEST FROM FSME LOGIC</span>
-    <h2 style="font-family:var(--head); font-size:clamp(1.6rem,4vw,2.2rem); font-weight:700; color:var(--text); margin-top:0.5rem 0 1rem; letter-spacing:0.02em;">Watch It In Action</h2>
-    <div class="channel-card" style="margin-top:1rem;">
-      <div class="channel-info">
-        <div class="channel-label">// FSME Logic YouTube</div>
-        <h3>Follow the build — the validation results and the launch.</h3>
-        <p>Behind-the-scenes engineering, validation walkthroughs, and the story of building FSME Logic from consumer hardware in Edmonton.</p>
-      </div>
-      <a class="btn-youtube" href="https://youtube.com/@fsmelogic" target="_blank" rel="noopener">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
-        View Channel ↗
-      </a>
-    </div>
+    <a class="btn btn-primary" href="https://pypi.org/project/stratum-lang/" target="_blank" rel="noopener">pip install stratum-lang</a>
+    <a class="btn btn-secondary" href="contact.html">Contact Engineering</a>
   </div>
 </section>
 
@@ -655,10 +428,8 @@
     <div class="foot-right" style="margin-top:0.5rem;">
       <a href="store.html">Store</a>
       <a href="legal.html">Legal &amp; Terms</a>
-      <a href="investors.html">Investors</a>
       <a href="newsroom.html">Newsroom</a>
       <a href="case-studies.html#reports">Validation Reports</a>
-      <a href="roi.html">ROI Calculator</a>
     </div>
     <div class="foot-social">
       <a href="https://x.com/FsmeLogic" target="_blank" rel="noopener" aria-label="X / Twitter">
@@ -692,13 +463,28 @@
     document.getElementById('cookie-banner').style.display = 'none';
   }
 
+  // ── COPY INSTALL COMMAND ────────────────────────────────────────────
+  (function() {
+    var btn = document.getElementById('copyBtn');
+    if (!btn) return;
+    btn.addEventListener('click', function() {
+      navigator.clipboard.writeText('pip install stratum-lang').then(function() {
+        btn.textContent = 'Copied ✓';
+        gtag('event', 'copy_install_command', { 'event_category': 'engagement' });
+        setTimeout(function() { btn.textContent = 'Copy'; }, 2000);
+      }).catch(function() {
+        btn.textContent = 'pip install stratum-lang';
+      });
+    });
+  })();
+
   // ── TYPEWRITER ──────────────────────────────────────────────────────
   (function() {
     var phrases = [
-      'ENTROPY REVEALS WHAT SENSORS CONCEAL.',
-      'PREDICT FAILURE. NOT FROM THRESHOLDS. FROM PHYSICS.',
-      'NO CLOUD. NO NEW SENSORS. NO COMPROMISE.',
-      'YOUR DATA. YOUR HARDWARE. YOUR INSIGHT.',
+      'UNTRUSTED CODE, BOUNDED BY CONSTRUCTION.',
+      'EVERY GUARANTEE IS STRUCTURAL. NOT A PROMISE.',
+      'NO CLOUD. NO PHONE HOME. NO COMPROMISE.',
+      'SIGNED, TAMPER-EVIDENT, VERIFIABLE OFFLINE.',
     ];
     var idx = 0, ch = 0, typing = true, tmr;
     function tick() {
@@ -746,206 +532,6 @@
     counters.forEach(function(c) { obs.observe(c); });
   })();
 
-  // ── SIGNAL CANVAS VISUALIZER ──────────────────────────────────────
-  (function() {
-    var canvas = document.getElementById('demoCanvas');
-    if (!canvas) return;
-    var ctx = canvas.getContext('2d');
-    var raf;
-
-    // Machine degradation profiles — based on real benchmark characteristics
-    var profiles = {
-      bearing: {
-        label: 'Ball Bearing / Rotating Equipment',
-        baseFreq: 4.2, noiseBase: 0.08, degradeRate: 0.00032,
-        fsmeOffset: 0.35, thresholdOffset: 0.78,
-        src: 'CWRU Bearing Benchmark'
-      },
-      hydraulic: {
-        label: 'Hydraulic System',
-        baseFreq: 2.1, noiseBase: 0.12, degradeRate: 0.00018,
-        fsmeOffset: 0.40, thresholdOffset: 0.82,
-        src: 'Industry Maintenance Data'
-      },
-      refrigeration: {
-        label: 'Commercial Refrigeration',
-        baseFreq: 1.4, noiseBase: 0.06, degradeRate: 0.00022,
-        fsmeOffset: 0.38, thresholdOffset: 0.80,
-        src: 'FSME Proprietary Dataset'
-      },
-      fleet: {
-        label: 'Long-Haul Truck Engine',
-        baseFreq: 3.3, noiseBase: 0.10, degradeRate: 0.00015,
-        fsmeOffset: 0.42, thresholdOffset: 0.85,
-        src: 'NASA C-MAPSS Turbofan Dataset'
-      },
-      compressor: {
-        label: 'Industrial Compressor / Pump',
-        baseFreq: 5.1, noiseBase: 0.09, degradeRate: 0.00025,
-        fsmeOffset: 0.37, thresholdOffset: 0.79,
-        src: 'Industry Maintenance Data'
-      }
-    };
-
-    var t = 0;
-    var currentProfile = profiles.bearing;
-    var currentHours = 1200;
-    var maxHours = 8000;
-
-    function getHealthFactor(hours, profile) {
-      return Math.min(1.0, hours * profile.degradeRate);
-    }
-
-    function draw() {
-      var dpr = window.devicePixelRatio || 1;
-      var w = canvas.offsetWidth;
-      var h = 220;
-      canvas.width  = w * dpr;
-      canvas.height = h * dpr;
-      ctx.scale(dpr, dpr);
-
-      var p = currentProfile;
-      var hf = getHealthFactor(currentHours, p);
-
-      // Background
-      ctx.fillStyle = '#080a10';
-      ctx.fillRect(0, 0, w, h);
-
-      // Grid lines
-      ctx.strokeStyle = 'rgba(61,142,240,0.06)';
-      ctx.lineWidth = 1;
-      for (var gx = 0; gx < w; gx += 52) {
-        ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, h); ctx.stroke();
-      }
-      for (var gy = 0; gy < h; gy += 40) {
-        ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(w, gy); ctx.stroke();
-      }
-
-      // Marker X positions
-      var fsmeX = w * p.fsmeOffset;
-      var threshX = w * p.thresholdOffset;
-
-      // Progress marker (current hours position)
-      var nowX = (currentHours / maxHours) * w;
-
-      // FSME detection line
-      ctx.strokeStyle = 'rgba(61,192,122,0.7)';
-      ctx.lineWidth = 1.5;
-      ctx.setLineDash([4, 3]);
-      ctx.beginPath(); ctx.moveTo(fsmeX, 0); ctx.lineTo(fsmeX, h); ctx.stroke();
-      ctx.setLineDash([]);
-      ctx.fillStyle = 'rgba(61,192,122,0.9)';
-      ctx.font = '10px "IBM Plex Mono"';
-      ctx.fillText('FSME Detection', fsmeX + 5, 18);
-
-      // Threshold alarm line
-      ctx.strokeStyle = 'rgba(224,82,82,0.7)';
-      ctx.lineWidth = 1.5;
-      ctx.setLineDash([4, 3]);
-      ctx.beginPath(); ctx.moveTo(threshX, 0); ctx.lineTo(threshX, h); ctx.stroke();
-      ctx.setLineDash([]);
-      ctx.fillStyle = 'rgba(224,82,82,0.9)';
-      ctx.fillText('Threshold Alarm', threshX + 5, 18);
-
-      // Signal waveform
-      ctx.beginPath();
-      var mid = h / 2;
-      var amp = h * 0.18;
-      var noise = p.noiseBase;
-
-      for (var x = 0; x < w; x++) {
-        var progress = x / w;
-        var localHf = Math.min(1.0, (progress * maxHours) * p.degradeRate);
-
-        // Base oscillation
-        var signal = Math.sin((x * p.baseFreq * 0.08) + t) * amp;
-
-        // Noise increases with degradation
-        var n1 = (Math.sin(x * 17.3 + t * 2.1) * 0.4 + Math.sin(x * 31.7 + t * 1.3) * 0.3 + Math.sin(x * 7.9 + t * 0.7) * 0.3);
-        signal += n1 * (noise + localHf * 0.35) * amp * 1.5;
-
-        // Harmonic distortion after FSME detection point
-        if (progress > p.fsmeOffset) {
-          var dist = (progress - p.fsmeOffset) / (1 - p.fsmeOffset);
-          signal += Math.sin(x * p.baseFreq * 0.24 + t * 1.8) * amp * dist * 0.6;
-        }
-
-        // Severity spikes after threshold (catastrophic zone)
-        if (progress > p.thresholdOffset) {
-          signal += Math.sin(x * p.baseFreq * 0.05 + t) * amp * 1.8;
-        }
-
-        var y = mid - signal;
-        if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-      }
-
-      // Color the signal: green before FSME, gold between, red after threshold
-      var grad = ctx.createLinearGradient(0, 0, w, 0);
-      grad.addColorStop(0, 'rgba(61,142,240,0.9)');
-      grad.addColorStop(p.fsmeOffset - 0.01, 'rgba(61,142,240,0.9)');
-      grad.addColorStop(p.fsmeOffset, 'rgba(201,168,76,0.9)');
-      grad.addColorStop(p.thresholdOffset - 0.01, 'rgba(201,168,76,0.9)');
-      grad.addColorStop(p.thresholdOffset, 'rgba(224,82,82,0.95)');
-      grad.addColorStop(1, 'rgba(224,82,82,0.95)');
-      ctx.strokeStyle = grad;
-      ctx.lineWidth = 1.8;
-      ctx.stroke();
-
-      // Current position marker
-      if (nowX < w) {
-        ctx.strokeStyle = 'rgba(255,255,255,0.6)';
-        ctx.lineWidth = 1;
-        ctx.setLineDash([2, 4]);
-        ctx.beginPath(); ctx.moveTo(nowX, 0); ctx.lineTo(nowX, h); ctx.stroke();
-        ctx.setLineDash([]);
-        ctx.fillStyle = 'rgba(255,255,255,0.8)';
-        ctx.font = '10px "IBM Plex Mono"';
-        var label = 'Now';
-        var lw = ctx.measureText(label).width;
-        ctx.fillText(label, Math.min(nowX + 5, w - lw - 5), h - 8);
-      }
-
-      t += 0.025;
-    }
-
-    function updateStatus() {
-      var p = currentProfile;
-      var hf = getHealthFactor(currentHours, p);
-      var statusEl = document.getElementById('demo-status');
-      if (!statusEl) return;
-      var inFsmeZone = (currentHours / maxHours) > p.fsmeOffset;
-      var inFailZone = (currentHours / maxHours) > p.thresholdOffset;
-      var healthColor = inFailZone ? '#e05252' : inFsmeZone ? '#c9a84c' : '#3db87a';
-      var healthLabel = inFailZone ? '⚠ FAILURE ZONE' : inFsmeZone ? '↗ FSME DETECTION ZONE' : '✓ NOMINAL';
-      var leadTime = inFsmeZone && !inFailZone
-        ? 'Est. warning lead time: ' + Math.round((p.thresholdOffset - currentHours/maxHours) * maxHours / 24) + ' operating days'
-        : inFailZone ? 'Standard alarm already triggered' : 'No anomaly detected by threshold monitoring';
-
-      statusEl.innerHTML =
-        '<span style="color:' + healthColor + ';font-weight:700;">' + healthLabel + '</span><br>' +
-        '<span style="color:var(--dim);">' + leadTime + '</span><br>' +
-        '<span style="color:var(--dim);font-size:0.65rem;">Source: ' + p.src + '</span>';
-    }
-
-    function loop() { draw(); raf = requestAnimationFrame(loop); }
-
-    window.updateDemo = function() {
-      var sel = document.getElementById('demo-asset');
-      var hrs = document.getElementById('demo-hours');
-      var hrsVal = document.getElementById('demo-hours-val');
-      if (sel) currentProfile = profiles[sel.value] || profiles.bearing;
-      if (hrs) {
-        currentHours = parseInt(hrs.value);
-        if (hrsVal) hrsVal.textContent = currentHours.toLocaleString();
-      }
-      updateStatus();
-    };
-
-    // Start
-    updateDemo();
-    loop();
-  })();
-
   // Hamburger menu with ARIA
   (function() {
     var btn = document.getElementById('hamburger');
@@ -957,234 +543,17 @@
         btn.classList.toggle('open');
         menu.classList.toggle('open');
       });
+      // Close mobile menu when an in-page anchor is tapped
+      menu.querySelectorAll('a[href^="#"]').forEach(function(a) {
+        a.addEventListener('click', function() {
+          btn.setAttribute('aria-expanded', 'false');
+          btn.classList.remove('open');
+          menu.classList.remove('open');
+        });
+      });
     }
   })();
-
-  // Dropdown toggle
-  (function() {
-    var btn = document.querySelector('.nav-more-btn');
-    if (!btn) return;
-    btn.addEventListener('click', function(e) {
-      e.stopPropagation();
-      var expanded = btn.getAttribute('aria-expanded') === 'true';
-      btn.setAttribute('aria-expanded', String(!expanded));
-    });
-    document.addEventListener('click', function() {
-      if (btn) btn.setAttribute('aria-expanded', 'false');
-    });
-  })();
 </script>
-
-<!-- ── FSME LOGIC CHAT WIDGET ─────────────────────────────────────────── -->
-<script>const FSME_WORKER_URL = 'https://fsme-assistant-v2.fsme-logic.workers.dev';</script>
-<style>
-  #fsme-chat-btn{position:fixed;bottom:28px;right:28px;z-index:9000;width:56px;height:56px;border-radius:50%;background:#3d8ef0;border:none;cursor:pointer;box-shadow:0 4px 20px rgba(61,142,240,0.45);display:flex;align-items:center;justify-content:center;transition:transform 0.2s,box-shadow 0.2s;}
-  #fsme-chat-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(61,142,240,0.55);}
-  #fsme-chat-window{position:fixed;bottom:96px;right:28px;z-index:9001;width:370px;max-width:calc(100vw - 32px);height:520px;max-height:calc(100vh - 120px);background:#141822;border:1px solid #242e42;border-top:3px solid #3d8ef0;display:none;flex-direction:column;box-shadow:0 16px 48px rgba(0,0,0,0.55);font-family:'IBM Plex Mono','Consolas','Courier New',monospace;}
-  #fsme-chat-window.open{display:flex;}
-  .fsme-chat-header{display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.1rem;background:#1c2438;border-bottom:1px solid #242e42;flex-shrink:0;}
-  .fsme-chat-header-left{display:flex;align-items:center;gap:.6rem;}
-  .fsme-chat-dot{width:8px;height:8px;border-radius:50%;background:#3db87a;flex-shrink:0;}
-  .fsme-chat-title{font-size:.78rem;font-weight:700;color:#c5d2e8;letter-spacing:.06em;text-transform:uppercase;}
-  .fsme-chat-sub{font-size:.62rem;color:#6e86a8;letter-spacing:.04em;}
-  #fsme-close-btn{background:none;border:none;color:#6e86a8;cursor:pointer;padding:4px;line-height:1;font-size:1.1rem;transition:color .2s;}
-  #fsme-close-btn:hover{color:#c5d2e8;}
-  #fsme-messages{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:.75rem;scroll-behavior:smooth;}
-  #fsme-messages::-webkit-scrollbar{width:4px;}
-  #fsme-messages::-webkit-scrollbar-thumb{background:#242e42;border-radius:2px;}
-  .fsme-msg{max-width:88%;padding:.65rem .85rem;font-size:.82rem;line-height:1.65;border-radius:2px;}
-  .fsme-msg.bot{background:#181f2e;border:1px solid #242e42;color:#c5d2e8;align-self:flex-start;border-left:2px solid #3d8ef0;}
-  .fsme-msg.user{background:rgba(61,142,240,0.12);border:1px solid rgba(61,142,240,0.25);color:#c5d2e8;align-self:flex-end;}
-  .fsme-msg.typing{background:#181f2e;border:1px solid #242e42;color:#6e86a8;align-self:flex-start;font-style:italic;}
-  .fsme-msg a{color:#3d8ef0;text-decoration:none;}
-  .fsme-msg a:hover{text-decoration:underline;}
-  .fsme-chat-footer{border-top:1px solid #242e42;padding:.75rem;display:flex;gap:.5rem;flex-shrink:0;background:#141822;}
-  #fsme-input{flex:1;background:#0e1118;border:1px solid #242e42;color:#c5d2e8;font-family:inherit;font-size:.82rem;padding:.6rem .8rem;outline:none;resize:none;line-height:1.5;max-height:100px;transition:border-color .2s;}
-  #fsme-input:focus{border-color:#3d8ef0;}
-  #fsme-input::placeholder{color:#3a4a62;}
-  #fsme-send-btn{background:#3d8ef0;border:none;color:#fff;font-family:inherit;font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.6rem .85rem;cursor:pointer;transition:background .2s;flex-shrink:0;align-self:flex-end;}
-  #fsme-send-btn:hover{background:#2d6fd0;}
-  #fsme-send-btn:disabled{background:#242e42;color:#6e86a8;cursor:not-allowed;}
-  .fsme-chat-note{text-align:center;font-size:.62rem;color:#3a4a62;padding:.3rem .75rem .5rem;flex-shrink:0;}
-  @media(max-width:440px){#fsme-chat-window{right:8px;bottom:88px;width:calc(100vw - 16px);}#fsme-chat-btn{right:16px;bottom:16px;}}
-
-  /* ── CHAT BUTTON WRAPPER & LABEL ─────────────────────────── */
-  #fsme-chat-btn-wrapper {
-    position: fixed; bottom: 28px; right: 28px; z-index: 9000;
-    display: flex; flex-direction: column; align-items: center; gap: 6px;
-  }
-  #fsme-chat-btn {
-    position: relative; bottom: 0; right: 0;
-    width: 56px; height: 56px; border-radius: 50%;
-    background: #3d8ef0; border: none; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: transform 0.2s, background 0.2s;
-    animation: radar-pulse 2.8s infinite;
-  }
-  #fsme-chat-btn:hover {
-    transform: translateY(-2px); background: #2d6fd0;
-    animation: none; box-shadow: 0 8px 28px rgba(61,142,240,0.55);
-  }
-  @keyframes radar-pulse {
-    0%   { box-shadow: 0 0 0 0 rgba(61,142,240,0.7); }
-    70%  { box-shadow: 0 0 0 14px rgba(61,142,240,0); }
-    100% { box-shadow: 0 0 0 0 rgba(61,142,240,0); }
-  }
-  @keyframes flare-anim {
-    0%   { box-shadow: 0 0 0 0 rgba(201,168,76,0.8); filter: brightness(1); }
-    50%  { box-shadow: 0 0 18px 6px rgba(201,168,76,0.5); filter: brightness(1.3); transform: scale(1.06); }
-    100% { box-shadow: 0 0 0 0 rgba(201,168,76,0); filter: brightness(1); transform: scale(1); }
-  }
-  #fsme-chat-btn.flare { animation: flare-anim 0.6s ease-out; }
-  .chat-btn-label {
-    font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; font-weight: 700;
-    color: #c9a84c; background: #0e1117; border: 1px solid #1e2535;
-    padding: 0.25rem 0.55rem; border-radius: 4px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-    white-space: nowrap; text-transform: uppercase; letter-spacing: 0.07em;
-    animation: radar-pulse 2.8s infinite 1.4s;
-    pointer-events: none;
-  }
-
-  /* ── SOUTH PARK CANADIAN ROBOT ───────────────────────────── */
-  #fsme-robot {
-    width: 30px; height: 34px; position: relative;
-    margin-right: 10px; flex-shrink: 0; cursor: default;
-  }
-  .robot-top, .robot-bottom {
-    background: #8a9bb8; width: 100%; position: absolute;
-    left: 0; border: 2px solid #141822;
-  }
-  .robot-top {
-    height: 17px; top: 0; border-radius: 6px 6px 0 0;
-    transform-origin: bottom center;
-    border-bottom: 2px solid #080a10; z-index: 2;
-    transition: transform 0.08s;
-  }
-  .robot-bottom {
-    height: 17px; bottom: 0; border-radius: 0 0 6px 6px;
-  }
-  .robot-eye {
-    width: 5px; height: 5px; background: #080a10;
-    border-radius: 50%; position: absolute; top: 5px;
-  }
-  .robot-eye.left  { left: 5px; }
-  .robot-eye.right { right: 5px; }
-  .robot-antenna {
-    width: 3px; height: 7px; background: #8a9bb8;
-    position: absolute; top: -7px; left: 50%;
-    transform: translateX(-50%); border-radius: 2px 2px 0 0;
-  }
-  .robot-antenna::after {
-    content: ''; display: block; width: 6px; height: 6px;
-    background: #3d8ef0; border-radius: 50%;
-    margin: -3px 0 0 -1.5px;
-    box-shadow: 0 0 6px #3d8ef0;
-  }
-  @keyframes flap-head {
-    0%   { transform: translateY(0) rotate(0deg); }
-    30%  { transform: translateY(-7px) rotate(10deg); }
-    60%  { transform: translateY(-3px) rotate(-4deg); }
-    100% { transform: translateY(0) rotate(0deg); }
-  }
-  @keyframes idle-bob {
-    0%, 100% { transform: translateY(0); }
-    50%       { transform: translateY(-2px); }
-  }
-  #fsme-robot .robot-top {
-    animation: idle-bob 3s ease-in-out infinite;
-  }
-  #fsme-robot.talking .robot-top {
-    animation: flap-head 0.28s ease-in-out infinite !important;
-  }
-
-  </style>
-<button id="fsme-chat-btn" aria-label="Chat with FSME Logic Assistant" title="Ask the FSME Logic Assistant">
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-</button>
-<div id="fsme-chat-window" role="dialog" aria-label="FSME Logic Assistant">
-  <div class="fsme-chat-header">
-    <div class="fsme-chat-header-left">
-      <div class="fsme-chat-dot"></div>
-      <div><div class="fsme-chat-title">FSME Logic Assistant</div><div class="fsme-chat-sub">Predictive Integrity &middot; Edmonton, AB</div></div>
-    </div>
-    <button id="fsme-close-btn" aria-label="Close chat">&times;</button>
-  </div>
-  <div id="fsme-messages">
-    <div class="fsme-msg bot">// FSME Logic Assistant online.<br><br>I can help with product questions, the audit process, data compatibility, pricing, and security. What are you working with?<br><br><span style="font-size:.72rem;color:#6e86a8;">Note: conversations may be logged to improve this assistant. Do not share confidential information here.</span></div>
-  </div>
-  <div class="fsme-chat-footer">
-    <textarea id="fsme-input" placeholder="Ask about products, the audit process, data formats..." rows="1" maxlength="2000"></textarea>
-    <button id="fsme-send-btn">Send</button>
-  </div>
-  <div class="fsme-chat-note">FSME Logic &middot; fsmelogic.ca</div>
-</div>
-<script>
-(function(){
-  var btn=document.getElementById('fsme-chat-btn'),win=document.getElementById('fsme-chat-window'),
-      closeBtn=document.getElementById('fsme-close-btn'),input=document.getElementById('fsme-input'),
-      sendBtn=document.getElementById('fsme-send-btn'),messages=document.getElementById('fsme-messages');
-  var sessionId='fsme-'+Math.random().toString(36).slice(2,10);
-  var isOpen=false,isLoading=false;
-  var canFlare=true;
-  function triggerFlare(){
-    if(!canFlare||isOpen)return;
-    btn.classList.add('flare');
-    canFlare=false;
-    setTimeout(function(){btn.classList.remove('flare');},600);
-    setTimeout(function(){canFlare=true;},3500);
-  }
-  window.addEventListener('scroll',triggerFlare,{passive:true});
-  document.addEventListener('click',function(e){
-    if(!e.target.closest('#fsme-chat-btn-wrapper'))triggerFlare();
-  });
-  function toggleChat(){isOpen=!isOpen;win.classList.toggle('open',isOpen);if(isOpen){input.focus();messages.scrollTop=messages.scrollHeight;}}
-  btn.addEventListener('click',toggleChat);
-  closeBtn.addEventListener('click',toggleChat);
-  input.addEventListener('input',function(){this.style.height='auto';this.style.height=Math.min(this.scrollHeight,100)+'px';});
-  input.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage();}});
-  sendBtn.addEventListener('click',sendMessage);
-  function addMessage(text,type){
-    var div=document.createElement('div');div.className='fsme-msg '+type;
-    div.innerHTML=text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-      .replace(/\n/g,'<br>').replace(/(https?:\/\/[^\s<]+)/g,'<a href="$1" target="_blank" rel="noopener">$1</a>');
-    messages.appendChild(div);messages.scrollTop=messages.scrollHeight;return div;
-  }
-  async function sendMessage(){
-    var text=input.value.trim();if(!text||isLoading)return;
-    addMessage(text,'user');input.value='';input.style.height='auto';
-    isLoading=true;sendBtn.disabled=true;
-    var robot=document.getElementById('fsme-robot');
-    if(robot) robot.classList.add('talking');
-    var typingEl=(function(){
-        var phrases=[
-          '// Consulting the entropy logs...',
-          '// Parsing telemetry signatures...',
-          '// Searching the air-gapped archives...',
-          '// Running physics simulation...',
-          '// Calculating degradation vectors...',
-          '// Cross-referencing benchmark data...',
-          '// Translating engineering jargon...',
-          '// Scanning the signal history...',
-          '// Checking the Green Dashboard...',
-          '// Crunching failure probabilities...'
-        ];
-        return addMessage(phrases[Math.floor(Math.random()*phrases.length)],'typing');
-      })();
-    try{
-      var response=await fetch(FSME_WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({message:text,session_id:sessionId})});
-      var data=await response.json();typingEl.remove();
-      addMessage(data.reply||'Something went wrong. Email alex-kalyniuk@fsmelogic.ca for help.','bot');
-    }catch(err){
-      typingEl.remove();
-      addMessage('Connection issue. Email alex-kalyniuk@fsmelogic.ca directly.','bot');
-    }finally{isLoading=false;sendBtn.disabled=false;input.focus();
-    if(robot) robot.classList.remove('talking');}
-  }
-})();
-</script>
-<!-- ── END FSME CHAT WIDGET ────────────────────────────────────────────── -->
 
 </body>
 </html>

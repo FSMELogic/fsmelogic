@@ -6,7 +6,9 @@
 /* RESET */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* VARIABLES — --dim bumped to #8a9bb8 for WCAG AA compliance */
+/* VARIABLES — readability pass 2026-07: body copy (--muted) lifted to #aab8d0
+   for comfortable long-form reading; --dim stays #8a9bb8 (still WCAG AA on --bg)
+   and is reserved for true de-emphasis only. */
 :root {
   --bg:     #0e1118;
   --bg2:    #141822;
@@ -20,8 +22,8 @@
   --gold:   #c9a84c;
   --green:  #3db87a;
   --red:    #e05252;
-  --text:   #c5d2e8;
-  --muted:  #8a9bb8;
+  --text:   #d3ddef;
+  --muted:  #aab8d0;
   --dim:    #8a9bb8;
   --head:   'Barlow Condensed', sans-serif;
   --mono:   'IBM Plex Mono', monospace;
@@ -133,8 +135,8 @@ section, .wrap { position: relative; z-index: 1; }
 .section-title em { font-style: normal; color: var(--blue); }
 
 .section-sub {
-  font-family: var(--mono); font-size: 0.95rem; color: var(--muted);
-  max-width: 640px; line-height: 1.9; margin-bottom: 3rem;
+  font-family: var(--mono); font-size: 1rem; color: var(--muted);
+  max-width: 66ch; line-height: 1.9; margin-bottom: 3rem;
 }
 
 .bg-alt {
