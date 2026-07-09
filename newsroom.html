@@ -109,121 +109,6 @@
     .state-msg { text-align: center; font-family: var(--mono); font-size: 0.82rem; color: var(--dim); padding: 3rem 1rem; border: 1px dashed var(--border); }
     .state-msg.error { color: #e07575; border-color: #3a1f1f; background: rgba(58, 15, 15, 0.2); }
   </style>
-<style>
-  /* Ensure chat widget does not overlap footer social icons */
-  footer { padding-bottom: 7rem !important; }
-  @media (max-width: 680px) { footer { padding-bottom: 6rem !important; } }
-
-  /* Keep chat widget button anchored bottom-right (overrides conflicting rule in body CSS) */
-  #fsme-chat-btn {
-    position: fixed !important;
-    bottom: 28px !important;
-    right: 28px !important;
-    left: auto !important;
-    top: auto !important;
-  }
-  @media (max-width: 440px) {
-    #fsme-chat-btn {
-      bottom: 16px !important;
-      right: 16px !important;
-    }
-  }
-
-  /* Chat tooltip: first-visit call-to-action */
-  .fsme-chat-tooltip {
-    position: fixed;
-    bottom: 38px;
-    right: 96px;
-    z-index: 8999;
-    background: #141822;
-    border: 1px solid #242e42;
-    border-right: 3px solid #3d8ef0;
-    padding: 0.7rem 1rem;
-    font-family: 'IBM Plex Mono', 'Consolas', monospace;
-    font-size: 0.78rem;
-    color: #c5d2e8;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
-    opacity: 0;
-    transform: translateX(10px);
-    transition: opacity 0.4s, transform 0.4s;
-    pointer-events: none;
-    white-space: nowrap;
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-  }
-  .fsme-chat-tooltip.show {
-    opacity: 1;
-    transform: translateX(0);
-    pointer-events: auto;
-  }
-  .fsme-chat-tooltip-close {
-    background: none;
-    border: none;
-    color: #6e86a8;
-    cursor: pointer;
-    padding: 0 0.15rem;
-    font-size: 1rem;
-    line-height: 1;
-  }
-  .fsme-chat-tooltip-close:hover { color: #c5d2e8; }
-  @media (max-width: 680px) {
-    .fsme-chat-tooltip {
-      bottom: 38px;
-      right: 84px;
-      font-size: 0.72rem;
-      max-width: calc(100vw - 120px);
-    }
-  }
-</style>
-<script>
-  (function() {
-    try {
-      if (window.sessionStorage && sessionStorage.getItem('fsme_tooltip_shown')) return;
-    } catch (e) {}
-    var shown = false;
-    function showTooltip() {
-      if (shown) return;
-      shown = true;
-      try { sessionStorage.setItem('fsme_tooltip_shown', '1'); } catch (e) {}
-      var tip = document.createElement('div');
-      tip.className = 'fsme-chat-tooltip';
-      tip.innerHTML = '<span>Ask me anything</span><button class="fsme-chat-tooltip-close" aria-label="Close">&times;</button>';
-      document.body.appendChild(tip);
-      setTimeout(function() { tip.classList.add('show'); }, 120);
-      var hideTimer = setTimeout(function() { hide(); }, 9000);
-      function hide() {
-        clearTimeout(hideTimer);
-        tip.classList.remove('show');
-        setTimeout(function() { if (tip.parentNode) tip.remove(); }, 500);
-      }
-      tip.querySelector('.fsme-chat-tooltip-close').addEventListener('click', function(e) {
-        e.stopPropagation();
-        hide();
-      });
-      tip.addEventListener('click', function(e) {
-        if (e.target.classList.contains('fsme-chat-tooltip-close')) return;
-        var btn = document.getElementById('fsme-chat-btn');
-        if (btn) btn.click();
-        hide();
-      });
-    }
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', init);
-    } else {
-      init();
-    }
-    function init() {
-      window.addEventListener('scroll', function onScroll() {
-        if (window.scrollY > 80) {
-          showTooltip();
-          window.removeEventListener('scroll', onScroll);
-        }
-      }, { passive: true });
-      setTimeout(showTooltip, 7000);
-    }
-  })();
-</script>
 </head>
 <body>
 
@@ -234,43 +119,21 @@
       <span class="nav-logo-text">FSME Logic</span>
     </a>
     <ul class="nav-links">
-      <li><a href="case-studies.html">Validation</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="stratum.html">Stratum</a></li>
       <li><a href="store.html">Store</a></li>
       <li><a href="contact.html">Contact</a></li>
-      <li class="nav-more">
-        <button class="nav-more-btn" aria-expanded="false" aria-haspopup="true">More &#9662;</button>
-        <ul class="nav-dropdown">
-          <li><a href="roi.html">ROI Calculator</a></li>
-          <li><a href="newsroom.html">Newsroom</a></li>
-          <li><a href="investors.html">Investors</a></li>
-          <li><a href="pipeline-demo.html">Live Demo</a></li>
-          <li><a href="legal.html">Legal &amp; Terms</a></li>
-          <li><a href="legal.html#privacy">Privacy Policy</a></li>
-          <li><a href="case-studies.html#reports">Validation Reports</a></li>
-        </ul>
-      </li>
-      <li class="nav-cta"><a href="payment.html">Request Audit</a></li>
+      <li class="nav-cta"><a href="stratum.html#install">Install Free</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
       <span></span><span></span><span></span>
     </button>
   </div>
-  <div class="mobile-menu" id="mobile-menu">
-    <a href="payment.html">Request Audit &#9658;</a>
-    <a href="case-studies.html">Validation</a>
-    <a href="about.html">About</a>
-    <a href="faq.html">FAQ</a>
+    <div class="mobile-menu" id="mobile-menu">
+    <a href="stratum.html#install">Install Free &#9658;</a>
+    <a href="stratum.html">Stratum</a>
     <a href="store.html">Store</a>
     <a href="contact.html">Contact</a>
-    <a href="roi.html">ROI Calculator</a>
-    <a href="newsroom.html">Newsroom</a>
-    <a href="investors.html">Investors</a>
-    <a href="pipeline-demo.html">Live Demo</a>
-    <a href="case-studies.html#reports">Validation Reports</a>
     <a href="legal.html">Legal &amp; Terms</a>
-    <a href="legal.html#privacy">Privacy Policy</a>
   </div>
 </nav>
 
@@ -338,7 +201,7 @@
         '<h2>' + escapeHtml(p.title) + '</h2>' +
         '<div class="post-body">' + bodyToParagraphs(p.body) + '</div>' +
         '<div class="post-sig">' +
-          '<strong>Alexander Kalyniuk</strong> &nbsp;|&nbsp; Founder, FSME Logic &nbsp;|&nbsp; Edmonton, Alberta' +
+          '<strong>Alexander Kalyniuk</strong> &nbsp;|&nbsp; Founder, FSME Logic &nbsp;|&nbsp; Alberta' +
         '</div>' +
       '</div>';
     }).join('');
@@ -387,23 +250,15 @@
 <footer>
   <div class="foot-inner">
     <div class="foot-left">
-      &#169; 2026 Alexander Kalyniuk &#8212; FSME Logic &nbsp;|&nbsp; Edmonton, Alberta, Canada<br>
+      &#169; 2026 Alexander Kalyniuk &#8212; FSME Logic &nbsp;|&nbsp; Alberta, Canada<br>
       <a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a>
     </div>
-    <div class="foot-right">
-      <a href="case-studies.html">Validation</a>
-      <a href="about.html">About</a>
-      <a href="faq.html">FAQ</a>
-      <a href="contact.html">Contact</a>
-      <a href="privacy.html">Privacy</a>
-    </div>
-    <div class="foot-right" style="margin-top:0.5rem;">
+            <div class="foot-right">
+      <a href="stratum.html">Stratum</a>
       <a href="store.html">Store</a>
-      <a href="legal.html">Legal &amp; Terms</a>
-      <a href="investors.html">Investors</a>
       <a href="newsroom.html">Newsroom</a>
-      <a href="case-studies.html#reports">Validation Reports</a>
-      <a href="roi.html">ROI Calculator</a>
+      <a href="contact.html">Contact</a>
+      <a href="legal.html">Legal</a>
     </div>
     <div class="foot-social">
       <a href="https://x.com/FsmeLogic" target="_blank" rel="noopener" aria-label="X / Twitter">
@@ -460,217 +315,6 @@
     });
   })();
 </script>
-
-<!-- ── FSME LOGIC CHAT WIDGET ─────────────────────────────────────────── -->
-<script>const FSME_WORKER_URL = 'https://fsme-assistant-v2.fsme-logic.workers.dev';</script>
-<style>
-  #fsme-chat-btn{position:fixed;bottom:28px;right:28px;z-index:9000;width:56px;height:56px;border-radius:50%;background:#3d8ef0;border:none;cursor:pointer;box-shadow:0 4px 20px rgba(61,142,240,0.45);display:flex;align-items:center;justify-content:center;transition:transform 0.2s,box-shadow 0.2s;}
-  #fsme-chat-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(61,142,240,0.55);}
-  #fsme-chat-window{position:fixed;bottom:96px;right:28px;z-index:9001;width:370px;max-width:calc(100vw - 32px);height:520px;max-height:calc(100vh - 120px);background:#141822;border:1px solid #242e42;border-top:3px solid #3d8ef0;display:none;flex-direction:column;box-shadow:0 16px 48px rgba(0,0,0,0.55);font-family:'IBM Plex Mono','Consolas','Courier New',monospace;}
-  #fsme-chat-window.open{display:flex;}
-  .fsme-chat-header{display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.1rem;background:#1c2438;border-bottom:1px solid #242e42;flex-shrink:0;}
-  .fsme-chat-header-left{display:flex;align-items:center;gap:.6rem;}
-  .fsme-chat-dot{width:8px;height:8px;border-radius:50%;background:#3db87a;flex-shrink:0;}
-  .fsme-chat-title{font-size:.78rem;font-weight:700;color:#c5d2e8;letter-spacing:.06em;text-transform:uppercase;}
-  .fsme-chat-sub{font-size:.62rem;color:#6e86a8;letter-spacing:.04em;}
-  #fsme-close-btn{background:none;border:none;color:#6e86a8;cursor:pointer;padding:4px;line-height:1;font-size:1.1rem;transition:color .2s;}
-  #fsme-close-btn:hover{color:#c5d2e8;}
-  #fsme-messages{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:.75rem;scroll-behavior:smooth;}
-  #fsme-messages::-webkit-scrollbar{width:4px;}
-  #fsme-messages::-webkit-scrollbar-thumb{background:#242e42;border-radius:2px;}
-  .fsme-msg{max-width:88%;padding:.65rem .85rem;font-size:.82rem;line-height:1.65;border-radius:2px;}
-  .fsme-msg.bot{background:#181f2e;border:1px solid #242e42;color:#c5d2e8;align-self:flex-start;border-left:2px solid #3d8ef0;}
-  .fsme-msg.user{background:rgba(61,142,240,0.12);border:1px solid rgba(61,142,240,0.25);color:#c5d2e8;align-self:flex-end;}
-  .fsme-msg.typing{background:#181f2e;border:1px solid #242e42;color:#6e86a8;align-self:flex-start;font-style:italic;}
-  .fsme-msg a{color:#3d8ef0;text-decoration:none;}
-  .fsme-msg a:hover{text-decoration:underline;}
-  .fsme-chat-footer{border-top:1px solid #242e42;padding:.75rem;display:flex;gap:.5rem;flex-shrink:0;background:#141822;}
-  #fsme-input{flex:1;background:#0e1118;border:1px solid #242e42;color:#c5d2e8;font-family:inherit;font-size:.82rem;padding:.6rem .8rem;outline:none;resize:none;line-height:1.5;max-height:100px;transition:border-color .2s;}
-  #fsme-input:focus{border-color:#3d8ef0;}
-  #fsme-input::placeholder{color:#3a4a62;}
-  #fsme-send-btn{background:#3d8ef0;border:none;color:#fff;font-family:inherit;font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.6rem .85rem;cursor:pointer;transition:background .2s;flex-shrink:0;align-self:flex-end;}
-  #fsme-send-btn:hover{background:#2d6fd0;}
-  #fsme-send-btn:disabled{background:#242e42;color:#6e86a8;cursor:not-allowed;}
-  .fsme-chat-note{text-align:center;font-size:.62rem;color:#3a4a62;padding:.3rem .75rem .5rem;flex-shrink:0;}
-  @media(max-width:440px){#fsme-chat-window{right:8px;bottom:88px;width:calc(100vw - 16px);}#fsme-chat-btn{right:16px;bottom:16px;}}
-
-  /* ── CHAT BUTTON WRAPPER & LABEL ─────────────────────────── */
-  #fsme-chat-btn-wrapper {
-    position: fixed; bottom: 28px; right: 28px; z-index: 9000;
-    display: flex; flex-direction: column; align-items: center; gap: 6px;
-  }
-  #fsme-chat-btn {
-    position: relative; bottom: 0; right: 0;
-    width: 56px; height: 56px; border-radius: 50%;
-    background: #3d8ef0; border: none; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: transform 0.2s, background 0.2s;
-    animation: radar-pulse 2.8s infinite;
-  }
-  #fsme-chat-btn:hover {
-    transform: translateY(-2px); background: #2d6fd0;
-    animation: none; box-shadow: 0 8px 28px rgba(61,142,240,0.55);
-  }
-  @keyframes radar-pulse {
-    0%   { box-shadow: 0 0 0 0 rgba(61,142,240,0.7); }
-    70%  { box-shadow: 0 0 0 14px rgba(61,142,240,0); }
-    100% { box-shadow: 0 0 0 0 rgba(61,142,240,0); }
-  }
-  @keyframes flare-anim {
-    0%   { box-shadow: 0 0 0 0 rgba(201,168,76,0.8); filter: brightness(1); }
-    50%  { box-shadow: 0 0 18px 6px rgba(201,168,76,0.5); filter: brightness(1.3); transform: scale(1.06); }
-    100% { box-shadow: 0 0 0 0 rgba(201,168,76,0); filter: brightness(1); transform: scale(1); }
-  }
-  #fsme-chat-btn.flare { animation: flare-anim 0.6s ease-out; }
-  .chat-btn-label {
-    font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; font-weight: 700;
-    color: #c9a84c; background: #0e1117; border: 1px solid #1e2535;
-    padding: 0.25rem 0.55rem; border-radius: 4px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-    white-space: nowrap; text-transform: uppercase; letter-spacing: 0.07em;
-    animation: radar-pulse 2.8s infinite 1.4s;
-    pointer-events: none;
-  }
-
-  /* ── SOUTH PARK CANADIAN ROBOT ───────────────────────────── */
-  #fsme-robot {
-    width: 30px; height: 34px; position: relative;
-    margin-right: 10px; flex-shrink: 0; cursor: default;
-  }
-  .robot-top, .robot-bottom {
-    background: #8a9bb8; width: 100%; position: absolute;
-    left: 0; border: 2px solid #141822;
-  }
-  .robot-top {
-    height: 17px; top: 0; border-radius: 6px 6px 0 0;
-    transform-origin: bottom center;
-    border-bottom: 2px solid #080a10; z-index: 2;
-    transition: transform 0.08s;
-  }
-  .robot-bottom {
-    height: 17px; bottom: 0; border-radius: 0 0 6px 6px;
-  }
-  .robot-eye {
-    width: 5px; height: 5px; background: #080a10;
-    border-radius: 50%; position: absolute; top: 5px;
-  }
-  .robot-eye.left  { left: 5px; }
-  .robot-eye.right { right: 5px; }
-  .robot-antenna {
-    width: 3px; height: 7px; background: #8a9bb8;
-    position: absolute; top: -7px; left: 50%;
-    transform: translateX(-50%); border-radius: 2px 2px 0 0;
-  }
-  .robot-antenna::after {
-    content: ''; display: block; width: 6px; height: 6px;
-    background: #3d8ef0; border-radius: 50%;
-    margin: -3px 0 0 -1.5px;
-    box-shadow: 0 0 6px #3d8ef0;
-  }
-  @keyframes flap-head {
-    0%   { transform: translateY(0) rotate(0deg); }
-    30%  { transform: translateY(-7px) rotate(10deg); }
-    60%  { transform: translateY(-3px) rotate(-4deg); }
-    100% { transform: translateY(0) rotate(0deg); }
-  }
-  @keyframes idle-bob {
-    0%, 100% { transform: translateY(0); }
-    50%       { transform: translateY(-2px); }
-  }
-  #fsme-robot .robot-top {
-    animation: idle-bob 3s ease-in-out infinite;
-  }
-  #fsme-robot.talking .robot-top {
-    animation: flap-head 0.28s ease-in-out infinite !important;
-  }
-
-  </style>
-<button id="fsme-chat-btn" aria-label="Chat with FSME Logic Assistant" title="Ask the FSME Logic Assistant">
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-</button>
-<div id="fsme-chat-window" role="dialog" aria-label="FSME Logic Assistant">
-  <div class="fsme-chat-header">
-    <div class="fsme-chat-header-left">
-      <div class="fsme-chat-dot"></div>
-      <div><div class="fsme-chat-title">FSME Logic Assistant</div><div class="fsme-chat-sub">Predictive Integrity &middot; Edmonton, AB</div></div>
-    </div>
-    <button id="fsme-close-btn" aria-label="Close chat">&times;</button>
-  </div>
-  <div id="fsme-messages">
-    <div class="fsme-msg bot">// FSME Logic Assistant online.<br><br>I can help with product questions, the audit process, data compatibility, pricing, and security. What are you working with?<br><br><span style="font-size:.72rem;color:#6e86a8;">Note: conversations may be logged to improve this assistant. Do not share confidential information here.</span></div>
-  </div>
-  <div class="fsme-chat-footer">
-    <textarea id="fsme-input" placeholder="Ask about products, the audit process, data formats..." rows="1" maxlength="2000"></textarea>
-    <button id="fsme-send-btn">Send</button>
-  </div>
-  <div class="fsme-chat-note">FSME Logic &middot; fsmelogic.ca</div>
-</div>
-<script>
-(function(){
-  var btn=document.getElementById('fsme-chat-btn'),win=document.getElementById('fsme-chat-window'),
-      closeBtn=document.getElementById('fsme-close-btn'),input=document.getElementById('fsme-input'),
-      sendBtn=document.getElementById('fsme-send-btn'),messages=document.getElementById('fsme-messages');
-  var sessionId='fsme-'+Math.random().toString(36).slice(2,10);
-  var isOpen=false,isLoading=false;
-  var canFlare=true;
-  function triggerFlare(){
-    if(!canFlare||isOpen)return;
-    btn.classList.add('flare');
-    canFlare=false;
-    setTimeout(function(){btn.classList.remove('flare');},600);
-    setTimeout(function(){canFlare=true;},3500);
-  }
-  window.addEventListener('scroll',triggerFlare,{passive:true});
-  document.addEventListener('click',function(e){
-    if(!e.target.closest('#fsme-chat-btn-wrapper'))triggerFlare();
-  });
-  function toggleChat(){isOpen=!isOpen;win.classList.toggle('open',isOpen);if(isOpen){input.focus();messages.scrollTop=messages.scrollHeight;}}
-  btn.addEventListener('click',toggleChat);
-  closeBtn.addEventListener('click',toggleChat);
-  input.addEventListener('input',function(){this.style.height='auto';this.style.height=Math.min(this.scrollHeight,100)+'px';});
-  input.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage();}});
-  sendBtn.addEventListener('click',sendMessage);
-  function addMessage(text,type){
-    var div=document.createElement('div');div.className='fsme-msg '+type;
-    div.innerHTML=text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-      .replace(/\n/g,'<br>').replace(/(https?:\/\/[^\s<]+)/g,'<a href="$1" target="_blank" rel="noopener">$1</a>');
-    messages.appendChild(div);messages.scrollTop=messages.scrollHeight;return div;
-  }
-  async function sendMessage(){
-    var text=input.value.trim();if(!text||isLoading)return;
-    addMessage(text,'user');input.value='';input.style.height='auto';
-    isLoading=true;sendBtn.disabled=true;
-    var robot=document.getElementById('fsme-robot');
-    if(robot) robot.classList.add('talking');
-    var typingEl=(function(){
-        var phrases=[
-          '// Consulting the entropy logs...',
-          '// Parsing telemetry signatures...',
-          '// Searching the air-gapped archives...',
-          '// Running physics simulation...',
-          '// Calculating degradation vectors...',
-          '// Cross-referencing benchmark data...',
-          '// Translating engineering jargon...',
-          '// Scanning the signal history...',
-          '// Checking the Green Dashboard...',
-          '// Crunching failure probabilities...'
-        ];
-        return addMessage(phrases[Math.floor(Math.random()*phrases.length)],'typing');
-      })();
-    try{
-      var response=await fetch(FSME_WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({message:text,session_id:sessionId})});
-      var data=await response.json();typingEl.remove();
-      addMessage(data.reply||'Something went wrong. Email alex-kalyniuk@fsmelogic.ca for help.','bot');
-    }catch(err){
-      typingEl.remove();
-      addMessage('Connection issue. Email alex-kalyniuk@fsmelogic.ca directly.','bot');
-    }finally{isLoading=false;sendBtn.disabled=false;input.focus();
-    if(robot) robot.classList.remove('talking');}
-  }
-})();
-</script>
-<!-- ── END FSME CHAT WIDGET ────────────────────────────────────────────── -->
 
 </body>
 </html>

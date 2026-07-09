@@ -147,7 +147,6 @@
     <ul class="nav-links">
       <li><a href="stratum.html">Stratum</a></li>
       <li><a href="store.html">Store</a></li>
-      <li><a href="about.html">About</a></li>
       <li><a href="contact.html">Contact</a></li>
       <li class="nav-cta"><a href="#install">Install Free</a></li>
     </ul>
@@ -159,7 +158,6 @@
     <a href="#install">Install Free &#9658;</a>
     <a href="stratum.html">Stratum</a>
     <a href="store.html">Store</a>
-    <a href="about.html">About</a>
     <a href="contact.html">Contact</a>
     <a href="legal.html">Legal &amp; Terms</a>
   </div>
@@ -239,7 +237,7 @@ end fn">Copy</button>
     <p class="qs-note">The same source produces byte-identical output on the AST reference engine and the WebAssembly engine. The code you audit is exactly the code that runs.</p>
 
     <div class="llm-band">
-      <p><strong>Writing it with an AI?</strong> The whole language fits in one context pack. Paste <code style="font-family:var(--mono);color:var(--cyan);">LLM_CONTEXT_PACK.md</code> (ships with the package) into any capable LLM and it writes correct Stratum with no prior training on the language. That is the point: the runtime, not the model, enforces the guarantees.</p>
+      <p><strong>Designed to be vibe-coded.</strong> Stratum was built AI-first from the grammar up. The whole language fits in one context pack: paste <code style="font-family:var(--mono);color:var(--cyan);">LLM_CONTEXT_PACK.md</code> (ships with the package) into any capable LLM and it writes correct Stratum with no prior training on the language — a 3-billion-parameter local model wrote a working program from just the grammar. The compiler is strict and precise on purpose: it makes the AI's generate-check-correct loop fast, and functions can carry <code style="font-family:var(--mono);color:var(--cyan);">intent</code>, <code style="font-family:var(--mono);color:var(--cyan);">confidence</code>, and <code style="font-family:var(--mono);color:var(--cyan);">provenance</code> annotations — so when generated code declares a power its stated intent never mentioned, the compiler flags it. The model writes the code; the runtime enforces the guarantees.</p>
     </div>
   </div>
 </section>
@@ -288,6 +286,10 @@ end fn">Copy</button>
         <h3>Open-core detector</h3>
         <p>A built-in anomaly detector watches from inside the runtime, where the watched code cannot reach or disable it.</p>
       </div>
+      <div class="pillar">
+        <h3>AI-first by design</h3>
+        <p>Made to be vibe-coded: one context pack teaches any LLM the whole language, intent annotations catch code that does more than it says, and the strict compiler keeps the generate-check-correct loop fast.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -297,8 +299,8 @@ end fn">Copy</button>
   <div class="wrap">
     <div class="pro-flag">
       <p class="pf-tag">The Flagship</p>
-      <h3>Stratum <em>Pro.</em><br>The same language, in production.</h3>
-      <p>Pro is not a different Stratum. It is the same source and the same engines, plus the pieces a regulated deployment is required to have, and a vendor who signs an SLA. What you prototype on the free tier graduates to Pro unchanged.</p>
+      <h3>Stratum <em>Pro.</em><br>The day it goes to production.</h3>
+      <p>You do not pay for better math. You pay the day your prototype ships: when you need cryptographic identity on every module, a detector you can trust unattended, per-device licensing across a fleet, and a vendor who signs an SLA and stands behind it. Same language, same source as Basic — what you prototype free graduates unchanged. The code you embed can be as clever or as hostile as it likes: <strong style="color:#eef3fb;">cleverness operates inside the structure, never on it.</strong></p>
       <div class="pf-grid">
         <div class="pf-item">
           <h5>High-precision kernel</h5>
@@ -320,16 +322,27 @@ end fn">Copy</button>
       <p class="pf-degrade"><strong>No key-person risk.</strong> If a Pro subscription lapses, or we disappear tomorrow, the runtime reverts cleanly to Stratum Basic and your embedded system keeps running. Your plant never depends on our uptime, or on us existing.</p>
       <div class="apex-grid">
         <div class="apex-proof">
-          <p class="src">Proof Artifact 01</p>
-          <h4>The water-treatment gateway</h4>
-          <p>A dosing gateway embeds an unaudited third-party module under an empty capability ceiling. The trojaned twin is rejected at load. Sabotage that passes range validation is caught by the runtime detector, and the actor quarantines itself. One command, PASS or FAIL, runnable on your own machine.</p>
+          <p class="src">Validated &middot; 01</p>
+          <h4>The runtime survives its own red team</h4>
+          <p>Sixteen pentest attacks — capability smuggling, effect escape, mailbox floods, runaway recursion, monitor poisoning, attestation forgery and replay — all sixteen contained or rejected. Capability monotonicity is SMT-proved, not just tested: a nested call can never gain a power its caller lacked.</p>
         </div>
         <div class="apex-proof">
-          <p class="src">Proof Artifact 02</p>
-          <h4>The Guardian jailbreak logs</h4>
-          <p>Verbatim transcripts of a governed model refusing logic-trap and coercion jailbreaks, with deterministic, Ed25519-sealed reasoning: the same input produces the identical signed seal twice. Including one honest red-team find and the structural gate that closed it.</p>
+          <p class="src">Validated &middot; 02</p>
+          <h4>The sabotage your alarms miss</h4>
+          <p>A simulated dosing plant embeds an unaudited vendor module under an empty capability ceiling: the trojaned twin is rejected before a single instruction runs, and sabotage that stays inside normal ranges is still caught by the in-runtime detector — the limit alarms see the magnitude, this sees the shape. The actor quarantines itself.</p>
+        </div>
+        <div class="apex-proof">
+          <p class="src">Validated &middot; 03</p>
+          <h4>Real data, real faults, zero crashes</h4>
+          <p>148 of the ugliest real telemetry datasets we could find — noisy, desynchronized, incomplete — processed with zero runtime crashes. On the PRONOSTIA bearing-degradation benchmark the detector flagged 7 of 10 faults early, with 100% agreement between both engines on every verdict.</p>
+        </div>
+        <div class="apex-proof">
+          <p class="src">Validated &middot; 04</p>
+          <h4>Jailbreaks refused structurally</h4>
+          <p>A governed model was put through logic-trap and coercion jailbreaks and refused them at the runtime level — the capability to comply never existed, so there was nothing for the prompt to talk its way into. Every refusal carries deterministic, Ed25519-sealed reasoning: the same input produces the identical signed seal, every time.</p>
         </div>
       </div>
+      <p style="font-family:var(--mono);font-size:0.72rem;color:var(--dim);letter-spacing:0.04em;line-height:1.7;margin-bottom:2rem;">Every claim above is backed by a named test or gate. Ask, and we will walk your engineers through the evidence.</p>
       <div style="margin-top:2rem;">
         <a class="btn btn-primary" href="contact.html?product=pro">Scope a Pro Deployment &#9658;</a>
       </div>
@@ -350,14 +363,13 @@ end fn">Copy</button>
 <footer>
   <div class="foot-inner">
     <div class="foot-left">
-      <a href="easter-egg.html" style="color:inherit;text-decoration:none;cursor:default;">©</a> 2026 Alexander Kalyniuk — FSME Logic &nbsp;|&nbsp; Edmonton, Alberta, Canada<br>
+      <a href="easter-egg.html" style="color:inherit;text-decoration:none;cursor:default;">©</a> 2026 Alexander Kalyniuk — FSME Logic &nbsp;|&nbsp; Alberta, Canada<br>
       <a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a>
     </div>
     <div class="foot-right">
       <a href="stratum.html">Stratum</a>
       <a href="store.html">Store</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
+        <a href="contact.html">Contact</a>
       <a href="legal.html">Legal</a>
     </div>
     <div class="foot-social">

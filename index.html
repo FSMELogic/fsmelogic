@@ -153,22 +153,16 @@
   <link rel="canonical" href="https://fsmelogic.ca/">
   <meta name="robots" content="index, follow">
   <meta name="author" content="Alexander Kalyniuk — FSME Logic">
-  <meta name="geo.region" content="CA-AB">
-  <meta name="geo.placename" content="Edmonton, Alberta, Canada">
-  <meta name="geo.position" content="53.5461;-113.4938">
-  <meta name="ICBM" content="53.5461, -113.4938">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
+    "@type": "Organization",
     "name": "FSME Logic",
-    "description": "Stratum: a secure-by-construction language and runtime that bounds untrusted and AI-generated code by design. Plus offline, physics-based predictive health analysis. Fully offline, air-gapped, built in Edmonton.",
+    "description": "Stratum: a secure-by-construction language and runtime that bounds untrusted and AI-generated code by design. Plus offline, physics-based predictive health analysis. Fully offline, air-gapped, built in Canada.",
     "url": "https://fsmelogic.ca",
     "email": "alex-kalyniuk@fsmelogic.ca",
     "founder": { "@type": "Person", "name": "Alexander Kalyniuk" },
-    "address": { "@type": "PostalAddress", "addressLocality": "Edmonton", "addressRegion": "AB", "addressCountry": "CA" },
-    "areaServed": { "@type": "City", "name": "Edmonton" },
-    "serviceType": ["Secure Runtime","AI Governance","Predictive Maintenance","Equipment Health Analysis","Industrial Sensor Analysis"],
+    "address": { "@type": "PostalAddress", "addressRegion": "AB", "addressCountry": "CA" },
     "knowsAbout": ["Capability security","Secure-by-construction languages","AI governance","Equipment failure detection","Air-gapped data processing"],
     "sameAs": ["https://github.com/FSMELogic/fsmelogic"]
   }
@@ -192,7 +186,6 @@
     <ul class="nav-links">
       <li><a href="stratum.html">Stratum</a></li>
       <li><a href="store.html">Store</a></li>
-      <li><a href="about.html">About</a></li>
       <li><a href="contact.html">Contact</a></li>
       <li class="nav-cta"><a href="stratum.html#install">Install Free</a></li>
     </ul>
@@ -204,7 +197,6 @@
     <a href="stratum.html#install">Install Free &#9658;</a>
     <a href="stratum.html">Stratum</a>
     <a href="store.html">Store</a>
-    <a href="about.html">About</a>
     <a href="contact.html">Contact</a>
     <a href="legal.html">Legal &amp; Terms</a>
   </div>
@@ -235,6 +227,19 @@
       <a class="btn btn-secondary" href="#what-is-stratum">See what it does</a>
     </div>
     <p class="hero-microcopy">No sign-up. No approval. No cloud. One pip install &middot; Windows, macOS, or Linux &middot; Python 3.9+.</p>
+  </div>
+</section>
+
+<!-- WHY THE CHANGE -->
+<section class="bg-alt" id="why">
+  <div class="wrap" style="padding-top:4.5rem;padding-bottom:4.5rem;">
+    <p class="section-label">Why The Change</p>
+    <h2 class="section-title" style="font-size:clamp(1.9rem,4.5vw,2.8rem);">We were a predictive maintenance company.<br>Then we needed <em>safer code.</em></h2>
+    <div class="tool-band" style="margin-top:1.5rem;">
+      <p>FSME Logic started in failure detection: finding the early signs of machine degradation in recorded sensor data. But that business had a shape we never liked: <strong>"hand a stranger your data and trust him."</strong> Building our own detection tools, we also needed code that physically could not misbehave. So we built the language, and it changed what we sell.</p>
+      <p>Now the model is reversed. Don't trust us: <strong>check the language yourself, free</strong>, and see how seriously we build. Then, if it earns it, buy software you run entirely on your own hardware. Fully offline. No internet required. It collects nothing while it runs. And from there, you can build the same class of governed, bounded system for your own live deployment.</p>
+      <p>"But aren't AI safety and machine health two different businesses?" Not really. The failure data we cut our teeth on &mdash; bearing degradation runs, actuator telemetry, the public NASA, ESA, and PRONOSTIA datasets &mdash; is exactly the data teams now point AI systems at. Bounding what an AI can do, and knowing early when a system starts to go wrong, are the same discipline. They go hand in hand.</p>
+    </div>
   </div>
 </section>
 
@@ -302,7 +307,7 @@
   <div class="wrap">
     <p class="section-label">Built By FSME Logic</p>
     <h2 class="section-title">Three tools you can own <em>today.</em></h2>
-    <p class="section-sub">Each one runs entirely on your hardware. Nothing you feed them ever leaves your building. We describe each honestly, including what it is not.</p>
+    <p class="section-sub">Each one runs entirely on your hardware, fully offline, and makes no outbound calls. We describe each honestly, including what it is not.</p>
     <div class="prod-grid">
 
       <div class="prod-card gov">
@@ -338,17 +343,17 @@
   <div class="wrap">
     <p class="section-label">The Flagship</p>
     <h2 class="section-title">Stratum <em>Pro.</em><br>Build your own governed systems.</h2>
-    <p class="section-sub">When a prototype graduates to production, Pro adds what regulated buyers are required to have: cryptographic identity and attestation, the high-precision detection kernel, fleet licensing, and a vendor who signs an SLA. These two artifacts are what make "build your own" believable rather than a claim.</p>
+    <p class="section-sub">You do not pay for better math. You pay the day your prototype ships: cryptographic identity on every module, a detector you can trust unattended, fleet licensing, and a vendor who signs an SLA. Every claim below is backed by a named test or gate — ask, and we will walk your engineers through the evidence.</p>
     <div class="apex-grid">
       <div class="apex-proof">
-        <p class="src">Proof Artifact 01</p>
-        <h4>The water-treatment gateway</h4>
-        <p>A dosing gateway embeds an unaudited third-party module under an empty capability ceiling. The trojaned twin is rejected at load. Sabotage that passes range validation is caught by the runtime detector, and the actor quarantines itself. One command, PASS or FAIL, runnable on your own machine.</p>
+        <p class="src">Validated &middot; 01</p>
+        <h4>Survives its own red team</h4>
+        <p>Sixteen pentest attacks — capability smuggling, effect escape, mailbox floods, attestation forgery — all sixteen contained or rejected. Capability monotonicity is SMT-proved, not just tested. And sabotage that stays inside normal ranges is still caught: your limit alarms see the magnitude, the detector sees the shape.</p>
       </div>
       <div class="apex-proof">
-        <p class="src">Proof Artifact 02</p>
-        <h4>The Guardian jailbreak logs</h4>
-        <p>Verbatim transcripts of a governed model refusing logic-trap and coercion jailbreaks, with deterministic, Ed25519-sealed reasoning: the same input produces the identical signed seal twice. Including one honest red-team find and the structural gate that closed it.</p>
+        <p class="src">Validated &middot; 02</p>
+        <h4>Jailbreaks refused structurally</h4>
+        <p>A governed model was put through logic-trap and coercion jailbreaks and refused them at the runtime level — the capability to comply never existed, so there was nothing for a prompt to talk its way into. Every refusal carries deterministic, Ed25519-sealed reasoning: the same input produces the identical signed seal, every time.</p>
       </div>
     </div>
     <p class="apex-degrade"><strong>No key-person risk.</strong> The same source compiles unchanged on the free and paid tiers. If a Pro license lapses, or the vendor disappears tomorrow, your system degrades cleanly to Stratum Basic and keeps running. Your plant never depends on our uptime, or on us existing.</p>
@@ -400,14 +405,13 @@
 <footer>
   <div class="foot-inner">
     <div class="foot-left">
-      <a href="easter-egg.html" style="color:inherit;text-decoration:none;cursor:default;">©</a> 2026 Alexander Kalyniuk — FSME Logic &nbsp;|&nbsp; Edmonton, Alberta, Canada<br>
+      <a href="easter-egg.html" style="color:inherit;text-decoration:none;cursor:default;">©</a> 2026 Alexander Kalyniuk — FSME Logic &nbsp;|&nbsp; Alberta, Canada<br>
       <a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a>
     </div>
     <div class="foot-right">
       <a href="stratum.html">Stratum</a>
       <a href="store.html">Store</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
+        <a href="contact.html">Contact</a>
       <a href="legal.html">Legal</a>
     </div>
     <div class="foot-social">
@@ -457,7 +461,7 @@
   // Typewriter eyebrow
   (function() {
     var phrases = [
-      'SECURE-BY-CONSTRUCTION SOFTWARE — EDMONTON, ALBERTA',
+      'SECURE-BY-CONSTRUCTION SOFTWARE — FSME LOGIC',
       'UNTRUSTED CODE, BOUNDED BY CONSTRUCTION.',
       'EVERY GUARANTEE IS STRUCTURAL, NOT A PROMISE.',
       'NO CLOUD. NO PHONE HOME. NO COMPROMISE.',
