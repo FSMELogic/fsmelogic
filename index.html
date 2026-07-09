@@ -238,7 +238,7 @@
     <div class="tool-band" style="margin-top:1.5rem;">
       <p>FSME Logic started in failure detection: finding the early signs of machine degradation in recorded sensor data. But that business had a shape we never liked: <strong>"hand a stranger your data and trust him."</strong> Building our own detection tools, we also needed code that physically could not misbehave. So we built the language, and it changed what we sell.</p>
       <p>Now the model is reversed. Don't trust us: <strong>check the language yourself, free</strong>, and see how seriously we build. Then, if it earns it, buy software you run entirely on your own hardware. Fully offline. No internet required. It collects nothing while it runs. And from there, you can build the same class of governed, bounded system for your own live deployment.</p>
-      <p>"But aren't AI safety and machine health two different businesses?" Not really. The failure data we cut our teeth on &mdash; bearing degradation runs, actuator telemetry, the public NASA, ESA, and PRONOSTIA datasets &mdash; is exactly the data teams now point AI systems at. Bounding what an AI can do, and knowing early when a system starts to go wrong, are the same discipline. They go hand in hand.</p>
+      <p>"But aren't AI safety and machine health two different businesses?" Not really. The failure data we cut our teeth on &mdash; bearing degradation runs, actuator telemetry, the public NASA, ESA, and PRONOSTIA datasets &mdash; is exactly the data teams now point AI systems at. And both are failure-mode problems that most people try to solve by bolting something on after the fact: a filter in front of the model, an alarm on top of the sensor. We made the detection and the bounds <strong>part of the system itself.</strong> They go hand in hand.</p>
     </div>
   </div>
 </section>
@@ -249,8 +249,8 @@
     <p class="section-label">What Stratum Is</p>
     <h2 class="section-title">A tool, not a <em>promise.</em></h2>
     <div class="tool-band">
-      <p>A hammer builds a house or breaks a window, and the toolmaker is neither the carpenter nor the vandal. Stratum is the same kind of thing: <strong>a substrate that gives you structural guarantees</strong>, so what you build on top of it is bounded by construction. What you build is yours.</p>
-      <p>So we are precise about what this is. We did not ship "AI safety." We did not ship a "system monitor." We shipped the <strong>language and runtime</strong> that governed gateways, forensic analyzers, and bounded control systems get built on. Below is what the tool actually gives you.</p>
+      <p>We make tools. A toolmaker is neither the carpenter nor the vandal &mdash; <strong>what gets built belongs to the builder.</strong> So we are precise about what we shipped: not "AI safety," not a monitor for your systems. A <strong>language and runtime with structural guarantees</strong>, so whatever you build on it is bounded by construction. What you build is yours.</p>
+      <p>It is the same tool our own governed gateways, forensic analyzers, and bounded control systems are built on. Below is what it actually gives you.</p>
     </div>
     <div class="grid-4">
       <div class="pillar">
@@ -383,6 +383,7 @@
       <div class="reg"><p class="reg-name">Canada CCSPA</p><p>Cyber security for critical infrastructure, penalties that scale by the day. Air-gapped operation keeps your data your own.</p></div>
       <div class="reg"><p class="reg-name">FDA 524B &middot; EU CRA</p><p>Software provenance and integrity evidence for devices. Ed25519 attestation gives every module a verifiable origin.</p></div>
     </div>
+    <p style="font-family:var(--body);font-size:0.88rem;color:var(--dim);line-height:1.7;max-width:74ch;margin-top:1.25rem;">To be clear: these are not certifications, and we have not been audited against these frameworks. The point is simpler. The artifacts they ask for &mdash; signed, tamper-evident records, provenance, offline operation &mdash; are what these tools produce natively, instead of something you bolt on later.</p>
 
     <!-- REQUEST LINE -->
     <div class="req-line">
