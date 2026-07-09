@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H3ZFCJGRSS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H3ZFCJGRSS');
+  </script>
+  <!-- Google Ads -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18021290501"></script>
+  <script>
+    gtag('config', 'AW-18021290501');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stratum — Install Free, Write Your First Program | FSME Logic</title>
+  <meta name="description" content="Install Stratum free from PyPI and write your first secure-by-construction program in minutes. Capability security, two byte-identical engines, and a built-in anomaly detector. Stratum Pro adds the high-precision kernel, attestation, and fleet controls.">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* PAGE HERO */
+    .st-hero { padding: 9rem 2rem 3rem; position: relative; overflow: hidden; }
+    .st-hero-bg { position: absolute; inset: 0; z-index: 0; background: radial-gradient(ellipse 70% 60% at 60% 30%, rgba(74,151,245,0.09) 0%, transparent 70%); }
+    .st-hero .wrap { position: relative; z-index: 1; }
+    .st-hero h1 { font-family: var(--head); font-size: clamp(2.8rem, 8vw, 5.5rem); font-weight: 800; line-height: 0.98; color: #eef3fb; margin-bottom: 1.25rem; letter-spacing: 0.01em; }
+    .st-hero h1 em { font-style: normal; color: var(--blue); }
+    .st-hero p { font-family: var(--body); font-size: clamp(1.05rem, 2vw, 1.25rem); color: var(--text); max-width: 64ch; line-height: 1.7; }
+
+    .st-sec { padding: 4.5rem 2rem; }
+    .st-sec.alt { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+    /* QUICKSTART TERMINAL BLOCKS */
+    .qs-step-label { font-family: var(--mono); font-size: 0.74rem; font-weight: 700; color: var(--blue); letter-spacing: 0.16em; text-transform: uppercase; margin: 2.25rem 0 0.9rem; }
+    .qs-step-label:first-of-type { margin-top: 2rem; }
+    .cmd-block { background: #06080d; border: 1px solid var(--bord2); border-left: 3px solid var(--blue); margin-bottom: 0.75rem; max-width: 680px; }
+    .cmd-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.95rem 1.15rem; flex-wrap: wrap; }
+    .cmd-row code { font-family: var(--mono); font-size: clamp(0.85rem, 2vw, 1rem); color: var(--text); }
+    .cmd-row code .ps1 { color: var(--green); user-select: none; }
+    .cmd-row code .cmt { color: var(--dim); }
+    .cmd-copy { font-family: var(--mono); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--blue); background: rgba(74,151,245,0.1); border: 1px solid rgba(74,151,245,0.4); padding: 0.45rem 0.85rem; cursor: pointer; transition: all 0.2s; flex-shrink: 0; }
+    .cmd-copy:hover { background: var(--blue); color: #fff; }
+    .qs-note { font-family: var(--body); font-size: 0.92rem; color: var(--muted); line-height: 1.7; max-width: 68ch; margin: 0.75rem 0 0; }
+    .qs-note a { color: var(--blue); }
+
+    /* CODE SAMPLE */
+    .code-sample { background: #06080d; border: 1px solid var(--bord2); border-top: 2px solid var(--blue); max-width: 680px; margin-bottom: 0.75rem; }
+    .code-sample-head { display: flex; align-items: center; justify-content: space-between; padding: 0.55rem 1.1rem; border-bottom: 1px solid var(--border); }
+    .code-sample-head .fname { font-family: var(--mono); font-size: 0.7rem; color: var(--dim); letter-spacing: 0.1em; }
+    .code-sample pre { padding: 1.15rem 1.25rem; overflow-x: auto; margin: 0; }
+    .code-sample pre code { font-family: var(--mono); font-size: 0.88rem; line-height: 1.7; color: var(--text); }
+    .code-sample .kw { color: var(--blue); }
+    .code-sample .str { color: var(--green); }
+    .code-sample .cmt { color: var(--dim); }
+
+    /* CAPABILITY TABLE */
+    .cap-table { width: 100%; max-width: 680px; border-collapse: collapse; margin-top: 1.5rem; }
+    .cap-table th { font-family: var(--mono); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); text-align: left; padding: 0.7rem 1rem; border-bottom: 2px solid var(--blue); }
+    .cap-table td { font-family: var(--mono); font-size: 0.82rem; color: var(--text); padding: 0.65rem 1rem; border-bottom: 1px solid var(--border); }
+    .cap-table td:first-child { color: var(--cyan); }
+    .cap-table tr:hover td { background: rgba(74,151,245,0.04); }
+
+    /* GUARANTEE PILLARS */
+    .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+    .pillar { background: var(--card); border: 1px solid var(--border); border-top: 3px solid var(--blue); padding: 2rem; }
+    .pillar h3 { font-family: var(--head); font-size: 1.4rem; font-weight: 700; color: #eef3fb; margin-bottom: 0.7rem; letter-spacing: 0.01em; }
+    .pillar p { font-family: var(--body); font-size: 0.95rem; color: var(--muted); line-height: 1.7; }
+
+    /* LLM BAND */
+    .llm-band { border-left: 3px solid var(--cyan); padding: 0.5rem 0 0.5rem 2rem; max-width: 74ch; margin-top: 2rem; }
+    .llm-band p { font-family: var(--body); font-size: 1.05rem; color: var(--text); line-height: 1.8; }
+    .llm-band strong { color: #fff; font-weight: 600; }
+
+    /* PRO FLAGSHIP */
+    .pro-flag { background: linear-gradient(180deg, rgba(201,168,76,0.06), transparent); border: 1px solid var(--border); border-top: 3px solid var(--gold); padding: 3rem 2.5rem; }
+    .pro-flag .pf-tag { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem; }
+    .pro-flag h3 { font-family: var(--head); font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; color: #eef3fb; letter-spacing: 0.01em; line-height: 1.02; margin-bottom: 1rem; }
+    .pro-flag h3 em { font-style: normal; color: var(--gold); }
+    .pro-flag > p { font-family: var(--body); font-size: 1rem; color: var(--muted); line-height: 1.75; max-width: 72ch; margin-bottom: 1.75rem; }
+    .pf-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; margin-bottom: 2rem; }
+    .pf-item { background: var(--bg); border: 1px solid var(--border); padding: 1.5rem; }
+    .pf-item h5 { font-family: var(--head); font-size: 1.2rem; font-weight: 700; color: #eef3fb; margin-bottom: 0.4rem; letter-spacing: 0.01em; }
+    .pf-item p { font-family: var(--body); font-size: 0.86rem; color: var(--muted); line-height: 1.65; }
+    .pf-degrade { font-family: var(--body); font-size: 0.95rem; color: var(--muted); line-height: 1.75; border-left: 3px solid var(--gold); padding-left: 1.5rem; max-width: 74ch; margin-bottom: 2rem; }
+    .pf-degrade strong { color: var(--gold); }
+
+    /* PROOF ARTIFACTS */
+    .apex-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+    .apex-proof { background: var(--bg); border: 1px solid var(--border); padding: 1.75rem; }
+    .apex-proof .src { font-family: var(--mono); font-size: 0.7rem; color: var(--gold); letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 0.7rem; }
+    .apex-proof h4 { font-family: var(--head); font-size: 1.35rem; font-weight: 700; color: #eef3fb; margin-bottom: 0.55rem; letter-spacing: 0.01em; }
+    .apex-proof p { font-family: var(--body); font-size: 0.9rem; color: var(--muted); line-height: 1.7; }
+
+    @media (max-width: 680px) {
+      .st-hero { padding: 7.5rem 1.25rem 2.5rem; }
+      .st-sec { padding: 3.5rem 1.25rem; }
+      .pro-flag { padding: 2rem 1.5rem; }
+    }
+  </style>
+  <!-- SEO -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://fsmelogic.ca/stratum.html">
+  <meta property="og:title" content="Stratum — Install Free, Write Your First Program | FSME Logic">
+  <meta property="og:description" content="Install Stratum free from PyPI and write your first secure-by-construction program in minutes. Two byte-identical engines, capability security, built-in anomaly detection.">
+  <meta property="og:image" content="https://fsmelogic.ca/infographic-1.png">
+  <meta property="og:site_name" content="FSME Logic">
+  <meta property="og:locale" content="en_CA">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Stratum — Install Free, Write Your First Program | FSME Logic">
+  <meta name="twitter:description" content="Install Stratum free from PyPI and write your first secure-by-construction program in minutes.">
+  <meta name="twitter:image" content="https://fsmelogic.ca/infographic-1.png">
+  <link rel="canonical" href="https://fsmelogic.ca/stratum.html">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Alexander Kalyniuk — FSME Logic">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Stratum",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Windows, macOS, Linux",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CAD" },
+    "description": "An AI-first, secure-by-construction programming language and hardened runtime. Capability security, two byte-identical engines, built-in anomaly detection. Free on PyPI.",
+    "url": "https://fsmelogic.ca/stratum.html",
+    "author": { "@type": "Organization", "name": "FSME Logic" }
+  }
+  </script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/web-app-manifest-192x192.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="manifest" href="/site.webmanifest">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">
+      <img src="logo.jpg" alt="FSME Logic" width="42" height="42">
+      <span class="nav-logo-text">FSME Logic</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="stratum.html">Stratum</a></li>
+      <li><a href="store.html">Store</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li class="nav-cta"><a href="#install">Install Free</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#install">Install Free &#9658;</a>
+    <a href="stratum.html">Stratum</a>
+    <a href="store.html">Store</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="legal.html">Legal &amp; Terms</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="st-hero">
+  <div class="st-hero-bg"></div>
+  <div class="wrap">
+    <p class="section-label">The Language</p>
+    <h1>Install. Grant.<br><em>Run.</em></h1>
+    <p>Stratum is a statically typed, actor-based language where whole classes of failure are prevented by the execution model, not caught after the fact. A program can only do what you grant it. You can be running it in the next two minutes, free.</p>
+  </div>
+</section>
+
+<!-- QUICKSTART -->
+<section class="st-sec" id="install">
+  <div class="wrap">
+    <p class="section-label">Quick Start</p>
+    <h2 class="section-title">Install. Write. <em>Run.</em></h2>
+
+    <p class="qs-step-label">01 &middot; Installation</p>
+    <div class="cmd-block">
+      <div class="cmd-row">
+        <code><span class="ps1">$&nbsp;</span>pip install stratum-lang</code>
+        <button class="cmd-copy" data-cmd="pip install stratum-lang">Copy</button>
+      </div>
+    </div>
+    <p class="qs-note">One install works on Windows, macOS, and Linux. Python 3.9+. MIT licensed, free forever, no sign-up. <a href="https://pypi.org/project/stratum-lang/" target="_blank" rel="noopener">View the package on PyPI &#8599;</a></p>
+
+    <p class="qs-step-label">02 &middot; Your first program</p>
+    <div class="code-sample">
+      <div class="code-sample-head">
+        <span class="fname">hello.st</span>
+        <button class="cmd-copy" data-cmd="module hello;
+
+fn main() -> Unit effects [console] do
+    let a = 5;
+    let b = 3;
+    print(&quot;Sum:&quot;, a + b);
+    ()
+end fn">Copy</button>
+      </div>
+      <pre><code><span class="kw">module</span> hello;
+
+<span class="kw">fn</span> main() -> Unit <span class="kw">effects</span> [console] <span class="kw">do</span>
+    <span class="kw">let</span> a = 5;
+    <span class="kw">let</span> b = 3;
+    print(<span class="str">"Sum:"</span>, a + b);
+    ()
+<span class="kw">end fn</span></code></pre>
+    </div>
+    <p class="qs-note">Every function declares the effects it uses. This one needs the console, so it says so.</p>
+
+    <p class="qs-step-label">03 &middot; Grant it, run it</p>
+    <div class="cmd-block">
+      <div class="cmd-row">
+        <code><span class="ps1">$&nbsp;</span>stratum --grant console hello.st</code>
+        <button class="cmd-copy" data-cmd="stratum --grant console hello.st">Copy</button>
+      </div>
+    </div>
+    <p class="qs-note">There is no ambient authority. The program can print because you granted <code style="font-family:var(--mono);color:var(--cyan);">console</code> on the command line, and it can do nothing you did not grant.</p>
+
+    <p class="qs-step-label">04 &middot; Prove it on both engines</p>
+    <div class="cmd-block">
+      <div class="cmd-row">
+        <code><span class="ps1">$&nbsp;</span>stratum --grant console --engine=ast&nbsp; hello.st</code>
+        <button class="cmd-copy" data-cmd="stratum --grant console --engine=ast hello.st">Copy</button>
+      </div>
+    </div>
+    <div class="cmd-block">
+      <div class="cmd-row">
+        <code><span class="ps1">$&nbsp;</span>stratum --grant console --engine=wasm hello.st</code>
+        <button class="cmd-copy" data-cmd="stratum --grant console --engine=wasm hello.st">Copy</button>
+      </div>
+    </div>
+    <p class="qs-note">The same source produces byte-identical output on the AST reference engine and the WebAssembly engine. The code you audit is exactly the code that runs.</p>
+
+    <div class="llm-band">
+      <p><strong>Writing it with an AI?</strong> The whole language fits in one context pack. Paste <code style="font-family:var(--mono);color:var(--cyan);">LLM_CONTEXT_PACK.md</code> (ships with the package) into any capable LLM and it writes correct Stratum with no prior training on the language. That is the point: the runtime, not the model, enforces the guarantees.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CAPABILITIES -->
+<section class="st-sec alt">
+  <div class="wrap">
+    <p class="section-label">No Ambient Authority</p>
+    <h2 class="section-title">A program can only do<br>what you <em>grant.</em></h2>
+    <p class="section-sub">Every capability is off until you turn it on with <span style="font-family:var(--mono);color:var(--cyan);">--grant</span>. A nested call can never gain a permission its caller lacked.</p>
+    <table class="cap-table">
+      <thead><tr><th>Capability</th><th>Unlocks</th></tr></thead>
+      <tbody>
+        <tr><td>console</td><td>print</td></tr>
+        <tr><td>clock</td><td>now, sleep_ms</td></tr>
+        <tr><td>randomness</td><td>random_float, random_gauss, random_seed</td></tr>
+        <tr><td>entropic</td><td>monitor (feed the anomaly detector)</td></tr>
+        <tr><td>self_heal</td><td>flush, mailbox_size, snapshot, revert</td></tr>
+        <tr><td>concurrency</td><td>spawn, send</td></tr>
+        <tr><td>introspect</td><td>describe, internal_health</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- WHAT THE FREE TIER GIVES YOU -->
+<section class="st-sec">
+  <div class="wrap">
+    <p class="section-label">Stratum Basic &middot; Free</p>
+    <h2 class="section-title">What the free tier <em>is.</em></h2>
+    <p class="section-sub">Not a demo. The full language, MIT licensed, on PyPI.</p>
+    <div class="grid-4">
+      <div class="pillar">
+        <h3>The full language</h3>
+        <p>Statically typed, actor-based, with isolated actors and no shared mutable state. Both execution engines included.</p>
+      </div>
+      <div class="pillar">
+        <h3>Capability security</h3>
+        <p>Effects are declared per function and narrowed on every operation. What you did not grant cannot happen.</p>
+      </div>
+      <div class="pillar">
+        <h3>Byte-identical engines</h3>
+        <p>The AST reference engine and the WebAssembly engine produce identical output for the same source. What you test is what you ship.</p>
+      </div>
+      <div class="pillar">
+        <h3>Open-core detector</h3>
+        <p>A built-in anomaly detector watches from inside the runtime, where the watched code cannot reach or disable it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRO FLAGSHIP -->
+<section class="st-sec alt" id="pro">
+  <div class="wrap">
+    <div class="pro-flag">
+      <p class="pf-tag">The Flagship</p>
+      <h3>Stratum <em>Pro.</em><br>The same language, in production.</h3>
+      <p>Pro is not a different Stratum. It is the same source and the same engines, plus the pieces a regulated deployment is required to have, and a vendor who signs an SLA. What you prototype on the free tier graduates to Pro unchanged.</p>
+      <div class="pf-grid">
+        <div class="pf-item">
+          <h5>High-precision kernel</h5>
+          <p>The FSME Proprietary Edge Kernel catches stealth attacks the standard detector misses, with far fewer false alarms.</p>
+        </div>
+        <div class="pf-item">
+          <h5>Cryptographic identity</h5>
+          <p>Ed25519 attestation on every module, so you can prove who authored it and that it was not altered.</p>
+        </div>
+        <div class="pf-item">
+          <h5>Fleet controls</h5>
+          <p>Per-device license verification and telemetry export for managing Stratum across a fleet.</p>
+        </div>
+        <div class="pf-item">
+          <h5>AI cognitive governance</h5>
+          <p>Wrap a model so a jailbreak is refused by the runtime structurally, rather than by the model's good behaviour.</p>
+        </div>
+      </div>
+      <p class="pf-degrade"><strong>No key-person risk.</strong> If a Pro subscription lapses, or we disappear tomorrow, the runtime reverts cleanly to Stratum Basic and your embedded system keeps running. Your plant never depends on our uptime, or on us existing.</p>
+      <div class="apex-grid">
+        <div class="apex-proof">
+          <p class="src">Proof Artifact 01</p>
+          <h4>The water-treatment gateway</h4>
+          <p>A dosing gateway embeds an unaudited third-party module under an empty capability ceiling. The trojaned twin is rejected at load. Sabotage that passes range validation is caught by the runtime detector, and the actor quarantines itself. One command, PASS or FAIL, runnable on your own machine.</p>
+        </div>
+        <div class="apex-proof">
+          <p class="src">Proof Artifact 02</p>
+          <h4>The Guardian jailbreak logs</h4>
+          <p>Verbatim transcripts of a governed model refusing logic-trap and coercion jailbreaks, with deterministic, Ed25519-sealed reasoning: the same input produces the identical signed seal twice. Including one honest red-team find and the structural gate that closed it.</p>
+        </div>
+      </div>
+      <div style="margin-top:2rem;">
+        <a class="btn btn-primary" href="contact.html?product=pro">Scope a Pro Deployment &#9658;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="cta" style="background: var(--steel); border-top: 1px solid var(--border); text-align: center; padding: 5rem 2rem;">
+  <h2 style="font-family:var(--head);font-size:clamp(2.2rem,5.5vw,3.8rem);font-weight:800;color:#eef3fb;margin-bottom:1rem;letter-spacing:0.01em;">Two minutes to running code.</h2>
+  <p style="font-family:var(--body);font-size:1.02rem;color:var(--muted);max-width:56ch;margin:0 auto 2.25rem;line-height:1.7;">Install it, run the demos, try to break the sandbox. Then talk to us when it is time to ship.</p>
+  <div style="display:flex;justify-content:center;flex-wrap:wrap;gap:1rem;">
+    <a class="btn btn-primary" href="#install">pip install stratum-lang</a>
+    <a class="btn btn-secondary" href="contact.html">Contact Engineering</a>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-left">
+      <a href="easter-egg.html" style="color:inherit;text-decoration:none;cursor:default;">©</a> 2026 Alexander Kalyniuk — FSME Logic &nbsp;|&nbsp; Edmonton, Alberta, Canada<br>
+      <a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a>
+    </div>
+    <div class="foot-right">
+      <a href="stratum.html">Stratum</a>
+      <a href="store.html">Store</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="legal.html">Legal</a>
+    </div>
+    <div class="foot-social">
+      <a href="https://x.com/FsmeLogic" target="_blank" rel="noopener" aria-label="X / Twitter"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.731-8.835L1.254 2.25H8.08l4.259 5.63 5.905-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+      <a href="https://youtube.com/@fsmelogic" target="_blank" rel="noopener" aria-label="YouTube"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg></a>
+      <a href="https://www.linkedin.com/in/fsmelogic" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+<!-- COOKIE BANNER -->
+<div id="cookie-banner">
+  <p>This site uses Google Analytics and Google Ads to measure site performance. We do not sell your data. <a href="legal.html#privacy">Privacy Policy</a></p>
+  <button onclick="acceptCookies()">Accept</button>
+</div>
+
+<script>
+  (function(){ if(!localStorage.getItem('fsme_cookies_ok')){ document.getElementById('cookie-banner').style.display='flex'; } })();
+  function acceptCookies(){ localStorage.setItem('fsme_cookies_ok','1'); document.getElementById('cookie-banner').style.display='none'; }
+
+  // Copy buttons (all)
+  (function() {
+    document.querySelectorAll('.cmd-copy').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var cmd = btn.getAttribute('data-cmd');
+        navigator.clipboard.writeText(cmd).then(function() {
+          var old = btn.textContent;
+          btn.textContent = 'Copied ✓';
+          gtag('event', 'copy_install_command', { 'event_category': 'engagement', 'event_label': cmd.substring(0, 40) });
+          setTimeout(function() { btn.textContent = old; }, 2000);
+        });
+      });
+    });
+  })();
+
+  // Hamburger
+  (function(){
+    var h=document.getElementById('hamburger'), m=document.getElementById('mobile-menu');
+    if(h&&m){ h.addEventListener('click',function(){ var e=h.getAttribute('aria-expanded')==='true'; h.setAttribute('aria-expanded',String(!e)); h.classList.toggle('open'); m.classList.toggle('open'); }); }
+  })();
+</script>
+
+</body>
+</html>

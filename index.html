@@ -190,23 +190,22 @@
       <span class="nav-logo-text">FSME Logic</span>
     </a>
     <ul class="nav-links">
-      <li><a href="#what-is-stratum">Stratum</a></li>
-      <li><a href="#products">Products</a></li>
+      <li><a href="stratum.html">Stratum</a></li>
       <li><a href="store.html">Store</a></li>
+      <li><a href="about.html">About</a></li>
       <li><a href="contact.html">Contact</a></li>
-      <li class="nav-cta"><a href="#install">Install Free</a></li>
+      <li class="nav-cta"><a href="stratum.html#install">Install Free</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
       <span></span><span></span><span></span>
     </button>
   </div>
   <div class="mobile-menu" id="mobile-menu">
-    <a href="#install">Install Free &#9658;</a>
-    <a href="#what-is-stratum">Stratum</a>
-    <a href="#products">Products</a>
+    <a href="stratum.html#install">Install Free &#9658;</a>
+    <a href="stratum.html">Stratum</a>
     <a href="store.html">Store</a>
-    <a href="contact.html">Contact</a>
     <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
     <a href="legal.html">Legal &amp; Terms</a>
   </div>
 </nav>
@@ -232,10 +231,10 @@
     </div>
 
     <div class="hero-actions">
-      <a class="btn btn-primary" href="https://pypi.org/project/stratum-lang/" target="_blank" rel="noopener">Get Stratum Free &#9658;</a>
+      <a class="btn btn-primary" href="stratum.html#install">Get Stratum Free &#9658;</a>
       <a class="btn btn-secondary" href="#what-is-stratum">See what it does</a>
     </div>
-    <p class="hero-microcopy">No sign-up. No approval. No cloud. Python 3.13 and two minutes.</p>
+    <p class="hero-microcopy">No sign-up. No approval. No cloud. One pip install &middot; Windows, macOS, or Linux &middot; Python 3.9+.</p>
   </div>
 </section>
 
@@ -259,7 +258,7 @@
       </div>
       <div class="pillar">
         <h3>An in-runtime detector</h3>
-        <p>The FSME detector watches from inside the runtime, where the watched code cannot reach or disable it. Sabotage that passes ordinary range checks still gets caught as a structural shift.</p>
+        <p>The built-in detector watches from inside the runtime, where the watched code cannot reach or disable it. Sabotage that passes ordinary range checks still surfaces as a structural shift. Stratum Pro sharpens this with a higher-precision kernel.</p>
       </div>
       <div class="pillar">
         <h3>Byte-identical engines</h3>
@@ -285,7 +284,7 @@
       <div class="rung">
         <div class="rung-num">02</div>
         <h3>Own a working tool</h3>
-        <p>Three things we built on Stratum: a governance gateway for local AI, a forensic health analyzer, and an offline data converter. Real tools, not reports.</p>
+        <p>Three tools we ship: a governance gateway for local AI, a forensic health analyzer, and an offline data converter. Real tools, not reports.</p>
         <a href="#products">See the products &#8595;</a>
       </div>
       <div class="rung apex">
@@ -301,23 +300,23 @@
 <!-- PRODUCTS -->
 <section id="products">
   <div class="wrap">
-    <p class="section-label">Built On Stratum</p>
+    <p class="section-label">Built By FSME Logic</p>
     <h2 class="section-title">Three tools you can own <em>today.</em></h2>
     <p class="section-sub">Each one runs entirely on your hardware. Nothing you feed them ever leaves your building. We describe each honestly, including what it is not.</p>
     <div class="prod-grid">
 
       <div class="prod-card gov">
-        <p class="prod-tag">AI Governance &middot; Offline</p>
+        <p class="prod-tag">AI Governance &middot; Built on Stratum</p>
         <h3>Governor</h3>
-        <p>A gateway that sits in front of a local AI. Every request and answer passes through it on your machine, is allowed or blocked by deterministic rules, and leaves with an Ed25519-signed record. Refusals are structural, enforced by capability, not by a filter a clever prompt can talk around.</p>
+        <p>A gateway that sits in front of a local AI. Every request and answer passes through it on your machine, is allowed or blocked by deterministic rules, and leaves with an Ed25519-signed record. It runs on the Stratum runtime itself: refusals are structural, not a filter a clever prompt can talk around.</p>
         <p class="prod-honest">What it is not: a guarantee that a model is "safe." It bounds what the model can do and proves what it did. The judgment of what to allow is yours, written as rules you own.</p>
         <div class="prod-cta"><a href="store.html#governor">Learn more &#9658;</a></div>
       </div>
 
       <div class="prod-card ana">
-        <p class="prod-tag">Predictive Health &middot; Offline</p>
+        <p class="prod-tag">Predictive Health &middot; Built on Stratum</p>
         <h3>FSME Health Analyzer</h3>
-        <p>Drop in a CSV of recorded sensor data. Get back a signed, tamper-evident report of where a machine began to structurally degrade and how early it was detectable. It reads the history your sensors already logged and finds the early signal a threshold alarm misses.</p>
+        <p>Drop in a CSV of recorded sensor data. Get back a signed, tamper-evident report of where a machine began to structurally degrade and how early it was detectable. Detection runs in the Stratum engine, and it finds the early signal a threshold alarm misses.</p>
         <p class="prod-honest">What it is not: a live monitor or a safety device. It is after-the-fact and advisory: it analyzes data you already recorded, it does not watch your equipment in real time.</p>
         <div class="prod-cta"><a href="store.html#analyzer">Learn more &#9658;</a></div>
       </div>
@@ -325,9 +324,9 @@
       <div class="prod-card conv">
         <p class="prod-tag">Data Utility &middot; Offline</p>
         <h3>Data Ingestion Client</h3>
-        <p>Converts massive industrial telemetry files (.tdms, .h5, .nc, .mat) into clean, audit-ready CSV, out-of-memory, with a SHA-256 hash on every output. No Python install, no cloud. It removes the days of fragile parsing scripts before any analysis.</p>
+        <p>Converts massive industrial telemetry files (.tdms, .h5, .nc, .mat) into clean, audit-ready CSV, out-of-memory, with a SHA-256 hash on every output. No Python required, no cloud. It removes the days of fragile parsing scripts before any analysis.</p>
         <p class="prod-honest">The one product here you can buy and download right now, self-serve. The rest are scoped to your deployment.</p>
-        <div class="prod-cta"><a href="store.html#desktop-client">Buy or learn more &#9658;</a></div>
+        <div class="prod-cta"><a href="store.html#desktop-client">Buy now — $750 &#9658;</a></div>
       </div>
 
     </div>
@@ -352,9 +351,10 @@
         <p>Verbatim transcripts of a governed model refusing logic-trap and coercion jailbreaks, with deterministic, Ed25519-sealed reasoning: the same input produces the identical signed seal twice. Including one honest red-team find and the structural gate that closed it.</p>
       </div>
     </div>
-    <p class="apex-degrade"><strong>No key-person risk.</strong> The same source compiles unchanged on the free and paid tiers. If a Pro license lapses, or the vendor disappears tomorrow, your system degrades cleanly to MIT-licensed Stratum and keeps running. Your plant never depends on our uptime, or on us existing.</p>
+    <p class="apex-degrade"><strong>No key-person risk.</strong> The same source compiles unchanged on the free and paid tiers. If a Pro license lapses, or the vendor disappears tomorrow, your system degrades cleanly to Stratum Basic and keeps running. Your plant never depends on our uptime, or on us existing.</p>
     <div style="margin-top:2.5rem;">
-      <a class="btn btn-primary" href="contact.html">Scope a Pro Deployment &#9658;</a>
+      <a class="btn btn-primary" href="contact.html?product=pro">Scope a Pro Deployment &#9658;</a>
+      <a class="btn btn-secondary" href="stratum.html#pro" style="margin-left:0.75rem;">The full Pro page &#9658;</a>
     </div>
   </div>
 </section>
@@ -392,7 +392,7 @@
   <h2>Install it before<br>you believe it.</h2>
   <p>The free tier is the full language. Run the demos, try to break the sandbox, then talk to us when it is time to ship.</p>
   <div class="cta-row">
-    <a class="btn btn-primary" href="https://pypi.org/project/stratum-lang/" target="_blank" rel="noopener">pip install stratum-lang</a>
+    <a class="btn btn-primary" href="stratum.html#install">pip install stratum-lang</a>
     <a class="btn btn-secondary" href="contact.html">Contact Engineering</a>
   </div>
 </section>
@@ -404,7 +404,7 @@
       <a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a>
     </div>
     <div class="foot-right">
-      <a href="#what-is-stratum">Stratum</a>
+      <a href="stratum.html">Stratum</a>
       <a href="store.html">Store</a>
       <a href="about.html">About</a>
       <a href="contact.html">Contact</a>

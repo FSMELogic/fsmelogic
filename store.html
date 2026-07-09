@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Performance: preconnect for Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- Google Analytics -->
@@ -17,327 +16,107 @@
   <script>
     gtag('config', 'AW-18021290501');
   </script>
-  <!-- Gumroad overlay -->
-  <script src="https://gumroad.com/js/gumroad.js"></script>
-  
-  
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stratum Secure-by-Construction Runtime &amp; Predictive Maintenance Tools | FSME Logic Store</title>
-  <meta name="description" content="Stratum: an offline, secure-by-construction runtime and AI-first language that bounds untrusted and AI-generated code by design. Plus FSME Logic's physics-based predictive maintenance and telemetry file conversion tools for aerospace, defense, and heavy manufacturing.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+  <title>Store — Stratum, Governor, Health Analyzer, Data Client | FSME Logic</title>
+  <meta name="description" content="Stratum Basic is free on PyPI. The Data Ingestion Desktop Client is a one-time purchase you can download today. Governor, the FSME Health Analyzer, and Stratum Pro are built per customer and delivered under mutual NDA. Everything runs offline.">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <!-- Gumroad overlay (Desktop Client checkout) -->
+  <script src="https://gumroad.com/js/gumroad.js"></script>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg: #0e1118; --bg2: #141822; --card: #181f2e; --steel: #1c2438;
-      --border: #242e42; --bord2: #2e3a52;
-      --blue: #3d8ef0; --blue2: #2d6fd0; --cyan: #5bb8d4; --gold: #c9a84c;
-      --text: #c5d2e8; --muted: #6e86a8; --dim: #8a9bb8;
-      --head: 'Barlow Condensed', 'Arial Narrow', 'Helvetica Neue', Helvetica, sans-serif; --mono: 'IBM Plex Mono', 'Consolas', 'Courier New', monospace;
-    }
-    html { scroll-behavior: smooth; }
-    body { background: var(--bg); color: var(--text); font-family: var(--mono); min-height: 100vh; }
+    /* STORE HERO */
+    .store-hero { padding: 9rem 2rem 2.5rem; position: relative; overflow: hidden; }
+    .store-hero-bg { position: absolute; inset: 0; z-index: 0; background: radial-gradient(ellipse 70% 60% at 60% 30%, rgba(74,151,245,0.08) 0%, transparent 70%); }
+    .store-hero .wrap { position: relative; z-index: 1; }
+    .store-hero h1 { font-family: var(--head); font-size: clamp(2.6rem, 7vw, 5rem); font-weight: 800; line-height: 1; color: #eef3fb; margin-bottom: 1.1rem; letter-spacing: 0.01em; }
+    .store-hero h1 em { font-style: normal; color: var(--blue); }
+    .store-hero p { font-family: var(--body); font-size: clamp(1.02rem, 2vw, 1.2rem); color: var(--text); max-width: 64ch; line-height: 1.7; }
 
-    body::before {
-      content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
-      background-image: linear-gradient(rgba(61,142,240,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(61,142,240,0.03) 1px, transparent 1px);
-      background-size: 40px 40px;
-    }
-    body::after {
-      content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
-      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.06) 2px, rgba(0,0,0,0.06) 4px);
-    }
+    .store-sec { padding: 3.5rem 2rem 4.5rem; }
+    .store-sec.alt { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
 
-    /* ── NAV ── */
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(14,17,24,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
-    .nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 56px; }
-    .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
-    .nav-logo img { height: 42px; width: 42px; object-fit: contain; border-radius: 4px; }
-    .nav-logo-text { font-family: var(--mono); font-weight: 700; font-size: 1rem; color: var(--blue); letter-spacing: 0.1em; }
-    .nav-links { display: flex; list-style: none; align-items: center; gap: 0.25rem; }
-    .nav-links a { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.45rem 0.9rem; transition: color 0.2s, background 0.2s; }
-    .nav-links a:hover { color: var(--blue); background: rgba(61,142,240,0.08); }
-    .nav-links .nav-cta a { color: var(--blue); border: 1px solid rgba(61,142,240,0.5); padding: 0.45rem 1rem; }
-    .nav-links .nav-cta a:hover { background: var(--blue); color: #fff; }
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 0.5rem; background: none; border: none; }
-    .hamburger span { display: block; width: 24px; height: 2px; background: var(--muted); transition: all 0.3s; }
-    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-    .mobile-menu { display: none; flex-direction: column; background: rgba(8,10,16,0.98); border-top: 1px solid var(--border); padding: 1rem 2rem 1.5rem; }
-    .mobile-menu.open { display: flex; }
-    .mobile-menu a { font-family: var(--mono); font-size: 0.85rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.85rem 0; border-bottom: 1px solid var(--border); transition: color 0.2s; }
-    .mobile-menu a:hover { color: var(--blue); }
-    .mobile-menu a:last-child { color: var(--blue); border-bottom: none; margin-top: 0.5rem; }
+    /* FOCUSED PRODUCT CARDS */
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; margin-top: 2rem; align-items: stretch; }
+    .product-card { background: var(--card); border: 1px solid var(--border); padding: 2.25rem; display: flex; flex-direction: column; }
+    .product-card.free { border-top: 3px solid var(--green); }
+    .product-card.buy { border-top: 3px solid var(--blue); }
+    .product-card.gov { border-top: 3px solid var(--cyan); }
+    .product-card.ana { border-top: 3px solid var(--gold); }
+    .product-card.pro { border-top: 3px solid var(--gold); background: linear-gradient(180deg, rgba(201,168,76,0.05), var(--card)); }
+    .card-badge { font-family: var(--mono); font-size: 0.66rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.3rem 0.7rem; display: inline-block; margin-bottom: 1rem; align-self: flex-start; }
+    .product-card.free .card-badge { color: var(--green); border: 1px solid rgba(69,192,127,0.45); background: rgba(69,192,127,0.08); }
+    .product-card.buy .card-badge { color: var(--blue); border: 1px solid rgba(74,151,245,0.45); background: rgba(74,151,245,0.08); }
+    .product-card.gov .card-badge { color: var(--cyan); border: 1px solid rgba(91,184,212,0.45); background: rgba(91,184,212,0.08); }
+    .product-card.ana .card-badge { color: var(--gold); border: 1px solid rgba(201,168,76,0.45); background: rgba(201,168,76,0.08); }
+    .product-card.pro .card-badge { color: var(--gold); border: 1px solid rgba(201,168,76,0.45); background: rgba(201,168,76,0.08); }
+    .card-title { font-family: var(--head); font-size: 1.7rem; font-weight: 800; color: #eef3fb; letter-spacing: 0.01em; line-height: 1.05; margin-bottom: 0.6rem; }
+    .card-desc { font-family: var(--body); font-size: 0.93rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.1rem; }
+    .card-divider { border: none; border-top: 1px solid var(--border); margin: 0 0 1.1rem; }
+    .card-includes { list-style: none; padding: 0; margin: 0 0 1.25rem; }
+    .card-includes li { font-family: var(--body); font-size: 0.88rem; color: var(--text); line-height: 1.5; padding-left: 1.4rem; position: relative; margin-bottom: 0.5rem; }
+    .card-includes li::before { content: '\2713'; position: absolute; left: 0; font-weight: 700; }
+    .product-card.free .card-includes li::before { color: var(--green); }
+    .product-card.buy .card-includes li::before { color: var(--blue); }
+    .product-card.gov .card-includes li::before { color: var(--cyan); }
+    .product-card.ana .card-includes li::before { color: var(--gold); }
+    .product-card.pro .card-includes li::before { color: var(--gold); }
+    .card-honest { font-family: var(--body); font-size: 0.8rem; font-style: italic; color: var(--dim); line-height: 1.6; border-top: 1px solid var(--border); padding-top: 0.85rem; margin-bottom: 1.25rem; }
+    .card-price { font-family: var(--head); font-size: 2.1rem; font-weight: 800; line-height: 1; margin-bottom: 1.1rem; margin-top: auto; }
+    .card-price small { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); display: block; margin-top: 0.35rem; font-weight: 400; }
+    .product-card.free .card-price { color: var(--green); }
+    .product-card.buy .card-price { color: var(--blue); }
+    .product-card.gov .card-price { color: var(--cyan); font-size: 1.35rem; }
+    .product-card.ana .card-price { color: var(--gold); font-size: 1.35rem; }
+    .product-card.pro .card-price { color: var(--gold); font-size: 1.35rem; }
+    .card-cta { font-family: var(--mono); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; text-align: center; padding: 0.85rem 1rem; text-decoration: none; transition: all 0.2s; display: block; }
+    .card-cta.solid { background: var(--blue); color: #fff; border: 1px solid var(--blue); }
+    .card-cta.solid:hover { background: var(--blue2); box-shadow: 0 0 18px rgba(74,151,245,0.35); }
+    .card-cta.solid.green { background: var(--green); border-color: var(--green); color: #041008; }
+    .card-cta.solid.green:hover { box-shadow: 0 0 18px rgba(69,192,127,0.35); }
+    .card-cta.line { border: 1px solid var(--border); color: var(--text); background: transparent; }
+    .card-cta.line:hover { border-color: var(--blue); color: var(--blue); }
+    .product-card.gov .card-cta.line:hover { border-color: var(--cyan); color: var(--cyan); }
+    .product-card.ana .card-cta.line:hover { border-color: var(--gold); color: var(--gold); }
+    .product-card.pro .card-cta.line:hover { border-color: var(--gold); color: var(--gold); }
+
+    .fineprint { font-family: var(--mono); font-size: 0.72rem; color: var(--dim); line-height: 1.7; letter-spacing: 0.03em; margin-top: 1.5rem; max-width: 72ch; }
+    .fineprint a { color: var(--blue); }
+
+    .gated-note { font-family: var(--body); font-size: 0.95rem; color: var(--muted); line-height: 1.7; max-width: 74ch; margin-top: 2rem; border-left: 3px solid var(--border); padding-left: 1.5rem; }
+    .gated-note strong { color: var(--text); }
+
+    /* REQUEST LINE */
+    .req-line { background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--green); padding: 1.75rem 2rem; margin-top: 2.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
+    .req-line p { font-family: var(--body); font-size: 0.98rem; color: var(--muted); line-height: 1.6; max-width: 62ch; }
+    .req-line strong { color: var(--text); }
 
     @media (max-width: 680px) {
-      .nav-links { display: none; }
-      .hamburger { display: flex; }
-    }
-
-    /* ── MAIN ── */
-    main { position: relative; z-index: 1; padding-top: 56px; }
-
-    /* ── PAGE HEADER ── */
-    .page-header { padding: 3.5rem 2rem 2.5rem; max-width: 1100px; margin: 0 auto; border-bottom: 1px solid var(--border); }
-    .page-header .label { font-family: var(--mono); font-size: 0.72rem; color: var(--blue); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem; }
-    .page-header h1 { font-family: var(--head); font-size: clamp(2.2rem, 5vw, 3.2rem); font-weight: 700; color: var(--text); letter-spacing: 0.04em; line-height: 1.1; }
-    .page-header p { font-family: var(--mono); font-size: 0.85rem; color: var(--muted); margin-top: 0.75rem; line-height: 1.8; max-width: 600px; }
-
-    /* ── STORE GRID ── */
-    .store-section { max-width: 1100px; margin: 0 auto; padding: 3rem 2rem; }
-    .store-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
-
-    /* ── PRODUCT CARD ── */
-    .product-card { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 1.75rem; display: flex; flex-direction: column; gap: 1rem; transition: border-color 0.2s, box-shadow 0.2s; position: relative; }
-    .product-card:not(.coming-soon):hover { border-color: var(--blue2); box-shadow: 0 0 24px rgba(61,142,240,0.08); }
-    .product-card.coming-soon { opacity: 0.45; pointer-events: none; }
-
-    .card-badge { display: inline-block; font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.25rem 0.6rem; border-radius: 2px; margin-bottom: 0.25rem; }
-    .badge-live { background: rgba(61,142,240,0.12); color: var(--blue); border: 1px solid rgba(61,142,240,0.3); }
-    .badge-soon { background: rgba(58,74,98,0.4); color: var(--muted); border: 1px solid var(--border); }
-    .badge-featured { background: rgba(201,168,76,0.12); color: var(--gold); border: 1px solid rgba(201,168,76,0.3); }
-
-    .card-title { font-family: var(--head); font-size: 1.35rem; font-weight: 700; color: var(--text); letter-spacing: 0.03em; line-height: 1.2; }
-    .card-desc { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); line-height: 1.8; flex: 1; }
-    .card-includes { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
-    .card-includes li { font-family: var(--mono); font-size: 0.74rem; color: var(--muted); padding-left: 1.1rem; position: relative; line-height: 1.5; }
-    .card-includes li::before { content: '▸'; position: absolute; left: 0; color: var(--blue); font-size: 0.65rem; top: 0.1rem; }
-    .card-price { font-family: var(--head); font-size: 2rem; font-weight: 700; color: var(--gold); letter-spacing: 0.04em; }
-    .card-price span { font-size: 1rem; color: var(--muted); font-weight: 400; }
-
-    .btn-buy { display: block; background: var(--blue); color: #fff; font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; text-align: center; padding: 0.8rem 1.5rem; border-radius: 3px; transition: background 0.2s, box-shadow 0.2s; border: none; cursor: pointer; }
-    .btn-buy:hover { background: var(--blue2); box-shadow: 0 0 16px rgba(61,142,240,0.3); }
-    .btn-soon { display: block; background: transparent; color: var(--dim); font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; text-align: center; padding: 0.8rem 1.5rem; border-radius: 3px; border: 1px solid var(--border); cursor: default; }
-
-    .card-divider { border: none; border-top: 1px solid var(--border); margin: 0; }
-
-    /* ── DELIVERY FORM SECTION ── */
-    .delivery-section { max-width: 1100px; margin: 0 auto; padding: 0 2rem 4rem; }
-    .delivery-box { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 2.5rem; max-width: 680px; }
-    .delivery-box .label { font-family: var(--mono); font-size: 0.72rem; color: var(--blue); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem; }
-    .delivery-box h2 { font-family: var(--head); font-size: 1.8rem; font-weight: 700; color: var(--text); letter-spacing: 0.04em; margin-bottom: 0.5rem; }
-    .delivery-box p { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); line-height: 1.8; margin-bottom: 1.5rem; }
-
-    .form-row { display: flex; flex-direction: column; gap: 1rem; }
-    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
-    .form-group label { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
-    .form-group input, .form-group textarea, .form-group select {
-      background: var(--steel); border: 1px solid var(--border); border-radius: 3px;
-      color: var(--text); font-family: var(--mono); font-size: 0.82rem;
-      padding: 0.7rem 1rem; transition: border-color 0.2s, box-shadow 0.2s; outline: none; width: 100%;
-    }
-    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
-      border-color: var(--blue); box-shadow: 0 0 0 2px rgba(61,142,240,0.1);
-    }
-    .form-group textarea { resize: vertical; min-height: 90px; }
-    .form-group select option { background: var(--steel); }
-
-    .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    @media (max-width: 520px) { .form-row-2 { grid-template-columns: 1fr; } }
-
-    .btn-submit { background: var(--blue); color: #fff; font-family: var(--mono); font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.9rem 2rem; border: none; border-radius: 3px; cursor: pointer; transition: background 0.2s, box-shadow 0.2s; width: 100%; margin-top: 0.5rem; }
-    .btn-submit:hover { background: var(--blue2); box-shadow: 0 0 16px rgba(61,142,240,0.3); }
-    .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
-
-    .form-note { font-family: var(--mono); font-size: 0.72rem; color: var(--dim); line-height: 1.7; margin-top: 1rem; }
-    .form-note a { color: var(--muted); text-decoration: none; }
-    .form-note a:hover { color: var(--blue); }
-
-    .form-success { display: none; background: rgba(45,111,208,0.08); border: 1px solid rgba(61,142,240,0.3); border-radius: 3px; padding: 1.5rem; text-align: center; }
-    .form-success.show { display: block; }
-    .form-success p { font-family: var(--mono); font-size: 0.82rem; color: var(--text); line-height: 1.8; }
-    .form-success strong { color: var(--blue); }
-
-    /* ── AUDIT NOTE ── */
-    .audit-note { max-width: 1100px; margin: 0 auto; padding: 0 2rem 3rem; }
-    .audit-note-inner { background: var(--bg2); border: 1px solid var(--border); border-left: 3px solid var(--cyan); padding: 1.25rem 1.5rem; border-radius: 0 4px 4px 0; display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
-    .audit-note-inner p { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); line-height: 1.7; }
-    .audit-note-inner a { color: var(--cyan); text-decoration: none; white-space: nowrap; }
-    .audit-note-inner a:hover { color: var(--blue); }
-
-    /* ── FOOTER ── */
-    footer { background: #080a10; border-top: 1px solid var(--border); padding: 2.5rem 2rem; position: relative; z-index: 1; }
-    .foot-inner { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem; }
-    .foot-left { font-family: var(--mono); font-size: 0.77rem; color: var(--dim); line-height: 1.8; }
-    .foot-left a { color: var(--blue); text-decoration: none; }
-    .foot-right { display: flex; gap: 1.5rem; flex-wrap: wrap; }
-    .foot-right a { font-family: var(--mono); font-size: 0.73rem; color: var(--dim); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
-    .foot-right a:hover { color: var(--blue); }
-    .foot-social { display: flex; gap: 1rem; align-items: center; margin-top: 0.5rem; }
-    .foot-social a { color: var(--dim); text-decoration: none; transition: color 0.2s; display: flex; align-items: center; }
-    .foot-social a:hover { color: var(--blue); }
-
-    /* Kit grid — 2-col on desktop, 1-col on mobile */
-    .kit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-    @media (max-width: 700px) { .kit-grid { grid-template-columns: 1fr; } }
-
-    /* ── PRINT STYLESHEET ── */
-    @media print {
-      body { background: #fff !important; color: #000 !important; }
-      body::before, body::after { display: none !important; }
-      nav, .mobile-menu, #cookie-banner, .btn-buy, .btn-soon, .foot-social { display: none !important; }
-      .page-header, .store-section, .kit-grid { padding: 0 !important; max-width: 100% !important; }
-      .product-card, .product-card.coming-soon { opacity: 1 !important; pointer-events: auto !important; background: #fff !important; border: 1px solid #ccc !important; border-top: 2px solid #333 !important; color: #000 !important; page-break-inside: avoid; margin-bottom: 12pt; }
-      .card-title { color: #000 !important; font-size: 14pt !important; }
-      .card-desc, .card-includes li { color: #333 !important; font-size: 10pt !important; }
-      .card-price { color: #000 !important; }
-      .card-badge { border: 1px solid #ccc !important; color: #333 !important; background: #f5f5f5 !important; }
-      .store-grid { grid-template-columns: 1fr 1fr !important; }
-      .kit-grid { grid-template-columns: 1fr 1fr !important; }
-      footer .foot-right, footer .foot-social { display: none !important; }
-      footer .foot-left { color: #666 !important; font-size: 8pt !important; }
-      a[href]::after { content: "" !important; }
+      .store-hero { padding: 7.5rem 1.25rem 2rem; }
+      .store-sec { padding: 3rem 1.25rem 3.5rem; }
     }
   </style>
-<style>
-  /* Ensure chat widget does not overlap footer social icons */
-  footer { padding-bottom: 7rem !important; }
-  @media (max-width: 680px) { footer { padding-bottom: 6rem !important; } }
-
-  /* Keep chat widget button anchored bottom-right (overrides conflicting rule in body CSS) */
-  #fsme-chat-btn {
-    position: fixed !important;
-    bottom: 28px !important;
-    right: 28px !important;
-    left: auto !important;
-    top: auto !important;
-  }
-  @media (max-width: 440px) {
-    #fsme-chat-btn {
-      bottom: 16px !important;
-      right: 16px !important;
-    }
-  }
-
-  /* Chat tooltip: first-visit call-to-action */
-  .fsme-chat-tooltip {
-    position: fixed;
-    bottom: 38px;
-    right: 96px;
-    z-index: 8999;
-    background: #141822;
-    border: 1px solid #242e42;
-    border-right: 3px solid #3d8ef0;
-    padding: 0.7rem 1rem;
-    font-family: 'IBM Plex Mono', 'Consolas', monospace;
-    font-size: 0.78rem;
-    color: #c5d2e8;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
-    opacity: 0;
-    transform: translateX(10px);
-    transition: opacity 0.4s, transform 0.4s;
-    pointer-events: none;
-    white-space: nowrap;
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-  }
-  .fsme-chat-tooltip.show {
-    opacity: 1;
-    transform: translateX(0);
-    pointer-events: auto;
-  }
-  .fsme-chat-tooltip-close {
-    background: none;
-    border: none;
-    color: #6e86a8;
-    cursor: pointer;
-    padding: 0 0.15rem;
-    font-size: 1rem;
-    line-height: 1;
-  }
-  .fsme-chat-tooltip-close:hover { color: #c5d2e8; }
-  @media (max-width: 680px) {
-    .fsme-chat-tooltip {
-      bottom: 38px;
-      right: 84px;
-      font-size: 0.72rem;
-      max-width: calc(100vw - 120px);
-    }
-  }
-</style>
-<script>
-  (function() {
-    try {
-      if (window.sessionStorage && sessionStorage.getItem('fsme_tooltip_shown')) return;
-    } catch (e) {}
-    var shown = false;
-    function showTooltip() {
-      if (shown) return;
-      shown = true;
-      try { sessionStorage.setItem('fsme_tooltip_shown', '1'); } catch (e) {}
-      var tip = document.createElement('div');
-      tip.className = 'fsme-chat-tooltip';
-      tip.innerHTML = '<span>Ask me anything</span><button class="fsme-chat-tooltip-close" aria-label="Close">&times;</button>';
-      document.body.appendChild(tip);
-      setTimeout(function() { tip.classList.add('show'); }, 120);
-      var hideTimer = setTimeout(function() { hide(); }, 9000);
-      function hide() {
-        clearTimeout(hideTimer);
-        tip.classList.remove('show');
-        setTimeout(function() { if (tip.parentNode) tip.remove(); }, 500);
-      }
-      tip.querySelector('.fsme-chat-tooltip-close').addEventListener('click', function(e) {
-        e.stopPropagation();
-        hide();
-      });
-      tip.addEventListener('click', function(e) {
-        if (e.target.classList.contains('fsme-chat-tooltip-close')) return;
-        var btn = document.getElementById('fsme-chat-btn');
-        if (btn) btn.click();
-        hide();
-      });
-    }
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', init);
-    } else {
-      init();
-    }
-    function init() {
-      window.addEventListener('scroll', function onScroll() {
-        if (window.scrollY > 80) {
-          showTooltip();
-          window.removeEventListener('scroll', onScroll);
-        }
-      }, { passive: true });
-      setTimeout(showTooltip, 7000);
-    }
-  })();
-</script>
-<style>
-  /* ── STORE REDESIGN: connected Stratum pair, wide feature rows, compact cards ── */
-  .stratum-pair { display:grid; grid-template-columns:1fr 1fr; border:1px solid var(--bord2); border-radius:4px; background:var(--card); overflow:hidden; }
-  .stratum-pair > .product-card { border:none; border-radius:0; background:transparent; }
-  .stratum-pair > .product-card:not(.coming-soon):hover { border:none; box-shadow:none; }
-  .stratum-pair > .product-card + .product-card { border-left:1px solid var(--border); }
-  @media (max-width:700px){
-    .stratum-pair{ grid-template-columns:1fr; }
-    .stratum-pair > .product-card + .product-card{ border-left:none; border-top:1px solid var(--border); }
-  }
-
-  .feature-stack { display:flex; flex-direction:column; gap:1.25rem; }
-  .feature-row { background:var(--card); border:1px solid var(--bord2); border-left:3px solid var(--gold); border-radius:4px; padding:1.75rem 2rem; display:grid; grid-template-columns:1.5fr 1fr; gap:2rem; align-items:start; transition:box-shadow 0.2s; }
-  .feature-row:hover { box-shadow:0 0 24px rgba(61,142,240,0.08); }
-  .feature-row .fr-body { min-width:0; }
-  .feature-row .fr-body .card-includes { margin-top:0.85rem; }
-  .feature-row .fr-cta { border-left:1px solid var(--border); padding-left:2rem; }
-  @media (max-width:760px){
-    .feature-row { grid-template-columns:1fr; gap:1.25rem; }
-    .feature-row .fr-cta { border-left:none; border-top:1px solid var(--border); padding-left:0; padding-top:1.25rem; }
-  }
-
-  .store-grid.compact { grid-template-columns:repeat(auto-fill, minmax(225px, 1fr)); gap:1rem; }
-  .product-card.compact { padding:1.25rem; gap:0.7rem; }
-  .product-card.compact .card-title { font-size:1.05rem; }
-  .product-card.compact .card-desc { font-size:0.72rem; line-height:1.6; }
-  .product-card.compact .card-includes li { font-size:0.68rem; line-height:1.45; }
-  .product-card.compact .card-price { font-size:1.45rem; }
-  .product-card.compact .btn-buy { padding:0.6rem 1rem; font-size:0.72rem; }
-</style>
+  <!-- SEO -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://fsmelogic.ca/store.html">
+  <meta property="og:title" content="Store — Stratum, Governor, Health Analyzer, Data Client | FSME Logic">
+  <meta property="og:description" content="Stratum Basic is free on PyPI. The Data Ingestion Desktop Client is a one-time purchase. Governor, the FSME Health Analyzer, and Stratum Pro are built per customer. Everything runs offline.">
+  <meta property="og:image" content="https://fsmelogic.ca/infographic-1.png">
+  <meta property="og:site_name" content="FSME Logic">
+  <meta property="og:locale" content="en_CA">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Store — Stratum, Governor, Health Analyzer, Data Client | FSME Logic">
+  <meta name="twitter:description" content="Stratum Basic free on PyPI. Data Ingestion Client one-time purchase. The rest built per customer, offline.">
+  <meta name="twitter:image" content="https://fsmelogic.ca/infographic-1.png">
+  <link rel="canonical" href="https://fsmelogic.ca/store.html">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Alexander Kalyniuk — FSME Logic">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/web-app-manifest-192x192.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="manifest" href="/site.webmanifest">
 </head>
 <body>
 
@@ -348,787 +127,204 @@
       <span class="nav-logo-text">FSME Logic</span>
     </a>
     <ul class="nav-links">
-      <li><a href="case-studies.html">Validation</a></li>
+      <li><a href="stratum.html">Stratum</a></li>
+      <li><a href="store.html">Store</a></li>
       <li><a href="about.html">About</a></li>
-      <li><a href="faq.html">FAQ</a></li>
-      <li><a href="store.html" class="active">Store</a></li>
       <li><a href="contact.html">Contact</a></li>
-      <li class="nav-more">
-        <button class="nav-more-btn" aria-expanded="false" aria-haspopup="true">More &#9662;</button>
-        <ul class="nav-dropdown">
-          <li><a href="roi.html">ROI Calculator</a></li>
-          <li><a href="newsroom.html">Newsroom</a></li>
-          <li><a href="investors.html">Investors</a></li>
-          <li><a href="pipeline-demo.html">Live Demo</a></li>
-          <li><a href="legal.html">Legal &amp; Terms</a></li>
-          <li><a href="legal.html#privacy">Privacy Policy</a></li>
-          <li><a href="case-studies.html#reports">Validation Reports</a></li>
-        </ul>
-      </li>
-      <li class="nav-cta"><a href="payment.html">Request Audit</a></li>
+      <li class="nav-cta"><a href="stratum.html#install">Install Free</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
       <span></span><span></span><span></span>
     </button>
   </div>
   <div class="mobile-menu" id="mobile-menu">
-    <a href="payment.html">Request Audit &#9658;</a>
-    <a href="case-studies.html">Validation</a>
-    <a href="about.html">About</a>
-    <a href="faq.html">FAQ</a>
+    <a href="stratum.html#install">Install Free &#9658;</a>
+    <a href="stratum.html">Stratum</a>
     <a href="store.html">Store</a>
+    <a href="about.html">About</a>
     <a href="contact.html">Contact</a>
-    <a href="roi.html">ROI Calculator</a>
-    <a href="newsroom.html">Newsroom</a>
-    <a href="investors.html">Investors</a>
-    <a href="pipeline-demo.html">Live Demo</a>
-    <a href="case-studies.html#reports">Validation Reports</a>
     <a href="legal.html">Legal &amp; Terms</a>
-    <a href="legal.html#privacy">Privacy Policy</a>
   </div>
 </nav>
 
-<main>
-
-  <div class="page-header">
-    <div class="label">// Store</div>
-    <h1>Telemetry Tools &amp; Resources</h1>
-    <p>Operational guides, offline data ingestion tools, and technical templates for reliability engineers dealing with complex sensor data.</p>
+<!-- HERO -->
+<section class="store-hero">
+  <div class="store-hero-bg"></div>
+  <div class="wrap">
+    <p class="section-label">The Store</p>
+    <h1>Start free.<br>Own a tool. <em>Build your own.</em></h1>
+    <p>One price is zero. One you can buy and download right now. The rest are built for you, one customer at a time, under mutual NDA. Everything here runs fully offline and makes no outbound calls.</p>
   </div>
+</section>
 
-  <!-- ══ STRATUM FLAGSHIP ═══════════════════════════════════════════════ -->
-  <div id="stratum" style="max-width:1100px;margin:0 auto;padding:2.5rem 2rem 0;">
-
-    <!-- Feature header -->
-    <div style="background:linear-gradient(135deg, rgba(201,168,76,0.08), rgba(61,142,240,0.05) 60%, transparent);border:1px solid var(--bord2);border-top:3px solid var(--gold);padding:2.25rem 2.25rem 2rem;position:relative;overflow:hidden;">
-      <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:1.1rem;flex-wrap:wrap;">
-        <span class="card-badge badge-featured" style="margin:0;">&#9733; New Release</span>
-        <span class="card-badge badge-live" style="margin:0;">Founders Edition &mdash; Limited</span>
-      </div>
-      <h2 style="font-family:var(--head);font-size:clamp(2.4rem,5.5vw,3.6rem);font-weight:800;color:var(--text);letter-spacing:0.03em;line-height:1.02;margin-bottom:0.35rem;">Stratum</h2>
-      <div style="font-family:var(--head);font-size:clamp(1.05rem,2.2vw,1.4rem);font-weight:600;color:var(--gold);letter-spacing:0.04em;margin-bottom:1.1rem;">Secure-by-Construction Runtime &amp; AI-First Language</div>
-      <p style="font-family:var(--mono);font-size:0.86rem;color:var(--muted);line-height:1.9;max-width:800px;margin-bottom:1.5rem;">
-        Drop Stratum into software you can't fully audit &mdash; a vendor plugin, an AI-generated module, untrusted automation &mdash; and the <strong style="color:var(--text);">language itself</strong> makes that code physically unable to exceed the permissions you grant it. The bound is structural, not a check the code can talk its way around. <strong style="color:var(--text);">Cleverness operates inside the structure, never on it.</strong> Runs fully offline; compiles to a single WebAssembly module that embeds in Go, Java, Python, Node, or Rust.
-      </p>
-      <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
-        <span style="font-family:var(--mono);font-size:0.7rem;color:var(--dim);border:1px solid var(--border);background:rgba(8,10,16,0.4);padding:0.4rem 0.75rem;letter-spacing:0.03em;">&#10003; 194 automated tests passing</span>
-        <span style="font-family:var(--mono);font-size:0.7rem;color:var(--dim);border:1px solid var(--border);background:rgba(8,10,16,0.4);padding:0.4rem 0.75rem;letter-spacing:0.03em;">&#10003; 16/16 penetration tests stopped</span>
-        <span style="font-family:var(--mono);font-size:0.7rem;color:var(--dim);border:1px solid var(--border);background:rgba(8,10,16,0.4);padding:0.4rem 0.75rem;letter-spacing:0.03em;">&#10003; Byte-identical across 3 engines</span>
-        <span style="font-family:var(--mono);font-size:0.7rem;color:var(--dim);border:1px solid var(--border);background:rgba(8,10,16,0.4);padding:0.4rem 0.75rem;letter-spacing:0.03em;">&#10003; SMT-proved capability security</span>
-      </div>
-    </div>
-
-    <!-- Two product cards -->
-    <div class="stratum-pair" style="margin-top:1.5rem;">
+<!-- THE LANGUAGE -->
+<section class="store-sec" id="stratum">
+  <div class="wrap">
+    <p class="section-label">The Language</p>
+    <h2 class="section-title">Stratum, free and <em>Pro.</em></h2>
+    <div class="card-grid">
 
       <!-- STRATUM BASIC -->
-      <div class="product-card">
-        <div>
-          <span class="card-badge badge-live">Perpetual License</span>
-        </div>
-        <h2 id="stratum-basic" class="card-title">Stratum Basic</h2>
-        <div class="card-desc">The full secure-by-construction runtime. Makes untrusted or AI-generated code physically unable to exceed the permissions you grant &mdash; enforced by the language, not by trust. Fully offline, no cloud, no telemetry. Perpetual license, no renewal. Developer product &mdash; requires Python 3.13.</div>
+      <div class="product-card free" id="stratum-basic">
+        <span class="card-badge">Free &middot; MIT &middot; PyPI</span>
+        <h2 class="card-title">Stratum Basic</h2>
+        <p class="card-desc">The full secure-by-construction language and hardened runtime. A program can only do what you grant it, and the guarantee is the execution model, not a promise.</p>
         <hr class="card-divider">
         <ul class="card-includes">
-          <li>Complete AI-first language &mdash; actors, pattern matching, Optional/no-null, contracts, cross-file modules</li>
-          <li>Both execution engines (interpreter + WebAssembly), byte-identical output</li>
-          <li>Capability security &mdash; every effect gated, powers only ever narrow (SMT machine-proved)</li>
-          <li>Actor isolation + bounded mailbox &amp; recursion &mdash; a flood or runaway loop becomes a contained signal, not a crash</li>
-          <li>In-runtime anomaly detector (FSME pipeline) + first-class self-quarantine</li>
-          <li>Content-hash + signed state attestation &mdash; tamper-evident</li>
-          <li>Full hardening suite &mdash; fleet immunity, acquired attack memory, drift &amp; honeypot defenses</li>
-          <li>Compiles to one embeddable .wasm + host-import contract (Node &amp; Python SDKs)</li>
-          <li>AI-first authoring &mdash; machine-readable diagnostics + the Vibe annotation layer</li>
-          <li>Air-gapped by construction &mdash; no network anywhere, including licensing</li>
-          <li>8 worked examples + complete grammar reference</li>
-          <li><strong style="color:var(--blue);">Perpetual license &mdash; runs forever, no renewal</strong></li>
+          <li>The full language, both engines (AST reference + WebAssembly)</li>
+          <li>Byte-identical output across both engines</li>
+          <li>Capability security, no ambient authority</li>
+          <li>Open-core anomaly detector built in</li>
+          <li>Windows, macOS, Linux &middot; Python 3.9+</li>
         </ul>
-        <hr class="card-divider">
-        <div class="card-price">$500 <span>CAD</span> <span style="font-size:0.78rem;">&middot; one-time, lifetime</span></div>
-        <div style="font-family:var(--mono);font-size:0.62rem;color:var(--blue);letter-spacing:0.12em;text-transform:uppercase;margin:0.25rem 0 0.1rem;">Choose your platform</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;">
-          <a class="btn-buy" href="https://fsmelogic.gumroad.com/l/tzkyyx"
-             onclick="gtag('event','begin_checkout',{value:500,currency:'CAD',item:'Stratum_Basic_Windows'});">Windows x64 &#9658;</a>
-          <a class="btn-buy" href="https://fsmelogic.gumroad.com/l/vwagih"
-             onclick="gtag('event','begin_checkout',{value:500,currency:'CAD',item:'Stratum_Basic_Linux'});">Linux x64 &#9658;</a>
-        </div>
-        <p style="font-family:var(--mono);font-size:0.7rem;color:var(--dim);text-align:center;margin-top:0.25rem;">Instant download. Requires Python 3.13 + <code>pip install wasmtime</code>.</p>
+        <p class="card-price">$0 <small>free forever &middot; no sign-up</small></p>
+        <a class="card-cta solid green" href="stratum.html#install" onclick="gtag('event','get_free',{'event_category':'engagement','item':'Stratum_Basic'});">Install Free &#9658;</a>
       </div>
 
       <!-- STRATUM PRO -->
-      <div class="product-card" style="border-top:3px solid var(--gold);">
-        <div>
-          <span class="card-badge badge-featured">&#9733; Flagship</span>&nbsp;
-          <span class="card-badge badge-live">Subscription</span>
-        </div>
-        <h2 id="stratum-pro" class="card-title">Stratum Pro</h2>
-        <div class="card-desc">Everything in Basic, plus the precision detection kernel, Ed25519 identity + attestation, enterprise fleet sockets, and the offline AI governance layer: wrap any local LLM so every answer is gated, scored, and cryptographically signed &mdash; structurally jailbreak-resistant and deterministic. A lapse reverts cleanly to Basic, so your embedded system never stops.</div>
+      <div class="product-card pro" id="stratum-pro">
+        <span class="card-badge">Flagship &middot; Contact-Gated</span>
+        <h2 class="card-title">Stratum Pro</h2>
+        <p class="card-desc">The same language and the same source as Basic, plus what a regulated deployment is required to have, and a vendor who signs an SLA. What you prototype free graduates unchanged.</p>
         <hr class="card-divider">
         <ul class="card-includes">
-          <li><strong style="color:var(--gold);">Everything in Stratum Basic, plus:</strong></li>
-          <li>High-precision detection kernel &mdash; catches stealth sabotage Basic misses</li>
-          <li>Retrospective trajectory detector &mdash; a second voice that catches slow / point poisoning the forward pass misses</li>
-          <li>Ed25519 identity + attestation &mdash; signed, reproducible reasoning seals</li>
-          <li>Enterprise sockets: fleet telemetry + per-device license verify</li>
-          <li>Offline AI governance layer &mdash; gate, score &amp; cryptographically sign any local model's reasoning</li>
-          <li>Cognitive governance suite &mdash; council consonance, goal-anchor refusal, harm screen, full multi-turn reasoning tick</li>
-          <li>Deterministic &amp; auditable &mdash; the same input yields the same signed decision, every time</li>
-          <li>16 examples incl. the precision + governance demos</li>
-          <li>Lapse reverts to Basic &mdash; never kills the host system</li>
+          <li>FSME Proprietary Edge Kernel: high-precision detection</li>
+          <li>Ed25519 module identity and attestation</li>
+          <li>Fleet controls: per-device licensing, telemetry export</li>
+          <li>AI cognitive governance layer</li>
+          <li>Lapses cleanly to Basic: your system never stops running</li>
         </ul>
-        <hr class="card-divider">
-        <div class="card-price" style="color:var(--gold);">Enterprise <span style="font-size:0.95rem;">&middot; custom pricing</span></div>
-        <div style="font-family:var(--mono);font-size:0.74rem;color:var(--muted);line-height:1.7;margin:0.35rem 0 0.6rem;">Licensed per deployment and scoped to your use case and fleet size. Tell us what you're embedding it in and we'll quote it.</div>
-        <a class="btn-buy" style="background:var(--gold);color:#0e1118;border:1px solid var(--gold);font-weight:700;" href="contact.html"
-           onclick="gtag('event','generate_lead',{item:'Stratum_Pro_Enterprise_Request'});">Contact for Pro Access &#9658;</a>
-        <p style="font-family:var(--mono);font-size:0.7rem;color:var(--dim);text-align:center;margin-top:0.25rem;">Windows &amp; Linux x64. License delivered by email after scoping.</p>
+        <p class="card-price">Scoped per deployment <small>licensed per engagement</small></p>
+        <a class="card-cta line" href="contact.html?product=pro">Scope a Deployment &#9658;</a>
       </div>
 
     </div>
-
-    <p style="font-family:var(--mono);font-size:0.76rem;color:var(--muted);line-height:1.8;margin-top:1.25rem;text-align:center;">
-      <strong style="color:var(--gold);">Founders Edition &mdash; limited release.</strong> The Basic launch price is locked in for early buyers: buy once, own it for life. Stratum Pro is licensed per enterprise deployment &mdash; contact us to scope your edition.
-    </p>
+    <p class="fineprint">Want the depth first? The <a href="stratum.html">Stratum page</a> has the quickstart, the capability model, and the Pro proof artifacts.</p>
   </div>
+</section>
 
-  <!-- DIVIDER back to the existing store -->
-  <div style="max-width:1100px;margin:2.5rem auto 0;padding:0 2rem;">
-    <div style="border-top:1px solid var(--border);padding-top:0.75rem;font-family:var(--mono);font-size:0.65rem;color:var(--dim);letter-spacing:0.12em;text-transform:uppercase;">// Telemetry Tools &amp; Resources</div>
-  </div>
+<!-- BUILT FOR YOU -->
+<section class="store-sec alt" id="delivered">
+  <div class="wrap">
+    <p class="section-label">Delivered To You</p>
+    <h2 class="section-title">Built for one customer <em>at a time.</em></h2>
+    <p class="section-sub">Not public downloads. Each build is generated for you, uniquely scrambled and locked to your machines, so no single copy can be torn apart to expose the others.</p>
+    <div class="card-grid">
 
-  <div style="max-width:1100px;margin:0 auto;padding:1.5rem 2rem 0;">
-    <div style="background:rgba(61,142,240,0.06);border:1px solid rgba(61,142,240,0.2);border-left:3px solid var(--blue);padding:1.25rem 1.5rem;">
-      <p style="font-family:var(--mono);font-size:0.82rem;color:var(--muted);line-height:1.9;margin:0;">
-        <strong style="color:var(--text);">On pricing:</strong> All rates shown are introductory and subject to adjustment as enterprise deployment volumes scale. Priced to clear individual and small-team P-card limits without procurement overhead. Enterprise licensing and volume arrangements available — <a href="contact.html" style="color:var(--blue);text-decoration:none;">contact us</a>. &nbsp;<strong style="color:var(--text);">GST/HST:</strong> FSME Logic is registered for GST/HST (BN 79820 1570 RT0001, effective March 1, 2026). Canadian purchases are subject to applicable GST/HST; Gumroad handles tax collection automatically at checkout.&nbsp;&nbsp;
-        <strong style="color:var(--text);">On code signing:</strong> The Data Ingestion Desktop Client (.exe) does not currently carry a Microsoft Authenticode certificate. Windows Defender SmartScreen may flag it on first run — this is normal for unsigned independent software, not an indicator of malware. The binary is verifiable by SHA-256 hash. If your organization requires a signed executable, contact us to discuss arrangements.
-      </p>
-    </div>
-  </div>
-
-  <!-- FREE KIT + $99 BUNDLE SECTION -->
-  <div style="max-width:1100px;margin:0 auto;padding:2rem 2rem 0;">
-    <div class="kit-grid">
-
-      <!-- FREE ENGINEERING PROCUREMENT KIT -->
-      <div id="free-kit" style="background:var(--bg2);border:1px solid var(--border);border-top:3px solid var(--cyan);padding:1.75rem;display:flex;flex-direction:column;gap:1rem;">
-        <div>
-          <span class="card-badge" style="background:rgba(91,184,212,0.1);color:var(--cyan);border:1px solid rgba(91,184,212,0.3);">Free Download</span>
-        </div>
-        <h2 class="card-title">Engineering Procurement Kit</h2>
-        <div class="card-desc">Everything a reliability engineer needs to evaluate, justify, and pitch FSME Logic internally — before spending a dollar. No email required. Direct download.</div>
+      <!-- GOVERNOR -->
+      <div class="product-card gov" id="governor">
+        <span class="card-badge">AI Governance &middot; Offline</span>
+        <h2 class="card-title">Governor</h2>
+        <p class="card-desc">A checkpoint that sits in front of a local AI. Every request and answer is allowed or blocked by deterministic rules you own, and leaves with an Ed25519-signed record of exactly what happened. Built on the Stratum runtime: refusals are structural, not a filter a clever prompt can talk around.</p>
         <hr class="card-divider">
         <ul class="card-includes">
-          <li>Air-Gapped AI Security Compliance Matrix (xlsx) — pre-fills ISO 27001 justification for IT</li>
-          <li>Sensor Telemetry Export Guide (pdf) — how to pull clean .tdms, .h5, .csv from SCADA/BMS</li>
-          <li>Internal Pilot Justification Memo (docx) — pre-written memo to VP requesting $999 assessment</li>
-          <li>Downtime Cost Reference Sheet (pdf) — industry benchmark figures with citations</li>
+          <li>Runs on your hardware, binds to localhost only</li>
+          <li>OpenAI-compatible endpoint: drops into existing tooling</li>
+          <li>Signed, tamper-evident decision records</li>
+          <li>Rules are yours, written in Stratum</li>
         </ul>
-        <hr class="card-divider">
-        <div class="card-price" style="font-size:1.6rem;color:var(--cyan);">Free</div>
-        <a class="btn-buy" style="background:transparent;color:var(--cyan);border:1px solid rgba(91,184,212,0.5);"
-           href="downloads/FSME_Engineering_Procurement_Kit.zip" download
-           onclick="gtag('event','file_download',{file_name:'FSME_Engineering_Procurement_Kit',category:'free_kit'});">
-          &#8659; Download Free Kit
-        </a>
-        <p style="font-family:var(--mono);font-size:0.7rem;color:var(--dim);text-align:center;margin-top:0.25rem;">No email required. No strings attached.</p>
+        <p class="card-honest">What it is not: a promise that a model is "safe." It bounds what the model can do and proves what it did.</p>
+        <p class="card-price">Contact for pricing <small>per-customer build &middot; node-locked</small></p>
+        <a class="card-cta line" href="contact.html?product=governor">Request Governor &#9658;</a>
       </div>
 
-      <!-- $99 STARTER KIT -->
-      <div id="starter-kit" style="background:var(--card);border:1px solid var(--border);border-top:3px solid var(--blue);padding:1.75rem;display:flex;flex-direction:column;gap:1rem;">
-        <div>
-          <span class="card-badge badge-live">Available Now</span>&nbsp;
-          <span class="card-badge" style="background:rgba(61,142,240,0.1);color:var(--blue);border:1px solid rgba(61,142,240,0.3);">100% Credit Included</span>
-        </div>
-        <h2 class="card-title">Predictive Reliability Starter Kit</h2>
-        <div class="card-desc">All FSME Logic operational documents in one package. 100% of the purchase price is credited toward any software purchase or forensic audit — making this a risk-free entry point.</div>
+      <!-- HEALTH ANALYZER -->
+      <div class="product-card ana" id="analyzer">
+        <span class="card-badge">Predictive Health &middot; Offline</span>
+        <h2 class="card-title">FSME Health Analyzer</h2>
+        <p class="card-desc">Drop in a CSV of recorded sensor data and get back a signed, tamper-evident report of where a machine began to structurally degrade and how early it was detectable. Detection runs in the Stratum engine; every report is Ed25519-signed and verifiable offline.</p>
         <hr class="card-divider">
         <ul class="card-includes">
-          <li>Sensor Data Readiness &amp; Integration Protocol (9-page guide)</li>
-          <li>Unplanned Downtime Cost Calculator (Excel workbook)</li>
-          <li>Predictive Maintenance Audit Template (Word + Excel)</li>
-          <li>Everything in the Free Engineering Procurement Kit</li>
-          <li><strong style="color:var(--blue);">$99 credited in full toward any software or audit</strong></li>
-          <li><strong style="color:var(--blue);">Exclusive 100% credit promo code included inside the kit</strong></li>
+          <li>Works on any numeric channel: vibration, temp, pressure, current</li>
+          <li>Lead time: how much warning you would have had</li>
+          <li>Multi-voice consensus keeps false positives low</li>
+          <li>Hot-folder automation and an offline AI helper included</li>
         </ul>
-        <hr class="card-divider">
-        <div class="card-price">$99 <span>CAD</span></div>
-        <a class="btn-buy" href="https://fsmelogic.gumroad.com/l/ythog"
-           onclick="gtag('event','begin_checkout',{value:99,currency:'CAD',item:'Starter_Kit'});">
-          Buy Starter Kit — $99
-        </a>
+        <p class="card-honest">What it is not: a live monitor or a safety device. It analyzes data you already recorded, after the fact, as an advisory finding.</p>
+        <p class="card-price">Contact for pricing <small>per-customer build &middot; machine-welded</small></p>
+        <a class="card-cta line" href="contact.html?product=analyzer">Request the Analyzer &#9658;</a>
       </div>
 
     </div>
+    <p class="gated-note"><strong>How delivery works.</strong> You reach out, we scope it under a mutual NDA, and you send a one-line machine ID. We generate a fresh, node-locked build and hand you the installer. Fully offline: no server, no phone-home, no cloud dependency.</p>
   </div>
-  <!-- DIVIDER -->
-  <div style="max-width:1100px;margin:1.5rem auto 0;padding:0 2rem;">
-    <div style="border-top:1px solid var(--border);padding-top:0.75rem;font-family:var(--mono);font-size:0.65rem;color:var(--dim);letter-spacing:0.12em;text-transform:uppercase;">// Software &amp; Services</div>
-  </div>
+</section>
 
-
-
-
-  <!-- ── PRONOUNCED: main software + flagship audit (wide rows) ── -->
-  <div style="max-width:1100px;margin:0 auto;padding:2rem 2rem 0;">
-    <div class="feature-stack">
+<!-- BUY NOW -->
+<section class="store-sec" id="desktop-client">
+  <div class="wrap">
+    <p class="section-label">Buy &amp; Download Today</p>
+    <h2 class="section-title">The one you can buy <em>right now.</em></h2>
+    <div class="card-grid" style="grid-template-columns: minmax(320px, 640px); justify-content: start;">
 
       <!-- DESKTOP CLIENT -->
-      <div class="feature-row">
-        <div class="fr-body">
-          <div>
-            <span class="card-badge badge-featured">&#9733; Featured</span>&nbsp;
-            <span class="card-badge badge-live">Available Now</span>
-          </div>
-          <h2 id="desktop-client" class="card-title" style="margin-top:0.6rem;">FSME Data Ingestion Desktop Client <span style="font-size:0.75em;color:var(--muted);font-weight:400;">&mdash; Audit Prep Edition</span></h2>
-          <div class="card-desc">The industrial telemetry file converter for PHM and CBM+ workflows. A standalone, offline Windows application that processes massive .tdms, .h5, and NetCDF files out-of-memory into clean, audit-ready CSVs. No Python required. No cloud. No data leaves your hardware. Compatible with SCADA, BMS, and DAQ exports across aerospace, defense, and heavy manufacturing.</div>
-          <ul class="card-includes">
-            <li>Out-of-memory safe &mdash; processes multi-gigabyte files on a standard laptop</li>
-            <li>Drift-free chronological grid enforcement</li>
-            <li>Auto-detects format by file signature, not extension</li>
-            <li>SHA-256 audit hash on every output</li>
-            <li>Supports: .h5, .tdms, .nc, .mat, .csv, .xlsx, .json, .sqlite</li>
-            <li>Single double-clickable .exe &mdash; no Python required</li>
-          </ul>
-        </div>
-        <div class="fr-cta">
-          <div style="margin-bottom:0.75rem;">
-            <div style="display:flex;align-items:baseline;gap:0.75rem;flex-wrap:wrap;margin-bottom:0.4rem;">
-              <div class="card-price" style="display:inline;">$250 <span>CAD</span></div>
-              <span style="font-family:var(--mono);font-size:0.75rem;color:var(--muted);">Individual / SME</span>
-            </div>
-            <a class="btn-buy" href="https://fsmelogic.gumroad.com/l/sjaoxn" style="margin-bottom:0.5rem;"
-               onclick="gtag('event','begin_checkout',{value:250,currency:'CAD',item:'Desktop_Client_Individual'});">Buy Standard &mdash; $250 &#9658;</a>
-            <div style="display:flex;align-items:baseline;gap:0.75rem;flex-wrap:wrap;margin:0.75rem 0 0.4rem;">
-              <div style="font-family:var(--head);font-size:1.8rem;font-weight:800;color:var(--gold);display:inline;">$450 <span style="font-size:1rem;font-weight:400;color:var(--muted);">CAD</span></div>
-              <span style="font-family:var(--mono);font-size:0.75rem;color:var(--muted);">Enterprise &mdash; multi-seat + priority support</span>
-            </div>
-            <a class="btn-buy" style="background:rgba(201,168,76,0.12);color:var(--gold);border:1px solid rgba(201,168,76,0.35);margin-bottom:0.5rem;" href="https://fsmelogic.gumroad.com/l/hmpgiw"
-               onclick="gtag('event','begin_checkout',{value:450,currency:'CAD',item:'Desktop_Client_Enterprise'});">Buy Enterprise &mdash; $450 &#9658;</a>
-          </div>
-          <a class="btn-buy" href="pipeline-demo.html" style="background:transparent;color:var(--cyan);border:1px solid rgba(91,184,212,0.6);margin-bottom:0.5rem;">&#9901; &nbsp;Try Interactive Demo First</a>
-          <a class="btn-buy" href="contact.html"
-             onclick="gtag('event','generate_lead',{item:'Desktop_Client_Request'});">Request License &#9658;</a>
-          <p style="font-family:var(--mono);font-size:0.7rem;color:var(--dim);text-align:center;margin-top:0.25rem;">License delivered by email within 24 hours.</p>
-        </div>
+      <div class="product-card buy">
+        <span class="card-badge">Data Utility &middot; Self-Serve</span>
+        <h2 class="card-title">FSME Data Ingestion Desktop Client</h2>
+        <p class="card-desc">Turns massive, messy industrial telemetry into clean, audit-ready CSV, offline, with a hash on every file. It removes the days of fragile parsing scripts that sit in front of any real analysis.</p>
+        <hr class="card-divider">
+        <ul class="card-includes">
+          <li>Converts .tdms, .h5, .nc, .mat &rarr; clean CSV</li>
+          <li>Out-of-memory: handles files bigger than your RAM</li>
+          <li>SHA-256 hash written for every output</li>
+          <li>Hot-folder automation: drop files in, get CSV out, unattended</li>
+          <li>Batch conversion across many files</li>
+          <li>No Python required, no cloud, fully offline</li>
+          <li>Perpetual license, one-time payment</li>
+        </ul>
+        <p class="card-price">$750 <small>CAD &middot; one-time &middot; instant download</small></p>
+        <a class="card-cta solid" href="https://fsmelogic.gumroad.com/l/hmpgiw"
+           onclick="gtag('event','begin_checkout',{value:750,currency:'CAD',item:'Desktop_Client'});">Buy Now — $750 &#9658;</a>
       </div>
 
-      <!-- $999 VIABILITY ASSESSMENT -->
-      <div class="feature-row">
-        <div class="fr-body">
-          <div>
-            <span class="card-badge" style="background:rgba(201,168,76,0.15);color:var(--gold);border:1px solid rgba(201,168,76,0.4);">&#9733; Bridge Product</span>&nbsp;
-            <span class="card-badge badge-live">Available Now</span>
-          </div>
-          <h2 id="viability-assessment" class="card-title" style="margin-top:0.6rem;">Single-Asset Viability Assessment</h2>
-          <div class="card-desc">Send us historical telemetry from one asset that experienced an unexpected failure. We prove the FSME engine would have detected the stress accumulation before your alarms triggered &mdash; or the fee is refunded in full.</div>
-          <ul class="card-includes">
-            <li>You provide: telemetry from one historical failure event (any format)</li>
-            <li>We deliver: 5&ndash;8 page forensic PDF documenting detection lead time vs. alarm trigger</li>
-            <li>Includes: stress accumulation timeline, channel-by-channel analysis, SHA-256 custody receipt</li>
-            <li>Includes: fleet-wide extrapolation section projecting findings across your asset base</li>
-            <li><strong style="color:var(--gold);">Full refund if early detection cannot be demonstrated</strong></li>
-            <li>$999 credited in full toward any fleet-wide forensic audit engagement</li>
-          </ul>
-        </div>
-        <div class="fr-cta">
-          <div style="background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.2);border-left:2px solid var(--gold);padding:0.75rem 1rem;font-family:var(--mono);font-size:0.75rem;color:var(--muted);line-height:1.75;margin-bottom:0.5rem;">
-            <strong style="color:var(--gold);">How it works:</strong> Contact us first. We confirm your data format, sign an NDA if required, then you transfer the file via your preferred secure method. Analysis runs on air-gapped hardware in Edmonton.
-          </div>
-          <div class="card-price" style="color:var(--gold);">$999 <span>CAD</span></div>
-          <a class="btn-buy" style="background:rgba(201,168,76,0.15);color:var(--gold);border:1px solid rgba(201,168,76,0.4);" href="contact.html"
-             onclick="gtag('event','generate_lead',{value:999,currency:'CAD',item:'Viability_Assessment_Request'});">Request Viability Assessment &#9658;</a>
-          <p style="font-family:var(--mono);font-size:0.7rem;color:var(--dim);text-align:center;margin-top:0.25rem;">Contact us first to confirm data compatibility before purchasing.</p>
-        </div>
-      </div>
+    </div>
+    <p class="fineprint">Prices in Canadian dollars. GST/HST is added at checkout for Canadian buyers. Windows builds are code-signed. Need multiple seats or a site licence? <a href="contact.html?product=desktop_client">Contact us</a> and we will scope it.</p>
 
+    <!-- REQUEST LINE -->
+    <div class="req-line">
+      <p><strong>Evaluating internally?</strong> The Engineering Procurement Kit and the FSME Methodology Whitepaper are available on request, the collateral your team needs to justify a deployment upstairs.</p>
+      <a class="btn btn-secondary" href="contact.html?product=collateral">Request it &#9658;</a>
     </div>
   </div>
-
-  <!-- ── COMPACT: files, templates &amp; add-ons ── -->
-  <section class="store-section" style="padding-top:2rem;">
-    <div class="store-grid compact">
-
-      <div class="product-card compact">
-        <div>
-          <span class="card-badge badge-featured">&#9733; Featured</span>&nbsp;
-          <span class="card-badge badge-live">Available Now</span>
-        </div>
-        <h2 id="readiness-protocol" class="card-title">Sensor Data Readiness &amp; Integration Protocol</h2>
-        <div class="card-desc">The complete operational guide to preparing your sensor data for an offline predictive physics audit. Includes extraction playbook, security overview, report decoder, and a bridge page for your decision-maker.</div>
-        <hr class="card-divider">
-        <ul class="card-includes">
-          <li>9-page operational field guide</li>
-          <li>Pre-flight checklist &amp; extraction playbook</li>
-          <li>Good data vs. bad data visual reference</li>
-          <li>Audit lifecycle walkthrough</li>
-          <li>Glossary of key terms</li>
-          <li>Exclusive audit discount promo code included inside the protocol</li>
-          <li>$200 referral credit program</li>
-        </ul>
-        <hr class="card-divider">
-        <div class="card-price">$25 <span>CAD</span></div>
-        <a class="btn-buy" href="https://fsmelogic.gumroad.com/l/hifhga"
-           onclick="gtag('event','begin_checkout',{value:25,currency:'CAD',item:'Readiness_Protocol'});">Buy Now &mdash; $25</a>
-      </div>
-
-      <div class="product-card compact">
-        <div>
-          <span class="card-badge badge-live">Available Now</span>
-        </div>
-        <h2 id="roi-calculator" class="card-title">Unplanned Downtime Cost Calculator</h2>
-        <div class="card-desc">A pre-built Excel spreadsheet version of the FSME ROI calculator. Plug in your fleet size, repair costs, and downtime rates &mdash; get a presentation-ready cost analysis for internal approval.</div>
-        <hr class="card-divider">
-        <ul class="card-includes">
-          <li>Pre-built Excel workbook</li>
-          <li>Industry benchmark costs pre-filled</li>
-          <li>Presentation-ready output format</li>
-          <li>Instructions included</li>
-        </ul>
-        <hr class="card-divider">
-        <div class="card-price">$20 <span>CAD</span></div>
-        <a class="btn-buy" href="https://fsmelogic.gumroad.com/l/ozcfmi"
-           onclick="gtag('event','begin_checkout',{value:20,currency:'CAD',item:'Downtime_Calculator'});">Buy Now &mdash; $20</a>
-      </div>
-
-      <!-- ZEROPORT TIER 1 -->
-      <div class="product-card compact">
-        <div>
-          <span class="card-badge badge-featured">&#9733; New</span>&nbsp;
-          <span class="card-badge badge-live">Available Now</span>
-        </div>
-        <h2 id="zeroport-blueprint" class="card-title">ZeroPort Storefront: Self-Hosted Digital Store Blueprint</h2>
-        <div class="card-desc">A step-by-step production manual for building a military-grade, self-hosted digital product server &mdash; zero open router ports, zero monthly SaaS fees, zero third-party data exposure. Built on Ubuntu 24.04 LTS, Nginx, Flask, Cloudflare Zero Trust Tunnel, and Square Webhooks. Stop paying rent on your own business.</div>
-        <hr class="card-divider">
-        <ul class="card-includes">
-          <li>Zero open ports &mdash; outbound-only Cloudflare tunnel, your IP never exposed</li>
-          <li>LUKS full-disk encryption + AppArmor process isolation</li>
-          <li>Square Webhook HMAC signature verification for payments</li>
-          <li>Nginx rate limiting and X-Accel-Redirect file protection</li>
-          <li>Air-gapped direct-ethernet backup node protocol</li>
-          <li>Complete 28-page production architecture guide (PDF)</li>
-        </ul>
-        <hr class="card-divider">
-        <div class="card-price">$50 <span>CAD</span></div>
-        <a class="btn-buy" href="https://fsmelogic.gumroad.com/l/cwqij"
-           onclick="gtag('event','begin_checkout',{value:50,currency:'CAD',item:'ZeroPort_Blueprint'});">Buy Blueprint &mdash; $50</a>
-      </div>
-
-      <!-- ZEROPORT TIER 2 -->
-      <div class="product-card compact">
-        <div>
-          <span class="card-badge badge-featured">&#9733; New</span>&nbsp;
-          <span class="card-badge" style="background:rgba(201,168,76,0.12);color:var(--gold);border:1px solid rgba(201,168,76,0.35);">Complete Stack</span>
-        </div>
-        <h2 id="zeroport-complete" class="card-title">ZeroPort Storefront: Blueprint + Plug-and-Play Automation Scripts</h2>
-        <div class="card-desc">Everything in the Blueprint tier, plus the full automation script package. Skip the 40&ndash;80 hours of debugging syntax errors across LUKS, AppArmor, and HMAC webhook validation. Every script is production-tested, commented, and ready to deploy.</div>
-        <hr class="card-divider">
-        <ul class="card-includes">
-          <li>Everything in the Blueprint tier (full PDF guide)</li>
-          <li>webhook_server.py &mdash; Flask app with constant-time HMAC validation</li>
-          <li>push_backup.sh &mdash; automated air-gapped backup over direct Ethernet</li>
-          <li>restore_test.sh &mdash; backup integrity verification script</li>
-          <li>AppArmor profile templates for Nginx and Flask processes</li>
-          <li>.env templates with annotated security configuration</li>
-        </ul>
-        <hr class="card-divider">
-        <div class="card-price">$130 <span>CAD</span></div>
-        <a class="btn-buy" href="https://fsmelogic.gumroad.com/l/cwqij"
-           onclick="gtag('event','begin_checkout',{value:130,currency:'CAD',item:'ZeroPort_Complete'});">Buy Complete Stack &mdash; $130</a>
-      </div>
-
-      <!-- HOT FOLDER ADD-ON -->
-      <div class="product-card compact" style="border-top:3px solid var(--bord2);background:var(--bg2);">
-        <div>
-          <span class="card-badge" style="background:rgba(46,58,82,0.6);color:var(--muted);border:1px solid var(--border);">Enterprise Add-On</span>&nbsp;
-          <span class="card-badge badge-live">Available Now</span>
-        </div>
-        <h2 id="hot-folder-addon" class="card-title" style="color:var(--muted);">Automated Hot-Folder Daemon</h2>
-        <div style="background:rgba(224,82,82,0.08);border:1px solid rgba(224,82,82,0.2);border-left:2px solid #e05252;padding:0.6rem 0.85rem;font-family:var(--mono);font-size:0.72rem;color:var(--muted);margin-bottom:0.75rem;line-height:1.6;">
-          <strong style="color:#e08080;">Requires an active FSME Enterprise Desktop License ($450) to function.</strong> This is an annual license key add-on, not a standalone product.
-        </div>
-        <div class="card-desc">Unlocks the background hot-folder processing daemon in your existing Enterprise installation. Drop files into a monitored folder and the conversion pipeline runs automatically &mdash; no manual intervention.</div>
-        <hr class="card-divider">
-        <ul class="card-includes">
-          <li>Continuous background monitoring of a designated input folder</li>
-          <li>Auto-converts any supported format dropped into the folder</li>
-          <li>Output routed to configured destination (CSV, SQL, or Parquet)</li>
-          <li>Annual license key &mdash; same binary, new key activates daemon</li>
-          <li>Key expires after 12 months; renewal required to continue daemon operation</li>
-        </ul>
-        <hr class="card-divider">
-        <div class="card-price" style="font-size:1.6rem;">$50 <span>CAD / year</span></div>
-        <a class="btn-buy" style="background:var(--steel);color:var(--muted);border:1px solid var(--border);" href="https://fsmelogic.gumroad.com/l/etwlnu"
-           onclick="gtag('event','begin_checkout',{value:50,currency:'CAD',item:'Hot_Folder_Addon'});">Buy Add-On Key &mdash; $50/yr</a>
-        <p style="font-family:var(--mono);font-size:0.7rem;color:var(--dim);text-align:center;margin-top:0.25rem;">Purchased via Gumroad. Enter your existing Enterprise license ID in the order notes.</p>
-      </div>
-
-      <!-- AUDIT TEMPLATE -->
-      <div id="audit-template" class="product-card compact">
-        <div>
-          <span class="card-badge badge-live">Available Now</span>
-        </div>
-        <h2 class="card-title">Predictive Maintenance Audit Template Pack</h2>
-        <div class="card-desc">A structured three-part system for operations that aren't ready for automated software yet. Log anomalies rigorously, score them consistently, and present findings to management &mdash; with a built-in path to the FSME engine when manual logging reaches its limit.</div>
-        <hr class="card-divider">
-        <ul class="card-includes">
-          <li>Excel Anomaly Log &mdash; 40-row tracker, auto-formulas, severity dropdowns, FSME Blind Spot Flag column</li>
-          <li>Scoring Rubric tab &mdash; 4-dimension 1&ndash;5 matrix with priority matrix (Low through Critical)</li>
-          <li>Asset Health Summary tab &mdash; management-ready reporting table</li>
-          <li>Word Report Template &mdash; full formal anomaly report with executive summary, statistics table, and diagnostic limitations clause</li>
-          <li>README PDF &mdash; step-by-step instructions and scoring rubric explained</li>
-          <li><strong style="color:var(--blue);">$30 credited in full &mdash; promo code included in README</strong></li>
-        </ul>
-        <hr class="card-divider">
-        <div class="card-price">$30 <span>CAD</span></div>
-        <a class="btn-buy" href="https://fsmelogic.gumroad.com/l/rzxer"
-           onclick="gtag('event','begin_checkout',{value:30,currency:'CAD',item:'Audit_Template_Pack'});">Buy Template Pack &mdash; $30</a>
-        <p style="font-family:var(--mono);font-size:0.7rem;color:var(--dim);text-align:center;margin-top:0.25rem;">Instant delivery via Gumroad.</p>
-      </div>
-
-      <!-- WHITE PAPER -->
-      <div id="white-paper" class="product-card compact" style="border-top:3px solid var(--dim);">
-        <div>
-          <span class="card-badge" style="background:rgba(138,155,184,0.1);color:var(--dim);border:1px solid rgba(138,155,184,0.3);">Free &mdash; Email Required</span>
-        </div>
-        <h2 class="card-title" style="color:var(--dim);">FSME Methodology White Paper</h2>
-        <div class="card-desc">A technical overview of the physics-based framework behind the FSME predictive integrity engine. Written for reliability engineers and technical evaluators who want to understand the methodology before committing to a full engagement.</div>
-        <hr class="card-divider">
-        <ul class="card-includes">
-          <li>Overview of the Unified Information Potential (UIP) theoretical framework</li>
-          <li>Why deterministic physics outperforms statistical ML for rare-event detection</li>
-          <li>Cross-domain validation summary &mdash; industrial, aerospace, quantum, and gravitational wave datasets</li>
-          <li>The Green Dashboard Fallacy explained with benchmark data</li>
-          <li>Engineering-level depth &mdash; no marketing fluff</li>
-        </ul>
-        <hr class="card-divider">
-        <div class="card-price" style="font-size:1.5rem;color:var(--dim);">Free</div>
-        <a class="btn-buy" style="background:transparent;color:var(--muted);border:1px solid rgba(138,155,184,0.4);"
-           href="whitepaper.html"
-           onclick="gtag('event','file_download',{file_name:'FSME_Methodology_White_Paper',category:'white_paper'});">
-          Get White Paper &#9658;
-        </a>
-        <p style="font-family:var(--mono);font-size:0.7rem;color:var(--dim);text-align:center;margin-top:0.25rem;">Enter your email to receive the download link.</p>
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- GEO / LLM SEMANTIC ANCHOR -->
-  <div style="max-width:1100px;margin:0 auto;padding:0 2rem 2rem;">
-    <div style="background:var(--card);border:1px solid var(--border);padding:1.75rem;">
-      <div style="font-family:var(--mono);font-size:0.65rem;color:var(--blue);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:0.75rem;">// About the Technology</div>
-      <p style="font-family:var(--mono);font-size:0.82rem;color:var(--muted);line-height:1.9;margin-bottom:0.75rem;">
-        FSME Logic provides physics-based Prognostics and Health Management (PHM) software designed for heavy industry, aerospace, and defense contractors. Unlike statistical machine learning platforms that require massive historical training datasets and constant cloud connectivity, the FSME Predictive Integrity Engine utilizes deterministic, first-principles telemetry analysis to identify structural signal degradation weeks before amplitude-based threshold alarms trigger — enabling advanced Condition-Based Maintenance Plus (CBM+) without exposing Controlled Unclassified Information (CUI) to third-party cloud vulnerabilities.
-      </p>
-      <p style="font-family:var(--mono);font-size:0.82rem;color:var(--muted);line-height:1.9;margin-bottom:0;">
-        <strong style="color:var(--text);">Why deterministic physics outperforms statistical ML:</strong> The FSME engine requires zero historical failure data, operates 100% offline on air-gapped edge-compute hardware, and is immune to the stochastic hallucinations that plague standard ML anomaly detection. All analysis is conducted on isolated edge hardware in Edmonton, ensuring zero-trust compliance for defense contractors handling export-controlled (ITAR) or CUI telemetry. &nbsp;<a href="procurement.html" style="color:var(--dim);font-size:0.75rem;text-decoration:none;">Vendor &amp; Procurement Info</a>
-      </p>
-    </div>
-  </div>
-
-  <div class="audit-note">
-    <div class="audit-note-inner">
-      <p>All digital products are delivered instantly via Gumroad. For the $999 Viability Assessment or Desktop Client licenses, contact us directly — these are handled personally.</p>
-      <a href="contact.html">Discuss a Forensic Audit →</a>
-    </div>
-  </div>
-
-</main>
+</section>
 
 <footer>
   <div class="foot-inner">
     <div class="foot-left">
-      &#169; 2026 Alexander Kalyniuk &#8212; FSME Logic &nbsp;|&nbsp; Edmonton, Alberta, Canada<br>
-      Proprietary &amp; Trade Secret Protected &nbsp;|&nbsp; <a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a>
+      <a href="easter-egg.html" style="color:inherit;text-decoration:none;cursor:default;">©</a> 2026 Alexander Kalyniuk — FSME Logic &nbsp;|&nbsp; Edmonton, Alberta, Canada<br>
+      <a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a>
     </div>
     <div class="foot-right">
-      <a href="case-studies.html">Validation</a>
-      <a href="about.html">About</a>
-      <a href="faq.html">FAQ</a>
-      <a href="contact.html">Contact</a>
-      <a href="privacy.html">Privacy</a>
-    </div>
-    <div class="foot-right" style="margin-top:0.5rem;">
+      <a href="stratum.html">Stratum</a>
       <a href="store.html">Store</a>
-      <a href="legal.html">Legal &amp; Terms</a>
-      <a href="investors.html">Investors</a>
-      <a href="newsroom.html">Newsroom</a>
-      <a href="case-studies.html#reports">Validation Reports</a>
-      <a href="roi.html">ROI Calculator</a>
-      <a href="procurement.html" style="opacity:0.5;">Vendor &amp; Procurement</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="legal.html">Legal</a>
     </div>
     <div class="foot-social">
-      <a href="https://x.com/FsmeLogic" target="_blank" rel="noopener" aria-label="X / Twitter">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.731-8.835L1.254 2.25H8.08l4.259 5.63 5.905-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-      </a>
-      <a href="https://youtube.com/@fsmelogic" target="_blank" rel="noopener" aria-label="YouTube">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
-      </a>
-      <a href="https://www.linkedin.com/in/fsmelogic" target="_blank" rel="noopener" aria-label="LinkedIn">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-      </a>
+      <a href="https://x.com/FsmeLogic" target="_blank" rel="noopener" aria-label="X / Twitter"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.731-8.835L1.254 2.25H8.08l4.259 5.63 5.905-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+      <a href="https://youtube.com/@fsmelogic" target="_blank" rel="noopener" aria-label="YouTube"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg></a>
+      <a href="https://www.linkedin.com/in/fsmelogic" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
     </div>
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 <!-- COOKIE BANNER -->
 <div id="cookie-banner">
-  <p>This site uses Google Analytics and Google Ads to measure site performance. We do not sell your data. <a href="privacy.html">Privacy Policy</a></p>
+  <p>This site uses Google Analytics and Google Ads to measure site performance. We do not sell your data. <a href="legal.html#privacy">Privacy Policy</a></p>
   <button onclick="acceptCookies()">Accept</button>
 </div>
 
 <script>
-  // Cookie banner — show once per browser
-  (function() {
-    if (!localStorage.getItem('fsme_cookies_ok')) {
-      document.getElementById('cookie-banner').style.display = 'flex';
-    }
-  })();
-  function acceptCookies() {
-    localStorage.setItem('fsme_cookies_ok', '1');
-    document.getElementById('cookie-banner').style.display = 'none';
-  }
-  // Hamburger with ARIA
-  (function() {
-    var btn = document.getElementById('hamburger');
-    var menu = document.getElementById('mobile-menu');
-    if (btn && menu) {
-      btn.addEventListener('click', function() {
-        var expanded = btn.getAttribute('aria-expanded') === 'true';
-        btn.setAttribute('aria-expanded', String(!expanded));
-        btn.classList.toggle('open');
-        menu.classList.toggle('open');
-      });
-    }
-  })();
+  (function(){ if(!localStorage.getItem('fsme_cookies_ok')){ document.getElementById('cookie-banner').style.display='flex'; } })();
+  function acceptCookies(){ localStorage.setItem('fsme_cookies_ok','1'); document.getElementById('cookie-banner').style.display='none'; }
 
-  // Dropdown toggle
-  (function() {
-    var btn = document.querySelector('.nav-more-btn');
-    if (!btn) return;
-    btn.addEventListener('click', function(e) {
-      e.stopPropagation();
-      var expanded = btn.getAttribute('aria-expanded') === 'true';
-      btn.setAttribute('aria-expanded', String(!expanded));
-    });
-    document.addEventListener('click', function() {
-      if (btn) btn.setAttribute('aria-expanded', 'false');
-    });
+  // Hamburger
+  (function(){
+    var h=document.getElementById('hamburger'), m=document.getElementById('mobile-menu');
+    if(h&&m){ h.addEventListener('click',function(){ var e=h.getAttribute('aria-expanded')==='true'; h.setAttribute('aria-expanded',String(!e)); h.classList.toggle('open'); m.classList.toggle('open'); }); }
   })();
 </script>
-
-<!-- ── FSME LOGIC CHAT WIDGET ─────────────────────────────────────────── -->
-<script>const FSME_WORKER_URL = 'https://fsme-assistant-v2.fsme-logic.workers.dev';</script>
-<style>
-  #fsme-chat-btn{position:fixed;bottom:28px;right:28px;z-index:9000;width:56px;height:56px;border-radius:50%;background:#3d8ef0;border:none;cursor:pointer;box-shadow:0 4px 20px rgba(61,142,240,0.45);display:flex;align-items:center;justify-content:center;transition:transform 0.2s,box-shadow 0.2s;}
-  #fsme-chat-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(61,142,240,0.55);}
-  #fsme-chat-window{position:fixed;bottom:96px;right:28px;z-index:9001;width:370px;max-width:calc(100vw - 32px);height:520px;max-height:calc(100vh - 120px);background:#141822;border:1px solid #242e42;border-top:3px solid #3d8ef0;display:none;flex-direction:column;box-shadow:0 16px 48px rgba(0,0,0,0.55);font-family:'IBM Plex Mono','Consolas','Courier New',monospace;}
-  #fsme-chat-window.open{display:flex;}
-  .fsme-chat-header{display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.1rem;background:#1c2438;border-bottom:1px solid #242e42;flex-shrink:0;}
-  .fsme-chat-header-left{display:flex;align-items:center;gap:.6rem;}
-  .fsme-chat-dot{width:8px;height:8px;border-radius:50%;background:#3db87a;flex-shrink:0;}
-  .fsme-chat-title{font-size:.78rem;font-weight:700;color:#c5d2e8;letter-spacing:.06em;text-transform:uppercase;}
-  .fsme-chat-sub{font-size:.62rem;color:#6e86a8;letter-spacing:.04em;}
-  #fsme-close-btn{background:none;border:none;color:#6e86a8;cursor:pointer;padding:4px;line-height:1;font-size:1.1rem;transition:color .2s;}
-  #fsme-close-btn:hover{color:#c5d2e8;}
-  #fsme-messages{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:.75rem;scroll-behavior:smooth;}
-  #fsme-messages::-webkit-scrollbar{width:4px;}
-  #fsme-messages::-webkit-scrollbar-thumb{background:#242e42;border-radius:2px;}
-  .fsme-msg{max-width:88%;padding:.65rem .85rem;font-size:.82rem;line-height:1.65;border-radius:2px;}
-  .fsme-msg.bot{background:#181f2e;border:1px solid #242e42;color:#c5d2e8;align-self:flex-start;border-left:2px solid #3d8ef0;}
-  .fsme-msg.user{background:rgba(61,142,240,0.12);border:1px solid rgba(61,142,240,0.25);color:#c5d2e8;align-self:flex-end;}
-  .fsme-msg.typing{background:#181f2e;border:1px solid #242e42;color:#6e86a8;align-self:flex-start;font-style:italic;}
-  .fsme-msg a{color:#3d8ef0;text-decoration:none;}
-  .fsme-msg a:hover{text-decoration:underline;}
-  .fsme-chat-footer{border-top:1px solid #242e42;padding:.75rem;display:flex;gap:.5rem;flex-shrink:0;background:#141822;}
-  #fsme-input{flex:1;background:#0e1118;border:1px solid #242e42;color:#c5d2e8;font-family:inherit;font-size:.82rem;padding:.6rem .8rem;outline:none;resize:none;line-height:1.5;max-height:100px;transition:border-color .2s;}
-  #fsme-input:focus{border-color:#3d8ef0;}
-  #fsme-input::placeholder{color:#3a4a62;}
-  #fsme-send-btn{background:#3d8ef0;border:none;color:#fff;font-family:inherit;font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.6rem .85rem;cursor:pointer;transition:background .2s;flex-shrink:0;align-self:flex-end;}
-  #fsme-send-btn:hover{background:#2d6fd0;}
-  #fsme-send-btn:disabled{background:#242e42;color:#6e86a8;cursor:not-allowed;}
-  .fsme-chat-note{text-align:center;font-size:.62rem;color:#3a4a62;padding:.3rem .75rem .5rem;flex-shrink:0;}
-  @media(max-width:440px){#fsme-chat-window{right:8px;bottom:88px;width:calc(100vw - 16px);}#fsme-chat-btn{right:16px;bottom:16px;}}
-
-  /* ── CHAT BUTTON WRAPPER & LABEL ─────────────────────────── */
-  #fsme-chat-btn-wrapper {
-    position: fixed; bottom: 28px; right: 28px; z-index: 9000;
-    display: flex; flex-direction: column; align-items: center; gap: 6px;
-  }
-  #fsme-chat-btn {
-    position: relative; bottom: 0; right: 0;
-    width: 56px; height: 56px; border-radius: 50%;
-    background: #3d8ef0; border: none; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: transform 0.2s, background 0.2s;
-    animation: radar-pulse 2.8s infinite;
-  }
-  #fsme-chat-btn:hover {
-    transform: translateY(-2px); background: #2d6fd0;
-    animation: none; box-shadow: 0 8px 28px rgba(61,142,240,0.55);
-  }
-  @keyframes radar-pulse {
-    0%   { box-shadow: 0 0 0 0 rgba(61,142,240,0.7); }
-    70%  { box-shadow: 0 0 0 14px rgba(61,142,240,0); }
-    100% { box-shadow: 0 0 0 0 rgba(61,142,240,0); }
-  }
-  @keyframes flare-anim {
-    0%   { box-shadow: 0 0 0 0 rgba(201,168,76,0.8); filter: brightness(1); }
-    50%  { box-shadow: 0 0 18px 6px rgba(201,168,76,0.5); filter: brightness(1.3); transform: scale(1.06); }
-    100% { box-shadow: 0 0 0 0 rgba(201,168,76,0); filter: brightness(1); transform: scale(1); }
-  }
-  #fsme-chat-btn.flare { animation: flare-anim 0.6s ease-out; }
-  .chat-btn-label {
-    font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; font-weight: 700;
-    color: #c9a84c; background: #0e1117; border: 1px solid #1e2535;
-    padding: 0.25rem 0.55rem; border-radius: 4px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-    white-space: nowrap; text-transform: uppercase; letter-spacing: 0.07em;
-    animation: radar-pulse 2.8s infinite 1.4s;
-    pointer-events: none;
-  }
-
-  /* ── SOUTH PARK CANADIAN ROBOT ───────────────────────────── */
-  #fsme-robot {
-    width: 30px; height: 34px; position: relative;
-    margin-right: 10px; flex-shrink: 0; cursor: default;
-  }
-  .robot-top, .robot-bottom {
-    background: #8a9bb8; width: 100%; position: absolute;
-    left: 0; border: 2px solid #141822;
-  }
-  .robot-top {
-    height: 17px; top: 0; border-radius: 6px 6px 0 0;
-    transform-origin: bottom center;
-    border-bottom: 2px solid #080a10; z-index: 2;
-    transition: transform 0.08s;
-  }
-  .robot-bottom {
-    height: 17px; bottom: 0; border-radius: 0 0 6px 6px;
-  }
-  .robot-eye {
-    width: 5px; height: 5px; background: #080a10;
-    border-radius: 50%; position: absolute; top: 5px;
-  }
-  .robot-eye.left  { left: 5px; }
-  .robot-eye.right { right: 5px; }
-  .robot-antenna {
-    width: 3px; height: 7px; background: #8a9bb8;
-    position: absolute; top: -7px; left: 50%;
-    transform: translateX(-50%); border-radius: 2px 2px 0 0;
-  }
-  .robot-antenna::after {
-    content: ''; display: block; width: 6px; height: 6px;
-    background: #3d8ef0; border-radius: 50%;
-    margin: -3px 0 0 -1.5px;
-    box-shadow: 0 0 6px #3d8ef0;
-  }
-  @keyframes flap-head {
-    0%   { transform: translateY(0) rotate(0deg); }
-    30%  { transform: translateY(-7px) rotate(10deg); }
-    60%  { transform: translateY(-3px) rotate(-4deg); }
-    100% { transform: translateY(0) rotate(0deg); }
-  }
-  @keyframes idle-bob {
-    0%, 100% { transform: translateY(0); }
-    50%       { transform: translateY(-2px); }
-  }
-  #fsme-robot .robot-top {
-    animation: idle-bob 3s ease-in-out infinite;
-  }
-  #fsme-robot.talking .robot-top {
-    animation: flap-head 0.28s ease-in-out infinite !important;
-  }
-
-  </style>
-<button id="fsme-chat-btn" aria-label="Chat with FSME Logic Assistant" title="Ask the FSME Logic Assistant">
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-</button>
-<div id="fsme-chat-window" role="dialog" aria-label="FSME Logic Assistant">
-  <div class="fsme-chat-header">
-    <div class="fsme-chat-header-left">
-      <div class="fsme-chat-dot"></div>
-      <div><div class="fsme-chat-title">FSME Logic Assistant</div><div class="fsme-chat-sub">Predictive Integrity &middot; Edmonton, AB</div></div>
-    </div>
-    <button id="fsme-close-btn" aria-label="Close chat">&times;</button>
-  </div>
-  <div id="fsme-messages">
-    <div class="fsme-msg bot">// FSME Logic Assistant online.<br><br>I can help with product questions, the audit process, data compatibility, pricing, and security. What are you working with?<br><br><span style="font-size:.72rem;color:#6e86a8;">Note: conversations may be logged to improve this assistant. Do not share confidential information here.</span></div>
-  </div>
-  <div class="fsme-chat-footer">
-    <textarea id="fsme-input" placeholder="Ask about products, the audit process, data formats..." rows="1" maxlength="2000"></textarea>
-    <button id="fsme-send-btn">Send</button>
-  </div>
-  <div class="fsme-chat-note">FSME Logic &middot; fsmelogic.ca</div>
-</div>
-<script>
-(function(){
-  var btn=document.getElementById('fsme-chat-btn'),win=document.getElementById('fsme-chat-window'),
-      closeBtn=document.getElementById('fsme-close-btn'),input=document.getElementById('fsme-input'),
-      sendBtn=document.getElementById('fsme-send-btn'),messages=document.getElementById('fsme-messages');
-  var sessionId='fsme-'+Math.random().toString(36).slice(2,10);
-  var isOpen=false,isLoading=false;
-  var canFlare=true;
-  function triggerFlare(){
-    if(!canFlare||isOpen)return;
-    btn.classList.add('flare');
-    canFlare=false;
-    setTimeout(function(){btn.classList.remove('flare');},600);
-    setTimeout(function(){canFlare=true;},3500);
-  }
-  window.addEventListener('scroll',triggerFlare,{passive:true});
-  document.addEventListener('click',function(e){
-    if(!e.target.closest('#fsme-chat-btn-wrapper'))triggerFlare();
-  });
-  function toggleChat(){isOpen=!isOpen;win.classList.toggle('open',isOpen);if(isOpen){input.focus();messages.scrollTop=messages.scrollHeight;}}
-  btn.addEventListener('click',toggleChat);
-  closeBtn.addEventListener('click',toggleChat);
-  input.addEventListener('input',function(){this.style.height='auto';this.style.height=Math.min(this.scrollHeight,100)+'px';});
-  input.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage();}});
-  sendBtn.addEventListener('click',sendMessage);
-  function addMessage(text,type){
-    var div=document.createElement('div');div.className='fsme-msg '+type;
-    div.innerHTML=text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-      .replace(/\n/g,'<br>').replace(/(https?:\/\/[^\s<]+)/g,'<a href="$1" target="_blank" rel="noopener">$1</a>');
-    messages.appendChild(div);messages.scrollTop=messages.scrollHeight;return div;
-  }
-  async function sendMessage(){
-    var text=input.value.trim();if(!text||isLoading)return;
-    addMessage(text,'user');input.value='';input.style.height='auto';
-    isLoading=true;sendBtn.disabled=true;
-    var robot=document.getElementById('fsme-robot');
-    if(robot) robot.classList.add('talking');
-    var typingEl=(function(){
-        var phrases=[
-          '// Consulting the entropy logs...',
-          '// Parsing telemetry signatures...',
-          '// Searching the air-gapped archives...',
-          '// Running physics simulation...',
-          '// Calculating degradation vectors...',
-          '// Cross-referencing benchmark data...',
-          '// Translating engineering jargon...',
-          '// Scanning the signal history...',
-          '// Checking the Green Dashboard...',
-          '// Crunching failure probabilities...'
-        ];
-        return addMessage(phrases[Math.floor(Math.random()*phrases.length)],'typing');
-      })();
-    try{
-      var response=await fetch(FSME_WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({message:text,session_id:sessionId})});
-      var data=await response.json();typingEl.remove();
-      addMessage(data.reply||'Something went wrong. Email alex-kalyniuk@fsmelogic.ca for help.','bot');
-    }catch(err){
-      typingEl.remove();
-      addMessage('Connection issue. Email alex-kalyniuk@fsmelogic.ca directly.','bot');
-    }finally{isLoading=false;sendBtn.disabled=false;input.focus();
-    if(robot) robot.classList.remove('talking');}
-  }
-})();
-</script>
-<!-- ── END FSME CHAT WIDGET ────────────────────────────────────────────── -->
 
 </body>
 </html>

@@ -3,557 +3,251 @@
 <head>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-H3ZFCJGRSS"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-H3ZFCJGRSS');</script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H3ZFCJGRSS');
+  </script>
+  <!-- Google Ads -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18021290501"></script>
-  <script>gtag('config','AW-18021290501');</script>
+  <script>
+    gtag('config', 'AW-18021290501');
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Book a Pilot Integrity Audit — FSME Logic</title>
-  <meta name="description" content="Request a Pilot Integrity Audit with FSME Logic. Export your existing sensor data and we handle the rest — fully offline, air-gapped analysis in Edmonton. Forensic PDF report delivered by email.">
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <title>Contact — Scope a Deployment | FSME Logic</title>
+  <meta name="description" content="Stratum Basic is a free download, no form needed. This is where you scope the tools we build for you — Governor, the FSME Health Analyzer, and Stratum Pro — delivered per customer under mutual NDA. Fully offline.">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <!-- Cloudflare Turnstile (spam protection) -->
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <style>
-    /* ── HERO ── */
-    .page-hero{padding:9rem 2rem 0;position:relative;overflow:hidden;}
-    .page-hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 30% 50%,rgba(61,142,240,0.07) 0%,transparent 70%);}
-    .page-hero-inner{max-width:1200px;margin:0 auto;position:relative;z-index:1;}
-    .page-eyebrow{font-family:var(--mono);font-size:0.75rem;color:var(--blue);letter-spacing:0.22em;text-transform:uppercase;margin-bottom:1.5rem;display:flex;align-items:center;gap:0.75rem;animation:fadeUp 0.4s ease both;}
-    .page-eyebrow::before{content:'▸';}
-    .page-hero h1{font-family:var(--head);font-size:clamp(3rem,8vw,6rem);font-weight:800;color:#dde6f5;line-height:0.95;margin-bottom:1.5rem;animation:fadeUp 0.4s 0.1s ease both;}
-    .page-hero h1 em{font-style:normal;color:var(--blue);}
-    .page-hero-sub{font-family:var(--mono);font-size:1rem;color:var(--muted);max-width:580px;line-height:1.9;animation:fadeUp 0.4s 0.2s ease both;margin-bottom:0;}
+    .contact-hero { padding: 9rem 2rem 2rem; position: relative; overflow: hidden; }
+    .contact-hero-bg { position: absolute; inset: 0; z-index: 0; background: radial-gradient(ellipse 70% 60% at 60% 30%, rgba(74,151,245,0.08) 0%, transparent 70%); }
+    .contact-hero .wrap { position: relative; z-index: 1; }
+    .contact-hero h1 { font-family: var(--head); font-size: clamp(2.6rem, 7vw, 4.6rem); font-weight: 800; line-height: 1; color: #eef3fb; margin-bottom: 1.1rem; letter-spacing: 0.01em; }
+    .contact-hero h1 em { font-style: normal; color: var(--blue); }
+    .contact-hero p { font-family: var(--body); font-size: clamp(1.02rem, 2vw, 1.2rem); color: var(--text); max-width: 66ch; line-height: 1.7; }
 
-    /* ── PROCESS STRIP ── */
-    .process-strip{background:var(--steel);border-top:1px solid var(--border);border-bottom:1px solid var(--border);position:relative;z-index:1;}
-    .process-inner{max-width:1200px;margin:0 auto;padding:2rem;display:grid;grid-template-columns:repeat(4,1fr);gap:0;}
-    .process-step{padding:1.25rem 1.5rem;border-right:1px solid var(--border);position:relative;}
-    .process-step:last-child{border-right:none;}
-    .process-num{font-family:var(--head);font-size:2.5rem;font-weight:800;color:rgba(61,142,240,0.15);line-height:1;margin-bottom:0.5rem;}
-    .process-step h4{font-family:var(--head);font-size:1.1rem;font-weight:700;color:#dde6f5;margin-bottom:0.3rem;}
-    .process-step p{font-family:var(--mono);font-size:0.75rem;color:var(--muted);line-height:1.7;}
+    .contact-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 3rem; padding: 3rem 2rem 5rem; align-items: start; }
+    @media (max-width: 860px) { .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
 
-    /* ── CONTACT LAYOUT ── */
-    .contact-section{padding:4rem 2rem 6rem;position:relative;z-index:1;}
-    .contact-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1.65fr;gap:4rem;align-items:start;}
+    /* LEFT: what to expect */
+    .contact-aside h3 { font-family: var(--head); font-size: 1.5rem; font-weight: 700; color: #eef3fb; margin-bottom: 1rem; letter-spacing: 0.01em; }
+    .expect-list { list-style: none; padding: 0; margin: 0 0 2rem; }
+    .expect-list li { font-family: var(--body); font-size: 0.94rem; color: var(--muted); line-height: 1.6; padding-left: 1.6rem; position: relative; margin-bottom: 0.9rem; }
+    .expect-list li::before { content: '\2192'; position: absolute; left: 0; color: var(--blue); font-weight: 700; }
+    .aside-box { background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--green); padding: 1.5rem; margin-bottom: 1.5rem; }
+    .aside-box p { font-family: var(--body); font-size: 0.9rem; color: var(--muted); line-height: 1.65; }
+    .aside-box strong { color: var(--text); }
+    .aside-box a { color: var(--green); }
+    .aside-direct { font-family: var(--mono); font-size: 0.8rem; color: var(--dim); letter-spacing: 0.03em; line-height: 1.8; }
+    .aside-direct a { color: var(--blue); text-decoration: none; }
 
-    /* LEFT SIDEBAR */
-    .contact-info{position:sticky;top:7rem;}
-    .info-block{margin-bottom:2.5rem;}
-    .info-label{font-family:var(--mono);font-size:0.68rem;color:var(--blue);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:0.75rem;display:flex;align-items:center;gap:0.5rem;}
-    .info-label::before{content:'//';color:var(--dim);}
-    .info-block h3{font-family:var(--head);font-size:1.5rem;font-weight:700;color:#dde6f5;margin-bottom:0.6rem;}
-    .info-block p{font-family:var(--mono);font-size:0.87rem;color:var(--muted);line-height:1.85;}
-    .trust-list{list-style:none;display:flex;flex-direction:column;gap:0.75rem;margin-top:1rem;}
-    .trust-list li{display:flex;align-items:flex-start;gap:0.85rem;font-family:var(--mono);font-size:0.85rem;color:var(--muted);line-height:1.7;}
-    .trust-list li::before{content:'✓';color:var(--blue);font-weight:700;flex-shrink:0;}
-
-    /* VALIDATION SNAPSHOT */
-    .val-snapshot{background:var(--card);border:1px solid var(--border);margin-top:2rem;}
-    .val-snap-header{padding:0.75rem 1.25rem;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:0.65rem;color:var(--blue);letter-spacing:0.15em;text-transform:uppercase;}
-    .val-snap-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
-    .val-snap-cell{padding:1rem 1.25rem;border-right:1px solid var(--border);border-bottom:1px solid var(--border);}
-    .val-snap-cell:nth-child(2n){border-right:none;}
-    .val-snap-cell:nth-last-child(-n+2){border-bottom:none;}
-    .val-snap-val{font-family:var(--head);font-size:1.6rem;font-weight:800;color:var(--blue);line-height:1;}
-    .val-snap-val.gold{color:var(--gold);}
-    .val-snap-lbl{font-family:var(--mono);font-size:0.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-top:0.2rem;line-height:1.4;}
-
-    /* DIRECT CONTACT */
-    .direct-contact{background:var(--card);border:1px solid var(--border);border-top:3px solid var(--blue);padding:1.5rem;margin-top:1.5rem;}
-    .direct-contact h4{font-family:var(--mono);font-size:0.65rem;color:var(--blue);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:1rem;}
-    .contact-method{display:flex;align-items:center;gap:0.75rem;margin-bottom:0.85rem;font-family:var(--mono);font-size:0.85rem;}
-    .contact-method:last-child{margin-bottom:0;}
-    .contact-method .icon{font-size:1rem;flex-shrink:0;width:1.25rem;text-align:center;}
-    .contact-method a{color:var(--text);text-decoration:none;transition:color 0.2s;}
-    .contact-method a:hover{color:var(--blue);}
-    .contact-method span{color:var(--muted);}
-
-    /* FORM ── */
-    .contact-form-wrap{background:var(--card);border:1px solid var(--border);border-top:3px solid var(--blue);}
-    .form-header{padding:2.5rem 2.5rem 0;}
-    .form-header h2{font-family:var(--head);font-size:2.2rem;font-weight:800;color:#dde6f5;margin-bottom:0.4rem;}
-    .form-header p{font-family:var(--mono);font-size:0.87rem;color:var(--muted);line-height:1.8;}
-    .form-body{padding:2rem 2.5rem 2.5rem;}
-    .form-section-tag{font-family:var(--mono);font-size:0.62rem;color:var(--blue);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem;}
-    .form-section-tag::before{content:'//';color:var(--dim);}
-    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem;}
-    .form-group{display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1.25rem;}
-    .form-group label{font-family:var(--mono);font-size:0.68rem;color:var(--blue);letter-spacing:0.15em;text-transform:uppercase;}
-    .form-group input,.form-group select,.form-group textarea{background:var(--bg2);border:1px solid var(--border);color:var(--text);font-family:var(--mono);font-size:0.88rem;padding:0.85rem 1rem;outline:none;transition:border-color 0.2s,box-shadow 0.2s;width:100%;appearance:none;-webkit-appearance:none;}
-    .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(61,142,240,0.12);}
-    .form-group input::placeholder,.form-group textarea::placeholder{color:var(--dim);}
-    .form-group select{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236e86a8' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;padding-right:2.5rem;}
-    .form-group select option{background:var(--bg2);}
-    .form-group textarea{resize:vertical;min-height:140px;}
-    .form-divider{border:none;border-top:1px solid var(--border);margin:1.75rem 0;}
-    .form-note{font-family:var(--mono);font-size:0.75rem;color:var(--dim);line-height:1.75;margin-bottom:1.5rem;}
-    .form-note a{color:var(--blue);text-decoration:none;}
-    .btn-submit{width:100%;background:var(--blue);color:#fff;font-family:var(--mono);font-size:0.9rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:1.2rem 2rem;border:2px solid var(--blue);cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:0.75rem;}
-    .btn-submit:hover{background:var(--blue2);border-color:var(--blue2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(61,142,240,0.3);}
-    .form-success{display:none;text-align:center;padding:4rem 2rem;}
-    .form-success .success-icon{font-size:3rem;margin-bottom:1.25rem;}
-    .form-success h3{font-family:var(--head);font-size:2.2rem;font-weight:800;color:#dde6f5;margin-bottom:0.75rem;}
-    .form-success p{font-family:var(--mono);font-size:0.9rem;color:var(--muted);line-height:1.9;}
-    .form-success a{color:var(--blue);text-decoration:none;}
-
-    @media(max-width:900px){.contact-inner{grid-template-columns:1fr;gap:2.5rem;}.contact-info{position:static;}.process-inner{grid-template-columns:1fr 1fr;}.process-step:nth-child(2){border-right:none;}.process-step:nth-child(n+3){border-top:1px solid var(--border);}}
-    @media(max-width:680px){.page-hero{padding:7.5rem 1.25rem 0;}.contact-section{padding:3rem 1.25rem 5rem;}.form-header{padding:1.75rem 1.5rem 0;}.form-body{padding:1.5rem;}.form-row{grid-template-columns:1fr;}.process-inner{grid-template-columns:1fr;}.process-step{border-right:none!important;border-bottom:1px solid var(--border);}.process-step:last-child{border-bottom:none;}}
+    /* RIGHT: form */
+    .form-wrap { background: var(--card); border: 1px solid var(--border); border-top: 3px solid var(--blue); padding: 2.5rem; }
+    .form-wrap > h2 { font-family: var(--head); font-size: 1.9rem; font-weight: 800; color: #eef3fb; letter-spacing: 0.01em; margin-bottom: 0.4rem; }
+    .form-wrap > .form-intro { font-family: var(--body); font-size: 0.94rem; color: var(--muted); line-height: 1.6; margin-bottom: 1.75rem; }
+    .form-section-tag { font-family: var(--mono); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); margin: 1.75rem 0 1rem; }
+    .form-section-tag:first-of-type { margin-top: 0; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
+    @media (max-width: 520px) { .form-row { grid-template-columns: 1fr; } }
+    .form-group { margin-bottom: 1.1rem; display: flex; flex-direction: column; }
+    .form-group label { font-family: var(--mono); font-size: 0.74rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.45rem; }
+    .form-group input, .form-group select, .form-group textarea {
+      font-family: var(--body); font-size: 0.95rem; color: var(--text); background: var(--bg); border: 1px solid var(--border); padding: 0.75rem 0.85rem; width: 100%; transition: border-color 0.2s; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--blue); }
+    .form-group textarea { resize: vertical; min-height: 130px; }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: var(--dim); }
+    .form-divider { border: none; border-top: 1px solid var(--border); margin: 1.75rem 0 0; }
+    .form-note { font-family: var(--body); font-size: 0.82rem; color: var(--dim); line-height: 1.6; margin: 1.25rem 0; }
+    .form-note a { color: var(--blue); }
+    .btn-submit { font-family: var(--mono); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #fff; background: var(--blue); border: 1px solid var(--blue); padding: 0.95rem 1.5rem; cursor: pointer; width: 100%; transition: all 0.2s; }
+    .btn-submit:hover { background: var(--blue2); box-shadow: 0 0 18px rgba(74,151,245,0.35); }
+    .btn-submit:disabled { opacity: 0.6; cursor: default; }
+    .form-success { display: none; text-align: center; padding: 2rem 1rem; }
+    .form-success .success-icon { font-size: 3rem; color: var(--green); line-height: 1; margin-bottom: 1rem; }
+    .form-success h3 { font-family: var(--head); font-size: 1.8rem; font-weight: 800; color: #eef3fb; margin-bottom: 0.75rem; }
+    .form-success p { font-family: var(--body); font-size: 0.95rem; color: var(--muted); line-height: 1.7; max-width: 46ch; margin: 0 auto; }
   </style>
+  <!-- SEO -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://fsmelogic.ca/contact.html">
-  <meta property="og:title" content="Book a Pilot Integrity Audit — FSME Logic">
-  <meta property="og:description" content="Request a Pilot Integrity Audit with FSME Logic. Fully offline, air-gapped analysis in Edmonton. Forensic PDF report delivered by email.">
+  <meta property="og:title" content="Contact — Scope a Deployment | FSME Logic">
+  <meta property="og:description" content="Scope a deployment of Governor, the FSME Health Analyzer, or Stratum Pro. Delivered per customer under mutual NDA. Fully offline.">
   <meta property="og:image" content="https://fsmelogic.ca/infographic-1.png">
   <meta property="og:site_name" content="FSME Logic">
   <meta property="og:locale" content="en_CA">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Book a Pilot Integrity Audit — FSME Logic">
-  <meta name="twitter:description" content="Fully offline predictive maintenance audit. No new sensors. Edmonton, Alberta.">
+  <meta name="twitter:title" content="Contact — Scope a Deployment | FSME Logic">
+  <meta name="twitter:description" content="Scope a deployment of Governor, the FSME Health Analyzer, or Stratum Pro. Delivered per customer, offline.">
   <meta name="twitter:image" content="https://fsmelogic.ca/infographic-1.png">
   <link rel="canonical" href="https://fsmelogic.ca/contact.html">
   <meta name="robots" content="index, follow">
   <meta name="author" content="Alexander Kalyniuk — FSME Logic">
-  <meta name="geo.region" content="CA-AB">
-  <meta name="geo.placename" content="Edmonton, Alberta, Canada">
-  <meta name="geo.position" content="53.5461;-113.4938">
-  <meta name="ICBM" content="53.5461, -113.4938">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"FSME Logic","description":"Predictive integrity audits for industrial and commercial fleet operations. Fully offline, air-gapped analysis conducted in Edmonton.","url":"https://fsmelogic.ca","email":"alex-kalyniuk@fsmelogic.ca","founder":{"@type":"Person","name":"Alexander Kalyniuk"},"address":{"@type":"PostalAddress","addressLocality":"Edmonton","addressRegion":"AB","addressCountry":"CA"},"serviceType":["Predictive Maintenance","Equipment Health Monitoring","Fleet Integrity Audit"]}</script>
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/web-app-manifest-192x192.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="manifest" href="/site.webmanifest">
-<style>
-  /* Ensure chat widget does not overlap footer social icons */
-  footer { padding-bottom: 7rem !important; }
-  @media (max-width: 680px) { footer { padding-bottom: 6rem !important; } }
-
-  /* Keep chat widget button anchored bottom-right (overrides conflicting rule in body CSS) */
-  #fsme-chat-btn {
-    position: fixed !important;
-    bottom: 28px !important;
-    right: 28px !important;
-    left: auto !important;
-    top: auto !important;
-  }
-  @media (max-width: 440px) {
-    #fsme-chat-btn {
-      bottom: 16px !important;
-      right: 16px !important;
-    }
-  }
-
-  /* Chat tooltip: first-visit call-to-action */
-  .fsme-chat-tooltip {
-    position: fixed;
-    bottom: 38px;
-    right: 96px;
-    z-index: 8999;
-    background: #141822;
-    border: 1px solid #242e42;
-    border-right: 3px solid #3d8ef0;
-    padding: 0.7rem 1rem;
-    font-family: 'IBM Plex Mono', 'Consolas', monospace;
-    font-size: 0.78rem;
-    color: #c5d2e8;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
-    opacity: 0;
-    transform: translateX(10px);
-    transition: opacity 0.4s, transform 0.4s;
-    pointer-events: none;
-    white-space: nowrap;
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-  }
-  .fsme-chat-tooltip.show {
-    opacity: 1;
-    transform: translateX(0);
-    pointer-events: auto;
-  }
-  .fsme-chat-tooltip-close {
-    background: none;
-    border: none;
-    color: #6e86a8;
-    cursor: pointer;
-    padding: 0 0.15rem;
-    font-size: 1rem;
-    line-height: 1;
-  }
-  .fsme-chat-tooltip-close:hover { color: #c5d2e8; }
-  @media (max-width: 680px) {
-    .fsme-chat-tooltip {
-      bottom: 38px;
-      right: 84px;
-      font-size: 0.72rem;
-      max-width: calc(100vw - 120px);
-    }
-  }
-</style>
-<script>
-  (function() {
-    try {
-      if (window.sessionStorage && sessionStorage.getItem('fsme_tooltip_shown')) return;
-    } catch (e) {}
-    var shown = false;
-    function showTooltip() {
-      if (shown) return;
-      shown = true;
-      try { sessionStorage.setItem('fsme_tooltip_shown', '1'); } catch (e) {}
-      var tip = document.createElement('div');
-      tip.className = 'fsme-chat-tooltip';
-      tip.innerHTML = '<span>Ask me anything</span><button class="fsme-chat-tooltip-close" aria-label="Close">&times;</button>';
-      document.body.appendChild(tip);
-      setTimeout(function() { tip.classList.add('show'); }, 120);
-      var hideTimer = setTimeout(function() { hide(); }, 9000);
-      function hide() {
-        clearTimeout(hideTimer);
-        tip.classList.remove('show');
-        setTimeout(function() { if (tip.parentNode) tip.remove(); }, 500);
-      }
-      tip.querySelector('.fsme-chat-tooltip-close').addEventListener('click', function(e) {
-        e.stopPropagation();
-        hide();
-      });
-      tip.addEventListener('click', function(e) {
-        if (e.target.classList.contains('fsme-chat-tooltip-close')) return;
-        var btn = document.getElementById('fsme-chat-btn');
-        if (btn) btn.click();
-        hide();
-      });
-    }
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', init);
-    } else {
-      init();
-    }
-    function init() {
-      window.addEventListener('scroll', function onScroll() {
-        if (window.scrollY > 80) {
-          showTooltip();
-          window.removeEventListener('scroll', onScroll);
-        }
-      }, { passive: true });
-      setTimeout(showTooltip, 7000);
-    }
-  })();
-</script>
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
 
 <nav>
   <div class="nav-inner">
-    <a class="nav-logo" href="index.html"><img src="logo.jpg" alt="FSME Logic" width="42" height="42"><span class="nav-logo-text">FSME Logic</span></a>
+    <a class="nav-logo" href="index.html">
+      <img src="logo.jpg" alt="FSME Logic" width="42" height="42">
+      <span class="nav-logo-text">FSME Logic</span>
+    </a>
     <ul class="nav-links">
-      <li><a href="case-studies.html">Validation</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="stratum.html">Stratum</a></li>
       <li><a href="store.html">Store</a></li>
-      <li><a href="contact.html" class="active">Contact</a></li>
-      <li class="nav-more">
-        <button class="nav-more-btn" aria-expanded="false" aria-haspopup="true">More &#9662;</button>
-        <ul class="nav-dropdown">
-          <li><a href="roi.html">ROI Calculator</a></li>
-          <li><a href="newsroom.html">Newsroom</a></li>
-          <li><a href="investors.html">Investors</a></li>
-          <li><a href="pipeline-demo.html">Live Demo</a></li>
-          <li><a href="legal.html">Legal &amp; Terms</a></li>
-          <li><a href="legal.html#privacy">Privacy Policy</a></li>
-          <li><a href="case-studies.html#reports">Validation Reports</a></li>
-        </ul>
-      </li>
-      <li class="nav-cta"><a href="payment.html">Request Audit</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li class="nav-cta"><a href="stratum.html#install">Install Free</a></li>
     </ul>
-    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span><span></span></button>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
   <div class="mobile-menu" id="mobile-menu">
-    <a href="payment.html">Request Audit &#9658;</a>
-    <a href="case-studies.html">Validation</a>
-    <a href="about.html">About</a>
-    <a href="faq.html">FAQ</a>
+    <a href="stratum.html#install">Install Free &#9658;</a>
+    <a href="stratum.html">Stratum</a>
     <a href="store.html">Store</a>
+    <a href="about.html">About</a>
     <a href="contact.html">Contact</a>
-    <a href="roi.html">ROI Calculator</a>
-    <a href="newsroom.html">Newsroom</a>
-    <a href="investors.html">Investors</a>
-    <a href="pipeline-demo.html">Live Demo</a>
-    <a href="case-studies.html#reports">Validation Reports</a>
     <a href="legal.html">Legal &amp; Terms</a>
-    <a href="legal.html#privacy">Privacy Policy</a>
   </div>
 </nav>
 
 <!-- HERO -->
-<section class="page-hero">
-  <div class="page-hero-bg"></div>
-  <div class="page-hero-inner">
-    <p class="page-eyebrow">Book a Pilot Audit</p>
-    <h1>Let&#8217;s see what<br>your data is<br><em>hiding.</em></h1>
-    <p class="page-hero-sub">Send us a message describing your equipment and we&#8217;ll confirm compatibility, walk you through a secure data export, and get your forensic audit scheduled.</p>
+<section class="contact-hero">
+  <div class="contact-hero-bg"></div>
+  <div class="wrap">
+    <p class="section-label">Contact</p>
+    <h1>Scope a <em>deployment.</em></h1>
+    <p>Stratum Basic is a free download — no form required. This page is for the tools we build for you: Governor, the FSME Health Analyzer, and Stratum Pro. Tell us about your operation and we will take it from there, under mutual NDA.</p>
   </div>
 </section>
 
-<!-- PROCESS STRIP -->
-<div class="process-strip">
-  <div class="process-inner">
-    <div class="process-step">
-      <div class="process-num">01</div>
-      <h4>Tell Us About Your Fleet</h4>
-      <p>Fill in the form below. Equipment type, rough data volume, and what you&#8217;re trying to detect or prevent.</p>
-    </div>
-    <div class="process-step">
-      <div class="process-num">02</div>
-      <h4>We Confirm Compatibility</h4>
-      <p>We&#8217;ll confirm your data format works and arrange an NDA if your operation requires it before any data transfer.</p>
-    </div>
-    <div class="process-step">
-      <div class="process-num">03</div>
-      <h4>Secure Data Transfer</h4>
-      <p>You export a CSV or raw file from your existing system. We provide a SHA-256 receipt at intake confirming secure handling.</p>
-    </div>
-    <div class="process-step">
-      <div class="process-num">04</div>
-      <h4>Forensic Report</h4>
-      <p>Full PDF report delivered by email. Which systems showed stress signatures, what the timeline looks like, and what action to take.</p>
-    </div>
-  </div>
-</div>
+<section>
+  <div class="wrap contact-grid">
 
-<!-- CONTACT SECTION -->
-<section class="contact-section">
-  <div class="contact-inner">
-
-    <!-- LEFT SIDEBAR -->
-    <div class="contact-info">
-      <div class="info-block">
-        <p class="info-label">Why FSME Logic</p>
-        <h3>Simple. Secure. No new hardware.</h3>
-        <p>We work entirely from your existing sensor exports. No new sensors, no site visits, no cloud uploads. Your data is processed on our air-gapped, offline hardware in Edmonton.</p>
-      </div>
-
-      <ul class="trust-list">
-        <li>Works with existing SCADA, BMS, or data logger exports</li>
-        <li>Your data is handled on air-gapped, offline hardware</li>
-        <li>SHA-256 cryptographic custody receipt provided</li>
-        <li>NDA available before any data exchange</li>
-        <li>No cloud uploads — your data never leaves your control</li>
-        <li>Validated on NASA, ESA, IBM, and LIGO datasets</li>
+    <!-- LEFT -->
+    <aside class="contact-aside">
+      <h3>What happens next</h3>
+      <ul class="expect-list">
+        <li>Your inquiry comes straight to the founder, not a queue.</li>
+        <li>We scope it together under a mutual NDA before anything is shared.</li>
+        <li>For a gated product, you send a one-line machine ID and we generate a node-locked build for you.</li>
+        <li>Everything we ship runs fully offline and makes no outbound calls.</li>
       </ul>
-
-      <!-- VALIDATION MINI-STATS -->
-      <div class="val-snapshot">
-        <div class="val-snap-header">// Validation at a Glance</div>
-        <div class="val-snap-grid">
-          <div class="val-snap-cell">
-            <div class="val-snap-val">9 mo</div>
-            <div class="val-snap-lbl">Lead time, ESA spacecraft</div>
-          </div>
-          <div class="val-snap-cell">
-            <div class="val-snap-val gold">6.3 hr</div>
-            <div class="val-snap-lbl">Warning, NASA Curiosity</div>
-          </div>
-          <div class="val-snap-cell">
-            <div class="val-snap-val">78%</div>
-            <div class="val-snap-lbl">Fleet detection rate</div>
-          </div>
-          <div class="val-snap-cell">
-            <div class="val-snap-val">0</div>
-            <div class="val-snap-lbl">False positives</div>
-          </div>
-        </div>
+      <div class="aside-box">
+        <p><strong>Just want to try Stratum?</strong> You do not need us for that. It is free and open source: <a href="stratum.html#install">install it here</a>. It is the same engine Stratum Pro embeds, so anything you prototype free graduates to <a href="stratum.html#pro">Pro</a> unchanged when it is time to ship.</p>
       </div>
+      <p class="aside-direct">
+        Prefer email?<br>
+        <a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a><br>
+        Edmonton, Alberta, Canada
+      </p>
+    </aside>
 
-      <!-- DIRECT CONTACT -->
-      <div class="direct-contact">
-        <h4>// Direct Contact</h4>
-        <div class="contact-method">
-          <span class="icon">&#9993;</span>
-          <a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a>
-        </div>
-        <div class="contact-method">
-          <span class="icon">&#128205;</span>
-          <span>Edmonton, Alberta, Canada</span>
-        </div>
-        <div class="contact-method">
-          <span class="icon">&#128337;</span>
-          <span>Response within one business day</span>
-        </div>
-      </div>
-    </div>
+    <!-- RIGHT: FORM -->
+    <div class="form-wrap">
+      <h2>Tell us about your operation</h2>
+      <p class="form-intro">Fields marked * are required.</p>
 
-    <!-- FORM -->
-    <div class="contact-form-wrap">
-      <div class="form-header">
-        <h2>Book Your Audit</h2>
-        <p>Tell us about your operation. We&#8217;ll take it from there.</p>
-      </div>
-      <div class="form-body">
-        <form id="contact-form" action="https://fsme-form-proxy.fsme-logic.workers.dev" method="POST">
-          <input type="text" name="_gotcha" style="display:none" aria-hidden="true">
-          <input type="hidden" name="_subject" value="New Audit Inquiry — FSME Logic">
-          <input type="hidden" name="_next" value="https://fsmelogic.ca/success.html">
+      <form id="contact-form" action="https://fsme-form-proxy.fsme-logic.workers.dev" method="POST">
+        <input type="text" name="_gotcha" style="display:none" aria-hidden="true">
+        <input type="hidden" name="_subject" value="New Deployment Inquiry — FSME Logic">
+        <input type="hidden" name="_next" value="https://fsmelogic.ca/success.html">
 
-          <p class="form-section-tag">Contact Details</p>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="fname">First Name *</label>
-              <input type="text" id="fname" name="first_name" required placeholder="John">
-            </div>
-            <div class="form-group">
-              <label for="lname">Last Name *</label>
-              <input type="text" id="lname" name="last_name" required placeholder="Smith">
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="company">Company *</label>
-              <input type="text" id="company" name="company" required placeholder="Your Company Name">
-            </div>
-            <div class="form-group">
-              <label for="role">Your Role</label>
-              <input type="text" id="role" name="role" placeholder="Operations Manager">
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="email">Email Address *</label>
-              <input type="email" id="email" name="email" required placeholder="you@company.com">
-            </div>
-            <div class="form-group">
-              <label for="phone">Phone (optional)</label>
-              <input type="tel" id="phone" name="phone" placeholder="780-000-0000">
-            </div>
-          </div>
-
-          <hr class="form-divider">
-          <p class="form-section-tag">Operation Details</p>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="industry">Industry *</label>
-              <select id="industry" name="industry" required>
-                <option value="" disabled selected>Select your industry</option>
-                <option value="fleet">Commercial / Industrial Fleet</option>
-                <option value="trucking">Trucking / Transport</option>
-                <option value="manufacturing">Manufacturing</option>
-                <option value="refrigeration">Refrigeration / Cold Chain</option>
-                <option value="construction">Construction / Heavy Equipment</option>
-                <option value="oil_gas">Oil &amp; Gas</option>
-                <option value="aerospace">Aerospace / Defence</option>
-                <option value="utilities">Utilities / Infrastructure</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="fleet_size">Fleet / Asset Size</label>
-              <select id="fleet_size" name="fleet_size">
-                <option value="" disabled selected>Approximate size</option>
-                <option value="1-10">1&#8211;10 units</option>
-                <option value="11-50">11&#8211;50 units</option>
-                <option value="51-200">51&#8211;200 units</option>
-                <option value="200+">200+ units</option>
-                <option value="facility">Single facility / plant</option>
-              </select>
-            </div>
-          </div>
-
+        <p class="form-section-tag">Contact Details</p>
+        <div class="form-row">
           <div class="form-group">
-            <label for="data_status">Do you currently log sensor data?</label>
-            <select id="data_status" name="data_status">
-              <option value="" disabled selected>Select an option</option>
-              <option value="yes_csv">Yes &#8212; can export to CSV</option>
-              <option value="yes_unsure">Yes &#8212; unsure of export format</option>
-              <option value="partial">Partial &#8212; some equipment only</option>
-              <option value="no">Not currently</option>
-              <option value="unsure">Not sure</option>
-            </select>
+            <label for="fname">First Name *</label>
+            <input type="text" id="fname" name="first_name" required placeholder="John">
           </div>
-
           <div class="form-group">
-            <label for="message">Tell us about your operation *</label>
-            <textarea id="message" name="message" required placeholder="What equipment do you want audited? Any specific reliability concerns or recent failures? The more context you give us the better we can prepare."></textarea>
+            <label for="lname">Last Name *</label>
+            <input type="text" id="lname" name="last_name" required placeholder="Smith">
           </div>
-
-          <p class="form-note">By submitting this form you agree to our <a href="legal.html#privacy">Privacy Policy</a>. We do not share your information with third parties.</p>
-
-          <div class="cf-turnstile" data-sitekey="0x4AAAAAAC-RwdliB1810WP8" data-theme="dark" style="margin: 1rem 0;"></div>
-
-          <div id="form-error-msg" style="display:none; padding:1rem; margin-bottom:1rem; background:rgba(224,117,117,0.08); border:1px solid #3a1f1f; color:#e07575; font-family:var(--mono); font-size:0.82rem;"></div>
-
-          <button type="submit" class="btn-submit" id="submit-btn">Send Inquiry &#9658;</button>
-        </form>
-
-        <script>
-          (function() {
-            var form = document.getElementById('contact-form');
-            var submitBtn = document.getElementById('submit-btn');
-            var errorMsg = document.getElementById('form-error-msg');
-            var successDiv = document.getElementById('form-success');
-
-            form.addEventListener('submit', async function(e) {
-              e.preventDefault();
-              errorMsg.style.display = 'none';
-
-              // Verify Turnstile token is present
-              var tokenField = form.querySelector('input[name="cf-turnstile-response"]');
-              if (!tokenField || !tokenField.value) {
-                errorMsg.textContent = 'Please complete the verification before submitting.';
-                errorMsg.style.display = 'block';
-                return;
-              }
-
-              submitBtn.disabled = true;
-              submitBtn.textContent = 'Sending...';
-
-              try {
-                var formData = new FormData(form);
-                var response = await fetch(form.action, {
-                  method: 'POST',
-                  body: formData,
-                });
-                var data = await response.json();
-
-                if (response.ok && data.success) {
-                  // Show success state
-                  form.style.display = 'none';
-                  if (successDiv) successDiv.style.display = 'block';
-                  // Fire conversion event if gtag is loaded
-                  if (typeof gtag === 'function') {
-                    gtag('event', 'conversion', {'send_to': 'AW-18021290501/edRqCPqQo4ocEIWknJFD'});
-                  }
-                  // Redirect after brief delay
-                  setTimeout(function() {
-                    window.location.href = data.redirect || 'https://fsmelogic.ca/success.html';
-                  }, 1500);
-                } else {
-                  errorMsg.textContent = (data && data.error) ? data.error : 'Something went wrong, please try again or email alex-kalyniuk@fsmelogic.ca';
-                  errorMsg.style.display = 'block';
-                  submitBtn.disabled = false;
-                  submitBtn.innerHTML = 'Send Inquiry &#9658;';
-                  // Reset Turnstile so user can retry
-                  if (typeof turnstile !== 'undefined') {
-                    turnstile.reset();
-                  }
-                }
-              } catch (err) {
-                errorMsg.textContent = 'Connection error, please check your internet and try again.';
-                errorMsg.style.display = 'block';
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = 'Send Inquiry &#9658;';
-                if (typeof turnstile !== 'undefined') {
-                  turnstile.reset();
-                }
-              }
-            });
-          })();
-        </script>
-
-        <div class="form-success" id="form-success">
-          <div class="success-icon">&#10003;</div>
-          <h3>Message received.</h3>
-          <p>We&#8217;ll review your inquiry and get back to you within one business day to confirm data compatibility and discuss next steps.<br><br>
-          In the meantime, review our <a href="case-studies.html">validation results</a> or check the <a href="faq.html">FAQ</a> for answers to common questions.</p>
         </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="company">Company *</label>
+            <input type="text" id="company" name="company" required placeholder="Your Company Name">
+          </div>
+          <div class="form-group">
+            <label for="role">Your Role</label>
+            <input type="text" id="role" name="role" placeholder="Operations Manager">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Email Address *</label>
+            <input type="email" id="email" name="email" required placeholder="you@company.com">
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone (optional)</label>
+            <input type="tel" id="phone" name="phone" placeholder="780-000-0000">
+          </div>
+        </div>
+
+        <hr class="form-divider">
+        <p class="form-section-tag">What You Need</p>
+
+        <div class="form-group">
+          <label for="product">Which product are you interested in? *</label>
+          <select id="product" name="product_interest" required>
+            <option value="" disabled selected>Select one</option>
+            <option value="stratum_pro">Stratum Pro — embed the engine in my own systems</option>
+            <option value="governor">Governor — govern a local AI</option>
+            <option value="analyzer">FSME Health Analyzer — forensic equipment analysis</option>
+            <option value="desktop_client">Data Ingestion Desktop Client — multi-seat / site licence</option>
+            <option value="collateral">Procurement Kit / Methodology Whitepaper</option>
+            <option value="unsure">Not sure yet — help me figure it out</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="industry">Industry</label>
+          <select id="industry" name="industry">
+            <option value="" disabled selected>Select your industry</option>
+            <option value="ai_software">AI / Software</option>
+            <option value="manufacturing">Manufacturing</option>
+            <option value="oil_gas">Oil &amp; Gas</option>
+            <option value="utilities">Utilities / Infrastructure</option>
+            <option value="aerospace">Aerospace / Defence</option>
+            <option value="refrigeration">Refrigeration / Cold Chain</option>
+            <option value="transport">Trucking / Transport / Fleet</option>
+            <option value="government">Government / Public Sector</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Tell us about your operation *</label>
+          <textarea id="message" name="message" required placeholder="What are you trying to build or protect? Any regulatory drivers, timelines, or specific concerns? The more context you give us, the better we can prepare."></textarea>
+        </div>
+
+        <p class="form-note">By submitting this form you agree to our <a href="legal.html#privacy">Privacy Policy</a>. We do not share your information with third parties.</p>
+
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAAC-RwdliB1810WP8" data-theme="dark" style="margin: 1rem 0;"></div>
+
+        <div id="form-error-msg" style="display:none; padding:1rem; margin-bottom:1rem; background:rgba(224,117,117,0.08); border:1px solid #3a1f1f; color:#e07575; font-family:var(--mono); font-size:0.82rem;"></div>
+
+        <button type="submit" class="btn-submit" id="submit-btn">Send Inquiry &#9658;</button>
+      </form>
+
+      <div class="form-success" id="form-success">
+        <div class="success-icon">&#10003;</div>
+        <h3>Message received.</h3>
+        <p>Your inquiry is in. We will review it and get back to you to discuss scope and next steps.</p>
       </div>
     </div>
 
@@ -562,9 +256,17 @@
 
 <footer>
   <div class="foot-inner">
-    <div class="foot-left">&copy; 2026 Alexander Kalyniuk &mdash; FSME Logic &nbsp;|&nbsp; Edmonton, Alberta, Canada<br><a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a></div>
-    <div class="foot-right"><a href="case-studies.html">Validation</a><a href="about.html">About</a><a href="faq.html">FAQ</a><a href="contact.html">Contact</a><a href="privacy.html">Privacy</a></div>
-    <div class="foot-right" style="margin-top:0.5rem;"><a href="store.html">Store</a><a href="legal.html">Legal &amp; Terms</a><a href="investors.html">Investors</a><a href="newsroom.html">Newsroom</a><a href="case-studies.html#reports">Validation Reports</a><a href="roi.html">ROI Calculator</a></div>
+    <div class="foot-left">
+      &copy; 2026 Alexander Kalyniuk — FSME Logic &nbsp;|&nbsp; Edmonton, Alberta, Canada<br>
+      <a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a>
+    </div>
+    <div class="foot-right">
+      <a href="stratum.html">Stratum</a>
+      <a href="store.html">Store</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="legal.html">Legal</a>
+    </div>
     <div class="foot-social">
       <a href="https://x.com/FsmeLogic" target="_blank" rel="noopener" aria-label="X / Twitter"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.731-8.835L1.254 2.25H8.08l4.259 5.63 5.905-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
       <a href="https://youtube.com/@fsmelogic" target="_blank" rel="noopener" aria-label="YouTube"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg></a>
@@ -573,225 +275,85 @@
   </div>
 </footer>
 
-<div id="cookie-banner"><p>This site uses Google Analytics and Google Ads to measure site performance. We do not sell your data. <a href="privacy.html">Privacy Policy</a></p><button onclick="acceptCookies()">Accept</button></div>
-
-<script>
-(function(){if(!localStorage.getItem('fsme_cookies_ok')){document.getElementById('cookie-banner').style.display='flex';}})();
-function acceptCookies(){localStorage.setItem('fsme_cookies_ok','1');document.getElementById('cookie-banner').style.display='none';}
-(function(){var h=document.getElementById('hamburger'),m=document.getElementById('mobile-menu');if(h&&m){h.addEventListener('click',function(){var e=h.getAttribute('aria-expanded')==='true';h.setAttribute('aria-expanded',String(!e));h.classList.toggle('open');m.classList.toggle('open');});}})();
-(function(){var d=document.querySelector('.nav-more-btn');if(!d)return;d.addEventListener('click',function(e){e.stopPropagation();var x=d.getAttribute('aria-expanded')==='true';d.setAttribute('aria-expanded',String(!x));});document.addEventListener('click',function(){if(d)d.setAttribute('aria-expanded','false');});})();
-</script>
-
-<!-- ── FSME LOGIC CHAT WIDGET ─────────────────────────────────────────── -->
-<script>const FSME_WORKER_URL = 'https://fsme-assistant-v2.fsme-logic.workers.dev';</script>
-<style>
-  #fsme-chat-btn{position:fixed;bottom:28px;right:28px;z-index:9000;width:56px;height:56px;border-radius:50%;background:#3d8ef0;border:none;cursor:pointer;box-shadow:0 4px 20px rgba(61,142,240,0.45);display:flex;align-items:center;justify-content:center;transition:transform 0.2s,box-shadow 0.2s;}
-  #fsme-chat-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(61,142,240,0.55);}
-  #fsme-chat-window{position:fixed;bottom:96px;right:28px;z-index:9001;width:370px;max-width:calc(100vw - 32px);height:520px;max-height:calc(100vh - 120px);background:#141822;border:1px solid #242e42;border-top:3px solid #3d8ef0;display:none;flex-direction:column;box-shadow:0 16px 48px rgba(0,0,0,0.55);font-family:'IBM Plex Mono','Consolas','Courier New',monospace;}
-  #fsme-chat-window.open{display:flex;}
-  .fsme-chat-header{display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.1rem;background:#1c2438;border-bottom:1px solid #242e42;flex-shrink:0;}
-  .fsme-chat-header-left{display:flex;align-items:center;gap:.6rem;}
-  .fsme-chat-dot{width:8px;height:8px;border-radius:50%;background:#3db87a;flex-shrink:0;}
-  .fsme-chat-title{font-size:.78rem;font-weight:700;color:#c5d2e8;letter-spacing:.06em;text-transform:uppercase;}
-  .fsme-chat-sub{font-size:.62rem;color:#6e86a8;letter-spacing:.04em;}
-  #fsme-close-btn{background:none;border:none;color:#6e86a8;cursor:pointer;padding:4px;line-height:1;font-size:1.1rem;transition:color .2s;}
-  #fsme-close-btn:hover{color:#c5d2e8;}
-  #fsme-messages{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:.75rem;scroll-behavior:smooth;}
-  #fsme-messages::-webkit-scrollbar{width:4px;}
-  #fsme-messages::-webkit-scrollbar-thumb{background:#242e42;border-radius:2px;}
-  .fsme-msg{max-width:88%;padding:.65rem .85rem;font-size:.82rem;line-height:1.65;border-radius:2px;}
-  .fsme-msg.bot{background:#181f2e;border:1px solid #242e42;color:#c5d2e8;align-self:flex-start;border-left:2px solid #3d8ef0;}
-  .fsme-msg.user{background:rgba(61,142,240,0.12);border:1px solid rgba(61,142,240,0.25);color:#c5d2e8;align-self:flex-end;}
-  .fsme-msg.typing{background:#181f2e;border:1px solid #242e42;color:#6e86a8;align-self:flex-start;font-style:italic;}
-  .fsme-msg a{color:#3d8ef0;text-decoration:none;}
-  .fsme-msg a:hover{text-decoration:underline;}
-  .fsme-chat-footer{border-top:1px solid #242e42;padding:.75rem;display:flex;gap:.5rem;flex-shrink:0;background:#141822;}
-  #fsme-input{flex:1;background:#0e1118;border:1px solid #242e42;color:#c5d2e8;font-family:inherit;font-size:.82rem;padding:.6rem .8rem;outline:none;resize:none;line-height:1.5;max-height:100px;transition:border-color .2s;}
-  #fsme-input:focus{border-color:#3d8ef0;}
-  #fsme-input::placeholder{color:#3a4a62;}
-  #fsme-send-btn{background:#3d8ef0;border:none;color:#fff;font-family:inherit;font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.6rem .85rem;cursor:pointer;transition:background .2s;flex-shrink:0;align-self:flex-end;}
-  #fsme-send-btn:hover{background:#2d6fd0;}
-  #fsme-send-btn:disabled{background:#242e42;color:#6e86a8;cursor:not-allowed;}
-  .fsme-chat-note{text-align:center;font-size:.62rem;color:#3a4a62;padding:.3rem .75rem .5rem;flex-shrink:0;}
-  @media(max-width:440px){#fsme-chat-window{right:8px;bottom:88px;width:calc(100vw - 16px);}#fsme-chat-btn{right:16px;bottom:16px;}}
-
-  /* ── CHAT BUTTON WRAPPER & LABEL ─────────────────────────── */
-  #fsme-chat-btn-wrapper {
-    position: fixed; bottom: 28px; right: 28px; z-index: 9000;
-    display: flex; flex-direction: column; align-items: center; gap: 6px;
-  }
-  #fsme-chat-btn {
-    position: relative; bottom: 0; right: 0;
-    width: 56px; height: 56px; border-radius: 50%;
-    background: #3d8ef0; border: none; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: transform 0.2s, background 0.2s;
-    animation: radar-pulse 2.8s infinite;
-  }
-  #fsme-chat-btn:hover {
-    transform: translateY(-2px); background: #2d6fd0;
-    animation: none; box-shadow: 0 8px 28px rgba(61,142,240,0.55);
-  }
-  @keyframes radar-pulse {
-    0%   { box-shadow: 0 0 0 0 rgba(61,142,240,0.7); }
-    70%  { box-shadow: 0 0 0 14px rgba(61,142,240,0); }
-    100% { box-shadow: 0 0 0 0 rgba(61,142,240,0); }
-  }
-  @keyframes flare-anim {
-    0%   { box-shadow: 0 0 0 0 rgba(201,168,76,0.8); filter: brightness(1); }
-    50%  { box-shadow: 0 0 18px 6px rgba(201,168,76,0.5); filter: brightness(1.3); transform: scale(1.06); }
-    100% { box-shadow: 0 0 0 0 rgba(201,168,76,0); filter: brightness(1); transform: scale(1); }
-  }
-  #fsme-chat-btn.flare { animation: flare-anim 0.6s ease-out; }
-  .chat-btn-label {
-    font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; font-weight: 700;
-    color: #c9a84c; background: #0e1117; border: 1px solid #1e2535;
-    padding: 0.25rem 0.55rem; border-radius: 4px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-    white-space: nowrap; text-transform: uppercase; letter-spacing: 0.07em;
-    animation: radar-pulse 2.8s infinite 1.4s;
-    pointer-events: none;
-  }
-
-  /* ── SOUTH PARK CANADIAN ROBOT ───────────────────────────── */
-  #fsme-robot {
-    width: 30px; height: 34px; position: relative;
-    margin-right: 10px; flex-shrink: 0; cursor: default;
-  }
-  .robot-top, .robot-bottom {
-    background: #8a9bb8; width: 100%; position: absolute;
-    left: 0; border: 2px solid #141822;
-  }
-  .robot-top {
-    height: 17px; top: 0; border-radius: 6px 6px 0 0;
-    transform-origin: bottom center;
-    border-bottom: 2px solid #080a10; z-index: 2;
-    transition: transform 0.08s;
-  }
-  .robot-bottom {
-    height: 17px; bottom: 0; border-radius: 0 0 6px 6px;
-  }
-  .robot-eye {
-    width: 5px; height: 5px; background: #080a10;
-    border-radius: 50%; position: absolute; top: 5px;
-  }
-  .robot-eye.left  { left: 5px; }
-  .robot-eye.right { right: 5px; }
-  .robot-antenna {
-    width: 3px; height: 7px; background: #8a9bb8;
-    position: absolute; top: -7px; left: 50%;
-    transform: translateX(-50%); border-radius: 2px 2px 0 0;
-  }
-  .robot-antenna::after {
-    content: ''; display: block; width: 6px; height: 6px;
-    background: #3d8ef0; border-radius: 50%;
-    margin: -3px 0 0 -1.5px;
-    box-shadow: 0 0 6px #3d8ef0;
-  }
-  @keyframes flap-head {
-    0%   { transform: translateY(0) rotate(0deg); }
-    30%  { transform: translateY(-7px) rotate(10deg); }
-    60%  { transform: translateY(-3px) rotate(-4deg); }
-    100% { transform: translateY(0) rotate(0deg); }
-  }
-  @keyframes idle-bob {
-    0%, 100% { transform: translateY(0); }
-    50%       { transform: translateY(-2px); }
-  }
-  #fsme-robot .robot-top {
-    animation: idle-bob 3s ease-in-out infinite;
-  }
-  #fsme-robot.talking .robot-top {
-    animation: flap-head 0.28s ease-in-out infinite !important;
-  }
-
-  </style>
-<button id="fsme-chat-btn" aria-label="Chat with FSME Logic Assistant" title="Ask the FSME Logic Assistant">
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-</button>
-<div id="fsme-chat-window" role="dialog" aria-label="FSME Logic Assistant">
-  <div class="fsme-chat-header">
-    <div class="fsme-chat-header-left">
-      <div class="fsme-chat-dot"></div>
-      <div><div class="fsme-chat-title">FSME Logic Assistant</div><div class="fsme-chat-sub">Predictive Integrity &middot; Edmonton, AB</div></div>
-    </div>
-    <button id="fsme-close-btn" aria-label="Close chat">&times;</button>
-  </div>
-  <div id="fsme-messages">
-    <div class="fsme-msg bot">// FSME Logic Assistant online.<br><br>I can help with product questions, the audit process, data compatibility, pricing, and security. What are you working with?<br><br><span style="font-size:.72rem;color:#6e86a8;">Note: conversations may be logged to improve this assistant. Do not share confidential information here.</span></div>
-  </div>
-  <div class="fsme-chat-footer">
-    <textarea id="fsme-input" placeholder="Ask about products, the audit process, data formats..." rows="1" maxlength="2000"></textarea>
-    <button id="fsme-send-btn">Send</button>
-  </div>
-  <div class="fsme-chat-note">FSME Logic &middot; fsmelogic.ca</div>
+<!-- COOKIE BANNER -->
+<div id="cookie-banner">
+  <p>This site uses Google Analytics and Google Ads to measure site performance. We do not sell your data. <a href="legal.html#privacy">Privacy Policy</a></p>
+  <button onclick="acceptCookies()">Accept</button>
 </div>
+
 <script>
-(function(){
-  var btn=document.getElementById('fsme-chat-btn'),win=document.getElementById('fsme-chat-window'),
-      closeBtn=document.getElementById('fsme-close-btn'),input=document.getElementById('fsme-input'),
-      sendBtn=document.getElementById('fsme-send-btn'),messages=document.getElementById('fsme-messages');
-  var sessionId='fsme-'+Math.random().toString(36).slice(2,10);
-  var isOpen=false,isLoading=false;
-  var canFlare=true;
-  function triggerFlare(){
-    if(!canFlare||isOpen)return;
-    btn.classList.add('flare');
-    canFlare=false;
-    setTimeout(function(){btn.classList.remove('flare');},600);
-    setTimeout(function(){canFlare=true;},3500);
-  }
-  window.addEventListener('scroll',triggerFlare,{passive:true});
-  document.addEventListener('click',function(e){
-    if(!e.target.closest('#fsme-chat-btn-wrapper'))triggerFlare();
-  });
-  function toggleChat(){isOpen=!isOpen;win.classList.toggle('open',isOpen);if(isOpen){input.focus();messages.scrollTop=messages.scrollHeight;}}
-  btn.addEventListener('click',toggleChat);
-  closeBtn.addEventListener('click',toggleChat);
-  input.addEventListener('input',function(){this.style.height='auto';this.style.height=Math.min(this.scrollHeight,100)+'px';});
-  input.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage();}});
-  sendBtn.addEventListener('click',sendMessage);
-  function addMessage(text,type){
-    var div=document.createElement('div');div.className='fsme-msg '+type;
-    div.innerHTML=text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-      .replace(/\n/g,'<br>').replace(/(https?:\/\/[^\s<]+)/g,'<a href="$1" target="_blank" rel="noopener">$1</a>');
-    messages.appendChild(div);messages.scrollTop=messages.scrollHeight;return div;
-  }
-  async function sendMessage(){
-    var text=input.value.trim();if(!text||isLoading)return;
-    addMessage(text,'user');input.value='';input.style.height='auto';
-    isLoading=true;sendBtn.disabled=true;
-    var robot=document.getElementById('fsme-robot');
-    if(robot) robot.classList.add('talking');
-    var typingEl=(function(){
-        var phrases=[
-          '// Consulting the entropy logs...',
-          '// Parsing telemetry signatures...',
-          '// Searching the air-gapped archives...',
-          '// Running physics simulation...',
-          '// Calculating degradation vectors...',
-          '// Cross-referencing benchmark data...',
-          '// Translating engineering jargon...',
-          '// Scanning the signal history...',
-          '// Checking the Green Dashboard...',
-          '// Crunching failure probabilities...'
-        ];
-        return addMessage(phrases[Math.floor(Math.random()*phrases.length)],'typing');
-      })();
-    try{
-      var response=await fetch(FSME_WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({message:text,session_id:sessionId})});
-      var data=await response.json();typingEl.remove();
-      addMessage(data.reply||'Something went wrong. Email alex-kalyniuk@fsmelogic.ca for help.','bot');
-    }catch(err){
-      typingEl.remove();
-      addMessage('Connection issue. Email alex-kalyniuk@fsmelogic.ca directly.','bot');
-    }finally{isLoading=false;sendBtn.disabled=false;input.focus();
-    if(robot) robot.classList.remove('talking');}
-  }
-})();
+  (function(){ if(!localStorage.getItem('fsme_cookies_ok')){ document.getElementById('cookie-banner').style.display='flex'; } })();
+  function acceptCookies(){ localStorage.setItem('fsme_cookies_ok','1'); document.getElementById('cookie-banner').style.display='none'; }
+
+  // Hamburger
+  (function(){
+    var h=document.getElementById('hamburger'), m=document.getElementById('mobile-menu');
+    if(h&&m){ h.addEventListener('click',function(){ var e=h.getAttribute('aria-expanded')==='true'; h.setAttribute('aria-expanded',String(!e)); h.classList.toggle('open'); m.classList.toggle('open'); }); }
+  })();
+
+  // Preselect product from ?product= (set by store CTAs)
+  (function(){
+    var params = new URLSearchParams(window.location.search);
+    var p = params.get('product');
+    if (!p) return;
+    var map = { governor:'governor', analyzer:'analyzer', pro:'stratum_pro', desktop_client:'desktop_client', collateral:'collateral' };
+    var val = map[p];
+    var sel = document.getElementById('product');
+    if (val && sel) { sel.value = val; }
+  })();
+
+  // Form submit (Cloudflare form proxy + Turnstile)
+  (function() {
+    var form = document.getElementById('contact-form');
+    var submitBtn = document.getElementById('submit-btn');
+    var errorMsg = document.getElementById('form-error-msg');
+    var successDiv = document.getElementById('form-success');
+    if (!form) return;
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      errorMsg.style.display = 'none';
+
+      var tokenField = form.querySelector('input[name="cf-turnstile-response"]');
+      if (!tokenField || !tokenField.value) {
+        errorMsg.textContent = 'Please complete the verification before submitting.';
+        errorMsg.style.display = 'block';
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+
+      try {
+        var formData = new FormData(form);
+        var response = await fetch(form.action, { method: 'POST', body: formData });
+        var data = await response.json();
+
+        if (response.ok && data.success) {
+          form.style.display = 'none';
+          if (successDiv) successDiv.style.display = 'block';
+          if (typeof gtag === 'function') {
+            gtag('event', 'conversion', {'send_to': 'AW-18021290501/edRqCPqQo4ocEIWknJFD'});
+            gtag('event', 'generate_lead', {'event_category': 'contact'});
+          }
+          setTimeout(function() { window.location.href = data.redirect || 'https://fsmelogic.ca/success.html'; }, 1500);
+        } else {
+          errorMsg.textContent = (data && data.error) ? data.error : 'Something went wrong, please try again or email alex-kalyniuk@fsmelogic.ca';
+          errorMsg.style.display = 'block';
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = 'Send Inquiry &#9658;';
+          if (typeof turnstile !== 'undefined') { turnstile.reset(); }
+        }
+      } catch (err) {
+        errorMsg.textContent = 'Connection error, please check your internet and try again.';
+        errorMsg.style.display = 'block';
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = 'Send Inquiry &#9658;';
+        if (typeof turnstile !== 'undefined') { turnstile.reset(); }
+      }
+    });
+  })();
 </script>
-<!-- ── END FSME CHAT WIDGET ────────────────────────────────────────────── -->
 
 </body>
 </html>
