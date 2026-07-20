@@ -155,6 +155,32 @@
   </div>
 </section>
 
+<!-- SALE:START (added by sale_toggle.py, do not hand-edit) -->
+<section class="store-sec" id="opening-sale" style="border-top:2px solid #1d5b2a;border-bottom:2px solid #1d5b2a;background:linear-gradient(180deg,rgba(19,58,26,0.25),transparent);">
+  <div class="wrap">
+    <p class="section-label" style="color:#7ef29a;">Opening Sale &middot; Limited Time</p>
+    <h2 class="section-title">One seat. One payment. <em>For life.</em></h2>
+    <div class="card-grid" style="grid-template-columns: minmax(320px, 640px); justify-content: start;">
+      <div class="product-card pro">
+        <span class="card-badge" style="background:#0d2a12;color:#7ef29a;border-color:#1d5b2a;">Opening Sale &middot; Lifetime Seat</span>
+        <h2 class="card-title">Stratum Pro &mdash; Lifetime Seat</h2>
+        <p class="card-desc">Everything in Stratum Pro, licensed to one seat, forever. One payment, no renewals, no subscription. This is a one-window offer for the first customers who back the language early &mdash; when the seats are gone, the window closes and Pro returns to scoped per-deployment licensing.</p>
+        <hr class="card-divider">
+        <ul class="card-includes">
+          <li>Full Stratum Pro as it ships today: sealed edge kernel, Ed25519 identity, cognitive governance</li>
+          <li>One seat, yours for life &mdash; the license never expires or lapses</li>
+          <li>Direct line to the builder for setup and questions</li>
+          <li>Strictly limited: a small number of seats at this price, never repeated</li>
+        </ul>
+        <p class="card-price">$1,500 <small>CAD &middot; one-time &middot; lifetime &middot; limited seats</small></p>
+        <a class="card-cta solid" href="contact.html?product=pro-lifetime"
+           onclick="gtag('event','begin_checkout',{value:1500,currency:'CAD',item:'Stratum_Pro_Lifetime'});">Claim a Lifetime Seat &#9658;</a>
+      </div>
+    </div>
+    <p class="fineprint">Opening-sale seats are strictly limited and the window closes without notice. The license covers Stratum Pro as delivered; future modules and versions are scoped separately.</p>
+  </div>
+</section>
+<!-- SALE:END -->
 <!-- THE LANGUAGE -->
 <section class="store-sec" id="stratum">
   <div class="wrap">
@@ -228,7 +254,7 @@
 
       <!-- HEALTH ANALYZER -->
       <div class="product-card ana" id="analyzer">
-        <span class="card-badge">Predictive Health &middot; Offline</span>
+        <span class="card-badge">Predictive Health &middot; Offline &middot; Founders Price</span>
         <h2 class="card-title">FSME Health Analyzer</h2>
         <p class="card-desc">Drop in a CSV of recorded sensor data and get back a signed, tamper-evident report of where a machine began to structurally degrade and how early it was detectable. Detection runs in the Stratum engine; every report is Ed25519-signed and verifiable offline.</p>
         <hr class="card-divider">
@@ -237,14 +263,17 @@
           <li>Lead time: how much warning you would have had</li>
           <li>Multi-voice consensus keeps false positives low</li>
           <li>Hot-folder automation and an offline AI helper included</li>
+          <li>Every copy individually sealed and licensed: built for you, delivered in 24&ndash;72h</li>
         </ul>
         <p class="card-honest">What it is not: a live monitor or a safety device. It analyzes data you already recorded, after the fact, as an advisory finding.</p>
-        <p class="card-price">Contact for pricing <small>per-customer build &middot; machine-welded</small></p>
-        <a class="card-cta line" href="contact.html?product=analyzer">Request the Analyzer &#9658;</a>
+        <p class="card-price">$950 <small>CAD &middot; one-time &middot; founders opening price &middot; sealed per-customer build</small></p>
+        <a class="card-cta solid" href="https://fsmelogic.gumroad.com/l/lwobp"
+           onclick="gtag('event','begin_checkout',{value:950,currency:'CAD',item:'Health_Analyzer_Founders'});">Buy Now — $950 &#9658;</a>
+        <p class="fineprint" style="margin-top:0.6rem;">Prefer to talk first? <a href="contact.html?product=analyzer">Ask a question</a>.</p>
       </div>
 
     </div>
-    <p class="gated-note"><strong>How delivery works.</strong> You reach out, we scope it under a mutual NDA, and you send a one-line machine ID. We generate a fresh, node-locked build and hand you the installer. Fully offline: no server, no phone-home, no cloud dependency.</p>
+    <p class="gated-note"><strong>How delivery works.</strong> For the Governor: you reach out, we scope it under a mutual NDA. For the Analyzer founders purchase: buy now, then send a one-line machine ID when we email you (within 24&ndash;72h). Either way we generate a fresh, node-locked build and hand you the installer. Fully offline: no server, no phone-home, no cloud dependency.</p>
   </div>
 </section>
 
@@ -297,6 +326,7 @@
       <a href="store.html">Store</a>
         <a href="contact.html">Contact</a>
       <a href="legal.html">Legal</a>
+      <a href="https://fsmelogic.gumroad.com/coffee">Buy me a coffee</a>
     </div>
     <div class="foot-social">
       <a href="https://x.com/FsmeLogic" target="_blank" rel="noopener" aria-label="X / Twitter"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.731-8.835L1.254 2.25H8.08l4.259 5.63 5.905-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
@@ -323,5 +353,10 @@
   })();
 </script>
 
+<!-- SALE:START (added by sale_toggle.py, do not hand-edit) -->
+<a href="store.html#opening-sale" id="sale-banner" style="position:fixed;left:0;right:0;bottom:0;z-index:1000;display:block;text-align:center;padding:0.85rem 1rem;background:#0d2a12;color:#7ef29a;border-top:1px solid #1d5b2a;font-family:var(--head,sans-serif);font-weight:700;letter-spacing:0.06em;text-decoration:none;font-size:1.05rem;">
+  STRATUM OPENING SALE &mdash; $1,500 CAD lifetime Pro seat &middot; limited seats, then it closes &raquo;
+</a>
+<!-- SALE:END -->
 </body>
 </html>
