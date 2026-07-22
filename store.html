@@ -161,7 +161,7 @@
     <p class="section-label" style="color:#7ef29a;">Opening Sale &middot; Limited Time</p>
     <h2 class="section-title">One seat. One payment. <em>For life.</em></h2>
     <div class="card-grid" style="grid-template-columns: minmax(320px, 640px); justify-content: start;">
-      <div class="product-card pro">
+      <div class="product-card pro" id="lifetime-seat">
         <span class="card-badge" style="background:#0d2a12;color:#7ef29a;border-color:#1d5b2a;">Opening Sale &middot; Lifetime Seat</span>
         <h2 class="card-title">Stratum Pro &mdash; Lifetime Seat</h2>
         <p class="card-desc">Everything in Stratum Pro, licensed to one seat, forever. One payment, no renewals, no subscription. This is a one-window offer for the first customers who back the language early &mdash; when the seats are gone, the window closes and Pro returns to scoped per-deployment licensing.</p>
@@ -285,14 +285,14 @@
     <div class="card-grid" style="grid-template-columns: minmax(320px, 640px); justify-content: start;">
 
       <!-- DESKTOP CLIENT -->
-      <div class="product-card buy">
+      <div class="product-card buy" id="dataclient">
         <span class="card-badge">Data Utility &middot; Self-Serve</span>
         <h2 class="card-title">FSME Data Ingestion Desktop Client</h2>
         <p class="card-desc">Turns massive, messy industrial telemetry into clean, audit-ready CSV, offline, with a hash on every file. It removes the days of fragile parsing scripts that sit in front of any real analysis.</p>
         <hr class="card-divider">
         <ul class="card-includes">
           <li>Converts .tdms, .h5, .nc, .mat &rarr; clean CSV</li>
-          <li>Out-of-memory: handles files bigger than your RAM</li>
+          <li>Memory-safe streaming reads for huge industrial files</li>
           <li>SHA-256 hash written for every output</li>
           <li>Hot-folder automation: drop files in, get CSV out, unattended</li>
           <li>Batch conversion across many files</li>
