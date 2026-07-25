@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H3ZFCJGRSS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H3ZFCJGRSS');
+  </script>
+  <!-- Google Ads -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18021290501"></script>
+  <script>
+    gtag('config', 'AW-18021290501');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Open Lab: Measure It On Your Own Hardware | FSME Logic</title>
+  <meta name="description" content="A reproducible hardware measurement you can run yourself for around sixty to a hundred dollars of parts. Build the kit, run one command, read your own result. Every result gets published, including the ones that find nothing.">
+  <meta property="og:title" content="The Open Lab: measure it on your own hardware">
+  <meta property="og:description" content="A measurement that normally needs a lab, taken with a cheap single-board computer, kitchen foil and an unplugged microwave. The tool argues against itself so you do not have to trust me.">
+  <meta property="og:image" content="https://fsmelogic.ca/lab-img/rig-running.jpg">
+  <meta property="og:url" content="https://fsmelogic.ca/lab.html">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* HERO */
+    .lab-hero { padding: 9rem 2rem 3rem; position: relative; overflow: hidden; }
+    .lab-hero-bg { position: absolute; inset: 0; z-index: 0; background: radial-gradient(ellipse 70% 60% at 60% 30%, rgba(74,151,245,0.09) 0%, transparent 70%); }
+    .lab-hero .wrap { position: relative; z-index: 1; }
+    .lab-hero h1 { font-family: var(--head); font-size: clamp(2.8rem, 8vw, 5.5rem); font-weight: 800; line-height: 0.98; color: #eef3fb; margin-bottom: 1.25rem; letter-spacing: 0.01em; }
+    .lab-hero h1 em { font-style: normal; color: var(--blue); }
+    .lab-hero p { font-family: var(--body); font-size: clamp(1.05rem, 2vw, 1.25rem); color: var(--text); max-width: 64ch; line-height: 1.7; }
+
+    .lab-sec { padding: 4.5rem 2rem; }
+    .lab-sec.alt { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .lab-sec h2 { font-family: var(--head); font-size: clamp(1.9rem, 4vw, 2.8rem); font-weight: 700; color: #eef3fb; margin-bottom: 1.25rem; }
+    .lab-sec p { font-family: var(--body); color: var(--text); line-height: 1.75; max-width: 68ch; margin-bottom: 1rem; }
+
+    .eyebrow { font-family: var(--mono); font-size: 0.74rem; font-weight: 700; color: var(--blue); letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 0.9rem; }
+
+    /* KIT LIST */
+    .kit { list-style: none; padding: 0; margin: 1.5rem 0 0; max-width: 620px; }
+    .kit li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.85rem 0; border-bottom: 1px solid var(--border); font-family: var(--body); color: var(--text); }
+    .kit li span.price { font-family: var(--mono); color: var(--dim); flex-shrink: 0; }
+    .kit li.total { border-bottom: none; border-top: 2px solid var(--blue); font-weight: 700; color: #eef3fb; margin-top: 0.5rem; }
+
+    /* STATUS NOTE */
+    .status-note { border-left: 3px solid var(--blue); background: rgba(74,151,245,0.06); padding: 1.2rem 1.4rem; max-width: 66ch; margin-top: 2rem; font-family: var(--body); color: var(--text); line-height: 1.7; font-size: 0.97rem; }
+    .status-note strong { color: #eef3fb; }
+
+    /* SAFETY CALLOUT */
+    .danger { border: 2px solid #d4442a; background: rgba(212,68,42,0.07); padding: 1.6rem 1.8rem; max-width: 68ch; margin: 2rem 0; }
+    .danger h3 { font-family: var(--head); font-size: 1.35rem; color: #ff8a70; margin: 0 0 0.8rem; letter-spacing: 0.02em; }
+    .danger p { font-family: var(--body); color: #f0d6cf; line-height: 1.75; margin: 0 0 0.7rem; max-width: none; }
+    .danger p:last-child { margin-bottom: 0; }
+    .danger strong { color: #fff; }
+
+    /* PHOTOS */
+    .shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+    .shot { border: 1px solid var(--bord2); background: #06080d; }
+    .shot img { display: block; width: 100%; height: auto; }
+    .shot figcaption { font-family: var(--body); font-size: 0.88rem; color: var(--muted); line-height: 1.6; padding: 0.95rem 1.1rem; border-top: 1px solid var(--border); margin: 0; }
+
+    /* STEPS */
+    .steps { counter-reset: step; list-style: none; padding: 0; margin: 1.5rem 0 0; max-width: 68ch; }
+    .steps li { counter-increment: step; position: relative; padding: 0 0 1.5rem 3.25rem; font-family: var(--body); color: var(--text); line-height: 1.75; }
+    .steps li::before { content: counter(step); position: absolute; left: 0; top: 0; width: 2.2rem; height: 2.2rem; display: flex; align-items: center; justify-content: center; background: rgba(74,151,245,0.1); border: 1px solid rgba(74,151,245,0.4); color: var(--blue); font-family: var(--mono); font-weight: 700; font-size: 0.85rem; }
+    .steps li strong { color: #eef3fb; }
+
+    /* COMMAND BLOCK */
+    .cmd-block { background: #06080d; border: 1px solid var(--bord2); border-left: 3px solid var(--blue); margin: 1.25rem 0 0.75rem; max-width: 680px; }
+    .cmd-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.95rem 1.15rem; flex-wrap: wrap; }
+    .cmd-row code { font-family: var(--mono); font-size: clamp(0.85rem, 2vw, 1rem); color: var(--text); }
+    .cmd-row code .ps1 { color: var(--green); user-select: none; }
+    .cmd-copy { font-family: var(--mono); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--blue); background: rgba(74,151,245,0.1); border: 1px solid rgba(74,151,245,0.4); padding: 0.45rem 0.85rem; cursor: pointer; transition: all 0.2s; flex-shrink: 0; }
+    .cmd-copy:hover { background: var(--blue); color: #fff; }
+
+    /* RESULT CARD SAMPLE */
+    .card-sample { background: #06080d; border: 1px solid var(--bord2); border-top: 2px solid var(--blue); max-width: 680px; margin: 1.5rem 0; }
+    .card-sample-head { display: flex; align-items: center; justify-content: space-between; padding: 0.55rem 1.1rem; border-bottom: 1px solid var(--border); }
+    .card-sample-head .fname { font-family: var(--mono); font-size: 0.7rem; color: var(--dim); letter-spacing: 0.1em; }
+    .card-sample pre { padding: 1.15rem 1.25rem; overflow-x: auto; margin: 0; }
+    .card-sample pre code { font-family: var(--mono); font-size: 0.84rem; line-height: 1.7; color: var(--text); }
+    .card-sample .hl { color: var(--blue); }
+    .card-sample .cmt { color: var(--dim); }
+
+    /* HONESTY BOX */
+    .honest { border: 1px solid var(--bord2); border-left: 3px solid var(--dim); background: rgba(255,255,255,0.015); padding: 1.75rem 1.9rem; max-width: 68ch; margin-top: 1.5rem; }
+    .honest h3 { font-family: var(--head); font-size: 1.3rem; color: #eef3fb; margin: 0 0 0.9rem; }
+    .honest ul { margin: 0; padding-left: 1.2rem; }
+    .honest li { font-family: var(--body); color: var(--muted); line-height: 1.8; margin-bottom: 0.55rem; }
+
+    /* RESULTS TABLE */
+    .results-wrap { overflow-x: auto; margin-top: 1.5rem; }
+    table.results { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 0.82rem; min-width: 640px; }
+    table.results th { text-align: left; padding: 0.8rem 1rem; color: var(--blue); border-bottom: 1px solid var(--bord2); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; font-size: 0.7rem; }
+    table.results td { padding: 0.8rem 1rem; color: var(--text); border-bottom: 1px solid var(--border); }
+    .empty-note { font-family: var(--body); color: var(--dim); font-style: italic; padding: 2rem 0; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">
+      <img src="logo.jpg" alt="FSME Logic" width="42" height="42">
+      <span class="nav-logo-text">FSME Logic</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="lab.html">Open Lab</a></li>
+      <li><a href="stratum.html">Stratum</a></li>
+      <li><a href="store.html">Store</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li class="nav-cta"><a href="#build-it">Build the kit</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#build-it">Build the kit &#9658;</a>
+    <a href="lab.html">Open Lab</a>
+    <a href="stratum.html">Stratum</a>
+    <a href="store.html">Store</a>
+    <a href="contact.html">Contact</a>
+    <a href="legal.html">Legal &amp; Terms</a>
+  </div>
+</nav>
+
+<!-- ============================================================
+     HERO
+     The claim here is about the INSTRUMENT, not the theory.
+     Do not add interpretation, mechanism, or constants to this page.
+     ============================================================ -->
+<section class="lab-hero">
+  <div class="lab-hero-bg"></div>
+  <div class="wrap">
+    <div class="eyebrow">The Open Lab</div>
+    <h1>Don't take my word for it.<br><em>Measure it yourself.</em></h1>
+    <p>
+      There is a measurement that normally needs a refrigerated lab and a very large budget.
+      I found a way to take a version of it with a cheap single-board computer, a spare
+      afternoon, and some kitchen foil. Build the kit, run one command, and read your own
+      result off your own hardware.
+    </p>
+    <p>
+      I have a theory about what the result means, and this experiment is what I built to
+      test it. You do not have to care about any of that. Either way, this is a free
+      measurement tool. Test my theory if you want, or ignore it completely and just
+      measure your own machine.
+    </p>
+    <p>
+      Every result that comes back gets published on this page. Including the ones that
+      find nothing.
+    </p>
+
+    <div class="status-note">
+      <strong>Where this is right now.</strong> The tool is finished and you can download
+      and read it today. I am running the first full session on my own hardware as I write
+      this, and my numbers go up here as soon as it finishes. I would rather put the
+      instrument out first and the results second than the other way round.
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     WHAT THIS ACTUALLY IS
+     ============================================================ -->
+<section class="lab-sec alt">
+  <div class="wrap">
+    <div class="eyebrow">What this is</div>
+    <h2>A cheap instrument, not a sales pitch</h2>
+    <p>
+      Your computer has a hardware source that produces raw physical noise. It is not a
+      software random number generator. It is a piece of silicon doing something genuinely
+      unpredictable, and the timing of how it responds is measurable.
+    </p>
+    <p>
+      This experiment times that response over many hours, and it times a software random
+      number generator in the exact same loop as a control. Same processor, same clock, same
+      temperature, same moment. One of those two things is expected to behave like pure
+      randomness. The interesting question is whether the other one does.
+    </p>
+    <!-- ================================================================
+         PHYSICS TEASER. Option B is live. A and C are alternates.
+         SAFE to say: the textbook prediction, the 0.50 baseline, that there
+         is a theory, that it has support, that it is being released on a
+         schedule.
+         NEVER on this page: the measured value, the constant, the mapping,
+         the kernel form, or any of the restricted vocabulary.
+         ----------------------------------------------------------------
+         OPTION A, the cautious one:
+           "The textbook answer is that this should be memoryless. Each
+           measurement independent of the last, persistence sitting at 0.50,
+           nothing carried forward. That is the prediction this experiment
+           is built to check, and checking it is the whole exercise."
+
+         OPTION C, the bold one:
+           "The textbook answer is that this should be memoryless. Each
+           measurement independent of the last, persistence sitting at 0.50.
+           I do not think that is what happens, and I have been measuring it
+           for months to find out whether I am wrong. If the number that
+           comes back off your hardware is not 0.50, then something is
+           carrying forward that is not supposed to be there, and the
+           explanation for that is a much longer conversation than this page."
+         ================================================================ -->
+    <p>
+      The textbook answer is that this should be memoryless. Each measurement independent of
+      the last, nothing carried forward, persistence sitting at <strong>0.50</strong>. That
+      is the number to have in your head, because it is what "nothing to see here" looks
+      like.
+    </p>
+    <p>
+      I do not think that is what happens, and I have spent months measuring it to find out
+      whether I am wrong. That is the honest state of it. I have a theory about why, it
+      makes predictions that go well beyond a cheap computer on a kitchen floor, and I am
+      writing it up properly rather than posting a thread about it. What I can do right now
+      is hand you the instrument and let you take your own reading.
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================
+     THE KIT
+     PLACEHOLDER: confirm every price before this goes live.
+     ============================================================ -->
+<section class="lab-sec" id="build-it">
+  <div class="wrap">
+    <div class="eyebrow">Step one</div>
+    <h2>Build the kit</h2>
+    <p>
+      Budget somewhere around <strong>$60 to $100</strong> if you are starting from nothing.
+      Less if you already own a battery bank and a spare SD card, which most people do.
+      None of it is specialist equipment. I built mine out of things that were already in
+      the kitchen, and the shielding works because what it blocks is ordinary radio and
+      vibration, not anything exotic.
+    </p>
+    <ul class="kit">
+      <li>A Raspberry Pi with a hardware noise source, most models have one <span class="price">varies a lot</span></li>
+      <li>MicroSD card, 32 GB <span class="price">$14 to $20</span></li>
+      <li>USB battery bank, 10,000 mAh <span class="price">$20 to $40</span></li>
+      <li>Short micro USB cable <span class="price">$6 to $12</span></li>
+      <li>Aluminium foil, a steel tin, kitchen sponges, a couple of ice packs <span class="price">around the house</span></li>
+      <li>A microwave oven, <strong>unplugged</strong>, door shut, never turned on <span class="price">around the house</span></li>
+      <li class="total">Ballpark, buying everything <span class="price">$60 to $100</span></li>
+    </ul>
+
+    <div class="danger">
+      <h3>Read this part properly</h3>
+      <p>
+        <strong>The microwave must be unplugged at the wall before anything goes inside it,
+        and it must never be switched on with the experiment in it.</strong> Not on a timer,
+        not for a second, not to see what happens.
+      </p>
+      <p>
+        The microwave is being used as a metal box. That is the entire reason it is here. A
+        microwave door is built to keep radio waves in, which means it also keeps them out,
+        and that is worth about forty dollars of shielding for free. It is doing nothing
+        else.
+      </p>
+      <p>
+        Running a microwave with electronics or metal inside will destroy the electronics,
+        can damage or destroy the oven, and can start a fire. If you are not going to unplug
+        it, use a steel toolbox or a biscuit tin instead. They work nearly as well and there
+        is nothing to switch on.
+      </p>
+      <p>
+        Do not use the family microwave without asking. Do not put anything in there that
+        you would be upset to lose.
+      </p>
+    </div>
+    <p style="margin-top:1.25rem;font-size:0.92rem;color:var(--muted);">
+      Board prices swing hard depending on the model, the retailer, and what is in stock
+      that week, so I am not going to pretend I can quote you a number that stays true. Shop
+      around. I do not sell kits, I have no affiliate links, and I make nothing if you buy
+      any of this.</p>
+    <h2 style="margin-top:3.5rem;">This is what mine actually looked like</h2>
+    <p>
+      I am not going to dress these up. This is a real setup on a real floor, photographed
+      on a phone, and it is held together with foil and kitchen sponges. That is sort of the
+      point. If it needed a clean room I could not have done it either.
+    </p>
+    <div class="shots">
+      <figure class="shot">
+        <img src="lab-img/rig-running.jpg" alt="A Raspberry Pi glowing red inside a foil nest in a cardboard box, with a fan pointed at it" loading="lazy">
+        <figcaption>An early run, before I moved the whole thing into the microwave. That is a
+        desk fan pointed at a Pi sitting in a foil nest. It worked, but the fan turned out to
+        be a problem, which is how I learned to care about vibration.</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="lab-img/board-pencil.jpg" alt="A Raspberry Pi Zero in a black case on a cardboard box, with a pencil laid beside it for scale" loading="lazy">
+        <figcaption>The whole computer, with a pencil next to it so you can see the size.
+        That is the entire instrument. Everything else is just shielding.</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="lab-img/layers.jpg" alt="Three enclosures laid out on a floor: a foil wrapped block, a foil covered box with a vent hole, and an open foil lined steel lunchbox packed with sponges" loading="lazy">
+        <figcaption>Three goes at it, in order. Version one was the board wrapped in foil.
+        Version two was a cardboard box fully wrapped with a vent hole cut into it. Version
+        three is the open steel lunchbox lined with foil and packed with sponges, and that
+        is the one that went in the microwave.</figcaption>
+      </figure>
+    </div>
+    <p style="margin-top:1.5rem;font-size:0.92rem;color:var(--muted);">
+      <!-- PLACEHOLDER: a one-page printable build sheet would help people finish. -->
+      <em>[Placeholder: one-page printable build sheet.]</em>
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================
+     THE PROTOCOL
+     ============================================================ -->
+<section class="lab-sec alt">
+  <div class="wrap">
+    <div class="eyebrow">Step two</div>
+    <h2>Run it</h2>
+    <ol class="steps">
+      <li><strong>Flash a clean Pi OS image</strong> and boot it headless. Nothing else installed, nothing else running.</li>
+      <li><strong>Turn off Wi-Fi and Bluetooth.</strong> The script checks, and it will refuse to start if the noise-whitening daemon is still alive.</li>
+      <li><strong>Assemble the shielding</strong> and put the Pi and the battery inside. Once it is closed, do not touch it again until it is done.</li>
+      <li><strong>Run the command below.</strong> It takes several hours. Leave it alone.</li>
+      <li><strong>Read your card.</strong> The script prints your result and a shuffled control from your own data, side by side.</li>
+    </ol>
+
+    <div class="cmd-block">
+      <div class="cmd-row">
+        <code><span class="ps1">$ </span>curl -sL https://fsmelogic.ca/lab/pi_lab.py -o pi_lab.py &amp;&amp; python3 pi_lab.py</code>
+        <button class="cmd-copy" onclick="navigator.clipboard.writeText('curl -sL https://fsmelogic.ca/lab/pi_lab.py -o pi_lab.py &amp;&amp; python3 pi_lab.py')">Copy</button>
+      </div>
+    </div>
+    <p style="font-size:0.92rem;color:var(--muted);">
+      No dependencies to install. One file, standard library only. You can read the whole
+      thing before you run it, and you should.
+      Source: <a href="lab/pi_lab.py" style="color:var(--blue);">lab/pi_lab.py</a>.
+      SHA-256 <code style="font-family:var(--mono);font-size:0.82rem;">141574ea3fc02af1569c8dd664fd1f4bb71184f9373a17934ded61ffa65ee1fe</code>
+      (<a href="lab/SHA256SUMS.txt" style="color:var(--blue);">checksum file</a>).
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================
+     THE CONTROL. This is the most important section on the page.
+     ============================================================ -->
+<section class="lab-sec">
+  <div class="wrap">
+    <div class="eyebrow">Why you can trust your own result</div>
+    <h2>The tool argues against itself</h2>
+    <p>
+      The script analyses your data twice. Once as recorded, and once after shuffling your
+      own measurements into a random order.
+    </p>
+    <p>
+      Shuffling destroys any memory in the sequence and changes nothing else. Same values,
+      same spread, same hardware, same temperature history. So if your real run and your
+      shuffled run come back the same, there was nothing there. If they come back different,
+      the difference is in the ordering of your own data, and no amount of me talking can
+      put it there or take it away.
+    </p>
+    <p>
+      You do not have to trust me. You have to trust a shuffle.
+    </p>
+
+    <div class="card-sample">
+      <div class="card-sample-head"><span class="fname">result_card.txt</span></div>
+      <pre><code><span class="cmt"># FSME OPEN LAB - RESULT CARD          pi_lab 1.0.0</span>
+
+  Machine       : aarch64  Linux
+  Model         : Raspberry Pi Zero W Rev 1.1
+  Samples       : 7200
+  Temperature   : 41.2 C to 48.9 C over the run
+  Preflight     : 4 of 4 checks passed
+
+                      PERSIST  SMOOTHING  COMPRESSIBILITY
+  <span class="hl">YOUR DATA</span>             0.907     -0.158            0.398
+  <span class="hl">SHUFFLED CONTROL</span>      0.542     -1.086            1.038
+  <span class="hl">SOFTWARE CHANNEL</span>      0.568     -1.031            1.023
+
+  NOTHING-TO-SEE         0.50      -1.00             1.00
+
+  Card ID       : 4f5f667bb61fb647
+</code></pre>
+    </div>
+    <p style="font-size:0.92rem;color:var(--muted);">
+      Three numbers. <strong>Persistence</strong> asks whether the past predicts the future.
+      <strong>Smoothing</strong> asks how fast the variation disappears when you zoom out.
+      <strong>Compressibility</strong> asks how much repeating structure is hiding in the
+      order. The bottom row is what all three look like when there is nothing there. The
+      layout above is the real output format, filled with example numbers.
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================
+     HONESTY BOX. Do not soften this. It is the credibility.
+     ============================================================ -->
+<section class="lab-sec alt">
+  <div class="wrap">
+    <div class="eyebrow">Straight answers</div>
+    <h2>What I am and am not claiming</h2>
+    <div class="honest">
+      <h3>I am claiming</h3>
+      <ul>
+        <li>This is a real measurement, and you can take it yourself for about the price of a takeaway.</li>
+        <li>I have run it for months, with the shielding verified across vibration, radio, sound, and software interference.</li>
+        <li>My results are consistent, and I will publish yours whether they agree with mine or not.</li>
+      </ul>
+    </div>
+    <div class="honest" style="margin-top:1.25rem;">
+      <h3>I am not claiming</h3>
+      <ul>
+        <li>That my explanation for the result is correct. That is a separate argument and this page does not make it.</li>
+        <li>That your run will match mine. Different hardware may behave differently, and that is itself worth knowing.</li>
+        <li>That this replaces a laboratory. It does not. It puts a version of the measurement in reach of anyone who wants it.</li>
+      </ul>
+    </div>
+    <p style="margin-top:1.5rem;">
+      The write-ups behind this are coming, in order, as they are finished. I would rather
+      publish them properly than dump everything at once and argue about it in comments.
+      When each one lands it goes in the <a href="newsroom.html" style="color:var(--blue);">newsroom</a>.
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================
+     RESULTS TABLE
+     PLACEHOLDER: static for now. Hand-updated as cards arrive.
+     ============================================================ -->
+<section class="lab-sec">
+  <div class="wrap">
+    <div class="eyebrow">Your data stays yours</div>
+    <h2>There is nothing here to sign up for</h2>
+    <p>
+      No account, no email, no upload, no telemetry. The tool writes files on your machine
+      and prints a card, and that is the end of it. I do not want your data and I have not
+      built anywhere to put it.
+    </p>
+    <p>
+      That is not a policy I wrote for this page. None of my software phones home, including
+      the things people pay for. If a tool has to call a server to work, then the server is
+      the product and you are renting permission to use your own computer. I am not
+      interested in building that.
+    </p>
+    <p>
+      If your run finds something, or finds nothing, and you want to tell someone, post it
+      wherever you like. The card has an ID on it that matches your own data file, so you
+      can prove it came from a real run. If enough people do that and it turns into
+      something worth collecting, I will build a proper way to collect it, and it will still
+      be optional.
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================
+     WHAT ELSE IS HERE. This is the funnel.
+     ============================================================ -->
+<section class="lab-sec alt">
+  <div class="wrap">
+    <div class="eyebrow">While you are here</div>
+    <h2>The same engine, pointed at other things</h2>
+    <p>
+      The reason I built a cheap instrument is that I have spent years building tools that
+      find the moment a system's structure changes, before it shows up in the numbers anyone
+      is watching. If you want to see that working instead of reading about it, there is a
+      second thing you can run, and it also takes one command.
+    </p>
+
+    <div class="qs-step-label" style="margin-top:2.5rem;">Watch an attack fail</div>
+    <p>
+      This is a water treatment plant that doses chlorine based on sensor readings. It loads
+      a third party module, the kind of code you might buy or have an AI write for you, and
+      runs it inside a box that cannot do anything except arithmetic.
+    </p>
+    <div class="cmd-block">
+      <div class="cmd-row">
+        <code><span class="ps1">$ </span>pip install stratum-lang</code>
+        <button class="cmd-copy" onclick="navigator.clipboard.writeText('pip install stratum-lang')">Copy</button>
+      </div>
+    </div>
+    <div class="cmd-block">
+      <div class="cmd-row">
+        <code><span class="ps1">$ </span>stratum --grant console,entropic,randomness,self_heal,concurrency secure_plant.st</code>
+        <button class="cmd-copy" onclick="navigator.clipboard.writeText('stratum --grant console,entropic,randomness,self_heal,concurrency secure_plant.st')">Copy</button>
+      </div>
+    </div>
+    <p>Three things happen, and you can watch all of them:</p>
+    <ol class="steps">
+      <li><strong>A trojaned version of that module gets rejected before a single instruction runs.</strong> Not caught at runtime. Refused at load, because it declared an ability the box does not grant.</li>
+      <li><strong>Someone poisons the sensor feed with readings that are all inside the normal range.</strong> Every validation check passes. A threshold alarm sees nothing wrong. The detector catches it anyway, because the shape of the data changed even though the numbers looked fine.</li>
+      <li><strong>The plant quarantines itself</strong>, dumps the flood of poisoned messages, and keeps refusing normal traffic until it is safe.</li>
+    </ol>
+    <p style="font-size:0.92rem;color:var(--muted);">
+      That is the free version. It is not a trial and it is not crippled. It is the same
+      detector, running on your machine, offline, with the source in front of you.
+    </p>
+
+    <div class="qs-step-label" style="margin-top:2.5rem;">Where the paid version earns its money</div>
+    <p>
+      The free detector looks at each reading as it arrives. The paid one also looks
+      backwards over the recent window, which is what catches an attacker who moves slowly
+      on purpose. Here is the same poisoned stream scored by both. The number is how many of
+      five planted attacks each one caught.
+    </p>
+    <div class="results-wrap">
+      <table class="results">
+        <thead>
+          <tr><th>Size of the nudge</th><th>Free</th><th>Paid</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>0.3x the noise</td><td>0 of 5</td><td>0 of 5</td></tr>
+          <tr><td>0.5x the noise</td><td>0 of 5</td><td>2 of 5</td></tr>
+          <tr><td>1.0x the noise</td><td>0 of 5</td><td><strong>5 of 5</strong></td></tr>
+          <tr><td>2.0x the noise</td><td>2 of 5</td><td><strong>5 of 5</strong></td></tr>
+          <tr><td>5.0x the noise</td><td>4 of 5</td><td>5 of 5</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:0.92rem;color:var(--muted);">
+      A nudge about the size of the background noise is invisible to the free detector and
+      obvious to the paid one. That gap is exactly where a patient insider or a compromised
+      device operates. The paid version also signs its findings and adds the reasoning layer.
+      You can reproduce this table yourself; it ships with the paid package.
+    </p>
+
+    <div class="qs-step-label" style="margin-top:2.5rem;">One claim that is not a claim</div>
+    <p>
+      Most security software asks you to believe it. There is one part of this I do not ask
+      you to believe, because a machine checked it. The rule is that code can only ever give
+      away abilities, never grant itself new ones. That is proved with an SMT solver rather
+      than tested: widening is not merely disallowed, it is <strong>unsatisfiable</strong>.
+      The proof also checks that the rule is load bearing, by confirming that widening
+      becomes expressible the moment you remove the gate.
+    </p>
+    <p style="font-size:0.92rem;color:var(--muted);">
+      That last part matters more than it sounds. A proof that passes because it is checking
+      nothing is worse than no proof at all.
+    </p>
+
+    <p style="margin-top:2.5rem;">
+      <a href="stratum.html" style="color:var(--blue);">The language, free and open</a>
+      &nbsp;&middot;&nbsp;
+      <a href="store.html" style="color:var(--blue);">What the paid versions do</a>
+      &nbsp;&middot;&nbsp;
+      <a href="contact.html" style="color:var(--blue);">Ask me something</a>
+    </p>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-left">
+      <a href="easter-egg.html" style="color:inherit;text-decoration:none;cursor:default;">&copy;</a> 2026 Alexander Kalyniuk &mdash; FSME Logic &nbsp;|&nbsp; Alberta, Canada<br>
+      <a href="mailto:alex-kalyniuk@fsmelogic.ca">alex-kalyniuk@fsmelogic.ca</a> &nbsp;|&nbsp; <a href="tel:+15873353795">587-335-3795</a>
+    </div>
+    <div class="foot-right">
+      <a href="lab.html">Open Lab</a>
+      <a href="stratum.html">Stratum</a>
+      <a href="store.html">Store</a>
+      <a href="contact.html">Contact</a>
+      <a href="legal.html">Legal</a>
+      <a href="https://fsmelogic.gumroad.com/coffee">Buy me a coffee</a>
+    </div>
+    <div class="foot-social">
+      <a href="https://x.com/FsmeLogic" target="_blank" rel="noopener" aria-label="X / Twitter"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.731-8.835L1.254 2.25H8.08l4.259 5.63 5.905-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+      <a href="https://youtube.com/@fsmelogic" target="_blank" rel="noopener" aria-label="YouTube"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg></a>
+      <a href="https://www.linkedin.com/in/fsmelogic" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+<!-- COOKIE BANNER -->
+<div id="cookie-banner">
+  <p>This site uses Google Analytics and Google Ads to measure site performance. We do not sell your data. <a href="legal.html#privacy">Privacy Policy</a></p>
+  <button onclick="acceptCookies()">Accept</button>
+</div>
+
+</body>
+</html>
