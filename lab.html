@@ -161,10 +161,11 @@
     </p>
 
     <div class="status-note">
-      <strong>Where this is right now.</strong> The tool is finished and you can download
-      and read it today. I am running the first full session on my own hardware as I write
-      this, and my numbers go up here as soon as it finishes. I would rather put the
-      instrument out first and the results second than the other way round.
+      <strong>First results are in, and they are below.</strong> Two 90 minute sessions on a
+      Raspberry Pi 3, no shielding at all, ethernet still plugged in. Deliberately the worst
+      case. My numbers separated from their own shuffled control both times. That is not
+      proof of anything yet and I am not going to pretend otherwise, but it is a real
+      measurement and you can go take your own.
     </div>
   </div>
 </section>
@@ -187,29 +188,6 @@
       temperature, same moment. One of those two things is expected to behave like pure
       randomness. The interesting question is whether the other one does.
     </p>
-    <!-- ================================================================
-         PHYSICS TEASER. Option B is live. A and C are alternates.
-         SAFE to say: the textbook prediction, the 0.50 baseline, that there
-         is a theory, that it has support, that it is being released on a
-         schedule.
-         NEVER on this page: the measured value, the constant, the mapping,
-         the kernel form, or any of the restricted vocabulary.
-         ----------------------------------------------------------------
-         OPTION A, the cautious one:
-           "The textbook answer is that this should be memoryless. Each
-           measurement independent of the last, persistence sitting at 0.50,
-           nothing carried forward. That is the prediction this experiment
-           is built to check, and checking it is the whole exercise."
-
-         OPTION C, the bold one:
-           "The textbook answer is that this should be memoryless. Each
-           measurement independent of the last, persistence sitting at 0.50.
-           I do not think that is what happens, and I have been measuring it
-           for months to find out whether I am wrong. If the number that
-           comes back off your hardware is not 0.50, then something is
-           carrying forward that is not supposed to be there, and the
-           explanation for that is a much longer conversation than this page."
-         ================================================================ -->
     <p>
       The textbook answer is that this should be memoryless. Each measurement independent of
       the last, nothing carried forward, persistence sitting at <strong>0.50</strong>. That
@@ -431,6 +409,53 @@
      RESULTS TABLE
      PLACEHOLDER: static for now. Hand-updated as cards arrive.
      ============================================================ -->
+<section class="lab-sec">
+  <div class="wrap">
+    <div class="eyebrow">My first two runs</div>
+    <h2>Unshielded, worst case, twice</h2>
+    <p>
+      Raspberry Pi 3 Model B. 5,400 measurements each, 90 minutes each, no shielding, no
+      Faraday box, ethernet still connected. I ran it in the worst conditions I could,
+      on purpose, because a result that only appears inside a tinfoil box is not much of
+      a result.
+    </p>
+    <div class="results-wrap">
+      <table class="results">
+        <thead>
+          <tr><th>Run</th><th>Row</th><th>Persistence</th><th>Smoothing</th><th>Compressibility</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td><strong>Your data</strong></td><td><strong>0.611</strong></td><td><strong>-0.828</strong></td><td>1.015</td></tr>
+          <tr><td>1</td><td>Shuffled control</td><td>0.530</td><td>-1.003</td><td>1.024</td></tr>
+          <tr><td>1</td><td>Software channel</td><td>0.499</td><td>-1.205</td><td>1.013</td></tr>
+          <tr><td>2</td><td><strong>Your data</strong></td><td><strong>0.600</strong></td><td><strong>-0.617</strong></td><td>0.999</td></tr>
+          <tr><td>2</td><td>Shuffled control</td><td>0.522</td><td>-0.935</td><td>1.036</td></tr>
+          <tr><td>2</td><td>Software channel</td><td>0.532</td><td>-0.900</td><td>1.026</td></tr>
+          <tr><td></td><td>Nothing to see here</td><td>0.50</td><td>-1.00</td><td>1.00</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:1.5rem;">
+      <strong>What I take from that, and what I do not.</strong> Persistence came back at
+      0.611 and 0.600 while the shuffled copies of the same data sat at 0.530 and 0.522 and
+      the software channel sat at 0.499 and 0.532. The shuffle and the software control both
+      landed where they should. Compressibility found nothing at all, in every row.
+    </p>
+    <p>
+      So one of three measures separated, twice, and the other two behaved. That is
+      interesting. It is not a discovery. Two sessions on one machine on one afternoon is a
+      hint, and I would want shielding, longer runs, and other people's hardware before I
+      called it anything more than that. Which is the entire reason this page exists.
+    </p>
+    <p style="font-size:0.92rem;color:var(--muted);">
+      Card IDs <code style="font-family:var(--mono);">4f32275ff3759b3e</code> and
+      <code style="font-family:var(--mono);">eb1169e4bf63ef3b</code>. The timestamps in the
+      filenames are wrong because the Pi had no network clock and thought it was June.
+      Flagging that so nobody thinks I am hiding a date.
+    </p>
+  </div>
+</section>
+
 <section class="lab-sec">
   <div class="wrap">
     <div class="eyebrow">Your data stays yours</div>
