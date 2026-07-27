@@ -111,18 +111,27 @@ def preflight(strict=True):
             fatal.append("cannot read %s" % HWRNG)
     checks["hwrng"] = ok
 
-    # 2. The whitening daemon must be dead. This is the critical one.
-    rngd = _proc_running("rngd")
-    if rngd is True:
-        print("  [FAIL] rngd is running. it rewrites the raw output and you would")
-        print("         be measuring the daemon, not the hardware.")
-        print("         fix:  sudo pkill rngd     (and disable it, then reboot)")
-        fatal.append("rngd running")
-    elif rngd is False:
-        print("  [ ok ] rngd is not running, raw output is intact")
+    # 2. The whitening daemons must be dead. This is the critical one.
+    #    Both rngd and haveged rewrite the raw output. If either is alive you
+    #    are measuring the daemon, not the hardware.
+    alive, unknown = [], []
+    for d in ("rngd", "haveged"):
+        st = _proc_running(d)
+        if st is True:
+            alive.append(d)
+        elif st is None:
+            unknown.append(d)
+    if alive:
+        print("  [FAIL] whitening daemon running: %s" % ", ".join(alive))
+        print("         it rewrites the raw output and you would be measuring")
+        print("         the daemon, not the hardware.")
+        print("         fix:  sudo pkill %s     (then disable it and reboot)" % alive[0])
+        fatal.append("%s running" % " and ".join(alive))
+    elif unknown:
+        print("  [ ?? ] could not check for %s, continuing anyway" % ", ".join(unknown))
     else:
-        print("  [ ?? ] could not check for rngd, continuing anyway")
-    checks["rngd_dead"] = (rngd is False)
+        print("  [ ok ] no whitening daemon running (rngd, haveged), raw output intact")
+    checks["whitening_dead"] = (not alive and not unknown)
 
     # 3. Radios off. Not fatal, but it matters and we record it.
     radios = []
